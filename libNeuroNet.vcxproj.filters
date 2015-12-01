@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Connection.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NeuralNetwork.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BackProp.cpp">
+      <Filter>backprop</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Connection.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CUDALib.cuh">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NeuralGroup.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NeuralNetwork.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Define.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BackProp.h">
+      <Filter>backprop</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu" />
+    <CudaCompile Include="src\CUDALib.cu">
+      <Filter>network</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\NeuralGroup.cu">
+      <Filter>network</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="network">
+      <UniqueIdentifier>{db2bb0d5-a26f-46dc-9b19-15dbe09b7a10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="backprop">
+      <UniqueIdentifier>{6b146765-55f2-4d69-ac59-55269aa3d95a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
