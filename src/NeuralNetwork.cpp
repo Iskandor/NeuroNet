@@ -57,7 +57,7 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
 
         double* signal = inGroup->getOutput();
         if (signal != NULL) {
-            p_node->integrate(signal, _connections[*it]->getWeights(), _connections[*it]->getInGroup()->getDim());
+            p_node->integrate(signal, _connections[*it]->getWeights()->getMatrix(), _connections[*it]->getInGroup()->getDim());
             //delete[] signal;
         }
     }

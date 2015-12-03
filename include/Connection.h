@@ -2,6 +2,7 @@
 
 #include "NeuralGroup.h"
 #include <vector>
+#include <matrix.h>
 
 using namespace std;
 
@@ -13,8 +14,7 @@ public:
 
 public:
     void init(double p_density, double p_inhibition);
-    void    setWeights(double* p_weights) { _weights = p_weights; };
-    double* getWeights() { return _weights; };
+    matrix<double>* getWeights() { return _weights; };
 
     NeuralGroup* getOutGroup() { return _outGroup; };
     NeuralGroup* getInGroup() { return _inGroup; };
@@ -28,6 +28,6 @@ private:
     NeuralGroup* _outGroup;
     int _inDim, _outDim;
     int _speed;
-    double* _weights;
+    matrix<double>* _weights;
     vector<pair<int, double*>> _signals;
 };

@@ -1,5 +1,5 @@
 #include "NeuralGroup.h"
-#include "CUDALib.cuh"
+#include "network.cuh"
 #include "Define.h"
 
 #include <memory>

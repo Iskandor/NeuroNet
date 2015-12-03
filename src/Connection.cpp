@@ -13,26 +13,28 @@ Connection::Connection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, int p_sp
     }
     _outDim = p_outGroup->getDim();
     _speed = p_speed;
-    _weights = new double[_inDim * _outDim];
+    _weights = new matrix<double>(_inDim, _outDim);
 }
 
 Connection::~Connection(void)
 {
-    delete[] _weights;
+    delete _weights;
 }
 
 /* initialize weights where density is from interval 0,1 and also inhibition which is count of negative (inhibitory) weights */
 void Connection::init(double p_density, double p_inhibition) {
-    for(int i = 0; i < _outDim * _inDim; i++) {
-        if (((double) rand() / (RAND_MAX)) < p_density) {
-            _weights[i] = ((double) rand() / (RAND_MAX));
-            if (((double) rand() / (RAND_MAX)) < p_inhibition) {
-                _weights[i] *= -1;
-            }
-        }
-        else {
-            _weights[i] = 0;
-        }
+    for(int i = 0; i < _outDim; i++) {
+      for(int j = 0; j < _inDim; j++) {
+          if (((double) rand() / (RAND_MAX)) < p_density) {
+              _weights->set(j, i, ((double) rand() / (RAND_MAX)));
+              if (((double) rand() / (RAND_MAX)) < p_inhibition) {
+                  _weights->set(j, i, _weights->at(j, i) * -1);
+              }
+          }
+          else {
+              _weights->set(j, i, 0);
+          }
+      }
     }
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NeuralNetwork.h"
 #include "BackProp.h"
-#include "CUDALib.cuh"
+#include "network.cuh"
 #include "Define.h"
 
 int main(int argc, char* argv[])
@@ -15,20 +15,23 @@ int main(int argc, char* argv[])
     
     NeuralGroup* inputGroup = network.addLayer(2, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnit = network.addLayer(1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer(2, SIGMOID, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup1 = network.addLayer(2, SIGMOID, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup2 = network.addLayer(2, SIGMOID, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer(1, SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
-    network.addConnection(inputGroup, hiddenGroup);
-    network.addConnection(hiddenGroup, outputGroup);
+    network.addConnection(inputGroup, hiddenGroup1);
+    network.addConnection(hiddenGroup1, hiddenGroup2);
+    network.addConnection(hiddenGroup2, outputGroup);
     // bias connections
-    network.addConnection(biasUnit, hiddenGroup);
+    network.addConnection(biasUnit, hiddenGroup1);
+    network.addConnection(biasUnit, hiddenGroup2);
     network.addConnection(biasUnit, outputGroup);
 
     network.init();
 
     BackProp bp(&network);
-    bp.setAlpha(0.1);
+    bp.setAlpha(0.5);
 
     while(mse > 0.01) {
       mse = 0;

@@ -72,7 +72,7 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   
   for(int i = 0; i < p_outGroup->getDim(); i++) {
     for(int j  = 0; j < p_inGroup->getDim(); j++) {
-      p_connection->getWeights()[i*p_inGroup->getDim()+j] += _alpha * _error[p_outGroup->getId()][i] * p_inGroup->getOutput()[j];
+      p_connection->getWeights()->set(j,i, p_connection->getWeights()->at(j,i) + _alpha * _error[p_outGroup->getId()][i] * p_inGroup->getOutput()[j]);
     }
   }
 }
@@ -98,7 +98,7 @@ void BackProp::calcPrevError(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   for(int i = 0; i < p_inGroup->getDim(); i++) {
     _prevError[inId][i] = 0;
     for(int j = 0; j < p_outGroup->getDim(); j++) {
-      _prevError[inId][i] += _error[outId][j] * p_connection->getWeights()[j*p_inGroup->getDim()+i];
+      _prevError[inId][i] += _error[outId][j] * p_connection->getWeights()->at(j, i);
     }
   }
 }

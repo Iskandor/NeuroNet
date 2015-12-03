@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\GIT\libNeuroNet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -149,14 +150,15 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
-    <CudaCompile Include="src\CUDALib.cu" />
+    <CudaCompile Include="src\network.cu" />
     <CudaCompile Include="src\NeuralGroup.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BackProp.h" />
     <ClInclude Include="include\Connection.h" />
-    <ClInclude Include="include\CUDALib.cuh" />
+    <ClInclude Include="include\network.cuh" />
     <ClInclude Include="include\Define.h" />
+    <ClInclude Include="include\matrix.h" />
     <ClInclude Include="include\NeuralGroup.h" />
     <ClInclude Include="include\NeuralNetwork.h" />
   </ItemGroup>
