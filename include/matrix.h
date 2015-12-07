@@ -7,8 +7,8 @@ public:
   matrix(int p_rows, int p_cols) {
     _nRows = p_rows;
     _nCols = p_cols;
-    _buffer = new T[p_cols*p_rows];
-    memset(_buffer, 0, sizeof(T) * _nRows * _nCols);
+    _buffer = new T[p_rows * p_cols];
+    memset(_buffer, 0, sizeof(T) * _nCols * _nRows);
   }
 
   ~matrix(void) {
@@ -23,12 +23,12 @@ public:
     _buffer = p_buffer;
   }
 
-  T at(int p_j, int p_i) {
-    return _buffer[p_i * _nRows + p_j];
+  T at(int p_i, int p_j) {
+    return _buffer[p_i * _nCols + p_j];
   }
 
-  void set(int p_j, int p_i, T p_value) {
-    _buffer[p_i * _nRows + p_j] = p_value;
+  void set(int p_i, int p_j, T p_value) {
+    _buffer[p_i * _nCols + p_j] = p_value;
   }
 
 private:

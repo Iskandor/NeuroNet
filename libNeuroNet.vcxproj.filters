@@ -7,9 +7,6 @@
     <ClCompile Include="src\NeuralNetwork.cpp">
       <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="src\BackProp.cpp">
-      <Filter>backprop</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Connection.h">
@@ -21,17 +18,20 @@
     <ClInclude Include="include\NeuralNetwork.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="include\Define.h">
-      <Filter>network</Filter>
-    </ClInclude>
     <ClInclude Include="include\BackProp.h">
       <Filter>backprop</Filter>
     </ClInclude>
     <ClInclude Include="include\matrix.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="include\network.cuh">
-      <Filter>network</Filter>
+    <ClInclude Include="include\Define.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network_kernel.cuh">
+      <Filter>gpu_kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="include\backprop_kernel.cuh">
+      <Filter>gpu_kernel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -39,8 +39,14 @@
     <CudaCompile Include="src\NeuralGroup.cu">
       <Filter>network</Filter>
     </CudaCompile>
-    <CudaCompile Include="src\network.cu">
-      <Filter>network</Filter>
+    <CudaCompile Include="src\backprop.cu">
+      <Filter>backprop</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\network_kernel.cu">
+      <Filter>gpu_kernel</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\backprop_kernel.cu">
+      <Filter>gpu_kernel</Filter>
     </CudaCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,9 @@
     </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{2204fce4-5ef3-4ad6-8782-4933addde28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gpu_kernel">
+      <UniqueIdentifier>{cef9a0de-8e6d-4b4a-a7f0-b771b17f32af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

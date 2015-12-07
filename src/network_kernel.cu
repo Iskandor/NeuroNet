@@ -1,9 +1,9 @@
-#include "network.cuh"
+#include "network_kernel.cuh"
 #include "Define.h"
 #include <math.h>
 
 __global__ void integrateKernel(double *p_output, const double *p_input, double *p_weights, int p_input_dim) {
-    int index = threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
     p_output[index] = 0;
 
 	for(int i = 0; i < p_input_dim; i++) {
@@ -13,13 +13,13 @@ __global__ void integrateKernel(double *p_output, const double *p_input, double 
 
 /* vector addition */
 __global__ void addKernel(double *ap, const double *p_output) {
-    int index = threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
     ap[index] += p_output[index];
 }
 
 /* activation function */
 __global__ void activateKernel(double *p_output, double *p_input, const int *p_activationFunction) {
-    int index = threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
     switch (*p_activationFunction) {
       case IDENTITY:

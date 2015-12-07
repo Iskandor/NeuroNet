@@ -1,5 +1,5 @@
 #include "NeuralGroup.h"
-#include "network.cuh"
+#include "network_kernel.cuh"
 #include "Define.h"
 
 #include <memory>
@@ -69,11 +69,11 @@ cudaError_t NeuralGroup::integrate(double *p_input, double *p_weights, int p_inp
   cudaStatus = cudaMemcpy(dev_input, p_input, p_input_dim * sizeof(double), cudaMemcpyHostToDevice);
   cudaStatus = cudaMemcpy(dev_weights, p_weights, _dim * p_input_dim * sizeof(double), cudaMemcpyHostToDevice);
 
-  integrateKernel<<<1,_dim>>>(dev_output, dev_input, dev_weights, p_input_dim);
+  integrateKernel<<<(int)ceil((double)_dim/(double)MAX_THREAD),_dim>>>(dev_output, dev_input, dev_weights, p_input_dim);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();
     
-  addKernel<<<1,_dim>>>(dev_ac, dev_output);
+  addKernel<<<(int)ceil((double)_dim/(double)MAX_THREAD),_dim>>>(dev_ac, dev_output);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();
 
@@ -100,7 +100,7 @@ cudaError_t NeuralGroup::activate(double* p_input, const int p_activationFunctio
 
   cudaStatus = cudaMemcpy(dev_input, p_input, _dim * sizeof(double), cudaMemcpyHostToDevice);
   cudaStatus = cudaMemcpy(dev_activationFunction, &p_activationFunction, sizeof(int), cudaMemcpyHostToDevice);
-  activateKernel<<<1,_dim>>>(dev_output, dev_input, dev_activationFunction);
+  activateKernel<<<(int)ceil((double)_dim/(double)MAX_THREAD),_dim>>>(dev_output, dev_input, dev_activationFunction);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();
   cudaStatus = cudaMemcpy(_output, dev_output, _dim * sizeof(double), cudaMemcpyDeviceToHost);

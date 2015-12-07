@@ -150,20 +150,22 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
-    <CudaCompile Include="src\network.cu" />
+    <CudaCompile Include="src\backprop_kernel.cu" />
+    <CudaCompile Include="src\network_kernel.cu" />
     <CudaCompile Include="src\NeuralGroup.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\backprop_kernel.cuh" />
     <ClInclude Include="include\BackProp.h" />
     <ClInclude Include="include\Connection.h" />
-    <ClInclude Include="include\network.cuh" />
+    <ClInclude Include="include\network_kernel.cuh" />
     <ClInclude Include="include\Define.h" />
     <ClInclude Include="include\matrix.h" />
     <ClInclude Include="include\NeuralGroup.h" />
     <ClInclude Include="include\NeuralNetwork.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BackProp.cpp" />
+    <CudaCompile Include="src\backprop.cu" />
     <ClCompile Include="src\Connection.cpp" />
     <ClCompile Include="src\NeuralNetwork.cpp" />
   </ItemGroup>

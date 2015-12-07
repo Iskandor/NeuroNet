@@ -1,5 +1,8 @@
 #include "BackProp.h"
+#include "network_kernel.cuh"
+#include "Define.h"
 #include <math.h>
+
 
 BackProp::BackProp(NeuralNetwork* p_network)
 {
@@ -70,12 +73,12 @@ void BackProp::backActivate(NeuralGroup* p_node) {
 }
 
 void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
-  
+  cudaError_t cudaStatus;
   int nCols = p_inGroup->getDim();
   int nRows = p_outGroup->getDim();
 
-  dim3 dimBlock(nRows, nCols);
-  dim3 dimGrid((int)ceil(nRows/dimBlock.x),(int)ceil(p_outGroup->getDim()/dimBlock.y));
+  dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);
+  dim3 numBlocks((int)ceil((double)nCols / threadsPerBlock.x), (int)ceil((double)nRows / threadsPerBlock.y));
 
   matrix<double> delta(nRows, nCols);
 
@@ -84,30 +87,24 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
       delta.set(i, j, _alpha * _error[p_outGroup->getId()][i] * p_inGroup->getOutput()[j]);
     }
   }
-  
-  //p_connection->getWeights()->set(j,i, p_connection->getWeights()->at(j,i) + );
-  int    *dev_colDim = 0;
+
+
   double *dev_weights = 0;
   double *dev_delta = 0;
-  double *dev_output = 0;
 
-  cudaStatus = cudaMalloc((void**)&dev_colDim, sizeof(int));
-  cudaStatus = cudaMalloc((void**)&dev_output, nRows * nCols * sizeof(double));
   cudaStatus = cudaMalloc((void**)&dev_weights, nRows * nCols * sizeof(double));
   cudaStatus = cudaMalloc((void**)&dev_delta, nRows * nCols * sizeof(double));
-
   cudaStatus = cudaMemcpy(dev_weights, p_connection->getWeights()->getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
-  cudaStatus = cudaMemcpy(dev_colDim, &nCols, sizeof(int), cudaMemcpyHostToDevice);
-  activateKernel<<<dimGrid,dimBlock>>>(dev_output, dev_weights, dev_delta, dev_colDim);
+  cudaStatus = cudaMemcpy(dev_delta, delta.getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
+
+  addKernel<<<numBlocks, threadsPerBlock>>>(dev_weights, dev_delta);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();  
 
-  cudaStatus = cudaMemcpy(p_connection->getWeights()->getMatrix(), dev_output, nRows * nCols * sizeof(double), cudaMemcpyDeviceToHost);
+  cudaStatus = cudaMemcpy(p_connection->getWeights()->getMatrix(), dev_weights, nRows * nCols * sizeof(double), cudaMemcpyDeviceToHost);
 
-  cudaStatus = cudaFree(dev_colDim);
   cudaStatus = cudaFree(dev_weights);
   cudaStatus = cudaFree(dev_delta);
-  cudaStatus = cudaFree(dev_output);
 }
 
 void BackProp::calcError(NeuralGroup* p_group) {
