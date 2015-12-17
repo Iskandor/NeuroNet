@@ -5,6 +5,7 @@ NeuralNetwork::NeuralNetwork(void)
 {
     _running = true;
     _groupId = 0;
+    _connectionId = 0;
 }
 
 NeuralNetwork::~NeuralNetwork(void)
@@ -99,12 +100,13 @@ NeuralGroup* NeuralNetwork::addLayer(int p_dim, int p_activationFunction, GROUP_
 }
 
 Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density, double p_inhibition, int p_speed) {
-    Connection* connection = new Connection(p_inGroup, p_outGroup, p_speed);
+    Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup, p_speed);    
 
     connection->init(p_density, p_inhibition);
     _connections.push_back(connection);
-    if (p_inGroup != NULL) p_inGroup->addOutConnection(_connections.size() - 1);
-    if (p_outGroup != NULL) p_outGroup->addInConnection(_connections.size() - 1);
+    if (p_inGroup != nullptr) p_inGroup->addOutConnection(_connectionId);
+    if (p_outGroup != nullptr) p_outGroup->addInConnection(_connectionId);
+    _connectionId++;
 
     return connection;
 }

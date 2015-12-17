@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
 
     BackProp bp(&network);
     bp.setAlpha(0.5);
+    //bp.setWeightDecay(0.001);
 
     while(mse > 0.01) {
       mse = 0;

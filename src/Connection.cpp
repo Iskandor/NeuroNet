@@ -1,8 +1,9 @@
 #include "Connection.h"
 #include <random>
 
-Connection::Connection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, int p_speed)
+Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, int p_speed)
 {
+    _id = p_id;
     _inGroup = p_inGroup;
     _outGroup = p_outGroup;
     if (p_inGroup != NULL) {
@@ -13,7 +14,7 @@ Connection::Connection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, int p_sp
     }
     _outDim = p_outGroup->getDim();
     _speed = p_speed;
-    _weights = new matrix<double>(_outDim, _inDim);
+    _weights = new matrix2<double>(_outDim, _inDim);
 }
 
 Connection::~Connection(void)

@@ -19,19 +19,25 @@
       <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="include\BackProp.h">
-      <Filter>backprop</Filter>
-    </ClInclude>
-    <ClInclude Include="include\matrix.h">
-      <Filter>common</Filter>
+      <Filter>algorithm\backprop</Filter>
     </ClInclude>
     <ClInclude Include="include\Define.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="include\network_kernel.cuh">
-      <Filter>gpu_kernel</Filter>
+      <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="include\backprop_kernel.cuh">
-      <Filter>gpu_kernel</Filter>
+    <ClInclude Include="include\TD.h">
+      <Filter>algorithm\td</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vector_kernel.cuh">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\matrix2.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\matrix3.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,27 +46,33 @@
       <Filter>network</Filter>
     </CudaCompile>
     <CudaCompile Include="src\backprop.cu">
-      <Filter>backprop</Filter>
+      <Filter>algorithm\backprop</Filter>
     </CudaCompile>
     <CudaCompile Include="src\network_kernel.cu">
-      <Filter>gpu_kernel</Filter>
+      <Filter>network</Filter>
     </CudaCompile>
-    <CudaCompile Include="src\backprop_kernel.cu">
-      <Filter>gpu_kernel</Filter>
+    <CudaCompile Include="src\TD.cu">
+      <Filter>algorithm\td</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\vector_kernel.cu">
+      <Filter>common</Filter>
     </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="network">
       <UniqueIdentifier>{db2bb0d5-a26f-46dc-9b19-15dbe09b7a10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="backprop">
-      <UniqueIdentifier>{6b146765-55f2-4d69-ac59-55269aa3d95a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{2204fce4-5ef3-4ad6-8782-4933addde28d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gpu_kernel">
-      <UniqueIdentifier>{cef9a0de-8e6d-4b4a-a7f0-b771b17f32af}</UniqueIdentifier>
+    <Filter Include="algorithm">
+      <UniqueIdentifier>{462fcedf-a8a5-4f5e-82bd-165977302307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algorithm\td">
+      <UniqueIdentifier>{104a92a9-a6b3-4e2d-86db-d182c7f2c458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algorithm\backprop">
+      <UniqueIdentifier>{6b146765-55f2-4d69-ac59-55269aa3d95a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

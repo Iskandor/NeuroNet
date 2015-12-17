@@ -20,9 +20,9 @@ public:
 
   int getId() { return _id; };
   int getDim() { return _dim; };
+  int getActivationFunction() { return _activationFunction; };
   void    setOutput(double* p_output) { _output = p_output; };
   double* getOutput() { return _output; };
-  double* getActionPotential() { return _actionPotential; };
 
   void addOutConnection(int p_index);
   void addInConnection(int p_index);

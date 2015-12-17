@@ -24,10 +24,10 @@ public:
     NeuralGroup* addLayer(int p_dim, int p_activationFunction, GROUP_TYPE p_type);
     Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0, int p_speed = 0);
 
-    bool running() { return _running; };
-    double* getOutput() { return _output; };
+    bool running() const { return _running; };
+    double* getOutput() const { return _output; };
     vector<NeuralGroup*>* getGroups() { return &_groups; };
-    NeuralGroup* getOutputGroup() { return _outputGroup; };
+    NeuralGroup* getOutputGroup() const { return _outputGroup; };
     vector<Connection*>* getConnections() { return &_connections; };
 
     void setInput(double* p_input) { _input = p_input; };
@@ -37,6 +37,7 @@ private:
 
 private:
     int _groupId;
+    int _connectionId;
 
     NeuralGroup* _inputGroup;
     NeuralGroup* _outputGroup;

@@ -1,5 +1,6 @@
 #include "NeuralGroup.h"
 #include "network_kernel.cuh"
+#include "vector_kernel.cuh"
 #include "Define.h"
 
 #include <memory>
@@ -73,7 +74,7 @@ cudaError_t NeuralGroup::integrate(double *p_input, double *p_weights, int p_inp
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();
     
-  addKernel<<<(int)ceil((double)_dim/(double)MAX_THREAD),_dim>>>(dev_ac, dev_output);
+  addVectorKernel<<<(int)ceil((double)_dim/(double)MAX_THREAD),_dim>>>(dev_ac, dev_output);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();
 

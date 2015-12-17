@@ -1,5 +1,6 @@
 #include "BackProp.h"
 #include "network_kernel.cuh"
+#include "vector_kernel.cuh"
 #include "Define.h"
 #include <math.h>
 
@@ -7,6 +8,10 @@
 BackProp::BackProp(NeuralNetwork* p_network)
 {
   _network = p_network;
+
+  _alpha = 0;
+  _weightDecay = 0;
+  _momentum = 0;
 
   for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
     int id = p_network->getGroups()->at(i)->getId();
@@ -65,7 +70,8 @@ void BackProp::backActivate(NeuralGroup* p_node) {
     /* send error signal to synapsis and repeat it for not activated group to prevent infinite loops */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
         if (!_network->getConnections()->at(*it)->getInGroup()->isActivated()) {            
-            updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));            
+            updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
+            if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
             calcPrevError(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
             backActivate(_network->getConnections()->at(*it)->getInGroup());
         }
@@ -80,7 +86,7 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);
   dim3 numBlocks((int)ceil((double)nCols / threadsPerBlock.x), (int)ceil((double)nRows / threadsPerBlock.y));
 
-  matrix<double> delta(nRows, nCols);
+  matrix2<double> delta(nRows, nCols);
 
   for(int i = 0; i < nRows; i++) {
     for(int j  = 0; j < nCols; j++) {
@@ -97,7 +103,7 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   cudaStatus = cudaMemcpy(dev_weights, p_connection->getWeights()->getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
   cudaStatus = cudaMemcpy(dev_delta, delta.getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
 
-  addKernel<<<numBlocks, threadsPerBlock>>>(dev_weights, dev_delta);
+  addVectorKernel<<<numBlocks, threadsPerBlock>>>(dev_weights, dev_delta);
   cudaStatus = cudaGetLastError();
   cudaStatus = cudaDeviceSynchronize();  
 
@@ -133,6 +139,36 @@ void BackProp::calcPrevError(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   }
 }
 
+void BackProp::weightDecay(Connection* p_connection) const
+{
+  cudaError_t cudaStatus;
+  int nCols = p_connection->getInGroup()->getDim();
+  int nRows = p_connection->getOutGroup()->getDim();
+  double *dev_weights = 0;
+
+  dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);
+  dim3 numBlocks((int)ceil((double)nCols / threadsPerBlock.x), (int)ceil((double)nRows / threadsPerBlock.y));
+
+  cudaStatus = cudaMalloc((void**)&dev_weights, nRows * nCols * sizeof(double));
+  cudaStatus = cudaMemcpy(dev_weights, p_connection->getWeights()->getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
+  mulConstVectorKernel<<<numBlocks, threadsPerBlock>>>(dev_weights, (1 - _weightDecay));
+  cudaStatus = cudaGetLastError();
+  cudaStatus = cudaDeviceSynchronize();  
+
+  cudaStatus = cudaMemcpy(p_connection->getWeights()->getMatrix(), dev_weights, nRows * nCols * sizeof(double), cudaMemcpyDeviceToHost);
+
+  cudaStatus = cudaFree(dev_weights);
+}
+
 void BackProp::setAlpha(double p_alpha) {
   _alpha = p_alpha;
+}
+
+void BackProp::setWeightDecay(double p_weightDecay) {
+  _weightDecay = p_weightDecay;
+}
+
+void BackProp::setMomentum(double p_momentum)
+{
+  _momentum = p_momentum;
 }
