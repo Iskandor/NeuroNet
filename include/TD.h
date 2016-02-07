@@ -1,5 +1,6 @@
+#pragma once
 #include "NeuralNetwork.h"
-#include "NeuralGroup.h"
+#include "NeuralGroup.cuh"
 #include "Connection.h"
 
 #include <matrix3.h>
@@ -13,7 +14,7 @@ public:
   TD(NeuralNetwork* p_network);
   ~TD(void);
 
-  double train(double* p_input, double* p_target);
+  void train(double* p_input, double *p_output, double *p_nextOutput);
   void setAlpha(double p_alpha);
   void setLambda(double p_lambda);
 
@@ -25,7 +26,7 @@ private:
   void calcDelta(Connection* p_connection);
   void calcEligDelta(Connection* p_connection);
   void calcDeriv(NeuralGroup* p_group);
-  void calcError() const;
+  void calcError(double *p_output, double *p_nextOutput) const;
 
 private:
   NeuralNetwork* _network;

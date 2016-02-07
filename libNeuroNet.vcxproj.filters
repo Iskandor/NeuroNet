@@ -7,12 +7,18 @@
     <ClCompile Include="src\NeuralNetwork.cpp">
       <Filter>network</Filter>
     </ClCompile>
+    <ClCompile Include="src\NBandit.cpp">
+      <Filter>samples\2_TD</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample_td.cpp">
+      <Filter>samples\2_TD</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BanditGame.cpp">
+      <Filter>samples\2_TD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Connection.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NeuralGroup.h">
       <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="include\NeuralNetwork.h">
@@ -39,6 +45,33 @@
     <ClInclude Include="include\matrix3.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="include\ActorCritic.h">
+      <Filter>algorithm\actorcritic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IEnvironment.h">
+      <Filter>algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sample_bp.h">
+      <Filter>samples\1_BP</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vectorN.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TDLambda.h">
+      <Filter>algorithm\td</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NBandit.h">
+      <Filter>samples\2_TD</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sample_td.h">
+      <Filter>samples\2_TD</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BanditGame.h">
+      <Filter>samples\2_TD</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NeuralGroup.cuh">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
@@ -57,6 +90,15 @@
     <CudaCompile Include="src\vector_kernel.cu">
       <Filter>common</Filter>
     </CudaCompile>
+    <CudaCompile Include="src\ActorCritic.cu">
+      <Filter>algorithm\actorcritic</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\sample_bp.cu">
+      <Filter>samples\1_BP</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\TDLambda.cu">
+      <Filter>algorithm\td</Filter>
+    </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="network">
@@ -73,6 +115,18 @@
     </Filter>
     <Filter Include="algorithm\backprop">
       <UniqueIdentifier>{6b146765-55f2-4d69-ac59-55269aa3d95a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algorithm\actorcritic">
+      <UniqueIdentifier>{ac0391b8-3862-4f3b-bab7-cfb0f75f0548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samples">
+      <UniqueIdentifier>{3c49de03-b40d-4b6f-ad37-036ee57291b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samples\1_BP">
+      <UniqueIdentifier>{16445c07-3036-4df2-9c43-3eb8d3b11da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samples\2_TD">
+      <UniqueIdentifier>{e8879bc1-2d1e-4ec1-91fd-aab056bca160}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

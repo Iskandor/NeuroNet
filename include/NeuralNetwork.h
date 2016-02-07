@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "NeuralGroup.h"
+#include "NeuralGroup.cuh"
 #include "Connection.h"
 
 using namespace std;
@@ -18,16 +18,17 @@ public:
 	NeuralNetwork(void);
 	~NeuralNetwork(void);
 
-public:
     void init();
     void onLoop();
     NeuralGroup* addLayer(int p_dim, int p_activationFunction, GROUP_TYPE p_type);
-    Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0, int p_speed = 0);
+    Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0.5);
 
     bool running() const { return _running; };
     double* getOutput() const { return _output; };
+    double getScalarOutput() const { return _output[0]; };
     vector<NeuralGroup*>* getGroups() { return &_groups; };
     NeuralGroup* getOutputGroup() const { return _outputGroup; };
+    NeuralGroup* getInputGroup() const { return _inputGroup; };
     vector<Connection*>* getConnections() { return &_connections; };
 
     void setInput(double* p_input) { _input = p_input; };
@@ -35,7 +36,6 @@ public:
 private:
     void activate(NeuralGroup* p_node);
 
-private:
     int _groupId;
     int _connectionId;
 

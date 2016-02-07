@@ -5,19 +5,19 @@
 #include <math.h>
 
 
-BackProp::BackProp(NeuralNetwork* p_network)
-{
+BackProp::BackProp(NeuralNetwork* p_network) {
   _network = p_network;
 
   _alpha = 0;
   _weightDecay = 0;
   _momentum = 0;
+  _input = nullptr;
 
   for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
     int id = p_network->getGroups()->at(i)->getId();
-    _error[id] = new double[p_network->getGroups()->at(i)->getDim()];
+    _gradient[id] = new double[p_network->getGroups()->at(i)->getDim()];
     _deriv[id] = new double[p_network->getGroups()->at(i)->getDim()];
-    _prevError[id] = new double[p_network->getGroups()->at(i)->getDim()];
+    _prevGradient[id] = new double[p_network->getGroups()->at(i)->getDim()];
   }
 }
 
@@ -26,9 +26,9 @@ BackProp::~BackProp(void)
 {
   for(unsigned int i = 0; i < _network->getGroups()->size(); i++) {
     int id = _network->getGroups()->at(i)->getId();
-    delete[] _error[id];
+    delete[] _gradient[id];
     delete[] _deriv[id];
-    delete[] _prevError[id];
+    delete[] _prevGradient[id];
   }
 }
 
@@ -48,7 +48,7 @@ double BackProp::train(double *p_input, double* p_target) {
 
     // backward training phase
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _prevError[_network->getOutputGroup()->getId()][i] = p_target[i] - _network->getOutput()[i];
+      _prevGradient[_network->getOutputGroup()->getId()][i] = p_target[i] - _network->getOutput()[i];
     }
     backProp();
 
@@ -65,14 +65,15 @@ void BackProp::backProp() {
 
 void BackProp::backActivate(NeuralGroup* p_node) {
     calcDeriv(p_node);
-    calcError(p_node);
+    calcGradient(p_node);
+    p_node->setValid();
     
     /* send error signal to synapsis and repeat it for not activated group to prevent infinite loops */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
-        if (!_network->getConnections()->at(*it)->getInGroup()->isActivated()) {            
+        if (!_network->getConnections()->at(*it)->getInGroup()->isValid()) {            
             updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
             if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
-            calcPrevError(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
+            calcPrevGradient(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
             backActivate(_network->getConnections()->at(*it)->getInGroup());
         }
     }
@@ -90,7 +91,7 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
 
   for(int i = 0; i < nRows; i++) {
     for(int j  = 0; j < nCols; j++) {
-      delta.set(i, j, _alpha * _error[p_outGroup->getId()][i] * p_inGroup->getOutput()[j]);
+      delta.set(i, j, _alpha * _gradient[p_outGroup->getId()][i] * p_inGroup->getOutput()[j]);
     }
   }
 
@@ -113,11 +114,11 @@ void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Co
   cudaStatus = cudaFree(dev_delta);
 }
 
-void BackProp::calcError(NeuralGroup* p_group) {
+void BackProp::calcGradient(NeuralGroup* p_group) {
   int id = p_group->getId();  
   
   for(int i = 0; i < p_group->getDim(); i++) {
-    _error[id][i] = _deriv[id][i] * _prevError[id][i];
+    _gradient[id][i] = _deriv[id][i] * _prevGradient[id][i];
   }
 }
 
@@ -127,14 +128,14 @@ void BackProp::calcDeriv(NeuralGroup* p_group) {
   }
 }
 
-void BackProp::calcPrevError(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
+void BackProp::calcPrevGradient(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
   int inId = p_inGroup->getId();
   int outId = p_outGroup->getId();
 
   for(int i = 0; i < p_inGroup->getDim(); i++) {
-    _prevError[inId][i] = 0;
+    _prevGradient[inId][i] = 0;
     for(int j = 0; j < p_outGroup->getDim(); j++) {
-      _prevError[inId][i] += _error[outId][j] * p_connection->getWeights()->at(j, i);
+      _prevGradient[inId][i] += _gradient[outId][j] * p_connection->getWeights()->at(j, i);
     }
   }
 }

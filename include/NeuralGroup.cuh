@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "cuda_runtime.h"
+#include <cuda_runtime.h>
 
 using namespace std;
 
@@ -18,18 +18,24 @@ public:
   cudaError_t integrate(double* p_input, double* p_weights, int p_input_dim);
   cudaError_t activate(double* p_input, const int p_activationFunction);
 
-  int getId() { return _id; };
-  int getDim() { return _dim; };
-  int getActivationFunction() { return _activationFunction; };
+  int getId() const
+  { return _id; };
+  int getDim() const
+  { return _dim; };
+  int getActivationFunction() const
+  { return _activationFunction; };
   void    setOutput(double* p_output) { _output = p_output; };
-  double* getOutput() { return _output; };
+  double* getOutput() const
+  { return _output; };
 
   void addOutConnection(int p_index);
   void addInConnection(int p_index);
   vector<int>* getOutConnections() { return &_outConnections; }; 
   vector<int>* getInConnections() { return &_inConnections; };
-  bool isActivated() { return _activated; };
-  void invalidate() { _activated = false; };
+  
+  bool isValid() const { return _valid; };
+  void invalidate() { _valid = false; };
+  void setValid() { _valid = true; };
 
 
 private:
@@ -38,7 +44,7 @@ private:
   int     _activationFunction;
   double* _output;
   double* _actionPotential;
-  bool    _activated;
+  bool    _valid;
   vector<int> _inConnections;
   vector<int> _outConnections;
 };

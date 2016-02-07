@@ -1,4 +1,4 @@
-#include "NeuralGroup.h"
+#include "NeuralGroup.cuh"
 #include "network_kernel.cuh"
 #include "vector_kernel.cuh"
 #include "Define.h"
@@ -25,7 +25,7 @@ NeuralGroup::NeuralGroup(int p_id, int p_dim, int p_activationFunction)
   _actionPotential = new double[p_dim];
   memset(_actionPotential, 0, sizeof(double)*p_dim);
 
-  _activated = false;
+  _valid = false;
 }
 
 
@@ -38,9 +38,9 @@ NeuralGroup::~NeuralGroup(void)
 void NeuralGroup::init() {
 }
 
-/* calculate output of group, each neuron that passes threshold will fire with intensity 1 otherwise 0 */
+/* calculate output of group */
 void NeuralGroup::fire() {
-    _activated = true;
+    _valid = true;
     activate(_actionPotential, _activationFunction);
 }
 

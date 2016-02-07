@@ -1,6 +1,6 @@
 #pragma once
 #include "NeuralNetwork.h"
-#include "NeuralGroup.h"
+#include "NeuralGroup.cuh"
 #include "Connection.h"
 #include <map>
 
@@ -10,23 +10,23 @@ class BackProp
 {
 
 public:
-  BackProp(NeuralNetwork* p_network);
-  ~BackProp(void);
+  explicit BackProp(NeuralNetwork* p_network);
+  virtual ~BackProp(void);
 
-  double train(double *p_input, double* p_target);
+  virtual double train(double *p_input, double* p_target);
   void setAlpha(double p_alpha);
   void setWeightDecay(double p_weightDecay);
   void setMomentum(double p_momentum);
 
 protected:
-  void backProp();
-  void backActivate(NeuralGroup* p_node);
-  void updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);
+  virtual void backProp();
+  virtual void backActivate(NeuralGroup* p_node);
+  virtual void updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);
 
 private:
-  void calcError(NeuralGroup* p_group);
   void calcDeriv(NeuralGroup* p_group);
-  void calcPrevError(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);  
+  void calcGradient(NeuralGroup* p_group);
+  void calcPrevGradient(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);  
   void weightDecay(Connection* p_connection) const;
 
 protected:
@@ -36,8 +36,7 @@ protected:
   double  _momentum;
   double* _input;
 
-  map<int, double*> _error;
   map<int, double*> _deriv;
-  map<int, double*> _prevError;
-  map<int, double*> _prevChange;
+  map<int, double*> _gradient;
+  map<int, double*> _prevGradient;
 };

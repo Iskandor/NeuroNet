@@ -13,11 +13,7 @@ TD::TD(NeuralNetwork* p_network)
     auto id = p_network->getConnections()->at(i)->getId();
     int nRows = p_network->getConnections()->at(i)->getOutGroup()->getDim();
     int nCols = p_network->getConnections()->at(i)->getInGroup()->getDim();
-    int outputId = _network->getOutputGroup()->getId();
-    int inputId = _network->getConnections()->at(i)->getOutGroup()->getId();
 
-    _eligDelta[outputId][inputId] = new matrix2<double>(_network->getOutputGroup()->getDim(), nRows);
-    _eligDelta[outputId][inputId]->set(1);
     _eligibility[id] = new matrix3<double>(_network->getOutputGroup()->getDim(), nRows, nCols);
     _eligibility[id]->set(0);
     _delta[id] = new matrix2<double>(nRows, nCols);
@@ -25,8 +21,12 @@ TD::TD(NeuralNetwork* p_network)
 
   for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
     auto id = p_network->getGroups()->at(i)->getId();
-    _deriv[id] = new double[p_network->getGroups()->at(i)->getDim()];
+    int outputId = _network->getOutputGroup()->getId();
+    int nRows = p_network->getGroups()->at(i)->getDim();
 
+    _deriv[id] = new double[p_network->getGroups()->at(i)->getDim()];
+    _eligDelta[outputId][id] = new matrix2<double>(_network->getOutputGroup()->getDim(), nRows);
+    _eligDelta[outputId][id]->set(1);
   }
 
   _outputT = new double[p_network->getOutputGroup()->getDim()];
@@ -38,11 +38,10 @@ TD::TD(NeuralNetwork* p_network)
 
 TD::~TD(void)
 {
+  auto outputId = _network->getOutputGroup()->getId();
+
   for(unsigned int i = 0; i < _network->getConnections()->size(); i++) {
     auto id = _network->getConnections()->at(i)->getId();
-    auto outputId = _network->getOutputGroup()->getId();
-    auto inputId = _network->getConnections()->at(i)->getOutGroup()->getId();
-    delete _eligDelta[outputId][inputId];
     delete _eligibility[id];
     delete _delta[id];
   }
@@ -50,23 +49,19 @@ TD::~TD(void)
   for(unsigned int i = 0; i < _network->getGroups()->size(); i++) {
     auto id = _network->getGroups()->at(i)->getId();
     delete[] _deriv[id];
+    delete _eligDelta[outputId][id];
   }
 
   delete[] _outputT;
   delete[] _error;
 }
 
-double TD::train(double* p_input, double* p_target)
+void TD::train(double* p_input, double *p_output, double *p_nextOutput)
 {
   _network->setInput(p_input);
 
-  if (_t > 0)
-  {
-    calcError();
-    TDRec(_network->getOutputGroup());
-  }
-  memcpy(_outputT, _network->getOutput(), _network->getOutputGroup()->getDim() * sizeof(double));
-  _t++;
+  calcError(p_output, p_nextOutput);
+  TDRec(_network->getOutputGroup());
 }
 
 void TD::TDRec(NeuralGroup* p_node)
@@ -120,7 +115,7 @@ void TD::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connecti
   cudaStatus = cudaFree(dev_weights);
 }
 
-void TD:: calcError() const
+void TD:: calcError(double *p_output, double* p_nextOutput) const
 {
   cudaError_t cudaStatus;
   
@@ -130,8 +125,8 @@ void TD:: calcError() const
 
   cudaStatus = cudaMalloc(reinterpret_cast<void**>(&dev_output), dim * sizeof(double));
   cudaStatus = cudaMalloc(reinterpret_cast<void**>(&dev_outputT), dim * sizeof(double));
-  cudaStatus = cudaMemcpy(dev_output, _network->getOutput(), dim * sizeof(double), cudaMemcpyHostToDevice);
-  cudaStatus = cudaMemcpy(dev_outputT, _outputT, dim * sizeof(double), cudaMemcpyHostToDevice);
+  cudaStatus = cudaMemcpy(dev_output, p_output, dim * sizeof(double), cudaMemcpyHostToDevice);
+  cudaStatus = cudaMemcpy(dev_outputT, p_nextOutput, dim * sizeof(double), cudaMemcpyHostToDevice);
 
   subVectorKernel<<<static_cast<int>(ceil(static_cast<double>(dim)/static_cast<double>(MAX_THREAD))),dim>>>(dev_output, dev_outputT);
   cudaStatus = cudaGetLastError();

@@ -8,7 +8,6 @@ public:
     _nRows = p_rows;
     _nCols = p_cols;
     _buffer = new T[p_rows * p_cols];
-    memset(_buffer, 0, sizeof(T) * _nCols * _nRows);
   }
 
   ~matrix2(void) {

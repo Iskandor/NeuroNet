@@ -9,7 +9,6 @@ public:
     _ny = p_y;
     _nz = p_z;
     _buffer = new T[p_x * p_y * p_z];
-    memset(_buffer, 0, sizeof(T) * p_x * p_y * p_z);
   }
 
   ~matrix3(void) {

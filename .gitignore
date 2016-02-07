@@ -5,3 +5,5 @@ Debug
 ipch
 libNeuroNet.opensdf
 /.vs
+/DebugLib
+lib
