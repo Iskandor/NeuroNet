@@ -23,8 +23,6 @@ void sampleTD() {
     network.addConnection(biasUnit, hiddenGroup);
     network.addConnection(biasUnit, outputGroup);
 
-    network.init();
-
     TDLambda td(&network, 0.9, 0.9);
     td.setAlpha(0.01);
 
@@ -46,7 +44,7 @@ void sampleTD() {
         action->set(i, 1);
 
         game.evaluateAction(action, state);
-        network.setInput(state->getVector());
+        network.setInput(state);
         network.onLoop();
 
         double roll = static_cast<double>(rand()) / RAND_MAX;

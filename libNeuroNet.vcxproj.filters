@@ -1,132 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\Connection.cpp">
+    <ClCompile Include="..\libNeuroNet\src\Connection.cpp">
       <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="src\NeuralNetwork.cpp">
+    <ClCompile Include="..\libNeuroNet\src\NeuralNetwork.cpp">
       <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="src\NBandit.cpp">
-      <Filter>samples\2_TD</Filter>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\NeuralGroup.cpp">
+      <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="src\sample_td.cpp">
-      <Filter>samples\2_TD</Filter>
+    <ClCompile Include="src\backprop.cpp">
+      <Filter>algortihm\bp</Filter>
     </ClCompile>
-    <ClCompile Include="src\BanditGame.cpp">
-      <Filter>samples\2_TD</Filter>
+    <ClCompile Include="src\sample_bp.cpp">
+      <Filter>samples\1_BP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Connection.h">
+    <ClInclude Include="..\libNeuroNet\include\BackProp.h">
+      <Filter>algortihm\bp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\matrix2.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\matrix3.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\IEnvironment.h">
+      <Filter>algortihm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\vectorN.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\Define.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libNeuroNet\include\Connection.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="include\NeuralNetwork.h">
+    <ClInclude Include="..\libNeuroNet\include\NeuralNetwork.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="include\BackProp.h">
-      <Filter>algorithm\backprop</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Define.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\network_kernel.cuh">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TD.h">
-      <Filter>algorithm\td</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vector_kernel.cuh">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\matrix2.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\matrix3.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ActorCritic.h">
-      <Filter>algorithm\actorcritic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IEnvironment.h">
-      <Filter>algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sample_bp.h">
+    <ClInclude Include="..\libNeuroNet\include\sample_bp.h">
       <Filter>samples\1_BP</Filter>
     </ClInclude>
-    <ClInclude Include="include\vectorN.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TDLambda.h">
-      <Filter>algorithm\td</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NBandit.h">
-      <Filter>samples\2_TD</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sample_td.h">
-      <Filter>samples\2_TD</Filter>
-    </ClInclude>
-    <ClInclude Include="include\BanditGame.h">
-      <Filter>samples\2_TD</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NeuralGroup.cuh">
+    <ClInclude Include="include\NeuralGroup.h">
       <Filter>network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu" />
-    <CudaCompile Include="src\NeuralGroup.cu">
-      <Filter>network</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\backprop.cu">
-      <Filter>algorithm\backprop</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\network_kernel.cu">
-      <Filter>network</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\TD.cu">
-      <Filter>algorithm\td</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\vector_kernel.cu">
-      <Filter>common</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\ActorCritic.cu">
-      <Filter>algorithm\actorcritic</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\sample_bp.cu">
-      <Filter>samples\1_BP</Filter>
-    </CudaCompile>
-    <CudaCompile Include="src\TDLambda.cu">
-      <Filter>algorithm\td</Filter>
-    </CudaCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="network">
-      <UniqueIdentifier>{db2bb0d5-a26f-46dc-9b19-15dbe09b7a10}</UniqueIdentifier>
+    <Filter Include="algortihm">
+      <UniqueIdentifier>{0ff3df8c-96bd-4c42-b09a-6064efc166db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algortihm\bp">
+      <UniqueIdentifier>{377d789a-5040-4ed6-942e-b25130e848a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algortihm\td">
+      <UniqueIdentifier>{b3ba1eff-1305-426c-aff1-83d7636ba87f}</UniqueIdentifier>
     </Filter>
     <Filter Include="common">
-      <UniqueIdentifier>{2204fce4-5ef3-4ad6-8782-4933addde28d}</UniqueIdentifier>
+      <UniqueIdentifier>{e45f0e67-1b6f-4989-94a3-0c445c245c51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="algorithm">
-      <UniqueIdentifier>{462fcedf-a8a5-4f5e-82bd-165977302307}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="algorithm\td">
-      <UniqueIdentifier>{104a92a9-a6b3-4e2d-86db-d182c7f2c458}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="algorithm\backprop">
-      <UniqueIdentifier>{6b146765-55f2-4d69-ac59-55269aa3d95a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="algorithm\actorcritic">
-      <UniqueIdentifier>{ac0391b8-3862-4f3b-bab7-cfb0f75f0548}</UniqueIdentifier>
+    <Filter Include="network">
+      <UniqueIdentifier>{ce771eff-70d6-4144-95da-cee67890bc06}</UniqueIdentifier>
     </Filter>
     <Filter Include="samples">
-      <UniqueIdentifier>{3c49de03-b40d-4b6f-ad37-036ee57291b0}</UniqueIdentifier>
+      <UniqueIdentifier>{09864000-c21b-4f33-82fa-acbdc61b5a8f}</UniqueIdentifier>
     </Filter>
     <Filter Include="samples\1_BP">
-      <UniqueIdentifier>{16445c07-3036-4df2-9c43-3eb8d3b11da3}</UniqueIdentifier>
+      <UniqueIdentifier>{d2d79749-8c01-411b-94b9-a48977030164}</UniqueIdentifier>
     </Filter>
     <Filter Include="samples\2_TD">
-      <UniqueIdentifier>{e8879bc1-2d1e-4ec1-91fd-aab056bca160}</UniqueIdentifier>
+      <UniqueIdentifier>{97389de7-5557-4d13-88fc-2704615a0e09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 #include "NeuralNetwork.h"
-#include "NeuralGroup.cuh"
+#include "NeuralGroup.h"
 #include "Connection.h"
 #include "BackProp.h"
 #include <map>

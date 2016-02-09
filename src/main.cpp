@@ -1,17 +1,18 @@
-#include <iostream>
+﻿#include <iostream>
 #include "sample_bp.h"
 #include "sample_td.h"
 
+
 int main(int argc, char* argv[])
 {
-  //sampleBP();
+  sampleBP();
 
 /*
   Game  game;
   game.run();
 */
 
-  sampleTD();
+  //sampleTD();
 
   system("pause");
   return 0;

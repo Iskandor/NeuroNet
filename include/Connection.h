@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NeuralGroup.cuh"
+#include "NeuralGroup.h"
 #include <vector>
 #include <matrix2.h>
 

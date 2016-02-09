@@ -22,17 +22,15 @@ void sampleBP() {
     network.addConnection(biasUnit, hiddenGroup);
     network.addConnection(biasUnit, outputGroup);
 
-    network.init();
-
     BackProp bp(&network);
-    bp.setAlpha(0.5);
+    bp.setAlpha(0.1);
     //bp.setWeightDecay(0.001);
 
     while(mse > 0.01) {
       mse = 0;
       for(int i = 0; i < 4; i++) {
         mse += bp.train(trainingSet[i], targetSet[i]);
-        //cout << network.getOutput()[0] << endl;        
+        //cout << network.getScalarOutput() << endl;        
       }
       cout << "Error " << mse << endl;
     }
@@ -40,7 +38,7 @@ void sampleBP() {
     for(int i = 0; i < 4; i++) {
       network.setInput(trainingSet[i]);
       network.onLoop();
-      cout << network.getOutput()[0] << endl;        
+      cout << network.getOutput()->at(0) << endl;        
     }
 
     //cout << mse << endl;

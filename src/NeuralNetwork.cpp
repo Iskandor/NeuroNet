@@ -10,31 +10,23 @@ NeuralNetwork::NeuralNetwork(void)
 
 NeuralNetwork::~NeuralNetwork(void)
 {
-    if (_inputWeights != nullptr) delete[] _inputWeights;
-
-    for(vector<NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
-        delete *it;
+    for(map<int, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
+        delete it->second;
     }
-    for(vector<Connection*>::iterator it = _connections.begin(); it != _connections.end(); it++) {
-        delete *it;
-    }
-}
-
-void NeuralNetwork::init() {
-    for(vector<NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
-        ((NeuralGroup*)(*it))->init();
+    for(map<int, Connection*>::iterator it = _connections.begin(); it != _connections.end(); it++) {
+        delete it->second;
     }
 }
 
 void NeuralNetwork::onLoop() {
     /* invalidate all neural groups */
-    for(vector<NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
-        ((NeuralGroup*)(*it))->invalidate();
+    for(map<int, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
+        it->second->invalidate();
     }
     /* prepare input signal and propagate it through the network */
-    _inputGroup->integrate(_input, _inputWeights, _inputGroup->getDim());
+    _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
-    _output = _outputGroup->getOutput();
+    _output.setVector(_outputGroup->getOutput());
 }
 
 void NeuralNetwork::activate(NeuralGroup* p_node) {
@@ -44,10 +36,9 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
         /* generate output if it is possible */
         inGroup = _connections[*it]->getInGroup();        
 
-        double* signal = inGroup->getOutput();
+        vectorN<double>* signal = inGroup->getOutput();
         if (signal != nullptr) {
-            p_node->integrate(signal, _connections[*it]->getWeights()->getMatrix(), _connections[*it]->getInGroup()->getDim());
-            //delete[] signal;
+            p_node->integrate(signal, _connections[*it]->getWeights());
         }
     }
 
@@ -62,25 +53,19 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
 
 NeuralGroup* NeuralNetwork::addLayer(int p_dim, int p_activationFunction, GROUP_TYPE p_type) {
     NeuralGroup* group = new NeuralGroup(_groupId, p_dim, p_activationFunction);
+    _groups[_groupId] = group;
     _groupId++;
-
-    _groups.push_back(group);
     switch(p_type) {
         case INPUT:
             _inputGroup = group;
-            _input = new double[group->getDim()];
+            _input.init(group->getDim());
             /* initialize input weights to unitary matrix */
-            _inputWeights = new double[group->getDim() * group->getDim()];
-            memset(_inputWeights, 0, sizeof(double)*group->getDim() * group->getDim());
-
-            for(int i = 0; i < group->getDim(); i++) {
-                _inputWeights[i*group->getDim()+i] = 1;
-            }
+            _inputWeights.init(group->getDim(), group->getDim(), matrix2<double>::UNITARY);
         break;
 
         case OUTPUT:
             _outputGroup = group;
-            _output = new double[group->getDim()];
+            _output.init(group->getDim());
         break;
         case HIDDEN: 
         break;
@@ -95,7 +80,7 @@ Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_
     Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);    
 
     connection->init(p_density, p_inhibition);
-    _connections.push_back(connection);
+    _connections[_connectionId] = connection;
     if (p_inGroup != nullptr) p_inGroup->addOutConnection(_connectionId);
     if (p_outGroup != nullptr) p_outGroup->addInConnection(_connectionId);
     _connectionId++;

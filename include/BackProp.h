@@ -1,6 +1,6 @@
 #pragma once
 #include "NeuralNetwork.h"
-#include "NeuralGroup.cuh"
+#include "NeuralGroup.h"
 #include "Connection.h"
 #include <map>
 
@@ -20,13 +20,13 @@ public:
 
 protected:
   virtual void backProp();
-  virtual void backActivate(NeuralGroup* p_node);
+  virtual void update(NeuralGroup* p_node);
   virtual void updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);
 
 private:
-  void calcDeriv(NeuralGroup* p_group);
-  void calcGradient(NeuralGroup* p_group);
-  void calcPrevGradient(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);  
+  void bfsCreate();
+  void bfsRecursive(NeuralGroup* p_node);
+  void calcGradient(NeuralGroup* p_group);  
   void weightDecay(Connection* p_connection) const;
 
 protected:
@@ -36,7 +36,6 @@ protected:
   double  _momentum;
   double* _input;
 
-  map<int, double*> _deriv;
-  map<int, double*> _gradient;
-  map<int, double*> _prevGradient;
+  map<int, vectorN<double>> _gradient;
+  vector<NeuralGroup*> _bfsTree;
 };

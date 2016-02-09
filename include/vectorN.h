@@ -1,16 +1,26 @@
 #pragma once
+#include <tnt.h>
 
 template <class T>
 class vectorN
 {
 public:
+  vectorN() {
+    _nCols = 0;
+    _buffer = nullptr;
+  }
+
   vectorN(int p_cols) {
-    _nCols = p_cols;
-    _buffer = new T[p_cols];
+    init(p_cols);
   }
 
   ~vectorN(void) {
     delete[] _buffer;
+  }
+
+  void init(int p_cols) {
+    _nCols = p_cols;
+    _buffer = new T[p_cols];    
   }
 
   T* getVector() {
@@ -19,6 +29,10 @@ public:
 
   void setVector(T* p_buffer) {
     memcpy(_buffer, p_buffer, sizeof(T) * _nCols);
+  }
+
+  void setVector(vectorN<T>* p_vector) {
+    setVector(p_vector->getVector());
   }
 
   T at(int p_i) {
@@ -42,8 +56,63 @@ public:
     return _nCols;
   }
 
+  vectorN<T>& operator=(const vectorN<T> &v )
+  {
+      _nCols = v._nCols;
+      setVector(v._buffer);
+      return *this;
+  }
+
+  vectorN<T>& operator=(const vectorN<T> *v )
+  {
+      _nCols = v->_nCols;
+      _buffer = v->_buffer;
+      return *this;
+  }
+
+  vectorN<T>* operator+(const vectorN<T>& v) const
+  {
+    vectorN<T> *result = new vectorN<T>(v.size());
+    result->set(0);
+
+    for(auto j = 0; j < _nCols; j++) {
+      result->_buffer[j] = v._buffer[j] + _buffer[j];
+    }
+
+    return result;
+  }
+
+  vectorN<T>* operator*(T& c)
+  {
+    vectorN<T>* result = new vectorN<double>(_nCols);
+    result->set(0);
+
+    for(auto j = 0; j < _nCols; j++) {
+      result->_buffer[j] = c * _buffer[j];
+    }
+
+    return result;
+  }
+
+  void operator+= (const vectorN<T>& v) const
+  {
+    for(auto j = 0; j < _nCols; j++) {
+      _buffer[j] += v._buffer[j];
+    }
+  }
+
+  T &operator[](int i) const
+  {
+      if( i > _nCols )
+      {
+        //return ;
+      }
+      return _buffer[i];
+  }
+
+
 private:
-  int _nCols;  
+  int _nCols;
   
   T* _buffer;
 };

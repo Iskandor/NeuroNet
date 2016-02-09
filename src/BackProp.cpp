@@ -1,26 +1,49 @@
 #include "BackProp.h"
+#include "Define.h"
 #include <math.h>
 
-BackProp::BackProp(NeuralNetwork* p_network)
-{
+
+BackProp::BackProp(NeuralNetwork* p_network) {
   _network = p_network;
+
+  _alpha = 0;
+  _weightDecay = 0;
+  _momentum = 0;
+  _input = nullptr;
 
   for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
     int id = p_network->getGroups()->at(i)->getId();
-    _error[id] = new double[p_network->getGroups()->at(i)->getDim()];
-    _deriv[id] = new double[p_network->getGroups()->at(i)->getDim()];
-    _prevError[id] = new double[p_network->getGroups()->at(i)->getDim()];
+    _gradient[id].init(p_network->getGroups()->at(i)->getDim());
   }
+  
+  bfsCreate();
 }
 
 
 BackProp::~BackProp(void)
 {
-  for(unsigned int i = 0; i < _network->getGroups()->size(); i++) {
-    int id = _network->getGroups()->at(i)->getId();
-    delete[] _error[id];
-    delete[] _deriv[id];
-    delete[] _prevError[id];
+}
+
+void BackProp::bfsCreate() {
+  for(auto it = _network->getGroups()->begin(); it != _network->getGroups()->end(); ++it) {
+      it->second->invalidate();
+  }
+  _bfsTree.push_back(_network->getOutputGroup());
+  bfsRecursive(_network->getOutputGroup());  
+}
+
+void BackProp::bfsRecursive(NeuralGroup* p_node) { 
+  p_node->setValid();
+  for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); ++it) {
+      if (!_network->getConnections()->at(*it)->getInGroup()->isValid()) {  
+         _bfsTree.push_back(_network->getConnections()->at(*it)->getInGroup());
+      }
+  }
+
+  for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); ++it) {
+      if (!_network->getConnections()->at(*it)->getInGroup()->isValid()) {  
+         bfsRecursive(_network->getConnections()->at(*it)->getInGroup());
+      }
   }
 }
 
@@ -35,12 +58,12 @@ double BackProp::train(double *p_input, double* p_target) {
 
     // calc MSE
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      mse += pow(p_target[i] - _network->getOutput()[i], 2);
+      mse += pow(p_target[i] - _network->getOutput()->at(i), 2);
     }
 
     // backward training phase
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _prevError[_network->getOutputGroup()->getId()][i] = p_target[i] - _network->getOutput()[i];
+      _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] - _network->getOutput()->at(i);
     }
     backProp();
 
@@ -48,94 +71,68 @@ double BackProp::train(double *p_input, double* p_target) {
 }
 
 void BackProp::backProp() {
-    /* invalidate all neural groups */
-    for(vector<NeuralGroup*>::iterator it = _network->getGroups()->begin(); it != _network->getGroups()->end(); it++) {
-        ((NeuralGroup*)(*it))->invalidate();
+    for(auto it = ++_bfsTree.begin(); it != _bfsTree.end(); ++it) {
+      calcGradient(*it);
     }
-    backActivate(_network->getOutputGroup());
+
+    for(auto it = _bfsTree.rbegin(); it != _bfsTree.rend(); ++it) {
+      update(*it);
+    }    
 }
 
-void BackProp::backActivate(NeuralGroup* p_node) {
-    calcDeriv(p_node);
-    calcError(p_node);
-    
-    /* send error signal to synapsis and repeat it for not activated group to prevent infinite loops */
-    for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
-        if (!_network->getConnections()->at(*it)->getInGroup()->isActivated()) {            
-            updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));            
-            calcPrevError(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
-            backActivate(_network->getConnections()->at(*it)->getInGroup());
-        }
+
+void BackProp::update(NeuralGroup* p_node) {
+    for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {         
+      updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
+      if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
     }
 }
+
 
 void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
-  
   int nCols = p_inGroup->getDim();
   int nRows = p_outGroup->getDim();
-
-  dim3 dimBlock(nRows, nCols);
-  dim3 dimGrid((int)ceil(nRows/dimBlock.x),(int)ceil(p_outGroup->getDim()/dimBlock.y));
-
-  matrix<double> delta(nRows, nCols);
+  p_outGroup->calcDerivs();
+  matrix2<double> delta(nRows, nCols);
 
   for(int i = 0; i < nRows; i++) {
     for(int j  = 0; j < nCols; j++) {
-      delta.set(i, j, _alpha * _error[p_outGroup->getId()][i] * p_inGroup->getOutput()[j]);
+      delta.set(i, j, _alpha * _gradient[p_outGroup->getId()][i] * p_outGroup->getDerivs()->at(i) * p_inGroup->getOutput()->at(j));
     }
   }
+
+  *p_connection->getWeights() += delta;
+}
+
+void BackProp::calcGradient(NeuralGroup* p_group) {
+  int id = p_group->getId();
+  int outId;
   
-  //p_connection->getWeights()->set(j,i, p_connection->getWeights()->at(j,i) + );
-  int    *dev_colDim = 0;
-  double *dev_weights = 0;
-  double *dev_delta = 0;
-  double *dev_output = 0;
-
-  cudaStatus = cudaMalloc((void**)&dev_colDim, sizeof(int));
-  cudaStatus = cudaMalloc((void**)&dev_output, nRows * nCols * sizeof(double));
-  cudaStatus = cudaMalloc((void**)&dev_weights, nRows * nCols * sizeof(double));
-  cudaStatus = cudaMalloc((void**)&dev_delta, nRows * nCols * sizeof(double));
-
-  cudaStatus = cudaMemcpy(dev_weights, p_connection->getWeights()->getMatrix(), nRows * nCols * sizeof(double), cudaMemcpyHostToDevice);
-  cudaStatus = cudaMemcpy(dev_colDim, &nCols, sizeof(int), cudaMemcpyHostToDevice);
-  activateKernel<<<dimGrid,dimBlock>>>(dev_output, dev_weights, dev_delta, dev_colDim);
-  cudaStatus = cudaGetLastError();
-  cudaStatus = cudaDeviceSynchronize();  
-
-  cudaStatus = cudaMemcpy(p_connection->getWeights()->getMatrix(), dev_output, nRows * nCols * sizeof(double), cudaMemcpyDeviceToHost);
-
-  cudaStatus = cudaFree(dev_colDim);
-  cudaStatus = cudaFree(dev_weights);
-  cudaStatus = cudaFree(dev_delta);
-  cudaStatus = cudaFree(dev_output);
-}
-
-void BackProp::calcError(NeuralGroup* p_group) {
-  int id = p_group->getId();  
-  
-  for(int i = 0; i < p_group->getDim(); i++) {
-    _error[id][i] = _deriv[id][i] * _prevError[id][i];
+  _gradient[id].set(0);
+  for(vector<int>::iterator it = p_group->getOutConnections()->begin(); it != p_group->getOutConnections()->end(); it++) {
+    outId = _network->getConnection(*it)->getOutGroup()->getId();
+    for(int i = 0; i < _network->getConnection(*it)->getOutGroup()->getDim(); i++) {
+      for(int j = 0; j < p_group->getDim(); j++) {
+        _gradient[id][j] += _network->getConnection(*it)->getWeights()->at(i, j) * _gradient[outId][i];
+      }
+    }    
   }
 }
 
-void BackProp::calcDeriv(NeuralGroup* p_group) {
-  for(int i = 0; i < p_group->getDim(); i++) {
-    _deriv[p_group->getId()][i] = p_group->getOutput()[i] * (1 - p_group->getOutput()[i]);
-  }
-}
-
-void BackProp::calcPrevError(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
-  int inId = p_inGroup->getId();
-  int outId = p_outGroup->getId();
-
-  for(int i = 0; i < p_inGroup->getDim(); i++) {
-    _prevError[inId][i] = 0;
-    for(int j = 0; j < p_outGroup->getDim(); j++) {
-      _prevError[inId][i] += _error[outId][j] * p_connection->getWeights()->at(j, i);
-    }
-  }
+void BackProp::weightDecay(Connection* p_connection) const
+{
+  *p_connection->getWeights() *= (1 - _weightDecay);
 }
 
 void BackProp::setAlpha(double p_alpha) {
   _alpha = p_alpha;
+}
+
+void BackProp::setWeightDecay(double p_weightDecay) {
+  _weightDecay = p_weightDecay;
+}
+
+void BackProp::setMomentum(double p_momentum)
+{
+  _momentum = p_momentum;
 }

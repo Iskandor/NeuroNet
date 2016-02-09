@@ -1,44 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libNeuroNet", "libNeuroNet.vcxproj", "{1FA9DA8A-195E-4AD3-846D-64351924E258}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libNeuroNet", "libNeuroNet.vcxproj", "{CFD75296-FAED-435C-A311-A244835186FA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maze", "..\Maze\Maze.vcxproj", "{F389D81C-C713-46A0-B582-E1EB70E37636}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1FA9DA8A-195E-4AD3-846D-64351924E258} = {1FA9DA8A-195E-4AD3-846D-64351924E258}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNTlib", "..\lib\TNT\TNTlib\TNTlib.vcxproj", "{5BA3EEE1-DE10-44DD-A966-26570CBF7557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
-		Debug|x64 = Debug|x64
-		DebugLib|Win32 = DebugLib|Win32
-		DebugLib|x64 = DebugLib|x64
 		Release|Win32 = Release|Win32
-		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Debug|Win32.Build.0 = Debug|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Debug|x64.ActiveCfg = Debug|x64
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Debug|x64.Build.0 = Debug|x64
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.DebugLib|Win32.ActiveCfg = DebugLib|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.DebugLib|Win32.Build.0 = DebugLib|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.DebugLib|x64.ActiveCfg = DebugLib|x64
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.DebugLib|x64.Build.0 = DebugLib|x64
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Release|Win32.ActiveCfg = Release|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Release|Win32.Build.0 = Release|Win32
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Release|x64.ActiveCfg = Release|x64
-		{1FA9DA8A-195E-4AD3-846D-64351924E258}.Release|x64.Build.0 = Release|x64
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Debug|Win32.Build.0 = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Debug|x64.ActiveCfg = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.DebugLib|Win32.ActiveCfg = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.DebugLib|Win32.Build.0 = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.DebugLib|x64.ActiveCfg = Debug|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Release|Win32.ActiveCfg = Release|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Release|Win32.Build.0 = Release|Win32
-		{F389D81C-C713-46A0-B582-E1EB70E37636}.Release|x64.ActiveCfg = Release|Win32
+		{CFD75296-FAED-435C-A311-A244835186FA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CFD75296-FAED-435C-A311-A244835186FA}.Debug|Win32.Build.0 = Debug|Win32
+		{CFD75296-FAED-435C-A311-A244835186FA}.Release|Win32.ActiveCfg = Release|Win32
+		{CFD75296-FAED-435C-A311-A244835186FA}.Release|Win32.Build.0 = Release|Win32
+		{5BA3EEE1-DE10-44DD-A966-26570CBF7557}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5BA3EEE1-DE10-44DD-A966-26570CBF7557}.Debug|Win32.Build.0 = Debug|Win32
+		{5BA3EEE1-DE10-44DD-A966-26570CBF7557}.Release|Win32.ActiveCfg = Release|Win32
+		{5BA3EEE1-DE10-44DD-A966-26570CBF7557}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

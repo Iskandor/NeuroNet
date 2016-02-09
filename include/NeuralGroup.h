@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include <cuda_runtime.h>
+#include <vectorN.h>
+#include <matrix2.h>
 
 using namespace std;
 
@@ -11,12 +12,11 @@ public:
 	NeuralGroup(int p_id, int p_dim, int p_activationFunction);
 	~NeuralGroup(void);
 
-public:
-  void init();
-  void fire();
-    
-  cudaError_t integrate(double* p_input, double* p_weights, int p_input_dim);
-  cudaError_t activate(double* p_input, const int p_activationFunction);
+
+  void fire();    
+  void integrate(vectorN<double>* p_input, matrix2<double>* p_weights) const;
+  void activate() const;
+  void calcDerivs() const;
 
   int getId() const
   { return _id; };
@@ -24,9 +24,10 @@ public:
   { return _dim; };
   int getActivationFunction() const
   { return _activationFunction; };
-  void    setOutput(double* p_output) { _output = p_output; };
-  double* getOutput() const
-  { return _output; };
+
+  void    setOutput(vectorN<double>* p_vector) { _output.setVector(p_vector); };
+  vectorN<double>* getOutput() { return &_output; };
+  vectorN<double>* getDerivs() { return &_derivs; };
 
   void addOutConnection(int p_index);
   void addInConnection(int p_index);
@@ -42,9 +43,12 @@ private:
   int     _id;
   int     _dim;
   int     _activationFunction;
-  double* _output;
-  double* _actionPotential;
   bool    _valid;
+
+  vectorN<double> _output;
+  vectorN<double> _derivs;
+  vectorN<double> _actionPotential;
+  
   vector<int> _inConnections;
   vector<int> _outConnections;
 };
