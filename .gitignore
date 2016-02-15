@@ -7,3 +7,4 @@ libNeuroNet.opensdf
 /.vs
 /DebugLib
 lib
+libNeuroNetCUDA

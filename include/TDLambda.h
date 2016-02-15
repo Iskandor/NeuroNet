@@ -19,8 +19,6 @@ public:
   double getTDerror(double *p_input, double* p_target) const;
 
 protected:
-  void updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) override;
-
   double  _lambda;
   double  _gamma;
 

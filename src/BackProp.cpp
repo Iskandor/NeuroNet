@@ -1,5 +1,6 @@
-#include "BackProp.h"
-#include "Define.h"
+#include "../include/Define.h"
+#include "../include/NeuralNetwork.h"
+#include "../include/BackProp.h"
 #include <math.h>
 
 

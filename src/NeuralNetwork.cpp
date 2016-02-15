@@ -1,5 +1,5 @@
-#include "NeuralNetwork.h"
 #include <iostream>
+#include "../include/NeuralNetwork.h"
 
 NeuralNetwork::NeuralNetwork(void)
 {

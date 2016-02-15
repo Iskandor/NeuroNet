@@ -1,5 +1,5 @@
 #pragma once
-#include <tnt.h>
+#include <memory>
 
 template <class T>
 class vectorN
@@ -79,6 +79,15 @@ public:
       result->_buffer[j] = v._buffer[j] + _buffer[j];
     }
 
+    return result;
+  }
+
+  bool operator==(const vectorN<T>& v) const
+  {
+    bool result = true;
+    for(auto j = 0; j < _nCols; j++) {
+      result = result && _buffer[j] == v._buffer[j];
+    }        
     return result;
   }
 

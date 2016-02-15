@@ -1,7 +1,7 @@
-#include "NeuralGroup.h"
-#include "Define.h"
-
 #include <memory>
+#include <cmath>
+#include "../include/NeuralGroup.h"
+#include "../include/Define.h"
 
 using namespace std;
 

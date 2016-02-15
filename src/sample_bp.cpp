@@ -1,7 +1,7 @@
 #include <iostream>
-#include "NeuralNetwork.h"
-#include "BackProp.h"
-#include "Define.h"
+#include "../include/NeuralNetwork.h"
+#include "../include/Define.h"
+#include "../include/BackProp.h"
 
 void sampleBP() {
     double trainingSet[4][2] = {{0,0},{0,1},{1,0},{1,1}};

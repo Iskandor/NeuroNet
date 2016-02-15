@@ -1,8 +1,7 @@
 #pragma once
 
-#include <vector>
-#include "NeuralGroup.h"
-#include "Connection.h"
+#include "../include/NeuralGroup.h"
+#include "../include/Connection.h"
 #include <map>
 
 using namespace std;

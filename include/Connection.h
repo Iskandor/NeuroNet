@@ -1,8 +1,8 @@
 #pragma once
 
-#include "NeuralGroup.h"
+#include "../include/NeuralGroup.h"
 #include <vector>
-#include <matrix2.h>
+#include "../include/matrix2.h"
 
 using namespace std;
 

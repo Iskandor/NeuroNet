@@ -1,5 +1,4 @@
 #pragma once
-#include <vectorN.h>
 
 template <class T>
 class matrix2

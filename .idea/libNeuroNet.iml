@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/sample_td.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/NBandit.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/BackProp.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/BanditGame.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/NeuralGroup.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TDLambda.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/NeuralNetwork.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/sample_bp.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Maze.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Connection.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Connection.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/vectorN.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/BanditGame.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/TDLambda.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Maze.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NeuralGroup.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/IEnvironment.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/matrix3.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/TD.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NeuralNetwork.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/sample_td.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Define.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/matrix2.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NBandit.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/BackProp.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/sample_bp.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/lib/gcc/i686-w64-mingw32/4.8.1/include" />
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/lib/gcc/i686-w64-mingw32/4.8.1/include-fixed" />
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/i686-w64-mingw32/include" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/lib/gcc/i686-w64-mingw32/4.8.1/include" />
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/lib/gcc/i686-w64-mingw32/4.8.1/include-fixed" />
+          <root url="file://C:/Program Files (x86)/mingw-builds/x32-4.8.1-posix-dwarf-rev5/mingw32/i686-w64-mingw32/include" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

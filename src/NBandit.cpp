@@ -1,7 +1,8 @@
-#include "NBandit.h"
 #include <cstdlib>
-#include <Define.h>
 #include <cmath>
+#include "../include/IEnvironment.h"
+#include "../include/NBandit.h"
+#include "../include/Define.h"
 
 
 NBandit::NBandit(int p_n, int p_b) : IEnvironment()

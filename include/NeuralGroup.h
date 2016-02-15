@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include <vectorN.h>
-#include <matrix2.h>
+#include "../include/vectorN.h"
+#include "../include/matrix2.h"
 
 using namespace std;
 

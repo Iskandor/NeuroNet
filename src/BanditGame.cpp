@@ -1,4 +1,6 @@
-#include "BanditGame.h"
+#include "../include/IEnvironment.h"
+#include "../include/NBandit.h"
+#include "../include/BanditGame.h"
 
 
 BanditGame::BanditGame(int p_dim, int p_arm) : IEnvironment()

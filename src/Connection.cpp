@@ -1,4 +1,5 @@
-#include "Connection.h"
+#include "../include/NeuralGroup.h"
+#include "../include/Connection.h"
 #include <random>
 
 Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup)
