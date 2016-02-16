@@ -8,7 +8,7 @@ BanditGame::BanditGame(int p_dim, int p_arm) : IEnvironment()
   }  
   _dim = p_dim;
   _index = 0;
-  _state = new vectorN<double>(p_dim);
+  _state = new VectorXd(p_dim);
 }
 
 
@@ -17,7 +17,7 @@ BanditGame::~BanditGame(void)
   
 }
 
-bool BanditGame::evaluateAction(vectorN<double>* p_action, vectorN<double>* p_state) {
+bool BanditGame::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
   int index = _index;
   _bandits[index]->evaluateAction(p_action, p_state);
 
@@ -25,13 +25,13 @@ bool BanditGame::evaluateAction(vectorN<double>* p_action, vectorN<double>* p_st
   if (index == _dim) {
     index = 0;
   }
-  p_state->set(0);
-  p_state->set(index, 1);
+  p_state->Zero(p_state->size());
+  (*p_state)[index] = 1;
 
   return true;
 }
 
-void BanditGame::updateState(vectorN<double>* p_action) {
+void BanditGame::updateState(VectorXd* p_action) {
   _bandits[_index]->updateState(p_action);
   _reward = _bandits[_index]->getReward();
   _index++;  
@@ -39,8 +39,8 @@ void BanditGame::updateState(vectorN<double>* p_action) {
   if (_index == _dim) {
     _index = 0;
   }
-  _state->set(0);
-  _state->set(_index, 1);
+  _state->Zero(_state->size());
+  (*_state)[_index] = 1;
 }
 
 void BanditGame::reset() {

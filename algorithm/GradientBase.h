@@ -16,7 +16,7 @@ public:
 protected:
     NeuralNetwork* _network;
 
-    map<int, vectorN<double>> _gradient;
+    map<int, VectorXd> _gradient;
     vector<NeuralGroup*> _bfsTree;
 
     void bfsTreeCreate();

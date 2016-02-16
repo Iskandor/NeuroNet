@@ -1,5 +1,4 @@
 #pragma once
-#include "../algebra/vectorN.h"
 #include "../network/NeuralGroup.h"
 #include "../network/Connection.h"
 #include "GradientBase.h"

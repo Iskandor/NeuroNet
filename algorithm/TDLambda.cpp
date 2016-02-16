@@ -10,27 +10,17 @@ TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : 
     int id = _network->getConnections()->at(i)->getId();
     int nCols = _network->getConnections()->at(i)->getInGroup()->getDim();
     int nRows = _network->getConnections()->at(i)->getOutGroup()->getDim();
-    _delta[id] = new matrix2<double>(nRows, nCols);
-    _delta[id]->set(0);
+    _delta[id] = MatrixXd::Zero(nRows, nCols);
   }
 
-  _Pt0 = new vectorN<double>(_network->getOutputGroup()->getDim());
-  _Pt1 = new vectorN<double>(_network->getOutputGroup()->getDim());
-  _Pt0->set(0);
-  _Pt1->set(0);
+  _Pt0 = VectorXd::Zero(_network->getOutputGroup()->getDim());
+  _Pt1 = VectorXd::Zero(_network->getOutputGroup()->getDim());
 
   _input0 = new double[_network->getInputGroup()->getDim()];
   _input1 = nullptr;
 }
 
 TDLambda::~TDLambda() {
-  for(unsigned int i = 0; i < _network->getConnections()->size(); i++) {
-    int id = _network->getConnections()->at(i)->getId();
-    delete _delta[id];
-  }
-
-  delete _Pt0;
-  delete _Pt1;
   delete[] _input0;
 }
 
@@ -46,17 +36,17 @@ double TDLambda::train(double* p_input, double* p_target) {
   _network->setInput(_input1);
   _network->onLoop();
 
-  _Pt0->setVector(_Pt1->getVector());
-  _Pt1->setVector(_network->getOutput());
+  _Pt0 = _Pt1;
+  _Pt1 = *_network->getOutput();
 
   // calc TDerror
   for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-    td_error += p_target[i] + _gamma * _Pt1->at(i) - _Pt0->at(i);
+    td_error += p_target[i] + _gamma * _Pt1[i] - _Pt0[i];
   }
 
   // calc TD
   for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-    _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] + _gamma * _Pt1->at(i) - _Pt0->at(i);
+    _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] + _gamma * _Pt1[i] - _Pt0[i];
   }
 
   // updating phase for V(s)

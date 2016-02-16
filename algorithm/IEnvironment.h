@@ -1,5 +1,7 @@
 #pragma once
-#include "../algebra/vectorN.h"
+#include <Eigen/Dense>
+
+using namespace Eigen;
 
 class IEnvironment
 {
@@ -8,13 +10,13 @@ class IEnvironment
 
   virtual ~IEnvironment(void) { if (_state != nullptr) delete _state; };
 
-  virtual bool evaluateAction (vectorN<double> *p_action, vectorN<double> *p_state) = 0;
-  virtual void updateState(vectorN<double> *p_action) = 0;
-  vectorN<double> *getState() const { return _state; };
+  virtual bool evaluateAction (VectorXd *p_action, VectorXd *p_state) = 0;
+  virtual void updateState(VectorXd *p_action) = 0;
+  VectorXd *getState() const { return _state; };
   virtual void reset() = 0;
   double getReward() const {return _reward;};
   
   protected:
   double _reward;
-  vectorN<double> *_state;
+  VectorXd *_state;
 };

@@ -26,7 +26,7 @@ void NeuralNetwork::onLoop() {
     /* prepare input signal and propagate it through the network */
     _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
-    _output.setVector(_outputGroup->getOutput());
+    _output = *_outputGroup->getOutput();
 }
 
 void NeuralNetwork::activate(NeuralGroup* p_node) {
@@ -34,9 +34,9 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
     /* sum input from all groups */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
         /* generate output if it is possible */
-        inGroup = _connections[*it]->getInGroup();        
+        inGroup = _connections[*it]->getInGroup();
 
-        vectorN<double>* signal = inGroup->getOutput();
+        VectorXd* signal = inGroup->getOutput();
         if (signal != nullptr) {
             p_node->integrate(signal, _connections[*it]->getWeights());
         }
@@ -58,14 +58,14 @@ NeuralGroup* NeuralNetwork::addLayer(int p_dim, int p_activationFunction, GROUP_
     switch(p_type) {
         case INPUT:
             _inputGroup = group;
-            _input.init(group->getDim());
+            _input.resize(group->getDim());
             /* initialize input weights to unitary matrix */
-            _inputWeights.init(group->getDim(), group->getDim(), matrix2<double>::UNITARY);
+            _inputWeights = MatrixXd::Identity(group->getDim(), group->getDim());
         break;
 
         case OUTPUT:
             _outputGroup = group;
-            _output.init(group->getDim());
+            _output.resize(group->getDim());
         break;
         case HIDDEN: 
         break;
@@ -86,4 +86,10 @@ Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_
     _connectionId++;
 
     return connection;
+}
+
+void NeuralNetwork::setInput(double *p_input) {
+  for(int i = 0; i < _input.rows(); i++) {
+    _input[i] = p_input[i];
+  }
 }

@@ -12,7 +12,7 @@ public:
 
 public:
     void init(double p_density, double p_inhibition) const;
-    matrix2<double>* getWeights() const { return _weights; };
+    MatrixXd* getWeights() const { return _weights; };
 
     NeuralGroup* getOutGroup() const { return _outGroup; };
     NeuralGroup* getInGroup() const { return _inGroup; };
@@ -23,5 +23,5 @@ private:
     NeuralGroup* _inGroup;
     NeuralGroup* _outGroup;
     int _inDim, _outDim;
-    matrix2<double>* _weights;
+    MatrixXd* _weights;
 };

@@ -1,8 +1,6 @@
 #pragma once
-#include "../algebra/vectorN.h"
 #include "NeuralGroup.h"
 #include "Connection.h"
-#include "../algebra/matrix2.h"
 #include <map>
 
 using namespace std;
@@ -24,7 +22,7 @@ public:
   Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0.5);
 
   bool running() const { return _running; };
-  vectorN<double>* getOutput() { return &_output; };
+	VectorXd* getOutput() { return &_output; };
   double getScalarOutput() const { return _output[0]; };
   map<int, NeuralGroup*>* getGroups() { return &_groups; };
   NeuralGroup* getOutputGroup() const { return _outputGroup; };
@@ -33,8 +31,8 @@ public:
   Connection* getConnection(int p_id) { return _connections[p_id]; };
   NeuralGroup* getGroup(int p_id) { return _groups[p_id];};
 
-  void setInput(vectorN<double> *p_input) { _input = *p_input; };
-  void setInput(double *p_input) { _input.setVector(p_input); };
+  void setInput(VectorXd *p_input) { _input = *p_input; };
+  void setInput(double *p_input);
 
 private:
     void activate(NeuralGroup* p_node);
@@ -48,9 +46,9 @@ private:
     map<int, NeuralGroup*> _groups;
     map<int, Connection*> _connections;
 
-    matrix2<double> _inputWeights;
-    vectorN<double> _input;
-    vectorN<double> _output;
+    MatrixXd _inputWeights;
+    VectorXd _input;
+    VectorXd _output;
 
     bool _running;
 };

@@ -18,9 +18,9 @@ protected:
   double  _lambda;
   double  _gamma;
 
-  map<int, matrix2<double>*> _delta;
-  vectorN<double> *_Pt0;
-  vectorN<double> *_Pt1;
+  map<int, MatrixXd> _delta;
+  VectorXd _Pt0;
+  VectorXd _Pt1;
   double* _input0;
   double* _input1;
   

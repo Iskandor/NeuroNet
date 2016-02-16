@@ -38,7 +38,7 @@ void sampleBP() {
     for(int i = 0; i < 4; i++) {
       network.setInput(trainingSet[i]);
       network.onLoop();
-      cout << network.getOutput()->at(0) << endl;        
+      cout << (*network.getOutput())[0] << endl;
     }
 
     //cout << mse << endl;

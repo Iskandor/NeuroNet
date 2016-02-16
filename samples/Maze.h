@@ -8,20 +8,20 @@ public:
   Maze(int p_dim);
   ~Maze(void);
 
-  bool evaluateAction(vectorN<double>* p_action, vectorN<double>* p_state) override;
-  void updateState(vectorN<double>* p_action) override;
+  bool evaluateAction(VectorXd* p_action, VectorXd* p_state) override;
+  void updateState(VectorXd* p_action) override;
   void reset() override;
   bool isFinished() const;
 
-  vectorN<double>* getPlayer();
+  VectorXd* getPlayer();
   int getDim() const { return _dim;};
 
 private:
-  void decodeAction(vectorN<double>* p_action, vectorN<double>* p_command) const;
+  void decodeAction(VectorXd* p_action, VectorXd* p_command) const;
   bool isValidMove(double p_x, double p_y) const;
 
   int _dim;
-  vectorN<double> _player;
-  vectorN<double> _goal;
+  VectorXd _player;
+  VectorXd _goal;
 };
 

@@ -5,14 +5,14 @@
 
 int main(int argc, char* argv[])
 {
-  sampleBP();
+  //sampleBP();
 
 /*
   Game  game;
   game.run();
 */
 
-  //sampleTD();
+  sampleTD();
 
   system("pause");
   return 0;

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "../algebra/vectorN.h"
-#include "../algebra/matrix2.h"
+#include <Eigen/Dense>
 
 using namespace std;
+using namespace Eigen;
 
 class NeuralGroup
 {
@@ -14,20 +14,17 @@ public:
 
 
   void fire();    
-  void integrate(vectorN<double>* p_input, matrix2<double>* p_weights) const;
-  void activate() const;
-  void calcDerivs() const;
+  void integrate(VectorXd* p_input, MatrixXd* p_weights);
+  void activate();
+  void calcDerivs();
 
   int getId() const
   { return _id; };
   int getDim() const
   { return _dim; };
-  int getActivationFunction() const
-  { return _activationFunction; };
 
-  void    setOutput(vectorN<double>* p_vector) { _output.setVector(p_vector); };
-  vectorN<double>* getOutput() { return &_output; };
-  vectorN<double>* getDerivs() { return &_derivs; };
+  VectorXd* getOutput() { return &_output; };
+  VectorXd* getDerivs() { return &_derivs; };
 
   void addOutConnection(int p_index);
   void addInConnection(int p_index);
@@ -45,9 +42,9 @@ private:
   int     _activationFunction;
   bool    _valid;
 
-  vectorN<double> _output;
-  vectorN<double> _derivs;
-  vectorN<double> _actionPotential;
+  VectorXd _output;
+  VectorXd _derivs;
+  VectorXd _actionPotential;
   
   vector<int> _inConnections;
   vector<int> _outConnections;

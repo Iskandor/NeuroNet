@@ -40,12 +40,12 @@ void GradientBase::calcDelta(NeuralGroup *p_group) {
   int id = p_group->getId();
   int outId;
 
-  _gradient[id].set(0);
+  _gradient[id] = VectorXd::Zero(p_group->getDim());
   for(vector<int>::iterator it = p_group->getOutConnections()->begin(); it != p_group->getOutConnections()->end(); it++) {
     outId = _network->getConnection(*it)->getOutGroup()->getId();
     for(int i = 0; i < _network->getConnection(*it)->getOutGroup()->getDim(); i++) {
       for(int j = 0; j < p_group->getDim(); j++) {
-        _gradient[id][j] += _network->getConnection(*it)->getWeights()->at(i, j) * _gradient[outId][i];
+        _gradient[id][j] += (*_network->getConnection(*it)->getWeights())(i, j) * _gradient[outId][i];
       }
     }
   }
@@ -66,6 +66,6 @@ void GradientBase::calcGradient(NeuralGroup *p_group) {
   p_group->calcDerivs();
 
   for(int j = 0; j < p_group->getDim(); j++) {
-    _gradient[id][j] *= p_group->getDerivs()->at(j);
+    _gradient[id][j] *= (*p_group->getDerivs())(j);
   }
 }

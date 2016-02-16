@@ -31,8 +31,8 @@ void sampleTD() {
     maze.reset();
     double epsilon = 0.01;    
 
-    vectorN<double> action(4);
-    vectorN<double> state(dim*dim);
+    VectorXd action(4);
+    VectorXd state(dim*dim);
 
     while(true) {
       double maxOutput = -1;
@@ -40,8 +40,8 @@ void sampleTD() {
       double reward = 0;
 
       for (int i = 0; i < action.size(); i++) {
-        action.set(0);
-        action.set(i, 1);
+        action.Zero(action.size());
+        action[i] = 1;
 
         maze.evaluateAction(&action, &state);
         network.setInput(&state);
@@ -61,8 +61,8 @@ void sampleTD() {
         }
       }
 
-      action.set(0);
-      action.set(action_i, 1);
+      action.Zero(action.size());
+      action[action_i] = 1;
 
       maze.updateState(&action);
       reward = maze.getReward();
@@ -70,7 +70,7 @@ void sampleTD() {
 
       // 3. update
       if (time > 0) {
-        td.train(maze.getState()->getVector(), &reward);
+        td.train(maze.getState()->data(), &reward);
       }
       time++;
 

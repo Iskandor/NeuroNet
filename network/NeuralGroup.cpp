@@ -11,12 +11,9 @@ NeuralGroup::NeuralGroup(int p_id, int p_dim, int p_activationFunction)
   _dim = p_dim;
   _activationFunction = p_activationFunction;
 
-  _output.init(_dim);
-  _output.set(0);
-  _derivs.init(_dim);
-  _derivs.set(0);
-  _actionPotential.init(_dim);
-  _actionPotential.set(0);
+  _output = VectorXd::Zero(_dim);
+  _derivs = VectorXd::Zero(_dim);
+  _actionPotential = VectorXd::Zero(_dim);
 
   if (_activationFunction == BIAS) {
     for(int i = 0; i < p_dim; i++) {
@@ -46,20 +43,17 @@ void NeuralGroup::addOutConnection(int p_index) {
     _outConnections.push_back(p_index);
 }
 
-void NeuralGroup::integrate(vectorN<double>* p_input, matrix2<double>* p_weights) const {
-  vectorN<double> result;
-
-  result = *p_weights * *p_input;
-  _actionPotential += result;
+void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
+  _actionPotential += (*p_weights) * (*p_input);
 }
 
 /* function which should calculate the output of neuron (activation function output) according to action potential */
-void NeuralGroup::activate() const {
+void NeuralGroup::activate() {
 
   for(auto index = 0; index < _dim; index++) {    
     switch (_activationFunction) {
       case IDENTITY:
-        _output[index] = _actionPotential[index];
+        _output[index] = _actionPotential(index);
         _actionPotential[index] = 0;
       break;
       case BIAS:
@@ -83,7 +77,7 @@ void NeuralGroup::activate() const {
   }
 }
 
-void NeuralGroup::calcDerivs() const {
+void NeuralGroup::calcDerivs() {
   for(auto index = 0; index < _dim; index++) {    
     switch (_activationFunction) {
       case IDENTITY:

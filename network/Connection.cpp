@@ -1,6 +1,5 @@
 #include <random>
 #include "Connection.h"
-#include "NeuralGroup.h"
 
 Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup)
 {
@@ -14,7 +13,7 @@ Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup
         _inDim = p_outGroup->getDim();
     }
     _outDim = p_outGroup->getDim();
-    _weights = new matrix2<double>(_outDim, _inDim);
+    _weights = new MatrixXd(_outDim, _inDim);
 }
 
 Connection::~Connection(void)
@@ -27,13 +26,13 @@ void Connection::init(double p_density, double p_inhibition) const {
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
           if (static_cast<double>(rand()) / RAND_MAX < p_density) {
-              _weights->set(i, j, static_cast<double>(rand()) / RAND_MAX);
+              (*_weights)(i, j) =  static_cast<double>(rand()) / RAND_MAX;
               if (static_cast<double>(rand()) / RAND_MAX < p_inhibition) {
-                  _weights->set(i, j, _weights->at(i, j) * -1);
+                  (*_weights)(i, j) *= -1;
               }
           }
           else {
-              _weights->set(i, j, 0);
+              (*_weights)(i, j) = 0;
           }
       }
     }

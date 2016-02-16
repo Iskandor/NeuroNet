@@ -1,7 +1,6 @@
 #include <math.h>
 #include "../network/NeuralNetwork.h"
 #include "BackProp.h"
-#include "../algebra/matrix2.h"
 
 
 BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network) {
@@ -12,7 +11,7 @@ BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network) {
 
   for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
     int id = p_network->getGroups()->at(i)->getId();
-    _gradient[id].init(p_network->getGroups()->at(i)->getDim());
+    _gradient[id].resize(p_network->getGroups()->at(i)->getDim());
   }
 }
 
@@ -31,12 +30,12 @@ double BackProp::train(double *p_input, double* p_target) {
 
     // calc MSE
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      mse += pow(p_target[i] - _network->getOutput()->at(i), 2);
+      mse += pow(p_target[i] - (*_network->getOutput())[i], 2);
     }
 
     // backward training phase
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] - _network->getOutput()->at(i);
+      _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] - (*_network->getOutput())[i];
     }
     backProp();
 
@@ -62,15 +61,15 @@ void BackProp::update(NeuralGroup* p_node) {
 void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
   int nCols = p_inGroup->getDim();
   int nRows = p_outGroup->getDim();
-  matrix2<double> delta(nRows, nCols);
+  MatrixXd delta(nRows, nCols);
 
   for(int i = 0; i < nRows; i++) {
     for(int j  = 0; j < nCols; j++) {
-      delta.set(i, j, _alpha * _gradient[p_outGroup->getId()][i] * p_inGroup->getOutput()->at(j));
+      delta(i, j) =  _alpha * _gradient[p_outGroup->getId()][i] * (*p_inGroup->getOutput())[j];
     }
   }
 
-  *p_connection->getWeights() += delta;
+  (*p_connection->getWeights()) += delta;
 }
 
 void BackProp::weightDecay(Connection* p_connection) const
