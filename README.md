@@ -1,2 +1,2 @@
 # libNeuroNet
-CUDAneural network library
+Neural network library

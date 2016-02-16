@@ -1,18 +1,18 @@
 ﻿#include <iostream>
-#include "include/sample_bp.h"
-#include "include/sample_td.h"
-
+#include <stdlib.h>
+#include "samples/sample_bp.h"
+#include "samples/sample_td.h"
 
 int main(int argc, char* argv[])
 {
-  //sampleBP();
+  sampleBP();
 
 /*
   Game  game;
   game.run();
 */
 
-  sampleTD();
+  //sampleTD();
 
   system("pause");
   return 0;
