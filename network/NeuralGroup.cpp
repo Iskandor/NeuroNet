@@ -73,6 +73,10 @@ void NeuralGroup::activate() {
         _output[index] = 1 / (1 + exp(-_actionPotential[index]));
         _actionPotential[index] = 0;
       break;
+      case TANH:
+        _output[index] = tanh(_actionPotential[index]);
+        _actionPotential[index] = 0;
+      break;
     }
   }
 }
@@ -91,6 +95,9 @@ void NeuralGroup::calcDerivs() {
       break;
       case SIGMOID:
         _derivs[index] = _output[index] * (1 - _output[index]);
+      break;
+      case TANH:
+        _derivs[index] = (1 - pow(_output[index], 2));
       break;
     }
   }

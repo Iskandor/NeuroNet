@@ -6,7 +6,7 @@ Maze::Maze(int p_dim) : IEnvironment() {
 
   _player.resize(2);
   _goal.resize(2);
-  _state = new VectorXd(_dim * _dim);
+  _state = VectorXd::Zero(_dim * _dim);
 
   _goal[0] = _dim - 1;
   _goal[1] = _dim - 1;
@@ -25,8 +25,8 @@ void Maze::reset() {
     //_player[0] = 0;
     //_player[1] = 0;
   }
-  _state->Zero(_state->size());
-  (*_state)[_player[1] * _dim + _player[0]] = 1;
+  _state.setConstant(_state.size(),0);
+  _state[_player[1] * _dim + _player[0]] = 1;
   _reward = 0;
 }
 
@@ -46,12 +46,13 @@ void Maze::updateState(VectorXd* p_action) {
     _player[1] = newY; // up, down
     _reward = 0;
 
-    _state->Zero(_state->size());
-    (*_state)[newY * _dim + newX] = 1;
+    _state.setConstant(_state.size(), 0);
+    _state[newY * _dim + newX] = 1;
   }
   else
   {
-    _state->setConstant(_state->size(), 1);
+    _reward = -1;
+    _state.setConstant(_state.size(), 1);
   }
 
   if (isFinished())
@@ -67,7 +68,7 @@ bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
   double newX = _player[0] + command[0] + command[2];
   double newY = _player[1] + command[1] + command[3];
 
-  p_state->Zero(p_state->size());
+  p_state->setConstant(p_state->size(), 0);
   if (isValidMove(newX, newY)) {
     (*p_state)[newY * _dim + newX] = 1;
   }
@@ -79,7 +80,7 @@ bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
 }
 
 void Maze::decodeAction(VectorXd* p_action, VectorXd* p_command) const {
-  p_command->Zero(p_command->size());
+  p_command->setConstant(p_command->rows(), 0);
   if ((*p_action)(0) == 1) {
     (*p_command)(0) = 1;
   }

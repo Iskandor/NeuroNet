@@ -21,7 +21,7 @@ public:
 protected:
   virtual void backProp();
   virtual void update(NeuralGroup* p_node);
-  virtual void updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection);
+  virtual void updateWeights(Connection* p_connection);
 
 private:
   void weightDecay(Connection* p_connection) const;
@@ -32,4 +32,5 @@ protected:
   double  _weightDecay;
   double  _momentum;
   double* _input;
+  VectorXd _error;
 };

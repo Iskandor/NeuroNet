@@ -21,7 +21,7 @@ set ( EIGEN3_FOUND 1 )
 set ( EIGEN3_USE_FILE     "${CMAKE_CURRENT_LIST_DIR}/UseEigen3.cmake" )
 
 set ( EIGEN3_DEFINITIONS  "" )
-set ( EIGEN3_INCLUDE_DIR  "C:/GIT/libNeuroNet/lib/eigen3/include/eigen3" )
+set ( EIGEN3_INCLUDE_DIR  "C:/GIT/lib/eigen/lib/include/eigen3" )
 set ( EIGEN3_INCLUDE_DIRS "C:/GIT/libNeuroNet/lib/eigen3/include/eigen3" )
 set ( EIGEN3_ROOT_DIR     "C:/GIT/libNeuroNet/lib/eigen3" )
 
@@ -43,17 +43,11 @@ set(SOURCE_FILES
         network/Connection.h
         network/Define.h
         algorithm/IEnvironment.h
-        algebra/matrix2.h
-        algebra/matrix3.h
         samples/Maze.h
         samples/NBandit.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
         samples/sample_bp.h
-        samples/sample_td.h
-        algorithm/TD.h
-        algorithm/TDLambda.h
-        algebra/vectorN.h
         algorithm/BackProp.cpp
         samples/BanditGame.cpp
         network/Connection.cpp
@@ -62,8 +56,10 @@ set(SOURCE_FILES
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
-        samples/sample_td.cpp
         algorithm/TDLambda.cpp
+        algorithm/TDLambda.h
+        samples/sample_td.cpp
+        samples/sample_td.h
     main.cpp algorithm/GradientBase.cpp algorithm/GradientBase.h)
 
 add_executable(libNeuroNet ${SOURCE_FILES})

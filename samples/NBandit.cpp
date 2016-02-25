@@ -13,9 +13,8 @@ NBandit::NBandit(int p_n, int p_b) : IEnvironment()
     (*_rewardDist)[x] =  exp(-0.5 * pow(static_cast<double>(x - b), 2)) /  sqrt(2 * PI);
   }
 
-  _state = new VectorXd(3);
-  _state->Zero(_state->size());
-  (*_state)(0) = 1;
+  _state = VectorXd::Zero(3);
+  _state[0] = 1;
 }
 
 

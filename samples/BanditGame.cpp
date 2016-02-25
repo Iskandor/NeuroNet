@@ -8,7 +8,7 @@ BanditGame::BanditGame(int p_dim, int p_arm) : IEnvironment()
   }  
   _dim = p_dim;
   _index = 0;
-  _state = new VectorXd(p_dim);
+  _state = VectorXd::Zero(p_dim);
 }
 
 
@@ -39,8 +39,8 @@ void BanditGame::updateState(VectorXd* p_action) {
   if (_index == _dim) {
     _index = 0;
   }
-  _state->Zero(_state->size());
-  (*_state)[_index] = 1;
+  _state.Zero(_state.size());
+  _state[_index] = 1;
 }
 
 void BanditGame::reset() {

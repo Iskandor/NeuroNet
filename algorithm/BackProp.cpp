@@ -8,11 +8,7 @@ BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network) {
   _weightDecay = 0;
   _momentum = 0;
   _input = nullptr;
-
-  for(unsigned int i = 0; i < p_network->getGroups()->size(); i++) {
-    int id = p_network->getGroups()->at(i)->getId();
-    _gradient[id].resize(p_network->getGroups()->at(i)->getDim());
-  }
+  _error.resize(p_network->getOutputGroup()->getDim());
 }
 
 BackProp::~BackProp(void)
@@ -35,7 +31,7 @@ double BackProp::train(double *p_input, double* p_target) {
 
     // backward training phase
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _gradient[_network->getOutputGroup()->getId()][i] = p_target[i] - (*_network->getOutput())[i];
+      _error[i] = p_target[i] - (*_network->getOutput())[i];
     }
     backProp();
 
@@ -43,8 +39,8 @@ double BackProp::train(double *p_input, double* p_target) {
 }
 
 void BackProp::backProp() {
-    calcGradient();
-    for(auto it = _bfsTree.rbegin(); it != _bfsTree.rend(); ++it) {
+    calcGradient(&_error);
+    for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
       update(*it);
     }
 }
@@ -52,22 +48,18 @@ void BackProp::backProp() {
 
 void BackProp::update(NeuralGroup* p_node) {
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {         
-      updateWeights(_network->getConnections()->at(*it)->getInGroup(), p_node, _network->getConnections()->at(*it));
+      updateWeights(_network->getConnections()->at(*it));
       if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
     }
 }
 
 
-void BackProp::updateWeights(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection* p_connection) {
-  int nCols = p_inGroup->getDim();
-  int nRows = p_outGroup->getDim();
+void BackProp::updateWeights(Connection* p_connection) {
+  int nCols = p_connection->getInGroup()->getDim();
+  int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  for(int i = 0; i < nRows; i++) {
-    for(int j  = 0; j < nCols; j++) {
-      delta(i, j) =  _alpha * _gradient[p_outGroup->getId()][i] * (*p_inGroup->getOutput())[j];
-    }
-  }
+  delta = _alpha * _gradient[p_connection->getId()];
 
   (*p_connection->getWeights()) += delta;
 }

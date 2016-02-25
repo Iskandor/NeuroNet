@@ -2,9 +2,6 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/algebra/matrix2.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algebra/vectorN.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algebra/matrix3.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralGroup.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralNetwork.cpp" isTestSource="false" />
@@ -14,13 +11,12 @@
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralNetwork.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/Connection.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/TDLambda.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/TDLambda.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algorithm/TD.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/IEnvironment.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.h" isTestSource="false" />
