@@ -9,7 +9,7 @@ using namespace Eigen;
 class NeuralGroup
 {
 public:
-	NeuralGroup(int p_id, int p_dim, int p_activationFunction);
+	NeuralGroup(string p_id, int p_dim, int p_activationFunction);
 	~NeuralGroup(void);
 
 
@@ -18,7 +18,7 @@ public:
   void activate();
   void calcDerivs();
 
-  int getId() const
+  string getId() const
   { return _id; };
   int getDim() const
   { return _dim; };
@@ -37,7 +37,7 @@ public:
 
 
 private:
-  int     _id;
+  string  _id;
   int     _dim;
   int     _activationFunction;
   bool    _valid;

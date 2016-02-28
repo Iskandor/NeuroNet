@@ -5,7 +5,7 @@
 
 using namespace std;
 
-NeuralGroup::NeuralGroup(int p_id, int p_dim, int p_activationFunction)
+NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
 {
   _id = p_id;
   _dim = p_dim;

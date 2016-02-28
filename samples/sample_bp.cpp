@@ -10,17 +10,18 @@ void sampleBP() {
 
     NeuralNetwork network;
     
-    NeuralGroup* inputGroup = network.addLayer(2, IDENTITY, NeuralNetwork::INPUT);
-    NeuralGroup* biasUnit = network.addLayer(1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer(2, SIGMOID, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer(1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* inputGroup = network.addLayer("input", 2, IDENTITY, NeuralNetwork::INPUT);
+    NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 2, SIGMOID, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     network.addConnection(inputGroup, hiddenGroup);
     network.addConnection(hiddenGroup, outputGroup);
     // bias connections
-    network.addConnection(biasUnit, hiddenGroup);
-    network.addConnection(biasUnit, outputGroup);
+    network.addConnection(biasUnitH, hiddenGroup);
+    network.addConnection(biasUnitO, outputGroup);
 
     BackProp bp(&network);
     bp.setAlpha(0.1);

@@ -11,22 +11,28 @@
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralNetwork.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/Connection.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/TDLambda.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/QLearning.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/QLearning.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/TDLambda.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/IEnvironment.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/Maze.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sampleQ.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sampleQ.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/BanditGame.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/Maze.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/Maze.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/LunarLander.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/LunarLander.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/BanditGame.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

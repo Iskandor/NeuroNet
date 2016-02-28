@@ -60,6 +60,6 @@ set(SOURCE_FILES
         algorithm/TDLambda.h
         samples/sample_td.cpp
         samples/sample_td.h
-    main.cpp algorithm/GradientBase.cpp algorithm/GradientBase.h)
+    main.cpp algorithm/GradientBase.cpp algorithm/GradientBase.h algorithm/QLearning.cpp algorithm/QLearning.h samples/sampleQ.cpp samples/sampleQ.h samples/LunarLander.cpp samples/LunarLander.h)
 
 add_executable(libNeuroNet ${SOURCE_FILES})

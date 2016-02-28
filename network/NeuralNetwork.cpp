@@ -4,13 +4,12 @@
 NeuralNetwork::NeuralNetwork(void)
 {
     _running = true;
-    _groupId = 0;
     _connectionId = 0;
 }
 
 NeuralNetwork::~NeuralNetwork(void)
 {
-    for(map<int, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
+    for(map<string, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
         delete it->second;
     }
     for(map<int, Connection*>::iterator it = _connections.begin(); it != _connections.end(); it++) {
@@ -20,7 +19,7 @@ NeuralNetwork::~NeuralNetwork(void)
 
 void NeuralNetwork::onLoop() {
     /* invalidate all neural groups */
-    for(map<int, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
+    for(map<string, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
         it->second->invalidate();
     }
     /* prepare input signal and propagate it through the network */
@@ -51,9 +50,9 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
     }
 }
 
-NeuralGroup* NeuralNetwork::addLayer(int p_dim, int p_activationFunction, GROUP_TYPE p_type) {
-    NeuralGroup* group = new NeuralGroup(_groupId, p_dim, p_activationFunction);
-    _groups[_groupId] = group;
+NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, int p_activationFunction, GROUP_TYPE p_type) {
+    NeuralGroup* group = new NeuralGroup(p_id, p_dim, p_activationFunction);
+    _groups[p_id] = group;
     _groupId++;
     switch(p_type) {
         case INPUT:

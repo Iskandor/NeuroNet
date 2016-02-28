@@ -20,10 +20,10 @@ Maze::~Maze(void)
 
 void Maze::reset() {
   while(_player == _goal) {
-    _player[0] = rand() % _dim;
-    _player[1] = rand() % _dim;
-    //_player[0] = 0;
-    //_player[1] = 0;
+    //_player[0] = rand() % _dim;
+    //_player[1] = rand() % _dim;
+    _player[0] = 0;
+    _player[1] = 0;
   }
   _state.setConstant(_state.size(),0);
   _state[_player[1] * _dim + _player[0]] = 1;
@@ -44,7 +44,7 @@ void Maze::updateState(VectorXd* p_action) {
   if (isValidMove(newX, newY)) {
     _player[0] = newX; // left, right
     _player[1] = newY; // up, down
-    _reward = 0;
+    _reward = -1;
 
     _state.setConstant(_state.size(), 0);
     _state[newY * _dim + newX] = 1;
@@ -52,12 +52,12 @@ void Maze::updateState(VectorXd* p_action) {
   else
   {
     _reward = -1;
-    _state.setConstant(_state.size(), 1);
+    //_state.setConstant(_state.size(), 1);
   }
 
   if (isFinished())
   {
-    _reward = 1;
+    _reward = 10;
   }
 }
 

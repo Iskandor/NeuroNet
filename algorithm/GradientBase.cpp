@@ -38,8 +38,8 @@ void GradientBase::bfsRecursive(NeuralGroup* p_node) {
 }
 
 void GradientBase::calcDelta(NeuralGroup *p_group) {
-  int id = p_group->getId();
-  int outId;
+  string id = p_group->getId();
+  string outId;
 
   _delta[id] = VectorXd::Zero(p_group->getDim());
   for(vector<int>::iterator it = p_group->getOutConnections()->begin(); it != p_group->getOutConnections()->end(); it++) {
