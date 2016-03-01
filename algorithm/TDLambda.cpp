@@ -9,11 +9,8 @@ TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : 
   _lambda = p_lambda;
   _gamma = p_gamma;
 
-  Connection* connection = nullptr;
-
-  for(auto it = _network->getConnections()->rbegin(); it != _network->getConnections()->rend(); ++it) {
-    connection = it->second;
-    _gradientT1[connection->getId()] = MatrixXd::Zero(connection->getWeights()->rows(), connection->getWeights()->cols());
+  for(auto it = _network->getGroups()->begin(); it != _network->getGroups()->end(); ++it) {
+    _gradientT1[it->second->getId()] = VectorXd::Zero(it->second->getDim());
   }
 }
 
@@ -36,7 +33,7 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
   // updating phase for V(s)
   _network->setInput(p_state0);
   _network->onLoop();
-  calcGradient(_network->getOutput());
+  calcGradient();
 
   for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
     update(*it);
@@ -73,19 +70,20 @@ void TDLambda::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _error * _gradient[p_connection->getId()];
-
-  (*p_connection->getWeights()) += delta;
+  delta = _alpha * _error * _gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
+  (*p_connection->getWeights()) -= delta;
 }
 
 void TDLambda::setAlpha(double p_alpha) {
   _alpha = p_alpha;
 }
 
-void TDLambda::calcGradient(VectorXd *p_error) {
-  GradientBase::calcGradient(p_error);
+void TDLambda::calcGradient(VectorXd* p_error) {
+  GradientBase::calcGradient();
 
-  for(auto it = _network->getConnections()->rbegin(); it != _network->getConnections()->rend(); ++it) {
+  /*
+  for(auto it = _network->getGroups()->begin(); it != _network->getGroups()->end(); ++it) {
     _gradientT1[it->second->getId()] += _lambda * _gradient[it->second->getId()];
   }
+   */
 }

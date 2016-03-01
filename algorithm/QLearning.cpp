@@ -54,8 +54,7 @@ void QLearning::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _error * _gradient[p_connection->getId()];
-
+  delta = _alpha * _error * _gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
   p_connection->getWeights()->operator+=(delta);
 }
 

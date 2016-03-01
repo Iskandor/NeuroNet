@@ -12,11 +12,11 @@ void sampleTD() {
 
     NeuralNetwork network;
 
-  NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
-  NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 32, SIGMOID, NeuralNetwork::HIDDEN);
-  NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
+    NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
 
     // feed-forward connections
@@ -26,12 +26,12 @@ void sampleTD() {
     network.addConnection(biasUnitH, hiddenGroup);
     network.addConnection(biasUnitO, outputGroup);
 
-    TDLambda td(&network, 0.99, 0.99);
-    td.setAlpha(.01);
+    TDLambda td(&network, 0.9, 0.99);
+    td.setAlpha(.1);
 
     Maze maze(dim);
     maze.reset();
-    double epsilon = 0.7;
+    double epsilon = .05;
 
     VectorXd action(4);
     VectorXd state0(dim*dim);
@@ -103,7 +103,6 @@ void sampleTD() {
           cout << endl;
         }
 
-        epsilon *= 0.99;
         time = 0;
         sumReward = 0;
         maze.reset();

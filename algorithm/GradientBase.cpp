@@ -37,44 +37,38 @@ void GradientBase::bfsRecursive(NeuralGroup* p_node) {
   }
 }
 
-void GradientBase::calcDelta(NeuralGroup *p_group) {
+void GradientBase::gradientKernel(NeuralGroup *p_group) {
   string id = p_group->getId();
   string outId;
 
-  _delta[id] = VectorXd::Zero(p_group->getDim());
+  _gradient[id] = VectorXd::Zero(p_group->getDim());
   for(vector<int>::iterator it = p_group->getOutConnections()->begin(); it != p_group->getOutConnections()->end(); it++) {
     outId = _network->getConnection(*it)->getOutGroup()->getId();
     for(int i = 0; i < _network->getConnection(*it)->getOutGroup()->getDim(); i++) {
       for(int j = 0; j < p_group->getDim(); j++) {
-        _delta[id][j] += (*_network->getConnection(*it)->getWeights())(i, j) * _delta[outId][i];
+        _gradient[id][j] += _gradient[outId][i] * (*_network->getConnection(*it)->getWeights())(i, j);
       }
     }
   }
 
   for(int i = 0; i < p_group->getDim(); i++) {
-    _delta[id][i] *= (*p_group->getDerivs())[i];
+    _gradient[id][i] *= (*p_group->getDerivs())[i];
   }
 }
 
 void GradientBase::calcGradient(VectorXd* p_error) {
-  _delta[_network->getOutputGroup()->getId()] = *p_error;
-
   for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
     (*it)->calcDerivs();
   }
 
+  if (p_error != nullptr) {
+    _gradient[_network->getOutputGroup()->getId()] = *p_error;
+  }
+  else {
+    _gradient[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs();
+  }
+
   for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
-    calcDelta(*it);
+    gradientKernel(*it);
   }
-
-  for(auto it = _network->getConnections()->rbegin(); it != _network->getConnections()->rend(); ++it) {
-    calcGradient(it->second);
-  }
-}
-
-void GradientBase::calcGradient(Connection *p_connection) {
-  NeuralGroup* p_inGroup = p_connection->getInGroup();
-  NeuralGroup* p_outGroup = p_connection->getOutGroup();
-
-  _gradient[p_connection->getId()] = _delta[p_outGroup->getId()] * (*p_inGroup->getOutput()).transpose();
 }

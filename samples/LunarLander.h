@@ -9,7 +9,7 @@
 #include "../algorithm/IEnvironment.h"
 
 class LunarLander: public IEnvironment {
-   
+
 };
 
 

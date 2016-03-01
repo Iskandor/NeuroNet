@@ -18,7 +18,7 @@ void sampleQ() {
   NeuralGroup* inputGroup = network.addLayer("input", dim*dim+4, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 32, SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, SIGMOID, NeuralNetwork::HIDDEN);
   NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
 
@@ -93,11 +93,12 @@ void sampleQ() {
     time++;
 
 
-    //cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
+    cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
 
     // 4. check whether terminal state was reached
     if (time > 10000 || maze.isFinished()) {
       cout << "Finish! " << time << " Reward:" << sumReward << endl;
+      //cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
       /*
       for(auto i = 0; i < dim; i++) {
         for(auto j = 0; j < dim; j++) {

@@ -44,7 +44,7 @@ void Maze::updateState(VectorXd* p_action) {
   if (isValidMove(newX, newY)) {
     _player[0] = newX; // left, right
     _player[1] = newY; // up, down
-    _reward = -1;
+    _reward = 0;
 
     _state.setConstant(_state.size(), 0);
     _state[newY * _dim + newX] = 1;
@@ -57,7 +57,7 @@ void Maze::updateState(VectorXd* p_action) {
 
   if (isFinished())
   {
-    _reward = 10;
+    _reward = 1;
   }
 }
 

@@ -17,7 +17,7 @@ public:
   virtual void updateWeights(Connection* p_connection);
 
 protected:
-  void calcGradient(VectorXd* p_error) override;
+  void calcGradient(VectorXd* p_error = nullptr) override;
 
   double  _alpha;
   double  _gamma;
@@ -26,6 +26,6 @@ protected:
   double _error;
   double _Vs0;
   double _Vs1;
-  map<int, MatrixXd> _gradientT1;
+  map<string, VectorXd> _gradientT1;
   
 };
