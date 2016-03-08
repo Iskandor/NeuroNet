@@ -11,22 +11,22 @@
 class QLearning : public GradientBase {
 
 public:
-    QLearning(NeuralNetwork *p_network, double p_gamma);
+    QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda);
 
     double train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward);
-    void update(NeuralGroup* p_node);
-    void updateWeights(Connection* p_connection);
-
     void setAlpha(double p_alpha);
 
 private:
-    double calcMaxQa(VectorXd* p_state, int p_aDim);
+    void updateWeights(Connection* p_connection);
+    void updateEligTraces();
+    double calcMaxQa(VectorXd* p_state);
 
 private:
-    double  _alpha;
-    double  _gamma;
-
+    double _alpha;
+    double _gamma;
+    double _lambda;
     double _error;
+    map<int, MatrixXd> _eligTrace;
 };
 
 

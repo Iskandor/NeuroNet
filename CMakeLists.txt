@@ -21,9 +21,9 @@ set ( EIGEN3_FOUND 1 )
 set ( EIGEN3_USE_FILE     "${CMAKE_CURRENT_LIST_DIR}/UseEigen3.cmake" )
 
 set ( EIGEN3_DEFINITIONS  "" )
-set ( EIGEN3_INCLUDE_DIR  "C:/GIT/lib/eigen/lib/include/eigen3" )
-set ( EIGEN3_INCLUDE_DIRS "C:/GIT/libNeuroNet/lib/eigen3/include/eigen3" )
-set ( EIGEN3_ROOT_DIR     "C:/GIT/libNeuroNet/lib/eigen3" )
+set ( EIGEN3_INCLUDE_DIR  "./lib/include/eigen3" )
+set ( EIGEN3_INCLUDE_DIRS "./lib/eigen3/include/eigen3" )
+set ( EIGEN3_ROOT_DIR     "./lib/eigen3" )
 
 
 

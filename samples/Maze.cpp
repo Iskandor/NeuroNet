@@ -25,7 +25,7 @@ void Maze::reset() {
     _player[0] = 0;
     _player[1] = 0;
   }
-  _state.setConstant(_state.size(),0);
+  _state.fill(0);
   _state[_player[1] * _dim + _player[0]] = 1;
   _reward = 0;
 }
@@ -38,21 +38,21 @@ void Maze::updateState(VectorXd* p_action) {
   VectorXd command(4);
   decodeAction(p_action, &command);
 
-  double newX = _player[0] + command[0] + command[2];
-  double newY = _player[1] + command[1] + command[3];
+  double newX = _player[0] + command[1] + command[3];
+  double newY = _player[1] + command[0] + command[2];
 
   if (isValidMove(newX, newY)) {
     _player[0] = newX; // left, right
     _player[1] = newY; // up, down
     _reward = 0;
 
-    _state.setConstant(_state.size(), 0);
+    _state.fill(0);
     _state[newY * _dim + newX] = 1;
   }
   else
   {
     _reward = -1;
-    //_state.setConstant(_state.size(), 1);
+    //_state.fill(1);
   }
 
   if (isFinished())
@@ -65,32 +65,32 @@ bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
   VectorXd command(4);
   decodeAction(p_action, &command);
 
-  double newX = _player[0] + command[0] + command[2];
-  double newY = _player[1] + command[1] + command[3];
+  double newX = _player[0] + command[1] + command[3];
+  double newY = _player[1] + command[0] + command[2];
 
-  p_state->setConstant(p_state->size(), 0);
+  p_state->fill(0);
   if (isValidMove(newX, newY)) {
     (*p_state)[newY * _dim + newX] = 1;
   }
   else {
-    p_state->setConstant(p_state->size(), 1);
+    //p_state->fill(1);
   }
 
   return isValidMove(newX, newY);
 }
 
 void Maze::decodeAction(VectorXd* p_action, VectorXd* p_command) const {
-  p_command->setConstant(p_command->rows(), 0);
-  if ((*p_action)(0) == 1) {
-    (*p_command)(0) = 1;
+  p_command->fill(0);
+  if ((*p_action)(0) == 1) { // north
+    (*p_command)(0) = -1;
   }
-  if ((*p_action)(1) == 1) {
+  if ((*p_action)(1) == 1) { // east
     (*p_command)(1) = 1;
   }
-  if ((*p_action)(2) == 1) {
-    (*p_command)(2) = -1;
+  if ((*p_action)(2) == 1) { // south
+    (*p_command)(2) = 1;
   }
-  if ((*p_action)(3) == 1) {
+  if ((*p_action)(3) == 1) { // west
     (*p_command)(3) = -1;
   }
 }

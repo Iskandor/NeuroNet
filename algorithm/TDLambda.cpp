@@ -35,8 +35,8 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
   _network->onLoop();
   calcGradient();
 
-  for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
-    update(*it);
+  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+    updateWeights(it->second);
   }
 
   // TEST

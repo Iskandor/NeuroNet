@@ -15,11 +15,11 @@ void sampleQ() {
 
   NeuralNetwork network;
 
-  NeuralGroup* inputGroup = network.addLayer("input", dim*dim+4, IDENTITY, NeuralNetwork::INPUT);
+  NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, SIGMOID, NeuralNetwork::HIDDEN);
-  NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, TANH, NeuralNetwork::HIDDEN);
+  NeuralGroup* outputGroup = network.addLayer("output", 4, TANH, NeuralNetwork::OUTPUT);
 
 
   // feed-forward connections
@@ -29,12 +29,12 @@ void sampleQ() {
   network.addConnection(biasUnitH, hiddenGroup);
   network.addConnection(biasUnitO, outputGroup);
 
-  QLearning qAgent(&network, 0.99);
+  QLearning qAgent(&network, 0.99, 0.99);
   qAgent.setAlpha(.01);
 
   Maze maze(dim);
   maze.reset();
-  double epsilon = 0.01;
+  double epsilon = 0.5;
 
   VectorXd action(4);
   VectorXd state0(dim*dim);
@@ -46,37 +46,35 @@ void sampleQ() {
     double reward = 0;
 
     state0 = *maze.getState();
-/*
+
     for(auto i = 0; i < dim; i++) {
       for(auto j = 0; j < dim; j++) {
         cout << (*maze.getState())(i*dim + j);
       }
       cout << endl;
     }
-    */
 
-    for (int i = 0; i < action.size(); i++) {
+    network.setInput(&state0);
+    network.onLoop();
 
-      action.fill(0);
-      action[i] = 1;
+    double roll = rand() % 100;
 
-      maze.evaluateAction(&action, &state1);
-      VectorXd input(state1.size() + action.size());
-      input << state1, action;
-      network.setInput(&input);
-      network.onLoop();
+    if (roll < epsilon * 100) {
+      action_i = rand() % 4;
 
-      double roll = static_cast<double>(rand()) / RAND_MAX;
+    }
+    else {
+      for (int i = 0; i < action.size(); i++) {
+        action.fill(0);
+        action[i] = 1;
 
-      if (roll < epsilon) {
-        action_i = i;
-        break;
-      }
+        if (maxOutput < (*network.getOutput())[i])
+        {
+          action_i = i;
+          maxOutput = (*network.getOutput())[i];
+        }
 
-      if (maxOutput < network.getScalarOutput())
-      {
-        action_i = i;
-        maxOutput = network.getScalarOutput();
+        cout << "a = " << i << " Q(s,a) = " << (*network.getOutput())[i] << endl;
       }
     }
 
@@ -88,28 +86,27 @@ void sampleQ() {
     reward = maze.getReward();
     sumReward += reward;
 
+    cout << time << " a = " << action_i << " r = " << reward << " Q(s,a) = " << (*network.getOutput())[action_i] << endl;
+
     // 3. update
     qAgent.train(&state0, &action, &state1, reward);
     time++;
-
-
-    cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
 
     // 4. check whether terminal state was reached
     if (time > 10000 || maze.isFinished()) {
       cout << "Finish! " << time << " Reward:" << sumReward << endl;
       //cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
-      /*
+
       for(auto i = 0; i < dim; i++) {
         for(auto j = 0; j < dim; j++) {
           cout << (*maze.getState())(i*dim + j);
         }
         cout << endl;
       }
-       */
 
       time = 0;
       sumReward = 0;
+      epsilon *= 0.999;
       maze.reset();
     }
   }
