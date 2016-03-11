@@ -3,13 +3,15 @@
 #include "samples/sampleQ.h"
 #include "samples/sample_bp.h"
 #include "samples/sample_td.h"
+#include "samples/sampleSOM.h"
 
 
 int main(int argc, char* argv[])
 {
   //sampleBP();
   //sampleTD();
-  sampleQ();
+  //sampleQ();
+  sampleSOM();
 
 /*
   Game  game;
