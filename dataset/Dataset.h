@@ -20,14 +20,13 @@ public:
     void load(string p_filename, DatasetConfig p_format);
     void normalize();
 
-    vector<VectorXd>* getData() { return &_buffer; };
-    vector<VectorXd>* getTarget() { return &_target; };
+    vector<pair<VectorXd, VectorXd>>* getData() { return &_buffer; };
+    void permute();
 protected:
     virtual void parseLine(string p_line, string p_delim);
 private:
     DatasetConfig _config;
-    vector<VectorXd> _buffer;
-    vector<VectorXd> _target;
+    vector<pair<VectorXd, VectorXd>> _buffer;
 };
 
 

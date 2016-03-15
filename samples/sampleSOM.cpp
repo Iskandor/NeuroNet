@@ -10,18 +10,20 @@
 
 void sampleSOM() {
     Dataset dataset;
-    DatasetConfig config = {4, 1, ",", 4};
-    dataset.load("../data/hayes-roth.dat", config);
+    DatasetConfig config = {13, 1, ",", 13};
+    dataset.load("../data/wine.dat", config);
     dataset.normalize();
 
     SOM somNetwork(4, 8, 8, SIGMOID);
-    somNetwork.reset(0.01);
+    double epochs = 1000;
+    somNetwork.initTraining(0.01, epochs);
 
-    for(int t = 0; t < 10; t++) {
+    for(int t = 0; t < epochs; t++) {
+        dataset.permute();
         for(int i = 0; i < dataset.getData()->size(); i++) {
-            somNetwork.train(dataset.getData()->at(i).data());
+            somNetwork.train(dataset.getData()->at(i).first.data());
         }
-        cout << somNetwork.getError()  << endl;
+        cout << "qError: " << somNetwork.getError() << " WD: " << somNetwork.getWinnerDifferentiation() << endl;
         somNetwork.paramDecay();
     }
 }

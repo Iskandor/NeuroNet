@@ -3,8 +3,7 @@
 //
 
 #include <fstream>
-#include <sstream>
-#include <iterator>
+#include <algorithm>
 #include "Dataset.h"
 #include "StringUtils.h"
 
@@ -60,28 +59,27 @@ void Dataset::parseLine(string p_line, string p_delim) {
         target[i] = stod(targets[i]);
     }
 
-    _buffer.push_back(sample);
-    _target.push_back(target);
+    _buffer.push_back(pair<VectorXd, VectorXd>(sample, target));
 }
 
 void Dataset::normalize() {
-    VectorXd max(_config.inDim);
-
-    for(int j = 0; j < _config.inDim; j++) {
-        max[j] = INFINITY;
-    }
+    VectorXd max = VectorXd::Zero(_config.inDim);
 
     for(int i = 0; i < _buffer.size(); i++) {
         for(int j = 0; j < _config.inDim; j++) {
-            if (max[j] < _buffer[i][j]) {
-                max[j] = _buffer[i][j];
+            if (max[j] < _buffer[i].first[j]) {
+                max[j] = _buffer[i].first[j];
             }
         }
     }
 
     for(int i = 0; i < _buffer.size(); i++) {
         for (int j = 0; j < _config.inDim; j++) {
-            _buffer[i][j] /= max[j];
+            _buffer[i].first[j] /= max[j];
         }
     }
+}
+
+void Dataset::permute() {
+    random_shuffle(_buffer.begin(), _buffer.end());
 }

@@ -12,7 +12,7 @@ SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : NeuralNetw
 
     _sigma0 = max(p_dimX, p_dimY) / 2;
     _lambda = 1;
-    _error = 0;
+    _qError = 0;
 
     _dimX = p_dimX;
     _dimY = p_dimY;
@@ -41,6 +41,9 @@ void SOM::findWinner() {
             winnerDist = neuronDist;
         }
     }
+
+    _qError += winnerDist;
+    _winnerSet.insert(_winner);
 }
 
 void SOM::updateWeights() {
@@ -48,7 +51,7 @@ void SOM::updateWeights() {
     double theta = 0;
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
-        theta = calcNeighborhood(i, EUCLIDEAN);
+        theta = calcNeighborhood(i, GAUSSIAN);
         for(int j = 0; j < getGroup("input")->getDim(); j++) {
             delta(i, j) = theta * _alpha * (_input[j] - (*getConnection("input", "lattice")->getWeights())(i, j));
         }
@@ -62,8 +65,6 @@ double SOM::calcDistance(int p_index) {
     for(int i = 0; i < getGroup("input")->getDim(); i++) {
         result += pow(_input[i] - (*getConnection("input", "lattice")->getWeights())(p_index, i), 2);
     }
-
-    _error += sqrt(result);
 
     return sqrt(result);
 }
@@ -79,7 +80,7 @@ double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
 
     switch (p_type) {
         case EUCLIDEAN:
-            result = euclideanDistance(x1, y1, x2, y2);
+            result = 1 / euclideanDistance(x1, y1, x2, y2);
             break;
         case GAUSSIAN:
             result = gaussianDistance(euclideanDistance(x1, y1, x2, y2), _sigma);
@@ -89,17 +90,21 @@ double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
     return result;
 }
 
-void SOM::reset(double p_alpha) {
+void SOM::initTraining(double p_alpha, double p_epochs) {
     _iteration = 0;
+    _qError = 0;
+    _winnerSet.clear();
     _alpha0 = _alpha = p_alpha;
+    _lambda = p_epochs / log(_sigma0);
+    _sigma =  _sigma0 * exp(-_iteration/_lambda);
+    _alpha =  _alpha0 * exp(-_iteration/_lambda);
 }
 
 void SOM::paramDecay() {
     _iteration++;
-    _lambda = _iteration / log(_sigma0);
+    _qError = 0;
     _sigma =  _sigma0 * exp(-_iteration/_lambda);
     _alpha =  _alpha0 * exp(-_iteration/_lambda);
-    _error = 0;
 }
 
 double SOM::euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2) {
@@ -108,4 +113,8 @@ double SOM::euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2) {
 
 double SOM::gaussianDistance(int p_d, double p_sigma) {
     return exp(-pow(p_d,2) / 2 * p_sigma) / (p_sigma * sqrt(2*PI));
+}
+
+double SOM::getWinnerDifferentiation() {
+    return (double)_winnerSet.size()/ (double)getGroup("lattice")->getDim();
 }

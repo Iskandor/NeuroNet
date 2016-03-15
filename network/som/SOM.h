@@ -6,7 +6,10 @@
 #define LIBNEURONET_SOM_H
 
 
+#include <set>
 #include "../NeuralNetwork.h"
+
+using namespace std;
 
 class SOM : public NeuralNetwork {
 public:
@@ -19,10 +22,11 @@ public:
     ~SOM(void);
 
     virtual void train(double *p_input);
-    void reset(double p_alpha);
+    void initTraining(double p_alpha, double p_epochs);
     void paramDecay();
 
-    double getError() { return _error; };
+    double getError() { return _qError; };
+    double getWinnerDifferentiation();
 
 protected:
     void updateWeights();
@@ -42,7 +46,8 @@ private:
     double _alpha;
     double _iteration;
 
-    double _error;
+    double _qError;
+    set<int> _winnerSet;
 
     int _winner;
     int _dimX;
