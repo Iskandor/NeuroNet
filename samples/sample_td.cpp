@@ -15,8 +15,8 @@ void sampleTD() {
     NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 40, TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
 
     // feed-forward connections
@@ -27,11 +27,11 @@ void sampleTD() {
     network.addConnection(biasUnitO, outputGroup);
 
     TDLambda td(&network, 0.9, 0.99);
-    td.setAlpha(.1);
+    td.setAlpha(.01);
 
     Maze maze(dim);
     maze.reset();
-    double epsilon = .05;
+    double epsilon = 0.1;
 
     VectorXd action(4);
     VectorXd state0(dim*dim);

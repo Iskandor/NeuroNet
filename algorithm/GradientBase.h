@@ -21,7 +21,7 @@ protected:
 
     void groupTreeCreate();
     void bfsRecursive(NeuralGroup* p_node);
-    virtual void calcGradient(VectorXd* p_error = nullptr);
+    void calcGradient(VectorXd *p_error = nullptr);
 
 private:
     void gradientKernel(NeuralGroup *p_group);

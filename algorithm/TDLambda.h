@@ -13,19 +13,20 @@ public:
 
   virtual double train(VectorXd *p_state0, VectorXd *p_state1,  double reward);
   void setAlpha(double p_alpha);
-  virtual void update(NeuralGroup* p_node);
   virtual void updateWeights(Connection* p_connection);
 
+
 protected:
-  void calcGradient(VectorXd* p_error = nullptr) override;
+    void calcDelta();
+    void deltaKernel(NeuralGroup *p_group);
 
-  double  _alpha;
-  double  _gamma;
-  double  _lambda;
+    double  _alpha;
+    double  _gamma;
+    double  _lambda;
+    double  _error;
 
-  double _error;
-  double _Vs0;
-  double _Vs1;
-  map<string, VectorXd> _gradientT1;
-  
+    double _Vs0;
+    double _Vs1;
+    map<string, MatrixXd> _delta;
+
 };

@@ -9,9 +9,9 @@
 int main(int argc, char* argv[])
 {
   //sampleBP();
-  //sampleTD();
+  sampleTD();
   //sampleQ();
-  sampleSOM();
+  //sampleSOM();
 
 /*
   Game  game;

@@ -18,8 +18,8 @@ void sampleQ() {
   NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, TANH, NeuralNetwork::HIDDEN);
-  NeuralGroup* outputGroup = network.addLayer("output", 4, TANH, NeuralNetwork::OUTPUT);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* outputGroup = network.addLayer("output", 4, IDENTITY, NeuralNetwork::OUTPUT);
 
 
   // feed-forward connections
@@ -30,18 +30,18 @@ void sampleQ() {
   network.addConnection(biasUnitO, outputGroup);
 
   QLearning qAgent(&network, 0.99, 0.99);
-  qAgent.setAlpha(.01);
+  qAgent.setAlpha(0.1);
 
   Maze maze(dim);
   maze.reset();
-  double epsilon = 0.5;
+  double epsilon = 0.1;
 
   VectorXd action(4);
   VectorXd state0(dim*dim);
   VectorXd state1(dim*dim);
 
   for(int episode = 0; episode < 1000000; episode++) {
-    double maxOutput = -1;
+    double maxOutput = -INFINITY;
     int action_i = 0;
     double reward = 0;
 
@@ -97,16 +97,17 @@ void sampleQ() {
       cout << "Finish! " << time << " Reward:" << sumReward << endl;
       //cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
 
+      /*
       for(auto i = 0; i < dim; i++) {
         for(auto j = 0; j < dim; j++) {
           cout << (*maze.getState())(i*dim + j);
         }
         cout << endl;
       }
+       */
 
       time = 0;
       sumReward = 0;
-      epsilon *= 0.999;
       maze.reset();
     }
   }

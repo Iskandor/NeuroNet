@@ -44,8 +44,8 @@ void QLearning::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _error * _eligTrace[p_connection->getId()]; //_gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
-  p_connection->getWeights()->operator-=(delta);
+  delta = _alpha * _error * _gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose(); // _eligTrace[p_connection->getId()];
+  p_connection->getWeights()->operator+=(delta);
 }
 
 double QLearning::calcMaxQa(VectorXd* p_state) {

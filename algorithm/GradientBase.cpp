@@ -56,7 +56,7 @@ void GradientBase::gradientKernel(NeuralGroup *p_group) {
   }
 }
 
-void GradientBase::calcGradient(VectorXd* p_error) {
+void GradientBase::calcGradient(VectorXd *p_error) {
   for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
     (*it)->calcDerivs();
   }
