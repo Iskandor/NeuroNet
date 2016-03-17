@@ -8,8 +8,8 @@
 
 int main(int argc, char* argv[])
 {
-  //sampleBP();
-  sampleTD();
+  sampleBP();
+  //sampleTD();
   //sampleQ();
   //sampleSOM();
 

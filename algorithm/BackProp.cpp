@@ -59,7 +59,7 @@ void BackProp::updateWeights(Connection* p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
+  delta = _alpha * _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
 
   (*p_connection->getWeights()) += delta;
 }

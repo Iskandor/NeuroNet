@@ -44,7 +44,7 @@ void QLearning::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _error * _gradient[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose(); // _eligTrace[p_connection->getId()];
+  delta = _alpha * _error * _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose(); // _eligTrace[p_connection->getId()];
   p_connection->getWeights()->operator+=(delta);
 }
 
@@ -66,6 +66,6 @@ void QLearning::updateEligTraces() {
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
     Connection *connection = it->second;
 
-    _eligTrace[connection->getId()] = _gradient[connection->getOutGroup()->getId()] * connection->getInGroup()->getOutput()->transpose() + _gamma * _lambda * _eligTrace[connection->getId()];
+    _eligTrace[connection->getId()] = _delta[connection->getOutGroup()->getId()] * connection->getInGroup()->getOutput()->transpose() + _gamma * _lambda * _eligTrace[connection->getId()];
   }
 }

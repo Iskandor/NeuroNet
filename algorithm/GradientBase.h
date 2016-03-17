@@ -16,7 +16,7 @@ public:
 protected:
     NeuralNetwork* _network;
 
-    map<string, VectorXd> _gradient;
+    map<string, VectorXd> _delta;
     vector<NeuralGroup*> _groupTree;
 
     void groupTreeCreate();

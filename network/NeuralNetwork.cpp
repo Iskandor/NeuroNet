@@ -43,9 +43,9 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
 
     p_node->fire();
     /* send signal to synapsis and repeat it for not activated group to prevent infinite loops */
-    for(vector<int>::iterator it = p_node->getOutConnections()->begin(); it != p_node->getOutConnections()->end(); it++) {        
-        if (!_connections[*it]->getOutGroup()->isValid()) {
-            activate(_connections[*it]->getOutGroup());
+    if (p_node->getOutConnection() != -1) {
+        if (!_connections[p_node->getOutConnection()]->getOutGroup()->isValid()) {
+            activate(_connections[p_node->getOutConnection()]->getOutGroup());
         }
     }
 }

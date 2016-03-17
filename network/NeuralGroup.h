@@ -28,7 +28,7 @@ public:
 
   void addOutConnection(int p_index);
   void addInConnection(int p_index);
-  vector<int>* getOutConnections() { return &_outConnections; }; 
+  int getOutConnection() { return _outConnection; };
   vector<int>* getInConnections() { return &_inConnections; };
   
   bool isValid() const { return _valid; };
@@ -47,6 +47,6 @@ private:
   VectorXd _actionPotential;
   
   vector<int> _inConnections;
-  vector<int> _outConnections;
+  int _outConnection;
 };
 

@@ -10,6 +10,7 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
   _id = p_id;
   _dim = p_dim;
   _activationFunction = p_activationFunction;
+  _outConnection = -1;
 
   _output = VectorXd::Zero(_dim);
   _derivs = VectorXd::Zero(_dim);
@@ -40,7 +41,7 @@ void NeuralGroup::addInConnection(int p_index) {
 }
 
 void NeuralGroup::addOutConnection(int p_index) {
-    _outConnections.push_back(p_index);
+    _outConnection = p_index;
 }
 
 void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
