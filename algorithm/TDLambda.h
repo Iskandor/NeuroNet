@@ -23,7 +23,7 @@ protected:
     double  _alpha;
     double  _gamma;
     double  _lambda;
-    double  _error;
+    VectorXd  _error;
 
     double _Vs0;
     double _Vs1;

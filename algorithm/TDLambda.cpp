@@ -8,6 +8,7 @@ using namespace std;
 TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network) {
   _lambda = p_lambda;
   _gamma = p_gamma;
+  _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());
 }
 
 TDLambda::~TDLambda() {
@@ -24,7 +25,7 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
   _Vs1 = _network->getScalarOutput();
 
   // calc TD error
-  _error = reward + _gamma * _Vs1 - _Vs0;
+  _error[0] = reward + _gamma * _Vs1 - _Vs0;
 
   // updating phase for V(s)
   _network->setInput(p_state0);
@@ -36,17 +37,23 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
     updateWeights(it->second);
   }
 
-  return _error;
+  return _error[0];
 }
 
 void TDLambda::updateWeights(Connection *p_connection) {
-  int nCols = p_connection->getInGroup()->getDim();
   int nRows = p_connection->getOutGroup()->getDim();
-  MatrixXd delta(nRows, nCols);
+  int nCols = p_connection->getInGroup()->getDim();
+  MatrixXd deltaW = MatrixXd::Zero(nRows, nCols);
 
-  delta = _alpha * _error * *p_connection->getInGroup()->getOutput() * _delta[p_connection->getOutGroup()->getId()];
+  for(int o = 0; o < _network->getOutputGroup()->getDim(); o++) {
+    for(int i = 0; i < nRows; i++) {
+      for(int j = 0; j < nCols; j++) {
+        deltaW(i,j) += _alpha * _error[o] * _delta[p_connection->getOutGroup()->getId()](o,i) * (*p_connection->getInGroup()->getOutput())[j];
+      }
+    }
+  }
 
-  (*p_connection->getWeights()) += delta;
+  (*p_connection->getWeights()) += deltaW;
 }
 
 void TDLambda::setAlpha(double p_alpha) {
@@ -67,13 +74,16 @@ void TDLambda::calcDelta() {
 }
 
 void TDLambda::deltaKernel(NeuralGroup *p_group) {
-  string outId;
-  Connection *connection = nullptr;
+  Connection *connection = _network->getConnection(p_group->getOutConnection());
+  string outId = connection->getOutGroup()->getId();
   p_group->calcDerivs();
   _delta[p_group->getId()] = MatrixXd::Zero(_network->getOutputGroup()->getDim(), p_group->getDim());
 
-  connection = _network->getConnection(p_group->getOutConnection());
-  outId = connection->getOutGroup()->getId();
-  MatrixXd m = p_group->getDerivs()->transpose() * _delta[outId].transpose(); // * *connection->getWeights();
-  _delta[p_group->getId()] = m;
+  for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
+    for(int j = 0; j < connection->getOutGroup()->getDim(); j++) {
+      for(int k = 0; k < p_group->getDim(); k++) {
+        _delta[p_group->getId()](i,k) += (*p_group->getDerivs())[k] * _delta[outId](i,j) * connection->getWeights()->transpose()(k, j);
+      }
+    }
+  }
 }

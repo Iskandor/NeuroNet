@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/algorithm/TDLambda.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/IEnvironment.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/log/log.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/sampleQ.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/sampleQ.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/BanditGame.h" isTestSource="false" />

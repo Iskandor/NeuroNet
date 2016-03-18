@@ -72,7 +72,7 @@ bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
     (*p_state)[newY * _dim + newX] = 1;
   }
   else {
-    //p_state->fill(1);
+    p_state->fill(1);
   }
 
   return isValidMove(newX, newY);

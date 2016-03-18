@@ -5,7 +5,7 @@
 
 void sampleBP() {
     double trainingSet[4][2] = {{0,0},{0,1},{1,0},{1,1}};
-    double targetSet[4][1] = {{0},{0},{0},{1}};
+    double targetSet[4][1] = {{0},{1},{1},{0}};
     double mse = 1;
 
     NeuralNetwork network;
@@ -14,7 +14,7 @@ void sampleBP() {
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* hiddenGroup = network.addLayer("hidden", 2, SIGMOID, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     network.addConnection(inputGroup, hiddenGroup);

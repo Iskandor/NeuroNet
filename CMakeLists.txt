@@ -35,7 +35,7 @@ set ( EIGEN3_VERSION_PATCH  "92" )
 add_definitions     ( ${EIGEN3_DEFINITIONS} )
 include_directories ( ${EIGEN3_INCLUDE_DIRS} )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstdc++ -static -lpthread")
 
 set(SOURCE_FILES
         algorithm/BackProp.h
@@ -60,6 +60,7 @@ set(SOURCE_FILES
         algorithm/TDLambda.h
         samples/sample_td.cpp
         samples/sample_td.h
+        log/log.h
     main.cpp algorithm/GradientBase.cpp algorithm/GradientBase.h algorithm/QLearning.cpp algorithm/QLearning.h samples/sampleQ.cpp samples/sampleQ.h samples/LunarLander.cpp samples/LunarLander.h network/som/SOM.cpp network/som/SOM.h dataset/Dataset.cpp dataset/Dataset.h dataset/StringUtils.cpp dataset/StringUtils.h samples/sampleSOM.cpp samples/sampleSOM.h dataset/DatasetConfig.h)
 
 add_executable(libNeuroNet ${SOURCE_FILES})
