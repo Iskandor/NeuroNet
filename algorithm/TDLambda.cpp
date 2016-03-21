@@ -6,60 +6,72 @@
 using namespace std;
 
 TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network) {
-  _lambda = p_lambda;
-  _gamma = p_gamma;
-  _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());
+    _lambda = p_lambda;
+    _gamma = p_gamma;
+    _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());
+
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        int nRows = it->second->getOutGroup()->getDim();
+        int nCols = it->second->getInGroup()->getDim();
+        _eligTrace[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
+    }
 }
 
 TDLambda::~TDLambda() {
 }
 
 double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
-  // forward activation phase
-  _network->setInput(p_state0);
-  _network->onLoop();
-  _Vs0 = _network->getScalarOutput();
+    // forward activation phase
+    _network->setInput(p_state0);
+    _network->onLoop();
+    _Vs0 = _network->getScalarOutput();
 
-  _network->setInput(p_state1);
-  _network->onLoop();
-  _Vs1 = _network->getScalarOutput();
+    _network->setInput(p_state1);
+    _network->onLoop();
+    _Vs1 = _network->getScalarOutput();
 
-  // calc TD error
-  _error[0] = reward + _gamma * _Vs1 - _Vs0;
+    // calc TD error
+    _error[0] = reward + _gamma * _Vs1 - _Vs0;
 
-  // updating phase for V(s)
-  _network->setInput(p_state0);
-  _network->onLoop();
+    // updating phase for V(s)
+    _network->setInput(p_state0);
+    _network->onLoop();
 
-  calcDelta();
+    calcGradient();
 
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-    updateWeights(it->second);
-  }
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        updateEligTrace(it->second);
+        updateWeights(it->second);
+    }
 
-  return _error[0];
+    return _error[0];
 }
 
 void TDLambda::updateWeights(Connection *p_connection) {
-  int nRows = p_connection->getOutGroup()->getDim();
-  int nCols = p_connection->getInGroup()->getDim();
-  MatrixXd deltaW = MatrixXd::Zero(nRows, nCols);
+    int nRows = p_connection->getOutGroup()->getDim();
+    int nCols = p_connection->getInGroup()->getDim();
+    MatrixXd deltaW = MatrixXd::Zero(nRows, nCols);
 
-  for(int o = 0; o < _network->getOutputGroup()->getDim(); o++) {
+    deltaW = _alpha * _error[0] * _eligTrace[p_connection->getId()];
+
+    /*
+    for(int o = 0; o < _network->getOutputGroup()->getDim(); o++) {
     for(int i = 0; i < nRows; i++) {
       for(int j = 0; j < nCols; j++) {
         deltaW(i,j) += _alpha * _error[o] * _delta[p_connection->getOutGroup()->getId()](o,i) * (*p_connection->getInGroup()->getOutput())[j];
       }
     }
-  }
+    }
+    */
 
-  (*p_connection->getWeights()) += deltaW;
+    (*p_connection->getWeights()) += deltaW;
 }
 
 void TDLambda::setAlpha(double p_alpha) {
-  _alpha = p_alpha;
+    _alpha = p_alpha;
 }
 
+/*
 void TDLambda::calcDelta() {
   _network->getOutputGroup()->calcDerivs();
   _delta[_network->getOutputGroup()->getId()] = MatrixXd::Identity(_network->getOutputGroup()->getDim(), _network->getOutputGroup()->getDim());
@@ -86,4 +98,9 @@ void TDLambda::deltaKernel(NeuralGroup *p_group) {
       }
     }
   }
+}
+ */
+
+void TDLambda::updateEligTrace(Connection *p_connection) {
+    _eligTrace[p_connection->getId()] = _gradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }

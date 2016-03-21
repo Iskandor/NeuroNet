@@ -8,17 +8,18 @@ class TDLambda : public GradientBase
 {
 
 public:
-  TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma);
-  ~TDLambda(void);
+    TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma);
+    ~TDLambda(void);
 
-  virtual double train(VectorXd *p_state0, VectorXd *p_state1,  double reward);
-  void setAlpha(double p_alpha);
-  virtual void updateWeights(Connection* p_connection);
+    virtual double train(VectorXd *p_state0, VectorXd *p_state1,  double reward);
+    void setAlpha(double p_alpha);
+    virtual void updateWeights(Connection* p_connection);
 
 
 protected:
-    void calcDelta();
-    void deltaKernel(NeuralGroup *p_group);
+    void updateEligTrace(Connection* p_connection);
+    //void calcDelta();
+    //void deltaKernel(NeuralGroup *p_group);
 
     double  _alpha;
     double  _gamma;
@@ -27,6 +28,7 @@ protected:
 
     double _Vs0;
     double _Vs1;
-    map<string, MatrixXd> _delta;
+    //map<string, MatrixXd> _delta;
+    map<int, MatrixXd> _eligTrace;
 
 };

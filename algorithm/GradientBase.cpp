@@ -37,7 +37,28 @@ void GradientBase::bfsRecursive(NeuralGroup* p_node) {
   }
 }
 
-void GradientBase::gradientKernel(NeuralGroup *p_group) {
+void GradientBase::calcGradient(VectorXd *p_error) {
+  for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
+    (*it)->calcDerivs();
+  }
+
+  if (p_error != nullptr) {
+    _delta[_network->getOutputGroup()->getId()] = p_error->cwiseProduct(*_network->getOutputGroup()->getDerivs());
+  }
+  else {
+    _delta[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs();
+  }
+
+  for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
+    deltaKernel(*it);
+  }
+
+  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+    gradientKernel(it->second);
+  }
+}
+
+void GradientBase::deltaKernel(NeuralGroup *p_group) {
   Connection* connection = _network->getConnection(p_group->getOutConnection());
   string id = p_group->getId();
   string outId = connection->getOutGroup()->getId();
@@ -54,19 +75,6 @@ void GradientBase::gradientKernel(NeuralGroup *p_group) {
   }
 }
 
-void GradientBase::calcGradient(VectorXd *p_error) {
-  for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
-    (*it)->calcDerivs();
-  }
-
-  if (p_error != nullptr) {
-    _delta[_network->getOutputGroup()->getId()] = p_error->cwiseProduct(*_network->getOutputGroup()->getDerivs());
-  }
-  else {
-    _delta[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs();
-  }
-
-  for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
-    gradientKernel(*it);
-  }
+void GradientBase::gradientKernel(Connection *p_connection) {
+  _gradient[p_connection->getId()] = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
 }

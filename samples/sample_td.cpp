@@ -27,7 +27,7 @@ void sampleTD() {
     network.addConnection(biasUnitH, hiddenGroup);
     network.addConnection(biasUnitO, outputGroup);
 
-    TDLambda td(&network, 0.9, 0.99);
+    TDLambda td(&network, 0.9, 0.9);
     td.setAlpha(.1);
 
     Maze maze(dim);
@@ -44,7 +44,9 @@ void sampleTD() {
     Output2FILE::Stream() = pFile;
     FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-    for(int episode = 0; episode < 1000000; episode++) {
+    int episode = 0;
+
+    while(episode < 200) {
         double reward = 0;
         state0 = *maze.getState();
         policy.getAction(action, dim*dim);
@@ -68,8 +70,9 @@ void sampleTD() {
         */
 
         // 4. check whether terminal state was reached
-        if (time > 10000 || maze.isFinished()) {
-            cout << "Finish! " << time << " Reward:" << sumReward << endl;
+        if (maze.isFinished()) {
+
+            cout << "Finished episode" << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
             for(auto i = 0; i < dim; i++) {
               for(auto j = 0; j < dim; j++) {
@@ -85,6 +88,7 @@ void sampleTD() {
             time = 0;
             sumReward = 0;
             maze.reset();
+            episode++;
         }
     }
 
