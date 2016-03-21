@@ -4,6 +4,7 @@
 #include "../network/Define.h"
 #include "../algorithm/TDLambda.h"
 #include "Maze.h"
+#include "../algorithm/GreedyPolicy.h"
 
 void sampleTD() {
     double sumReward = 0;
@@ -15,8 +16,8 @@ void sampleTD() {
     NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 40, TANH, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
 
     // feed-forward connections
@@ -31,50 +32,22 @@ void sampleTD() {
 
     Maze maze(dim);
     maze.reset();
-    double epsilon = 0.01;
 
     VectorXd action(4);
     VectorXd state0(dim*dim);
     VectorXd state1(dim*dim);
 
+    GreedyPolicy policy(&network, &maze);
+    policy.setEpsilon(0.001);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
     FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-    for(int episode = 0; episode < 5000000; episode++) {
-        double maxOutput = -INFINITY;
-        int action_i = 0;
+    for(int episode = 0; episode < 1000000; episode++) {
         double reward = 0;
-
         state0 = *maze.getState();
-
-        for (int i = 0; i < action.size(); i++) {
-            action.fill(0);
-            action[i] = 1;
-
-            if (maze.evaluateAction(&action, &state1)) {
-                network.setInput(&state1);
-                network.onLoop();
-
-                double roll = static_cast<double>(rand()) / RAND_MAX;
-
-                if (roll < epsilon) {
-                  action_i = i;
-                  break;
-                }
-
-                if (maxOutput < network.getScalarOutput())
-                {
-                  action_i = i;
-                  maxOutput = network.getScalarOutput();
-                }
-            }
-        }
-
-        action.fill(0);
-        action[action_i] = 1;
-
+        policy.getAction(action, dim*dim);
         maze.updateState(&action);
         state1 = *maze.getState();
         reward = maze.getReward();

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/libNeuroNet.iml" filepath="$PROJECT_DIR$/.idea/libNeuroNet.iml" />
+      <module fileurl="file://$USER_HOME$/Documents/NeuroNet/.idea/libNeuroNet.iml" filepath="$USER_HOME$/Documents/NeuroNet/.idea/libNeuroNet.iml" />
     </modules>
   </component>
 </project>

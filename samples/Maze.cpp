@@ -20,10 +20,10 @@ Maze::~Maze(void)
 
 void Maze::reset() {
   while(_player == _goal) {
-    //_player[0] = rand() % _dim;
-    //_player[1] = rand() % _dim;
-    _player[0] = 0;
-    _player[1] = 0;
+    _player[0] = rand() % _dim;
+    _player[1] = rand() % _dim;
+    //_player[0] = 0;
+    //_player[1] = 0;
   }
   _state.fill(0);
   _state[_player[1] * _dim + _player[0]] = 1;
