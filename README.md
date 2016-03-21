@@ -1,2 +1,2 @@
-# libNeuroNet
+# NeuroNet
 Neural network library
