@@ -19,7 +19,7 @@ public:
 private:
     void updateWeights(Connection* p_connection);
     void updateEligTraces();
-    double calcMaxQa(VectorXd* p_state);
+    double calcMaxQa(VectorXd* p_state, VectorXd* p_action);
 
 private:
     double _alpha;

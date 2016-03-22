@@ -51,7 +51,8 @@ void Maze::updateState(VectorXd* p_action) {
   else
   {
     _reward = -1;
-    _state.fill(1);
+    //_state.fill(1);
+
   }
 
   if (isFinished())

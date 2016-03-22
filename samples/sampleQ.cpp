@@ -7,6 +7,7 @@
 #include "../network/Define.h"
 #include "../algorithm/QLearning.h"
 #include "Maze.h"
+#include "../log/log.h"
 
 void sampleQ() {
   double sumReward = 0;
@@ -15,11 +16,11 @@ void sampleQ() {
 
   NeuralNetwork network;
 
-  NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
+  NeuralGroup* inputGroup = network.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
-  NeuralGroup* outputGroup = network.addLayer("output", 4, IDENTITY, NeuralNetwork::OUTPUT);
+  NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
 
   // feed-forward connections
@@ -29,53 +30,51 @@ void sampleQ() {
   network.addConnection(biasUnitH, hiddenGroup);
   network.addConnection(biasUnitO, outputGroup);
 
-  QLearning qAgent(&network, 0.99, 0.99);
+  QLearning qAgent(&network, 0.9, 0.9);
   qAgent.setAlpha(0.1);
 
   Maze maze(dim);
   maze.reset();
-  double epsilon = 0.1;
+  double epsilon = 0.01;
 
   VectorXd action(4);
   VectorXd state0(dim*dim);
   VectorXd state1(dim*dim);
 
-  for(int episode = 0; episode < 1000000; episode++) {
+  int episode = 0;
+
+  FILE* pFile = fopen("application.log", "w");
+  Output2FILE::Stream() = pFile;
+  FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
+
+  while(episode < 100) {
     double maxOutput = -INFINITY;
     int action_i = 0;
     double reward = 0;
 
     state0 = *maze.getState();
 
-    for(auto i = 0; i < dim; i++) {
-      for(auto j = 0; j < dim; j++) {
-        cout << (*maze.getState())(i*dim + j);
-      }
-      cout << endl;
-    }
-
-    network.setInput(&state0);
-    network.onLoop();
-
-    double roll = rand() % 100;
-
-    if (roll < epsilon * 100) {
-      action_i = rand() % 4;
-
-    }
-    else {
-      for (int i = 0; i < action.size(); i++) {
+    for (int i = 0; i < action.size(); i++) {
         action.fill(0);
         action[i] = 1;
 
-        if (maxOutput < (*network.getOutput())[i])
-        {
+        double roll = rand() % 100;
+        if (roll < epsilon * 100) {
           action_i = i;
-          maxOutput = (*network.getOutput())[i];
+          break;
         }
 
-        cout << "a = " << i << " Q(s,a) = " << (*network.getOutput())[i] << endl;
-      }
+        VectorXd input(state0.size() + action.size());
+        input << state0, action;
+        network.setInput(&input);
+        network.onLoop();
+
+        if (maxOutput < network.getScalarOutput()) {
+          action_i = i;
+          maxOutput = network.getScalarOutput();
+        }
+
+        //cout << "a = " << i << " Q(s,a) = " << (*network.getOutput())[i] << endl;
     }
 
     action.fill(0);
@@ -86,29 +85,21 @@ void sampleQ() {
     reward = maze.getReward();
     sumReward += reward;
 
-    cout << time << " a = " << action_i << " r = " << reward << " Q(s,a) = " << (*network.getOutput())[action_i] << endl;
+    //cout << time << " a = " << action_i << " r = " << reward << " Q(s,a) = " << (*network.getOutput())[action_i] << endl;
 
     // 3. update
     qAgent.train(&state0, &action, &state1, reward);
     time++;
 
     // 4. check whether terminal state was reached
-    if (time > 10000 || maze.isFinished()) {
-      cout << "Finish! " << time << " Reward:" << sumReward << endl;
-      //cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
-
-      /*
-      for(auto i = 0; i < dim; i++) {
-        for(auto j = 0; j < dim; j++) {
-          cout << (*maze.getState())(i*dim + j);
-        }
-        cout << endl;
-      }
-       */
+    if (maze.isFinished()) {
+      cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
+      FILE_LOG(logDEBUG1) << sumReward;
 
       time = 0;
       sumReward = 0;
       maze.reset();
+      episode++;
     }
   }
 

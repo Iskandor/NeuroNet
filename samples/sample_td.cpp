@@ -72,7 +72,7 @@ void sampleTD() {
         // 4. check whether terminal state was reached
         if (maze.isFinished()) {
 
-            cout << "Finished episode" << episode << "! " << time << " Reward:" << sumReward << endl;
+            cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
             for(auto i = 0; i < dim; i++) {
               for(auto j = 0; j < dim; j++) {
@@ -87,7 +87,6 @@ void sampleTD() {
 
             time = 0;
             sumReward = 0;
-            maze.reset();
             episode++;
         }
     }

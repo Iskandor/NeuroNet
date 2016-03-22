@@ -5,67 +5,75 @@
 #include "QLearning.h"
 
 QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network) {
-  _gamma = p_gamma;
-  _lambda = p_lambda;
+    _gamma = p_gamma;
+    _lambda = p_lambda;
 
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-    _eligTrace[it->second->getId()] = MatrixXd::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
-  }
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        _eligTrace[it->second->getId()] = MatrixXd::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
+    }
 }
 
 double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward) {
-  _network->setInput(p_state0);
-  _network->onLoop();
+    VectorXd input(p_state0->size() + p_action0->size());
+    input << *p_state0, *p_action0;
+    _network->setInput(&input);
+    _network->onLoop();
 
-  double Qs0a0 = _network->getScalarOutput();
-  double maxQs1a = calcMaxQa(p_state1);
+    double Qs0a0 = _network->getScalarOutput();
+    double maxQs1a = calcMaxQa(p_state1, p_action0);
 
-  _error = p_reward + _gamma * maxQs1a - Qs0a0;
+    _error = p_reward + _gamma * maxQs1a - Qs0a0;
 
-  // updating phase for Q(s,a)
-  _network->setInput(p_state0);
-  _network->onLoop();
+    // updating phase for Q(s,a)
+    _network->setInput(&input);
+    _network->onLoop();
 
-  calcGradient();
-  updateEligTraces();
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-    updateWeights(it->second);
-  }
+    calcGradient();
+    //updateEligTraces();
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        updateWeights(it->second);
+    }
 
-  return _error;
+    return _error;
 }
 
 void QLearning::setAlpha(double p_alpha) {
-  _alpha = p_alpha;
+    _alpha = p_alpha;
 }
 
 void QLearning::updateWeights(Connection *p_connection) {
-  int nCols = p_connection->getInGroup()->getDim();
-  int nRows = p_connection->getOutGroup()->getDim();
-  MatrixXd delta(nRows, nCols);
+    int nCols = p_connection->getInGroup()->getDim();
+    int nRows = p_connection->getOutGroup()->getDim();
+    MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _error * _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose(); // _eligTrace[p_connection->getId()];
-  p_connection->getWeights()->operator+=(delta);
+    delta = _alpha * _error * _gradient[p_connection->getId()]; // _eligTrace[p_connection->getId()];
+    p_connection->getWeights()->operator+=(delta);
 }
 
-double QLearning::calcMaxQa(VectorXd* p_state) {
-  double maxQa = -INFINITY;
+double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
+    double maxQa = -INFINITY;
 
-  _network->setInput(p_state);
-  _network->onLoop();
-  for(int i = 0; i < _network->getOutput()->size(); i++) {
-    if ((*_network->getOutput())[i] >  maxQa) {
-      maxQa = (*_network->getOutput())[i];
+    VectorXd action = VectorXd::Zero(p_action->size());
+    for(int i = 0; i < p_action->size(); i++) {
+        action.fill(0);
+        action[i] = 1;
+        VectorXd input(p_state->size() + p_action->size());
+        input << *p_state, action;
+
+        _network->setInput(&input);
+        _network->onLoop();
+
+        if (_network->getScalarOutput() >  maxQa) {
+            maxQa = _network->getScalarOutput();
+        }
     }
-  }
 
-  return maxQa;
+    return maxQa;
 }
 
 void QLearning::updateEligTraces() {
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-    Connection *connection = it->second;
-
-    _eligTrace[connection->getId()] = _delta[connection->getOutGroup()->getId()] * connection->getInGroup()->getOutput()->transpose() + _gamma * _lambda * _eligTrace[connection->getId()];
-  }
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        Connection *connection = it->second;
+        _eligTrace[connection->getId()] = _delta[connection->getOutGroup()->getId()] * connection->getInGroup()->getOutput()->transpose() + _gamma * _lambda * _eligTrace[connection->getId()];
+    }
 }

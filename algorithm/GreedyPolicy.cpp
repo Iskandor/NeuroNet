@@ -28,15 +28,15 @@ void GreedyPolicy::getAction(VectorXd &p_action, int p_stateDim) {
         p_action[i] = 1;
 
         if (_environment->evaluateAction(&p_action, &state)) {
-            _network->setInput(&state);
-            _network->onLoop();
-
             double roll = static_cast<double>(rand()) / RAND_MAX;
 
             if (roll < _epsilon) {
                 action_i = i;
                 break;
             }
+
+            _network->setInput(&state);
+            _network->onLoop();
 
             if (maxOutput < _network->getScalarOutput())
             {
