@@ -18,7 +18,7 @@ public:
 
 private:
     void updateWeights(Connection* p_connection);
-    void updateEligTraces();
+    void updateEligTrace(Connection* p_connection);
     double calcMaxQa(VectorXd* p_state, VectorXd* p_action);
 
 private:

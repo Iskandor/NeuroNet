@@ -47,7 +47,7 @@ void sampleQ() {
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 100) {
+  while(episode < 1000) {
     double maxOutput = -INFINITY;
     int action_i = 0;
     double reward = 0;

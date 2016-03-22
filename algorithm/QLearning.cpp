@@ -29,8 +29,8 @@ double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_sta
     _network->onLoop();
 
     calcGradient();
-    //updateEligTraces();
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
+        updateEligTrace(it->second);
         updateWeights(it->second);
     }
 
@@ -46,7 +46,7 @@ void QLearning::updateWeights(Connection *p_connection) {
     int nRows = p_connection->getOutGroup()->getDim();
     MatrixXd delta(nRows, nCols);
 
-    delta = _alpha * _error * _gradient[p_connection->getId()]; // _eligTrace[p_connection->getId()];
+    delta = _alpha * _error * _eligTrace[p_connection->getId()]; //_gradient[p_connection->getId()];
     p_connection->getWeights()->operator+=(delta);
 }
 
@@ -71,9 +71,6 @@ double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
     return maxQa;
 }
 
-void QLearning::updateEligTraces() {
-    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-        Connection *connection = it->second;
-        _eligTrace[connection->getId()] = _delta[connection->getOutGroup()->getId()] * connection->getInGroup()->getOutput()->transpose() + _gamma * _lambda * _eligTrace[connection->getId()];
-    }
+void QLearning::updateEligTrace(Connection* p_connection) {
+    _eligTrace[p_connection->getId()] = _gradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }
