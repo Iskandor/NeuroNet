@@ -15,7 +15,7 @@ public:
     ~NetworkUtils() {};
 
     static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd& p_vector);
-    static inline int kroneckerDelta(int p_i, int p_j);
+    static int kroneckerDelta(int p_i, int p_j);
 };
 
 

@@ -7,6 +7,8 @@
 #define SIGMOID 3
 #define TANH 4
 #define SOFTMAX 5
+#define SOFTPLUS 8
+#define BENT 9
 
 // SOM
 #define LINEAR 6

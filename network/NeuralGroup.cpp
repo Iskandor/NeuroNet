@@ -16,13 +16,6 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
   _output = VectorXd::Zero(_dim);
   _derivs = MatrixXd::Zero(_dim, _dim);
   _actionPotential = VectorXd::Zero(_dim);
-
-  if (_activationFunction == BIAS) {
-    for(int i = 0; i < p_dim; i++) {
-      _output[i] = 1;
-    }
-  }
-
   _valid = false;
 }
 
@@ -52,70 +45,91 @@ void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
 /* function which should calculate the output of neuron (activation function output) according to action potential */
 void NeuralGroup::activate() {
 
-  double sumExp = 0;
-  for(int i = 0; i < _dim; i++) {
-    sumExp += exp(_actionPotential[i]);
-  }
-
-  for(auto index = 0; index < _dim; index++) {    
-    switch (_activationFunction) {
-      case IDENTITY:
-        _output[index] = _actionPotential(index);
-        _actionPotential[index] = 0;
-      break;
-      case BIAS:
-        _output[index] = -1;
-        _actionPotential[index] = 0;
-      break;
-      case BINARY:
-        if (_actionPotential[index] > 0) {
-            _output[index] = 1;
-            _actionPotential[index] = 0;
-        }
-        else {
-            _output[index] = 0;
-        }
-      break;
-      case SIGMOID:
-        _output[index] = 1 / (1 + exp(-_actionPotential[index]));
-        _actionPotential[index] = 0;
-      break;
-      case TANH:
-        _output[index] = tanh(_actionPotential[index]);
-        _actionPotential[index] = 0;
-      case SOFTMAX:
-        _output[index] = exp(_actionPotential[index]) / sumExp;
-      break;
+    double sumExp = 0;
+    for(int i = 0; i < _dim; i++) {
+        sumExp += exp(_actionPotential[i]);
     }
-  }
+
+    for(auto index = 0; index < _dim; index++) {
+        switch (_activationFunction) {
+            case IDENTITY:
+                _output[index] = _actionPotential(index);
+                _actionPotential[index] = 0;
+                break;
+            case BIAS:
+                _output[index] = -1;
+                _actionPotential[index] = 0;
+                break;
+            case BINARY:
+                if (_actionPotential[index] > 0) {
+                    _output[index] = 1;
+                    _actionPotential[index] = 0;
+                }
+                else {
+                    _output[index] = 0;
+                }
+                break;
+            case SIGMOID:
+                _output[index] = 1 / (1 + exp(-_actionPotential[index]));
+                _actionPotential[index] = 0;
+                break;
+            case TANH:
+                _output[index] = tanh(_actionPotential[index]);
+                _actionPotential[index] = 0;
+                break;
+            case SOFTMAX:
+                _output[index] = exp(_actionPotential[index]) / sumExp;
+                _actionPotential[index] = 0;
+                break;
+            case SOFTPLUS:
+                _output[index] = log( 1 + exp(_actionPotential[index]));
+                _actionPotential[index] = 0;
+                break;
+            case BENT:
+                _output[index] = (sqrt(pow(_actionPotential[index], 2) + 1) - 1) / 2 + _actionPotential[index];
+                _actionPotential[index] = 0;
+                break;
+        }
+    }
 }
 
 void NeuralGroup::calcDerivs() {
     switch (_activationFunction) {
         case IDENTITY:
             _derivs = MatrixXd::Identity(_dim, _dim);
-        break;
+            break;
         case BIAS:
             _derivs = MatrixXd::Zero(_dim, _dim);
-        break;
+            break;
         case BINARY:
             _derivs = MatrixXd::Zero(_dim, _dim);
-        break;
+            break;
         case SIGMOID:
             for(int i = 0; i < _dim; i++) {
                 _derivs(i,i) = _output[i] * (1 - _output[i]);
             }
-        break;
+            break;
         case TANH:
             for(int i = 0; i < _dim; i++) {
                 _derivs(i,i) = (1 - pow(_output[i], 2));
             }
+            break;
         case SOFTMAX:
             for(int i = 0; i < _dim; i++) {
                 for(int j = 0; j < _dim; j++) {
                     _derivs(i,j) = _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]);
                 }
             }
-        break;
+            break;
+        case SOFTPLUS:
+            for(int i = 0; i < _dim; i++) {
+                _derivs(i,i) = 1 / (1 + exp(-_output[i]));
+            }
+            break;
+        case BENT:
+            for(int i = 0; i < _dim; i++) {
+                _derivs(i,i) = _output[i] / 2*(sqrt(pow(_output[i],2) + 1)) + 1;
+            }
+            break;
     }
 }
