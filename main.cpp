@@ -4,9 +4,9 @@
 
 int main(int argc, char* argv[])
 {
-    sampleBP();
+    //sampleBP();
     //sampleTD();
-    //sampleQ();
+    sampleQ();
     //sampleSOM();
     //sampleLunarLander();
 

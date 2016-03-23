@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['qlearning',['QLearning',['../class_q_learning.html',1,'QLearning'],['../class_q_learning.html#a2cead36a71833fbd4969841bb1a151f0',1,'QLearning::QLearning()']]],
-  ['qlearning_2ecpp',['QLearning.cpp',['../_q_learning_8cpp.html',1,'']]],
-  ['qlearning_2eh',['QLearning.h',['../_q_learning_8h.html',1,'']]]
+  ['paramdecay',['paramDecay',['../class_s_o_m.html#a14c49939fbf2951d989de14cc0d14a79',1,'SOM']]],
+  ['parseline',['parseLine',['../class_dataset.html#a5f141c9fd7ed0a4ac311c4329f19a303',1,'Dataset']]],
+  ['permute',['permute',['../class_dataset.html#a1bd343ce675a4af2f2e7f1ec3f56561f',1,'Dataset']]],
+  ['pi',['PI',['../_neural_group_8cpp.html#a598a3330b3c21701223ee0ca14316eca',1,'Define.h']]]
 ];

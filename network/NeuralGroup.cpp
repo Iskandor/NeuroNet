@@ -2,6 +2,7 @@
 #include <cmath>
 #include "NeuralGroup.h"
 #include "Define.h"
+#include "NetworkUtils.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
   _outConnection = -1;
 
   _output = VectorXd::Zero(_dim);
-  _derivs = VectorXd::Zero(_dim);
+  _derivs = MatrixXd::Zero(_dim, _dim);
   _actionPotential = VectorXd::Zero(_dim);
 
   if (_activationFunction == BIAS) {
@@ -90,25 +91,31 @@ void NeuralGroup::activate() {
 }
 
 void NeuralGroup::calcDerivs() {
-    for(auto index = 0; index < _dim; index++) {
-            switch (_activationFunction) {
-            case IDENTITY:
-            _derivs[index] = 1;
-            break;
-            case BIAS:
-            _derivs[index] = 0;
-            break;
-            case BINARY:
-            _derivs[index] = 0;
-            break;
-            case SIGMOID:
-            _derivs[index] = _output[index] * (1 - _output[index]);
-            break;
-            case TANH:
-            _derivs[index] = (1 - pow(_output[index], 2));
-            case SOFTMAX:
-
-            break;
-        }
+    switch (_activationFunction) {
+        case IDENTITY:
+            _derivs = MatrixXd::Identity(_dim, _dim);
+        break;
+        case BIAS:
+            _derivs = MatrixXd::Zero(_dim, _dim);
+        break;
+        case BINARY:
+            _derivs = MatrixXd::Zero(_dim, _dim);
+        break;
+        case SIGMOID:
+            for(int i = 0; i < _dim; i++) {
+                _derivs(i,i) = _output[i] * (1 - _output[i]);
+            }
+        break;
+        case TANH:
+            for(int i = 0; i < _dim; i++) {
+                _derivs(i,i) = (1 - pow(_output[i], 2));
+            }
+        case SOFTMAX:
+            for(int i = 0; i < _dim; i++) {
+                for(int j = 0; j < _dim; j++) {
+                    _derivs(i,j) = _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]);
+                }
+            }
+        break;
     }
 }

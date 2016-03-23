@@ -38,41 +38,42 @@ void GradientBase::bfsRecursive(NeuralGroup* p_node) {
 }
 
 void GradientBase::calcGradient(VectorXd *p_error) {
-  for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
-    (*it)->calcDerivs();
-  }
+    VectorXd unitary(_network->getOutputGroup()->getDim());
+    unitary.fill(1);
 
-  if (p_error != nullptr) {
-    _delta[_network->getOutputGroup()->getId()] = p_error->cwiseProduct(*_network->getOutputGroup()->getDerivs());
-  }
-  else {
-    _delta[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs();
-  }
+    for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
+        (*it)->calcDerivs();
+    }
 
-  for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
-    deltaKernel(*it);
-  }
+    if (p_error != nullptr) {
+        _delta[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs() * *p_error;
+    }
+    else {
+        _delta[_network->getOutputGroup()->getId()] = *_network->getOutputGroup()->getDerivs() * unitary;
+    }
 
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
-    gradientKernel(it->second);
-  }
+    for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
+        deltaKernel(*it);
+    }
+
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+        gradientKernel(it->second);
+    }
 }
 
 void GradientBase::deltaKernel(NeuralGroup *p_group) {
-  Connection* connection = _network->getConnection(p_group->getOutConnection());
-  string id = p_group->getId();
-  string outId = connection->getOutGroup()->getId();
+    Connection* connection = _network->getConnection(p_group->getOutConnection());
+    string id = p_group->getId();
+    string outId = connection->getOutGroup()->getId();
 
-  _delta[id] = VectorXd::Zero(p_group->getDim());
-  for(int i = 0; i < connection->getOutGroup()->getDim(); i++) {
-    for(int j = 0; j < p_group->getDim(); j++) {
-      _delta[id][j] += _delta[outId][i] * (*connection->getWeights())(i, j);
+    _delta[id] = VectorXd::Zero(p_group->getDim());
+    for(int i = 0; i < connection->getOutGroup()->getDim(); i++) {
+        for(int j = 0; j < p_group->getDim(); j++) {
+            _delta[id][j] += _delta[outId][i] * (*connection->getWeights())(i, j);
+        }
     }
-  }
 
-  for(int i = 0; i < p_group->getDim(); i++) {
-    _delta[id][i] *= (*p_group->getDerivs())[i];
-  }
+    _delta[id] = (*p_group->getDerivs()) * _delta[id];
 }
 
 void GradientBase::gradientKernel(Connection *p_connection) {

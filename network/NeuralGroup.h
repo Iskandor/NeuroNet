@@ -24,7 +24,7 @@ public:
     { return _dim; };
 
     VectorXd* getOutput() { return &_output; };
-    VectorXd* getDerivs() { return &_derivs; };
+    MatrixXd* getDerivs() { return &_derivs; };
 
     void addOutConnection(int p_index);
     void addInConnection(int p_index);
@@ -44,7 +44,7 @@ private:
   bool    _valid;
 
   VectorXd _output;
-  VectorXd _derivs;
+  MatrixXd _derivs;
   VectorXd _actionPotential;
   
   vector<int> _inConnections;

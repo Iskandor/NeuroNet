@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['activate',['activate',['../class_neural_group.html#a6287a88107301e6b3ae1d167e86ab5d2',1,'NeuralGroup::activate()'],['../class_neural_network.html#a9e14e4694c1c0f0775332721c47ca103',1,'NeuralNetwork::activate()']]],
+  ['activate',['activate',['../class_neural_group.html#a6287a88107301e6b3ae1d167e86ab5d2',1,'NeuralGroup::activate()'],['../class_neural_network.html#a3bb1261a1d661e101b6daf0053e04f67',1,'NeuralNetwork::activate(VectorXd *p_input)'],['../class_neural_network.html#a9e14e4694c1c0f0775332721c47ca103',1,'NeuralNetwork::activate(NeuralGroup *p_node)'],['../class_s_o_m.html#a5c333dd48d2f0c665b7d9f52d98a8bc4',1,'SOM::activate()']]],
   ['addconnection',['addConnection',['../class_neural_network.html#a13c629f649d6986c0e9e869d5f23dea2',1,'NeuralNetwork::addConnection(NeuralGroup *p_inGroup, NeuralGroup *p_outGroup, double p_density=1, double p_inhibition=0.5)'],['../class_neural_network.html#a4a8bd60e696a09c39a8d3716a882d555',1,'NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, double p_density=1, double p_inhibition=0.5)']]],
   ['addinconnection',['addInConnection',['../class_neural_group.html#a7ba10e9923b90d721241be58eab031e4',1,'NeuralGroup']]],
   ['addlayer',['addLayer',['../class_neural_network.html#a3267ef45e2b51ac9014ec203bad9cd13',1,'NeuralNetwork']]],

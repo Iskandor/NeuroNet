@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>My Project: NeuralGroup Class Reference</title>
+<title>NeuroNet: NeuralGroup Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">NeuroNet
    </div>
   </td>
  </tr>
@@ -112,8 +112,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afed5bfe263ed08affeb3990ec66fabc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34f6070fcf39d5ead845132bd6fb77f6"><td class="memItemLeft" align="right" valign="top">VectorXd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#a34f6070fcf39d5ead845132bd6fb77f6">getOutput</a> ()</td></tr>
 <tr class="separator:a34f6070fcf39d5ead845132bd6fb77f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4d1d16040a8fa386fc3c3a18b75a92d"><td class="memItemLeft" align="right" valign="top">VectorXd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#ad4d1d16040a8fa386fc3c3a18b75a92d">getDerivs</a> ()</td></tr>
-<tr class="separator:ad4d1d16040a8fa386fc3c3a18b75a92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38c50a04215f1b7dc383c04341feca9"><td class="memItemLeft" align="right" valign="top">MatrixXd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#aa38c50a04215f1b7dc383c04341feca9">getDerivs</a> ()</td></tr>
+<tr class="separator:aa38c50a04215f1b7dc383c04341feca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71ffaf36a99bc4dba180ae41df15b9c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#a71ffaf36a99bc4dba180ae41df15b9c4">addOutConnection</a> (int p_index)</td></tr>
 <tr class="separator:a71ffaf36a99bc4dba180ae41df15b9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ba10e9923b90d721241be58eab031e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#a7ba10e9923b90d721241be58eab031e4">addInConnection</a> (int p_index)</td></tr>
@@ -128,6 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af5d8831f7c58765525c363f4aad090dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35c4097bb9d3be9198462692a1b33920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#a35c4097bb9d3be9198462692a1b33920">setValid</a> ()</td></tr>
 <tr class="separator:a35c4097bb9d3be9198462692a1b33920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c3c57c822b370db5fccff95d030707"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neural_group.html#a99c3c57c822b370db5fccff95d030707">getActivationFunction</a> ()</td></tr>
+<tr class="separator:a99c3c57c822b370db5fccff95d030707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af1e807bb727971564f7096a6bf7f1ede"></a>
@@ -256,7 +258,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad4d1d16040a8fa386fc3c3a18b75a92d"></a>
+<a class="anchor" id="a99c3c57c822b370db5fccff95d030707"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -264,7 +266,30 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VectorXd* NeuralGroup::getDerivs </td>
+          <td class="memname">int NeuralGroup::getActivationFunction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa38c50a04215f1b7dc383c04341feca9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MatrixXd* NeuralGroup::getDerivs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -490,8 +515,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/mpechac/Documents/NeuroNet/network/<a class="el" href="_neural_group_8h_source.html">NeuralGroup.h</a></li>
-<li>C:/Users/mpechac/Documents/NeuroNet/network/<a class="el" href="_neural_group_8cpp.html">NeuralGroup.cpp</a></li>
+<li>network/<a class="el" href="_neural_group_8h_source.html">NeuralGroup.h</a></li>
+<li>network/<a class="el" href="_neural_group_8cpp.html">NeuralGroup.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

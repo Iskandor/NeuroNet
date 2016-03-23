@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['identity',['IDENTITY',['../_define_8h.html#a44fdeee315bbbfda43356ffbdf05a1b3',1,'Define.h']]]
+  ['exponential',['EXPONENTIAL',['../_define_8h.html#a0450d63f8737e5a26bf087c6306e110b',1,'Define.h']]]
 ];

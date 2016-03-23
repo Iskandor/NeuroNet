@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pi',['PI',['../_neural_group_8cpp.html#a598a3330b3c21701223ee0ca14316eca',1,'Define.h']]]
+  ['linear',['LINEAR',['../_define_8h.html#ac645eb9a88619ee6f5e14c557ab8ef62',1,'Define.h']]]
 ];

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['paramdecay',['paramDecay',['../class_s_o_m.html#a14c49939fbf2951d989de14cc0d14a79',1,'SOM']]],
-  ['parseline',['parseLine',['../class_dataset.html#a5f141c9fd7ed0a4ac311c4329f19a303',1,'Dataset']]],
-  ['permute',['permute',['../class_dataset.html#a1bd343ce675a4af2f2e7f1ec3f56561f',1,'Dataset']]],
-  ['pi',['PI',['../_neural_group_8cpp.html#a598a3330b3c21701223ee0ca14316eca',1,'Define.h']]]
+  ['onloop',['onLoop',['../class_neural_network.html#a4044438cda6aba54b4e206fc4ed68db0',1,'NeuralNetwork']]],
+  ['output',['OUTPUT',['../class_neural_network.html#a41ca21fb79278d16a8aa5187c8870e41a0a03237369f2ed2f6a5b563023b8db5e',1,'NeuralNetwork']]]
 ];

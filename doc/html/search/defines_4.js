@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sigmoid',['SIGMOID',['../_define_8h.html#ad754ca4856873b8cdcae292a9a51aafd',1,'Define.h']]]
+  ['max_5fthread',['MAX_THREAD',['../_define_8h.html#a04922e4673a244d94b12566890b2e96c',1,'Define.h']]]
 ];
