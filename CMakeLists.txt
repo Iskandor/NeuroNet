@@ -43,29 +43,41 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstd
 
 set(SOURCE_FILES
         algorithm/BackProp.h
-        samples/BanditGame.h
         network/Connection.h
         network/Define.h
         algorithm/IEnvironment.h
         samples/Maze.h
-        samples/NBandit.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
-        samples/sample_bp.h
         algorithm/BackProp.cpp
-        samples/BanditGame.cpp
         network/Connection.cpp
         samples/Maze.cpp
-        samples/NBandit.cpp
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
         algorithm/TDLambda.cpp
         algorithm/TDLambda.h
         samples/sample_td.cpp
-        samples/sample_td.h
         log/log.h
-    main.cpp algorithm/GradientBase.cpp algorithm/GradientBase.h algorithm/QLearning.cpp algorithm/QLearning.h samples/sampleQ.cpp samples/sampleQ.h samples/LunarLander.cpp samples/LunarLander.h network/som/SOM.cpp network/som/SOM.h dataset/Dataset.cpp dataset/Dataset.h dataset/StringUtils.cpp dataset/StringUtils.h samples/sampleSOM.cpp samples/sampleSOM.h dataset/DatasetConfig.h algorithm/GreedyPolicy.cpp algorithm/GreedyPolicy.h)
+        main.cpp
+        algorithm/GradientBase.cpp
+        algorithm/GradientBase.h
+        algorithm/QLearning.cpp
+        algorithm/QLearning.h
+        samples/sampleQ.cpp
+        samples/LunarLander.cpp
+        samples/LunarLander.h
+        network/som/SOM.cpp
+        network/som/SOM.h
+        dataset/Dataset.cpp
+        dataset/Dataset.h
+        dataset/StringUtils.cpp
+        dataset/StringUtils.h
+        samples/sampleSOM.cpp
+        dataset/DatasetConfig.h
+        algorithm/GreedyPolicy.cpp
+        algorithm/GreedyPolicy.h
+        samples/samples.h samples/sampleLunarLander.cpp network/NetworkUtils.cpp network/NetworkUtils.h)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})

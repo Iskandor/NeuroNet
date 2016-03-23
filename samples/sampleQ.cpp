@@ -66,8 +66,7 @@ void sampleQ() {
 
         VectorXd input(state0.size() + action.size());
         input << state0, action;
-        network.setInput(&input);
-        network.onLoop();
+        network.activate(&input);
 
         if (maxOutput < network.getScalarOutput()) {
           action_i = i;

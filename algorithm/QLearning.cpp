@@ -16,8 +16,7 @@ QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) 
 double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward) {
     VectorXd input(p_state0->size() + p_action0->size());
     input << *p_state0, *p_action0;
-    _network->setInput(&input);
-    _network->onLoop();
+    _network->activate(&input);
 
     double Qs0a0 = _network->getScalarOutput();
     double maxQs1a = calcMaxQa(p_state1, p_action0);
@@ -25,8 +24,7 @@ double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_sta
     _error = p_reward + _gamma * maxQs1a - Qs0a0;
 
     // updating phase for Q(s,a)
-    _network->setInput(&input);
-    _network->onLoop();
+    _network->activate(&input);
 
     calcGradient();
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
@@ -60,8 +58,7 @@ double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
         VectorXd input(p_state->size() + p_action->size());
         input << *p_state, action;
 
-        _network->setInput(&input);
-        _network->onLoop();
+        _network->activate(&input);
 
         if (_network->getScalarOutput() >  maxQa) {
             maxQa = _network->getScalarOutput();

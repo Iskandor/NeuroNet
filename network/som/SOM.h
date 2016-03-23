@@ -22,6 +22,7 @@ public:
     ~SOM(void);
 
     virtual void train(double *p_input);
+    void activate(VectorXd *p_input) override;
     void initTraining(double p_alpha, double p_epochs);
     void paramDecay();
 

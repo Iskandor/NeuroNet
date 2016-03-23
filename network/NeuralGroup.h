@@ -9,32 +9,33 @@ using namespace Eigen;
 class NeuralGroup
 {
 public:
-	NeuralGroup(string p_id, int p_dim, int p_activationFunction);
-	~NeuralGroup(void);
+    NeuralGroup(string p_id, int p_dim, int p_activationFunction);
+    ~NeuralGroup(void);
 
 
-  void fire();    
-  void integrate(VectorXd* p_input, MatrixXd* p_weights);
-  void activate();
-  void calcDerivs();
+    void fire();
+    void integrate(VectorXd* p_input, MatrixXd* p_weights);
+    void activate();
+    void calcDerivs();
 
-  string getId() const
-  { return _id; };
-  int getDim() const
-  { return _dim; };
+    string getId() const
+    { return _id; };
+    int getDim() const
+    { return _dim; };
 
-  VectorXd* getOutput() { return &_output; };
-  VectorXd* getDerivs() { return &_derivs; };
+    VectorXd* getOutput() { return &_output; };
+    VectorXd* getDerivs() { return &_derivs; };
 
-  void addOutConnection(int p_index);
-  void addInConnection(int p_index);
-  int getOutConnection() { return _outConnection; };
-  vector<int>* getInConnections() { return &_inConnections; };
-  
-  bool isValid() const { return _valid; };
-  void invalidate() { _valid = false; };
-  void setValid() { _valid = true; };
+    void addOutConnection(int p_index);
+    void addInConnection(int p_index);
+    int getOutConnection() { return _outConnection; };
+    vector<int>* getInConnections() { return &_inConnections; };
 
+    bool isValid() const { return _valid; };
+    void invalidate() { _valid = false; };
+    void setValid() { _valid = true; };
+
+    int getActivationFunction() { return _activationFunction; };
 
 private:
   string  _id;

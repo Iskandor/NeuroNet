@@ -34,6 +34,7 @@ public:
 	void setInput(VectorXd *p_input) { _input = *p_input; };
 	void setInput(double *p_input);
 	void onLoop();
+	virtual void activate(VectorXd *p_input);
 
 protected:
     void activate(NeuralGroup* p_node);

@@ -1,25 +1,15 @@
 ﻿#include <iostream>
-#include <stdlib.h>
-#include "samples/sampleQ.h"
-#include "samples/sample_bp.h"
-#include "samples/sample_td.h"
-#include "samples/sampleSOM.h"
+#include "samples/samples.h"
 
 
 int main(int argc, char* argv[])
 {
-  //sampleBP();
-  //sampleTD();
-  sampleQ();
-  //sampleSOM();
+    sampleBP();
+    //sampleTD();
+    //sampleQ();
+    //sampleSOM();
+    //sampleLunarLander();
 
-/*
-  Game  game;
-  game.run();
-*/
-
-
-
-  system("pause");
-  return 0;
+    system("pause");
+    return 0;
 }

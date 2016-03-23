@@ -106,3 +106,8 @@ Connection* NeuralNetwork::getConnection(string p_inGroupId, string p_outGroupId
     }
     return result;
 }
+
+void NeuralNetwork::activate(VectorXd *p_input) {
+    setInput(p_input);
+    onLoop();
+}

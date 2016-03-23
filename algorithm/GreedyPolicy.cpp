@@ -35,8 +35,7 @@ void GreedyPolicy::getAction(VectorXd &p_action, int p_stateDim) {
                 break;
             }
 
-            _network->setInput(&state);
-            _network->onLoop();
+            _network->activate(&state);
 
             if (maxOutput < _network->getScalarOutput())
             {

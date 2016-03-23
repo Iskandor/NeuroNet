@@ -78,8 +78,7 @@ void sampleTD() {
               for(auto j = 0; j < dim; j++) {
                 state0.fill(0);
                 state0[i*dim + j] = 1;
-                network.setInput(&state0);
-                network.onLoop();
+                network.activate(&state0);
                 cout << network.getScalarOutput() << ",";
               }
               cout << endl;

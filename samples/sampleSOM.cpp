@@ -3,7 +3,6 @@
 //
 
 #include <c++/iostream>
-#include "sampleSOM.h"
 #include "../network/som/SOM.h"
 #include "../dataset/Dataset.h"
 #include "../network/Define.h"

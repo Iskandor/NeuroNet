@@ -51,6 +51,11 @@ void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
 /* function which should calculate the output of neuron (activation function output) according to action potential */
 void NeuralGroup::activate() {
 
+  double sumExp = 0;
+  for(int i = 0; i < _dim; i++) {
+    sumExp += exp(_actionPotential[i]);
+  }
+
   for(auto index = 0; index < _dim; index++) {    
     switch (_activationFunction) {
       case IDENTITY:
@@ -77,29 +82,33 @@ void NeuralGroup::activate() {
       case TANH:
         _output[index] = tanh(_actionPotential[index]);
         _actionPotential[index] = 0;
+      case SOFTMAX:
+        _output[index] = exp(_actionPotential[index]) / sumExp;
       break;
     }
   }
 }
 
 void NeuralGroup::calcDerivs() {
-  for(auto index = 0; index < _dim; index++) {    
-    switch (_activationFunction) {
-      case IDENTITY:
-        _derivs[index] = 1;
-      break;
-      case BIAS:
-        _derivs[index] = 0;
-      break;
-      case BINARY:
-        _derivs[index] = 0;
-      break;
-      case SIGMOID:
-        _derivs[index] = _output[index] * (1 - _output[index]);
-      break;
-      case TANH:
-        _derivs[index] = (1 - pow(_output[index], 2));
-      break;
+    for(auto index = 0; index < _dim; index++) {
+            switch (_activationFunction) {
+            case IDENTITY:
+            _derivs[index] = 1;
+            break;
+            case BIAS:
+            _derivs[index] = 0;
+            break;
+            case BINARY:
+            _derivs[index] = 0;
+            break;
+            case SIGMOID:
+            _derivs[index] = _output[index] * (1 - _output[index]);
+            break;
+            case TANH:
+            _derivs[index] = (1 - pow(_output[index], 2));
+            case SOFTMAX:
+
+            break;
+        }
     }
-  }
 }

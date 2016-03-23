@@ -22,20 +22,17 @@ TDLambda::~TDLambda() {
 
 double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
     // forward activation phase
-    _network->setInput(p_state0);
-    _network->onLoop();
+    _network->activate(p_state0);
     _Vs0 = _network->getScalarOutput();
 
-    _network->setInput(p_state1);
-    _network->onLoop();
+    _network->activate(p_state1);
     _Vs1 = _network->getScalarOutput();
 
     // calc TD error
     _error[0] = reward + _gamma * _Vs1 - _Vs0;
 
     // updating phase for V(s)
-    _network->setInput(p_state0);
-    _network->onLoop();
+    _network->activate(p_state0);
 
     calcGradient();
 

@@ -60,6 +60,26 @@ void SOM::updateWeights() {
     (*getConnection("input", "lattice")->getWeights()) += delta;
 }
 
+void SOM::activate(VectorXd *p_input) {
+    double neuronDist = 0;
+    _winner = 0;
+
+    setInput(p_input);
+    onLoop();
+
+    for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
+        neuronDist = calcDistance(i);
+        switch(getOutputGroup()->getActivationFunction()) {
+            case LINEAR:
+                _output[i] = neuronDist;
+                break;
+            case EXPONENTIAL:
+                _output[i] = exp(-neuronDist);
+                break;
+        }
+    }
+}
+
 double SOM::calcDistance(int p_index) {
     double result = 0;
     for(int i = 0; i < getGroup("input")->getDim(); i++) {
