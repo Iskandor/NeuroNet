@@ -16,6 +16,11 @@ public:
 
     static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd& p_vector);
     static int kroneckerDelta(int p_i, int p_j);
+
+    template <typename T>
+    static int sgn(T val) {
+      return (T(0) < val) - (val < T(0));
+    }
 };
 
 

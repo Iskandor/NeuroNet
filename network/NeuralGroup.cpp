@@ -8,26 +8,34 @@ using namespace std;
 
 NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
 {
-  _id = p_id;
-  _dim = p_dim;
-  _activationFunction = p_activationFunction;
-  _outConnection = -1;
+    _id = p_id;
+    _dim = p_dim;
+    _activationFunction = p_activationFunction;
+    _outConnection = -1;
 
-  _output = VectorXd::Zero(_dim);
-  _derivs = MatrixXd::Zero(_dim, _dim);
-  _actionPotential = VectorXd::Zero(_dim);
-  _valid = false;
+    _output = VectorXd::Zero(_dim);
+    _derivs = MatrixXd::Zero(_dim, _dim);
+    _actionPotential = VectorXd::Zero(_dim);
+    _valid = false;
 }
 
 
 NeuralGroup::~NeuralGroup(void)
 {
+    for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
+        delete *it;
+    }
+
+    for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
+        delete *it;
+    }
 }
 
 /* calculate output of group */
 void NeuralGroup::fire() {
     _valid = true;
     activate();
+    processOutput(_output);
 }
 
 void NeuralGroup::addInConnection(int p_index) {
@@ -132,4 +140,26 @@ void NeuralGroup::calcDerivs() {
             }
             break;
     }
+}
+
+void NeuralGroup::addInFilter(IFilter *p_filter) {
+    _inFilter.push_back(p_filter);
+}
+
+void NeuralGroup::addOutFilter(IFilter *p_filter) {
+    _outFilter.push_back(p_filter);
+}
+
+VectorXd &NeuralGroup::processInput(VectorXd &p_input) {
+    for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
+        p_input = (*it)->process(&p_input);
+    }
+    return p_input;
+}
+
+VectorXd &NeuralGroup::processOutput(VectorXd &p_output) {
+    for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
+        p_output = (*it)->process(&p_output);
+    }
+    return p_output;
 }

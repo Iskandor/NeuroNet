@@ -77,7 +77,11 @@ set(SOURCE_FILES
         dataset/DatasetConfig.h
         algorithm/GreedyPolicy.cpp
         algorithm/GreedyPolicy.h
-        samples/samples.h samples/sampleLunarLander.cpp network/NetworkUtils.cpp network/NetworkUtils.h)
+        samples/samples.h
+        samples/sampleLunarLander.cpp
+        network/NetworkUtils.cpp
+        network/NetworkUtils.h
+        network/filters/IFilter.h network/filters/NormalizationFilter.cpp network/filters/NormalizationFilter.h network/filters/KwtaFilter.cpp network/filters/KwtaFilter.h)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})

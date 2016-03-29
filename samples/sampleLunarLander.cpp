@@ -8,6 +8,7 @@
 #include "LunarLander.h"
 #include "../log/log.h"
 #include "../network/som/SOM.h"
+#include "../network/filters/NormalizationFilter.h"
 
 void sampleLunarLander() {
     double sumReward = 0;
@@ -19,12 +20,15 @@ void sampleLunarLander() {
 
     NeuralNetwork network;
 
-    NeuralGroup* inputGroup = network.addLayer("input", 2+SIZE*SIZE, IDENTITY, NeuralNetwork::INPUT);
+    NeuralGroup* inputGroup = network.addLayer("input", dim+2, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
+    VectorXd limit(dim+2);
+    limit << 20,50,20,1,1;
+    inputGroup->addInFilter(new NormalizationFilter(&limit));
     // feed-forward connections
     network.addConnection(inputGroup, hiddenGroup);
     network.addConnection(hiddenGroup, outputGroup);
@@ -37,7 +41,7 @@ void sampleLunarLander() {
 
     QLearning qAgent(&network, 0.9, 0.9);
     qAgent.setAlpha(0.1);
-    double epsilon = 0.1;
+    double epsilon = 0.01;
 
     LunarLander lander;
     VectorXd action(2);
@@ -54,9 +58,10 @@ void sampleLunarLander() {
         double reward = 0;
 
         //lander.print(cout);
-        som.train(lander.getState()->data());
-        som.activate(lander.getState());
-        state0 = *som.getOutput();
+        //som.train(lander.getState()->data());
+        //som.activate(lander.getState());
+        //state0 = *som.getOutput();
+        state0 = *lander.getState();
 
         for (int i = 0; i < action.size(); i++) {
             action.fill(0);
@@ -69,7 +74,8 @@ void sampleLunarLander() {
             }
 
 
-            VectorXd input(SIZE*SIZE + action.size());
+            //VectorXd input(SIZE*SIZE + action.size());
+            VectorXd input(dim + action.size());
             input << state0, action;
             network.activate(&input);
 
@@ -83,8 +89,9 @@ void sampleLunarLander() {
         action[action_i] = 1;
 
         lander.updateState(&action);
-        som.activate(lander.getState());
-        state1 = *som.getOutput();
+        //som.activate(lander.getState());
+        //state1 = *som.getOutput();
+        state1 = *lander.getState();
         reward = lander.getReward();
         sumReward += reward;
 

@@ -23,6 +23,7 @@ void NeuralNetwork::onLoop() {
         it->second->invalidate();
     }
     /* prepare input signal and propagate it through the network */
+    _inputGroup->processInput(_input);
     _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
@@ -37,6 +38,7 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
 
         VectorXd* signal = inGroup->getOutput();
         if (signal != nullptr) {
+            p_node->processInput(*signal);
             p_node->integrate(signal, _connections[*it]->getWeights());
         }
     }
