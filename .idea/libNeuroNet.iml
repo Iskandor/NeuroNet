@@ -5,16 +5,15 @@
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralGroup.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/network/Define.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/som/SOM.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/som/SOM.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralGroup.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NetworkUtils.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralNetwork.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/network/Define.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/Connection.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NeuralNetwork.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/Connection.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/network/Define.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/network/NetworkUtils.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/GradientBase.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithm/BackProp.h" isTestSource="false" />
@@ -35,37 +34,29 @@
       <sourceFolder url="file://$MODULE_DIR$/samples/samples.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/Maze.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_bp.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/NBandit.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/samples/sampleLunarLander.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/LunarLander.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/LunarLander.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/samples/sample_td.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/samples/Maze.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dataset/DatasetConfig.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dataset/Dataset.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dataset/Dataset.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dataset/StringUtils.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/dataset/DatasetConfig.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/dataset/Dataset.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dataset/StringUtils.cpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="Header Search Paths">
         <CLASSES>
-          <root url="file://C:/MinGW/lib/gcc/mingw32/4.8.1/include" />
-          <root url="file://C:/MinGW/lib/gcc/mingw32/4.8.1/include-fixed" />
-          <root url="file://C:/MinGW/mingw32/include" />
-          <root url="file://C:/MinGW/include" />
           <root url="file://$MODULE_DIR$/lib/eigen3/include/eigen3" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/lib/gcc/i686-w64-mingw32/5.3.0/include" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/i686-w64-mingw32/include" />
         </CLASSES>
         <SOURCES>
-          <root url="file://C:/MinGW/lib/gcc/mingw32/4.8.1/include" />
-          <root url="file://C:/MinGW/lib/gcc/mingw32/4.8.1/include-fixed" />
-          <root url="file://C:/MinGW/mingw32/include" />
-          <root url="file://C:/MinGW/include" />
           <root url="file://$MODULE_DIR$/lib/eigen3/include/eigen3" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/lib/gcc/i686-w64-mingw32/5.3.0/include" />
+          <root url="file://C:/Program Files (x86)/mingw-w64/i686-5.3.0-posix-dwarf-rt_v4-rev0/mingw32/i686-w64-mingw32/include" />
         </SOURCES>
       </library>
     </orderEntry>
