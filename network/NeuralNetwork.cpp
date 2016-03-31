@@ -22,6 +22,19 @@ void NeuralNetwork::onLoop() {
     for(map<string, NeuralGroup*>::iterator it = _groups.begin(); it != _groups.end(); it++) {
         it->second->invalidate();
     }
+
+    Connection* recConnection = nullptr;
+    /* transport information through the recurrent connections*/
+    for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
+        recConnection = it->second;
+        VectorXd* signal = recConnection->getInGroup()->getActionPotential();
+        if (signal != nullptr) {
+            recConnection->getOutGroup()->processInput(*signal);
+            recConnection->getOutGroup()->integrate(signal, recConnection->getWeights());
+            recConnection->getOutGroup()->fire();
+        }
+    }
+
     /* prepare input signal and propagate it through the network */
     _inputGroup->processInput(_input);
     _inputGroup->integrate(&_input, &_inputWeights);
@@ -30,7 +43,7 @@ void NeuralNetwork::onLoop() {
 }
 
 void NeuralNetwork::activate(NeuralGroup* p_node) {
-    NeuralGroup* inGroup;
+    NeuralGroup* inGroup = nullptr;
     /* sum input from all groups */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
         /* generate output if it is possible */
@@ -78,7 +91,7 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, int p_activationFun
 }
 
 Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, double p_density,double p_inhibition) {
-    addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_density, p_inhibition);
+    return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_density, p_inhibition);
 }
 
 Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density, double p_inhibition) {
@@ -112,4 +125,20 @@ Connection* NeuralNetwork::getConnection(string p_inGroupId, string p_outGroupId
 void NeuralNetwork::activate(VectorXd *p_input) {
     setInput(p_input);
     onLoop();
+}
+
+Connection *NeuralNetwork::addRecConnection(NeuralGroup *p_inGroup, NeuralGroup *p_outGroup) {
+    Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);
+
+    MatrixXd* weights = new MatrixXd(p_outGroup->getDim(), p_inGroup->getDim());
+    weights->setIdentity();
+    connection->init(weights);
+    _recConnections[_connectionId] = connection;
+    _connectionId++;
+
+    return connection;
+}
+
+Connection *NeuralNetwork::addRecConnection(string p_inGroupId, string p_outGroupId) {
+    return addRecConnection(_groups[p_inGroupId], _groups[p_outGroupId]);
 }

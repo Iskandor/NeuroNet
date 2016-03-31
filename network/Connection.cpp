@@ -37,3 +37,7 @@ void Connection::init(double p_density, double p_inhibition) const {
       }
     }
 }
+
+void Connection::init(MatrixXd *p_weights) {
+    _weights = p_weights;
+}

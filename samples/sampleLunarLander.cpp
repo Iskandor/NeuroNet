@@ -24,6 +24,7 @@ void sampleLunarLander() {
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
+    NeuralGroup* contextGroup = network.addLayer("context", 25, SIGMOID, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
     VectorXd limit(dim+2);
@@ -35,6 +36,9 @@ void sampleLunarLander() {
     // bias connections
     network.addConnection(biasUnitH, hiddenGroup);
     network.addConnection(biasUnitO, outputGroup);
+    // recurrent connection
+    network.addRecConnection(hiddenGroup, contextGroup);
+    network.addConnection(contextGroup, hiddenGroup);
 
     SOM som(dim, SIZE, SIZE, EXPONENTIAL);
     som.initTraining(0.01, EPISODES / 2);
