@@ -5,7 +5,7 @@
 #ifndef NEURONET_SAMPLES_H
 #define NEURONET_SAMPLES_H
 
-
+void sampleSARSA();
 void sampleQ();
 void sampleTD();
 void sampleBP();

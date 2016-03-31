@@ -18,24 +18,22 @@ void GreedyPolicy::setEpsilon(double p_value) {
     _epsilon = p_value;
 }
 
-void GreedyPolicy::getAction(VectorXd &p_action, int p_stateDim) {
+void GreedyPolicy::getActionV(VectorXd *p_state, VectorXd *p_action) {
     double maxOutput = -INFINITY;
     int action_i = 0;
-    VectorXd state(p_stateDim);
 
-    for (int i = 0; i < p_action.size(); i++) {
-        p_action.fill(0);
-        p_action[i] = 1;
+    for (int i = 0; i < p_action->size(); i++) {
+        p_action->fill(0);
+        (*p_action)[i] = 1;
 
-        if (_environment->evaluateAction(&p_action, &state)) {
-            double roll = static_cast<double>(rand()) / RAND_MAX;
-
-            if (roll < _epsilon) {
+        if (_environment->evaluateAction(p_action, p_state)) {
+            double roll = rand() % 100;
+            if (roll < _epsilon * 100) {
                 action_i = i;
                 break;
             }
 
-            _network->activate(&state);
+            _network->activate(p_state);
 
             if (maxOutput < _network->getScalarOutput())
             {
@@ -45,6 +43,37 @@ void GreedyPolicy::getAction(VectorXd &p_action, int p_stateDim) {
         }
     }
 
-    p_action.fill(0);
-    p_action[action_i] = 1;
+    p_action->fill(0);
+    (*p_action)[action_i] = 1;
+}
+
+void GreedyPolicy::getActionQ(VectorXd *p_state, VectorXd *p_action) {
+    double maxOutput = -INFINITY;
+    int action_i = 0;
+
+    for (int i = 0; i < p_action->size(); i++) {
+        p_action->fill(0);
+        (*p_action)[i] = 1;
+
+        if (_environment->evaluateAction(p_action, p_state)) {
+            double roll = rand() % 100;
+            if (roll < _epsilon * 100) {
+                action_i = i;
+                break;
+            }
+
+            VectorXd input(p_state->size() + p_action->size());
+            input << *p_state, *p_action;
+            _network->activate(&input);
+
+            if (maxOutput < _network->getScalarOutput())
+            {
+                action_i = i;
+                maxOutput = _network->getScalarOutput();
+            }
+        }
+    }
+
+    p_action->fill(0);
+    (*p_action)[action_i] = 1;
 }

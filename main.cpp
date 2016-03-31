@@ -9,7 +9,8 @@ int main(int argc, char* argv[])
     //sampleTD();
     //sampleQ();
     //sampleSOM();
-    sampleLunarLander();
+    //sampleLunarLander();
+    sampleSARSA();
 
     system("pause");
     return 0;

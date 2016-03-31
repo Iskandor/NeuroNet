@@ -17,7 +17,8 @@ public:
     ~GreedyPolicy();
 
     void setEpsilon(double p_value);
-    void getAction(VectorXd &p_action, int p_stateDim);
+    void getActionV(VectorXd *p_state, VectorXd *p_action);
+    void getActionQ(VectorXd *p_state, VectorXd *p_action);
 
 private:
     NeuralNetwork* _network;

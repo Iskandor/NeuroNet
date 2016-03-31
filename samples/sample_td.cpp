@@ -38,7 +38,7 @@ void sampleTD() {
     VectorXd state1(dim*dim);
 
     GreedyPolicy policy(&network, &maze);
-    policy.setEpsilon(0.001);
+    policy.setEpsilon(0.01);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
@@ -49,7 +49,7 @@ void sampleTD() {
     while(episode < 200) {
         double reward = 0;
         state0 = *maze.getState();
-        policy.getAction(action, dim*dim);
+        policy.getActionV(&state0, &action);
         maze.updateState(&action);
         state1 = *maze.getState();
         reward = maze.getReward();

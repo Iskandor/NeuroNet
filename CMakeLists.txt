@@ -81,7 +81,14 @@ set(SOURCE_FILES
         samples/sampleLunarLander.cpp
         network/NetworkUtils.cpp
         network/NetworkUtils.h
-        network/filters/IFilter.h network/filters/NormalizationFilter.cpp network/filters/NormalizationFilter.h network/filters/KwtaFilter.cpp network/filters/KwtaFilter.h)
+        network/filters/IFilter.h
+        network/filters/NormalizationFilter.cpp
+        network/filters/NormalizationFilter.h
+        network/filters/KwtaFilter.cpp
+        network/filters/KwtaFilter.h
+        algorithm/SARSA.cpp
+        algorithm/SARSA.h
+        samples/sampleSARSA.cpp)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})
