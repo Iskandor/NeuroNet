@@ -5,8 +5,7 @@
 #ifndef NEURONET_SARSA_H
 #define NEURONET_SARSA_H
 
-
-#include "GradientBase.h"
+#include "../GradientBase.h"
 
 class SARSA : public GradientBase {
 

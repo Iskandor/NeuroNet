@@ -27,8 +27,8 @@ void GreedyPolicy::getActionV(VectorXd *p_state, VectorXd *p_action) {
         (*p_action)[i] = 1;
 
         if (_environment->evaluateAction(p_action, p_state)) {
-            double roll = rand() % 100;
-            if (roll < _epsilon * 100) {
+            double roll = (double)rand() / RAND_MAX;
+            if (roll < _epsilon) {
                 action_i = i;
                 break;
             }
@@ -55,22 +55,20 @@ void GreedyPolicy::getActionQ(VectorXd *p_state, VectorXd *p_action) {
         p_action->fill(0);
         (*p_action)[i] = 1;
 
-        if (_environment->evaluateAction(p_action, p_state)) {
-            double roll = rand() % 100;
-            if (roll < _epsilon * 100) {
-                action_i = i;
-                break;
-            }
+        double roll = (double)rand() / RAND_MAX;
+        if (roll < _epsilon) {
+            action_i = i;
+            break;
+        }
 
-            VectorXd input(p_state->size() + p_action->size());
-            input << *p_state, *p_action;
-            _network->activate(&input);
+        VectorXd input(p_state->size() + p_action->size());
+        input << *p_state, *p_action;
+        _network->activate(&input);
 
-            if (maxOutput < _network->getScalarOutput())
-            {
-                action_i = i;
-                maxOutput = _network->getScalarOutput();
-            }
+        if (maxOutput < _network->getScalarOutput())
+        {
+            action_i = i;
+            maxOutput = _network->getScalarOutput();
         }
     }
 

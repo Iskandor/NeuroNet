@@ -2,9 +2,9 @@
 #include "../log/log.h"
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "../algorithm/TDLambda.h"
 #include "Maze.h"
 #include "../algorithm/GreedyPolicy.h"
+#include "../algorithm/rl/TDLambda.h"
 
 void sampleTD() {
     double sumReward = 0;

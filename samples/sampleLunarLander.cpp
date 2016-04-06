@@ -4,7 +4,7 @@
 
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "../algorithm/QLearning.h"
+#include "../algorithm/rl/QLearning.h"
 #include "LunarLander.h"
 #include "../log/log.h"
 #include "../network/som/SOM.h"

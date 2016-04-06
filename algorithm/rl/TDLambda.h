@@ -1,5 +1,5 @@
 #pragma once
-#include "GradientBase.h"
+#include "../GradientBase.h"
 #include <map>
 
 using namespace std;

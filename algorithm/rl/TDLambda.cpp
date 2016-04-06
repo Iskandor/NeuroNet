@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../network/NeuralNetwork.h"
-#include "BackProp.h"
 #include "TDLambda.h"
+#include "../../network/NeuralNetwork.h"
+#include "../GradientBase.h"
 
 using namespace std;
 

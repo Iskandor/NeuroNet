@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "../algorithm/SARSA.h"
+#include "../algorithm/rl/SARSA.h"
 #include "../algorithm/GreedyPolicy.h"
 #include "../log/log.h"
 #include "Maze.h"
@@ -38,7 +38,7 @@ void sampleSARSA() {
   maze.reset();
 
   GreedyPolicy policy(&network, &maze);
-  policy.setEpsilon(0.009);
+  policy.setEpsilon(0.01);
 
   VectorXd action0(4);
   VectorXd action1(4);

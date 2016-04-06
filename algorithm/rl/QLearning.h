@@ -6,7 +6,7 @@
 #define LIBNEURONET_QLEARNING_H
 
 
-#include "GradientBase.h"
+#include "../GradientBase.h"
 
 class QLearning : public GradientBase {
 

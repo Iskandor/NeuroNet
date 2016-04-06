@@ -4,8 +4,9 @@
 
 #include "KwtaFilter.h"
 
-KwtaFilter::KwtaFilter(int p_k) : IFilter() {
+KwtaFilter::KwtaFilter(int p_k, bool p_binaryVector) : IFilter() {
   _k = p_k;
+  _binaryVector = p_binaryVector;
 }
 
 KwtaFilter::~KwtaFilter() {
@@ -23,7 +24,7 @@ VectorXd &KwtaFilter::process(VectorXd *p_input) {
     max = temp.maxCoeff();
     for(int i = 0; i < p_input->size(); i++) {
       if (temp[i] == max) {
-        _output[i] = temp[i];
+        _output[i] = _binaryVector ? 1 : temp[i];
         temp[i] = -INFINITY;
         k--;
       }

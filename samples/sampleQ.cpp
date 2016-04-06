@@ -5,9 +5,9 @@
 #include <iostream>
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "../algorithm/QLearning.h"
 #include "Maze.h"
 #include "../log/log.h"
+#include "../algorithm/rl/QLearning.h"
 
 void sampleQ() {
   double sumReward = 0;

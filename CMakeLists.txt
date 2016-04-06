@@ -55,15 +55,15 @@ set(SOURCE_FILES
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
-        algorithm/TDLambda.cpp
-        algorithm/TDLambda.h
+        algorithm/rl/TDLambda.cpp
+        algorithm/rl/TDLambda.h
         samples/sample_td.cpp
         log/log.h
         main.cpp
         algorithm/GradientBase.cpp
         algorithm/GradientBase.h
-        algorithm/QLearning.cpp
-        algorithm/QLearning.h
+        algorithm/rl/QLearning.cpp
+        algorithm/rl/QLearning.h
         samples/sampleQ.cpp
         samples/LunarLander.cpp
         samples/LunarLander.h
@@ -86,9 +86,14 @@ set(SOURCE_FILES
         network/filters/NormalizationFilter.h
         network/filters/KwtaFilter.cpp
         network/filters/KwtaFilter.h
-        algorithm/SARSA.cpp
-        algorithm/SARSA.h
-        samples/sampleSARSA.cpp)
+        algorithm/rl/SARSA.cpp
+        algorithm/rl/SARSA.h
+        samples/sampleSARSA.cpp
+        algorithm/rl/Actor.cpp
+        algorithm/rl/Actor.h
+        algorithm/rl/Critic.cpp
+        algorithm/rl/Critic.h
+        samples/sampleTDAC.cpp)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})
