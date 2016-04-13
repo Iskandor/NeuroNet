@@ -52,12 +52,6 @@ void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
 
 /* function which should calculate the output of neuron (activation function output) according to action potential */
 void NeuralGroup::activate() {
-
-    double sumExp = 0;
-    for(int i = 0; i < _dim; i++) {
-        sumExp += exp(_actionPotential[i]);
-    }
-
     for(auto index = 0; index < _dim; index++) {
         switch (_activationFunction) {
             case IDENTITY:
@@ -86,8 +80,14 @@ void NeuralGroup::activate() {
                 _actionPotential[index] = 0;
                 break;
             case SOFTMAX:
+                {
+                double sumExp = 0;
+                for(int i = 0; i < _dim; i++) {
+                    sumExp += exp(_actionPotential[i]);
+                }
                 _output[index] = exp(_actionPotential[index]) / sumExp;
                 _actionPotential[index] = 0;
+                }
                 break;
             case SOFTPLUS:
                 _output[index] = log( 1 + exp(_actionPotential[index]));

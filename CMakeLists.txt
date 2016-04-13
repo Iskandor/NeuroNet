@@ -37,7 +37,7 @@ include_directories ( ${EIGEN3_INCLUDE_DIRS} )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "./lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "./lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstdc++ -static -lpthread")
 

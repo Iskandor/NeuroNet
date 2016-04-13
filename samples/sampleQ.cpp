@@ -47,7 +47,7 @@ void sampleQ() {
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 200) {
+  while(episode < 2000) {
     double maxOutput = -INFINITY;
     int action_i = 0;
     double reward = 0;
@@ -99,6 +99,10 @@ void sampleQ() {
       sumReward = 0;
       maze.reset();
       episode++;
+
+      if (episode > 1000) {
+        epsilon = 0;
+      }
     }
   }
 

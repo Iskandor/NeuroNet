@@ -9,6 +9,7 @@
 #include "../log/log.h"
 #include "../network/som/SOM.h"
 #include "../network/filters/NormalizationFilter.h"
+#include "../algorithm/GreedyPolicy.h"
 
 void sampleLunarLander() {
     double sumReward = 0;
@@ -24,7 +25,6 @@ void sampleLunarLander() {
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
-    NeuralGroup* contextGroup = network.addLayer("context", 25, SIGMOID, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
 
     VectorXd limit(dim+2);
@@ -36,21 +36,20 @@ void sampleLunarLander() {
     // bias connections
     network.addConnection(biasUnitH, hiddenGroup);
     network.addConnection(biasUnitO, outputGroup);
-    // recurrent connection
-    network.addRecConnection(hiddenGroup, contextGroup);
-    network.addConnection(contextGroup, hiddenGroup);
 
     SOM som(dim, SIZE, SIZE, EXPONENTIAL);
     som.initTraining(0.01, EPISODES / 2);
 
     QLearning qAgent(&network, 0.9, 0.9);
     qAgent.setAlpha(0.1);
-    double epsilon = 0.01;
 
     LunarLander lander;
     VectorXd action(2);
     VectorXd state0(dim);
     VectorXd state1(dim);
+
+    GreedyPolicy policy(&network, &lander);
+    policy.setEpsilon(0.01);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
@@ -66,32 +65,7 @@ void sampleLunarLander() {
         //som.activate(lander.getState());
         //state0 = *som.getOutput();
         state0 = *lander.getState();
-
-        for (int i = 0; i < action.size(); i++) {
-            action.fill(0);
-            action[i] = 1;
-
-            double roll = rand() % 100;
-            if (roll < epsilon * 100) {
-                action_i = i;
-                break;
-            }
-
-
-            //VectorXd input(SIZE*SIZE + action.size());
-            VectorXd input(dim + action.size());
-            input << state0, action;
-            network.activate(&input);
-
-            if (maxOutput < network.getScalarOutput()) {
-                action_i = i;
-                maxOutput = network.getScalarOutput();
-            }
-        }
-
-        action.fill(0);
-        action[action_i] = 1;
-
+        policy.getActionQ(&state0, &action);
         lander.updateState(&action);
         //som.activate(lander.getState());
         //state1 = *som.getOutput();
@@ -112,7 +86,10 @@ void sampleLunarLander() {
             sumReward = 0;
             lander.reset();
             episode++;
-            som.paramDecay();
+            if (episode > 99000) {
+                policy.setEpsilon(0);
+            }
+            //som.paramDecay();
         }
     }
 

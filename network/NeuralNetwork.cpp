@@ -27,7 +27,7 @@ void NeuralNetwork::onLoop() {
     /* transport information through the recurrent connections*/
     for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
         recConnection = it->second;
-        VectorXd* signal = recConnection->getInGroup()->getActionPotential();
+        VectorXd* signal = recConnection->getInGroup()->getOutput();
         if (signal != nullptr) {
             recConnection->getOutGroup()->processInput(*signal);
             recConnection->getOutGroup()->integrate(signal, recConnection->getWeights());
@@ -141,4 +141,14 @@ Connection *NeuralNetwork::addRecConnection(NeuralGroup *p_inGroup, NeuralGroup 
 
 Connection *NeuralNetwork::addRecConnection(string p_inGroupId, string p_outGroupId) {
     return addRecConnection(_groups[p_inGroupId], _groups[p_outGroupId]);
+}
+
+void NeuralNetwork::resetContext() {
+    Connection* recConnection;
+    for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
+        recConnection = it->second;
+        VectorXd zero = VectorXd::Zero(recConnection->getOutGroup()->getDim());
+        recConnection->getOutGroup()->integrate(&zero, recConnection->getWeights());
+        recConnection->getOutGroup()->fire();
+    }
 }

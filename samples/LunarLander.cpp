@@ -49,12 +49,13 @@ void LunarLander::updateState(VectorXd *p_action) {
     if (isFinished()) {
         cout<<"Final velocity: "<<_velocity;
         if (_velocity >= safe_velocity) {
+            _reward = 10;
             cout<<"...good landing!\n";
         }
         else {
+            _reward = _velocity - safe_velocity;
             cout<<"...you crashed!\n";
         }
-        _reward = _velocity + 1.5;
     }
 }
 

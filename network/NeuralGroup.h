@@ -24,7 +24,6 @@ public:
 
     VectorXd* getOutput() { return &_output; };
     MatrixXd* getDerivs() { return &_derivs; };
-    VectorXd* getActionPotential() { return &_actionPotential; };
 
     void addOutConnection(int p_index);
     void addInConnection(int p_index);

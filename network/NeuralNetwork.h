@@ -17,7 +17,7 @@ public:
 	NeuralNetwork(void);
 	~NeuralNetwork(void);
 
-  NeuralGroup* addLayer(string p_id, int p_dim, int p_activationFunction, GROUP_TYPE p_type);
+  	NeuralGroup* addLayer(string p_id, int p_dim, int p_activationFunction, GROUP_TYPE p_type);
 	Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0.5);
 	Connection* addConnection(string p_inGroupId, string p_outGroupId, double p_density = 1, double p_inhibition = 0.5);
 	Connection* addRecConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);
@@ -26,6 +26,7 @@ public:
 	bool running() const { return _running; };
 	VectorXd* getOutput() { return &_output; };
 	double getScalarOutput() const { return _output[0]; };
+
 	map<string, NeuralGroup*>* getGroups() { return &_groups; };
 	map<int, Connection*>* getConnections() { return &_connections; };
 	Connection* getConnection(int p_id) { return _connections[p_id]; };
@@ -37,6 +38,7 @@ public:
 	void setInput(VectorXd *p_input) { _input = *p_input; };
 	void setInput(double *p_input);
 	void onLoop();
+	void resetContext();
 	virtual void activate(VectorXd *p_input);
 
 protected:
