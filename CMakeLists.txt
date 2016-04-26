@@ -89,11 +89,11 @@ set(SOURCE_FILES
         algorithm/rl/SARSA.cpp
         algorithm/rl/SARSA.h
         samples/sampleSARSA.cpp
-        algorithm/rl/Actor.cpp
-        algorithm/rl/Actor.h
-        algorithm/rl/Critic.cpp
-        algorithm/rl/Critic.h
-        samples/sampleTDAC.cpp)
+        samples/sampleTDAC.cpp
+        algorithm/rl/ActorCritic.cpp
+        algorithm/rl/ActorCritic.h
+        algorithm/rl/SimpleActor.cpp
+        algorithm/rl/SimpleActor.h)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})

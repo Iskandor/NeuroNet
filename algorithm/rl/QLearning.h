@@ -25,7 +25,7 @@ private:
     double _alpha;
     double _gamma;
     double _lambda;
-    double _error;
+    VectorXd _error;
     map<int, MatrixXd> _eligTrace;
 };
 

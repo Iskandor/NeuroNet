@@ -17,14 +17,16 @@ protected:
     NeuralNetwork* _network;
     vector<NeuralGroup*> _groupTree;
     map<int, MatrixXd> _gradient;
-    map<string, VectorXd> _delta;
 
     void groupTreeCreate();
     void bfsRecursive(NeuralGroup* p_node);
     void calcGradient(VectorXd *p_error = nullptr);
 
-    virtual void deltaKernel(NeuralGroup *p_group);
     void gradientKernel(Connection *p_connection);
+
+private:
+    map<string, VectorXd> _delta;
+    void deltaKernel(NeuralGroup *p_group);
 };
 
 

@@ -7,6 +7,7 @@
 QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network) {
     _gamma = p_gamma;
     _lambda = p_lambda;
+    _error = VectorXd::Zero(p_network->getOutput()->size());
 
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         _eligTrace[it->second->getId()] = MatrixXd::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
@@ -21,18 +22,18 @@ double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_sta
     double Qs0a0 = _network->getScalarOutput();
     double maxQs1a = calcMaxQa(p_state1, p_action0);
 
-    _error = p_reward + _gamma * maxQs1a - Qs0a0;
+    _error[0] = p_reward + _gamma * maxQs1a - Qs0a0;
 
     // updating phase for Q(s,a)
     _network->activate(&input);
 
-    calcGradient();
+    calcGradient(&_error);
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         updateEligTrace(it->second);
         updateWeights(it->second);
     }
 
-    return _error;
+    return _error[0];
 }
 
 void QLearning::setAlpha(double p_alpha) {
@@ -44,7 +45,7 @@ void QLearning::updateWeights(Connection *p_connection) {
     int nRows = p_connection->getOutGroup()->getDim();
     MatrixXd delta(nRows, nCols);
 
-    delta = _alpha * _error * _eligTrace[p_connection->getId()]; //_gradient[p_connection->getId()];
+    delta = _alpha * _eligTrace[p_connection->getId()]; //_gradient[p_connection->getId()];
     p_connection->getWeights()->operator+=(delta);
 }
 

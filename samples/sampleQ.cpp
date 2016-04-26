@@ -19,8 +19,8 @@ void sampleQ() {
   NeuralGroup* inputGroup = network.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 25, SIGMOID, NeuralNetwork::HIDDEN);
-  NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
 
   // feed-forward connections
@@ -98,6 +98,7 @@ void sampleQ() {
       time = 0;
       sumReward = 0;
       maze.reset();
+      //epsilon -= 0.0007;
       episode++;
 
       if (episode > 1000) {

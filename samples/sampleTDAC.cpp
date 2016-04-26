@@ -3,11 +3,8 @@
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
 #include "Maze.h"
-#include "../algorithm/GreedyPolicy.h"
-#include "../algorithm/rl/TDLambda.h"
-#include "../network/filters/KwtaFilter.h"
-#include "../algorithm/rl/Actor.h"
 #include "../algorithm/rl/QLearning.h"
+#include "../algorithm/rl/ActorCritic.h"
 
 void sampleTDAC() {
     double sumReward = 0;
@@ -15,7 +12,7 @@ void sampleTDAC() {
     int dim = 3;
 
     NeuralNetwork critic;
-    critic.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
+    critic.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
     critic.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
@@ -39,21 +36,15 @@ void sampleTDAC() {
     actor.addConnection("biasO", "output");
     //actor.getGroup("output")->addOutFilter(new KwtaFilter(1, true));
 
-    QLearning criticQ(&critic, 0.9, 0.9);
-    criticQ.setAlpha(.1);
-    Actor actorTD(&actor);
-    actorTD.setAlpha(.1);
 
     Maze maze(dim);
     maze.reset();
 
-    double tdError = 0;
-    VectorXd action(4);
-    VectorXd state0(dim*dim);
-    VectorXd state1(dim*dim);
+    ActorCritic actorCritic(&actor, &critic);
+    actorCritic.setAlpha(0.01);
+    actorCritic.setBeta(0.1);
+    actorCritic.init(&maze);
 
-    //GreedyPolicy policy(&critic, &maze);
-    //policy.setEpsilon(0.01);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
@@ -61,30 +52,14 @@ void sampleTDAC() {
 
     int episode = 0;
 
+    VectorXd state0(dim*dim);
+
     while(episode < 200) {
-        double reward = 0;
-        state0 = *maze.getState();
-        //policy.getActionV(&state0, &action);
-        actorTD.getAction(&state0, &action);
-        maze.updateState(&action);
-        state1 = *maze.getState();
-        reward = maze.getReward();
-        sumReward += reward;
 
-        // 3. update
-        tdError = criticQ.train(&state0, &action, &state1, reward);
-        actorTD.train(&state0, tdError);
+        actorCritic.train();
+
+        sumReward += maze.getReward();
         time++;
-
-        /*
-        cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
-        for(auto i = 0; i < dim; i++) {
-        for(auto j = 0; j < dim; j++) {
-          cout << (*maze.getState())(i*dim + j);
-        }
-        cout << endl;
-        }
-        */
 
         // 4. check whether terminal state was reached
         if (maze.isFinished()) {

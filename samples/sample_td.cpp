@@ -16,8 +16,8 @@ void sampleTD() {
     NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
 
     // feed-forward connections
@@ -46,7 +46,7 @@ void sampleTD() {
 
     int episode = 0;
 
-    while(episode < 200) {
+    while(episode < 2000) {
         double reward = 0;
         state0 = *maze.getState();
         policy.getActionV(&state0, &action);
@@ -74,6 +74,7 @@ void sampleTD() {
 
             cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
+            /*
             for(auto i = 0; i < dim; i++) {
               for(auto j = 0; j < dim; j++) {
                 state0.fill(0);
@@ -83,6 +84,7 @@ void sampleTD() {
               }
               cout << endl;
             }
+             */
 
             time = 0;
             sumReward = 0;

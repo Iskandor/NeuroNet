@@ -34,7 +34,7 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
     // updating phase for V(s)
     _network->activate(p_state0);
 
-    calcGradient();
+    calcGradient(&_error);
 
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         updateEligTrace(it->second);
@@ -49,7 +49,7 @@ void TDLambda::updateWeights(Connection *p_connection) {
     int nCols = p_connection->getInGroup()->getDim();
     MatrixXd deltaW = MatrixXd::Zero(nRows, nCols);
 
-    deltaW = _alpha * _error[0] * _eligTrace[p_connection->getId()];
+    deltaW = _alpha * _eligTrace[p_connection->getId()];
 
     /*
     for(int o = 0; o < _network->getOutputGroup()->getDim(); o++) {
