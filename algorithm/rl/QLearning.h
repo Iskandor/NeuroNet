@@ -7,14 +7,14 @@
 
 
 #include "../GradientBase.h"
+#include "../LearningAlgorithm.h"
 
-class QLearning : public GradientBase {
+class QLearning : public GradientBase, public LearningAlgorithm {
 
 public:
     QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda);
 
     double train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward);
-    void setAlpha(double p_alpha);
 
 private:
     void updateWeights(Connection* p_connection);
@@ -22,7 +22,6 @@ private:
     double calcMaxQa(VectorXd* p_state, VectorXd* p_action);
 
 private:
-    double _alpha;
     double _gamma;
     double _lambda;
     VectorXd _error;

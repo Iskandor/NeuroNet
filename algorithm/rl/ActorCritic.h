@@ -11,6 +11,7 @@
 #include "../BackProp.h"
 #include "SimpleActor.h"
 #include "../IEnvironment.h"
+#include "QLearning.h"
 
 class ActorCritic {
 public:
@@ -19,9 +20,13 @@ public:
 
     void setAlpha(double p_alpha);
     void setBeta(double p_beta);
+    void setExploration(double p_epsilon);
 
     virtual void init(IEnvironment* p_environment);
-    virtual void train();
+    virtual void run();
+
+protected:
+    virtual void getAction(VectorXd* p_state, VectorXd* p_action);
 
 protected:
     IEnvironment* _environment;
@@ -30,12 +35,10 @@ protected:
 
     double _alpha;
     double _beta;
+    double _epsilon;
 
-    virtual void getAction(VectorXd* p_state, VectorXd* p_action);
-
-private:
-    TDLambda*    _criticLearning;
-    SimpleActor* _actorLearning;
+    LearningAlgorithm* _criticLearning;
+    LearningAlgorithm* _actorLearning;
 };
 
 

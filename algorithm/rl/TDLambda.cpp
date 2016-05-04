@@ -5,7 +5,7 @@
 
 using namespace std;
 
-TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network) {
+TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network), LearningAlgorithm() {
     _lambda = p_lambda;
     _gamma = p_gamma;
     _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());
@@ -62,10 +62,6 @@ void TDLambda::updateWeights(Connection *p_connection) {
     */
 
     (*p_connection->getWeights()) += deltaW;
-}
-
-void TDLambda::setAlpha(double p_alpha) {
-    _alpha = p_alpha;
 }
 
 /*

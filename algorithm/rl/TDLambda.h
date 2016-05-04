@@ -1,18 +1,18 @@
 #pragma once
 #include "../GradientBase.h"
+#include "../LearningAlgorithm.h"
 #include <map>
 
 using namespace std;
 
-class TDLambda : public GradientBase
+class TDLambda : public GradientBase, public LearningAlgorithm
 {
 
 public:
     TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma);
-    ~TDLambda(void);
+    virtual ~TDLambda(void);
 
     virtual double train(VectorXd *p_state0, VectorXd *p_state1,  double reward);
-    void setAlpha(double p_alpha);
     virtual void updateWeights(Connection* p_connection);
 
 
@@ -20,8 +20,6 @@ protected:
     void updateEligTrace(Connection* p_connection);
     //void calcDelta();
     //void deltaKernel(NeuralGroup *p_group);
-
-    double  _alpha;
     double  _gamma;
     double  _lambda;
     VectorXd  _error;

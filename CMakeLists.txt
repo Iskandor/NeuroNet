@@ -93,7 +93,7 @@ set(SOURCE_FILES
         algorithm/rl/ActorCritic.cpp
         algorithm/rl/ActorCritic.h
         algorithm/rl/SimpleActor.cpp
-        algorithm/rl/SimpleActor.h)
+        algorithm/rl/SimpleActor.h algorithm/rl/CACLA.cpp algorithm/rl/CACLA.h algorithm/LearningAlgorithm.cpp algorithm/LearningAlgorithm.h)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})

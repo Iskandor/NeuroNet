@@ -13,7 +13,7 @@ void sampleBP() {
     NeuralGroup* inputGroup = network.addLayer("input", 2, IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 2, SIGMOID, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 4, SIGMOID, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer("output", 1, SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections

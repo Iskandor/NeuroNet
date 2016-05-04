@@ -2,11 +2,12 @@
 #include "../network/NeuralGroup.h"
 #include "../network/Connection.h"
 #include "GradientBase.h"
+#include "LearningAlgorithm.h"
 #include <map>
 
 using namespace std;
 
-class BackProp : public GradientBase
+class BackProp : public GradientBase, public LearningAlgorithm
 {
 
 public:
@@ -14,8 +15,7 @@ public:
   virtual ~BackProp(void);
 
   virtual double train(double *p_input, double* p_target);
-  void setAlpha(double p_alpha);
-  void setWeightDecay(double p_weightDecay);
+   void setWeightDecay(double p_weightDecay);
   void setMomentum(double p_momentum);
 
 protected:
@@ -27,8 +27,6 @@ private:
   void weightDecay(Connection* p_connection) const;
 
 protected:
-
-  double  _alpha;
   double  _weightDecay;
   double  _momentum;
   double* _input;

@@ -5,6 +5,7 @@
 #include "Maze.h"
 #include "../algorithm/rl/QLearning.h"
 #include "../algorithm/rl/ActorCritic.h"
+#include "../algorithm/rl/CACLA.h"
 
 void sampleTDAC() {
     double sumReward = 0;
@@ -12,11 +13,11 @@ void sampleTDAC() {
     int dim = 3;
 
     NeuralNetwork critic;
-    critic.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
+    critic.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
     critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
-    critic.addLayer("output", 1, IDENTITY, NeuralNetwork::OUTPUT);
+    critic.addLayer("hidden", 4, TANH, NeuralNetwork::HIDDEN);
+    critic.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
     // feed-forward connections
     critic.addConnection("input", "hidden");
     critic.addConnection("hidden", "output");
@@ -28,7 +29,7 @@ void sampleTDAC() {
     actor.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     actor.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     actor.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("hidden", 9, TANH, NeuralNetwork::HIDDEN);
+    actor.addLayer("hidden", 8, TANH, NeuralNetwork::HIDDEN);
     actor.addLayer("output", 4, SOFTMAX, NeuralNetwork::OUTPUT);
     actor.addConnection("input", "hidden");
     actor.addConnection("hidden", "output");
@@ -40,9 +41,10 @@ void sampleTDAC() {
     Maze maze(dim);
     maze.reset();
 
-    ActorCritic actorCritic(&actor, &critic);
-    actorCritic.setAlpha(0.01);
-    actorCritic.setBeta(0.1);
+    CACLA actorCritic(&actor, &critic);
+    actorCritic.setAlpha(0.1);
+    actorCritic.setBeta(0.05);
+    actorCritic.setExploration(0.01);
     actorCritic.init(&maze);
 
 
@@ -54,9 +56,9 @@ void sampleTDAC() {
 
     VectorXd state0(dim*dim);
 
-    while(episode < 200) {
+    while(episode < 5000) {
 
-        actorCritic.train();
+        actorCritic.run();
 
         sumReward += maze.getReward();
         time++;
@@ -66,6 +68,7 @@ void sampleTDAC() {
 
             cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
+            /*
             for(auto i = 0; i < dim; i++) {
               for(auto j = 0; j < dim; j++) {
                 state0.fill(0);
@@ -75,7 +78,8 @@ void sampleTDAC() {
               }
               cout << endl;
             }
-
+             */
+            maze.reset();
             time = 0;
             sumReward = 0;
             episode++;

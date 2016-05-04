@@ -7,21 +7,19 @@
 
 
 #include "../GradientBase.h"
+#include "../LearningAlgorithm.h"
 
-class SimpleActor : public GradientBase {
+class SimpleActor : public GradientBase, public LearningAlgorithm {
 public:
     SimpleActor(NeuralNetwork* p_network);
-    ~SimpleActor();
+    virtual ~SimpleActor();
 
-    void train(VectorXd* p_state0, VectorXd* p_action0, double p_tdError);
-    void setAlpha(double p_alpha);
+    void train(VectorXd* p_state0, VectorXd* p_action0);
 
 private:
     void updateWeights(Connection* p_connection);
 
-    double    _alpha;
     VectorXd  _error;
-    double    _tdError;
 };
 
 

@@ -4,7 +4,7 @@
 
 #include "QLearning.h"
 
-QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network) {
+QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network), LearningAlgorithm() {
     _gamma = p_gamma;
     _lambda = p_lambda;
     _error = VectorXd::Zero(p_network->getOutput()->size());
@@ -34,10 +34,6 @@ double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_sta
     }
 
     return _error[0];
-}
-
-void QLearning::setAlpha(double p_alpha) {
-    _alpha = p_alpha;
 }
 
 void QLearning::updateWeights(Connection *p_connection) {

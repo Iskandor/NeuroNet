@@ -3,7 +3,7 @@
 #include "BackProp.h"
 
 
-BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network) {
+BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network), LearningAlgorithm() {
   _alpha = 0;
   _weightDecay = 0;
   _momentum = 0;
@@ -67,10 +67,6 @@ void BackProp::updateWeights(Connection* p_connection) {
 void BackProp::weightDecay(Connection* p_connection) const
 {
   *p_connection->getWeights() *= (1 - _weightDecay);
-}
-
-void BackProp::setAlpha(double p_alpha) {
-  _alpha = p_alpha;
 }
 
 void BackProp::setWeightDecay(double p_weightDecay) {

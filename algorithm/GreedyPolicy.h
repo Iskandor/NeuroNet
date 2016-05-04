@@ -14,7 +14,7 @@ using namespace Eigen;
 class GreedyPolicy {
 public:
     GreedyPolicy(NeuralNetwork *p_network, IEnvironment* p_environment);
-    ~GreedyPolicy();
+    virtual ~GreedyPolicy();
 
     void setEpsilon(double p_value);
     void getActionV(VectorXd *p_state, VectorXd *p_action);
