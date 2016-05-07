@@ -16,7 +16,7 @@ void sampleTDAC() {
     critic.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
     critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 4, TANH, NeuralNetwork::HIDDEN);
+    critic.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
     critic.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
     // feed-forward connections
     critic.addConnection("input", "hidden");
@@ -29,8 +29,8 @@ void sampleTDAC() {
     actor.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
     actor.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
     actor.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("hidden", 8, TANH, NeuralNetwork::HIDDEN);
-    actor.addLayer("output", 4, SOFTMAX, NeuralNetwork::OUTPUT);
+    actor.addLayer("hidden", 8, SIGMOID, NeuralNetwork::HIDDEN);
+    actor.addLayer("output", 4, SIGMOID, NeuralNetwork::OUTPUT);
     actor.addConnection("input", "hidden");
     actor.addConnection("hidden", "output");
     actor.addConnection("biasH", "hidden");
@@ -42,8 +42,8 @@ void sampleTDAC() {
     maze.reset();
 
     CACLA actorCritic(&actor, &critic);
-    actorCritic.setAlpha(0.1);
-    actorCritic.setBeta(0.05);
+    actorCritic.setAlpha(0.5);
+    actorCritic.setBeta(0.1);
     actorCritic.setExploration(0.01);
     actorCritic.init(&maze);
 
@@ -56,7 +56,7 @@ void sampleTDAC() {
 
     VectorXd state0(dim*dim);
 
-    while(episode < 5000) {
+    while(episode < 10000) {
 
         actorCritic.run();
 

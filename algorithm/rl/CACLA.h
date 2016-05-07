@@ -15,6 +15,9 @@ public:
     ~CACLA();
 
     void run() override;
+
+private:
+    void getAction(VectorXd *p_state, VectorXd *p_action) override;
 };
 
 

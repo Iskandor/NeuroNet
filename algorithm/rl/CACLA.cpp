@@ -34,3 +34,7 @@ void CACLA::run() {
     actorLearning->train(&state0, &action0);
   }
 }
+
+void CACLA::getAction(VectorXd *p_state, VectorXd *p_action) {
+  ActorCritic::getAction(p_state, p_action);
+}
