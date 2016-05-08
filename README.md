@@ -20,6 +20,7 @@ Library focusing on reinforcement learning algorithms using neural natworks as f
 * Regular Gradient Actor Critic
 
 ##Author
-@Matej Pechac finished master degree in cognitive science studies and is interested in AI developement
+Matej Pechac (matej.pechac(at)gmail.com)
+finished master degree in cognitive science studies and is interested in AI developement
 
 
