@@ -2,18 +2,17 @@
 // Created by user on 10. 4. 2016.
 //
 
-#include "SimpleActor.h"
+#include "CACLAActor.h"
 
-SimpleActor::SimpleActor(NeuralNetwork *p_network) : GradientBase(p_network), LearningAlgorithm() {
+CACLAActor::CACLAActor(NeuralNetwork *p_network) : GradientBase(p_network), LearningAlgorithm() {
   _error.resize(p_network->getOutput()->size());
-  _alpha = 0;
 }
 
-SimpleActor::~SimpleActor() {
+CACLAActor::~CACLAActor() {
 
 }
 
-void SimpleActor::train(VectorXd *p_state0, VectorXd *p_action0) {
+void CACLAActor::train(VectorXd *p_state0, VectorXd *p_action0) {
   _network->activate(p_state0);
 
   _error = *p_action0 - *_network->getOutput();
@@ -25,7 +24,7 @@ void SimpleActor::train(VectorXd *p_state0, VectorXd *p_action0) {
   }
 }
 
-void SimpleActor::updateWeights(Connection *p_connection) {
+void CACLAActor::updateWeights(Connection *p_connection) {
   int nCols = p_connection->getInGroup()->getDim();
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);

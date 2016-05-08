@@ -92,8 +92,12 @@ set(SOURCE_FILES
         samples/sampleTDAC.cpp
         algorithm/rl/ActorCritic.cpp
         algorithm/rl/ActorCritic.h
-        algorithm/rl/SimpleActor.cpp
-        algorithm/rl/SimpleActor.h algorithm/rl/CACLA.cpp algorithm/rl/CACLA.h algorithm/LearningAlgorithm.cpp algorithm/LearningAlgorithm.h)
+        algorithm/rl/CACLAActor.cpp
+        algorithm/rl/CACLAActor.h
+        algorithm/rl/CACLA.cpp
+        algorithm/rl/CACLA.h
+        algorithm/LearningAlgorithm.cpp
+        algorithm/LearningAlgorithm.h algorithm/rl/RegularGradientActor.cpp algorithm/rl/RegularGradientActor.cpp algorithm/rl/RegularGradientActor.h algorithm/rl/RGAC.cpp algorithm/rl/RGAC.h)
 
 add_executable(NeuroNet ${SOURCE_FILES})
 #add_library(NeuroNet ${SOURCE_FILES})

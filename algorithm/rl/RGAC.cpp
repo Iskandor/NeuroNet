@@ -1,20 +1,20 @@
 //
-// Created by user on 1. 5. 2016.
+// Created by user on 7. 5. 2016.
 //
 
-#include "CACLA.h"
+#include "RGAC.h"
+#include "RegularGradientActor.h"
 
-CACLA::CACLA(NeuralNetwork *p_actor, NeuralNetwork *p_critic) : ActorCritic(p_actor, p_critic) {
+RGAC::RGAC(NeuralNetwork *p_actor, NeuralNetwork *p_critic) : ActorCritic(p_actor, p_critic) {
+  _actorLearning = new RegularGradientActor(p_actor);
   _criticLearning = new QLearning(p_critic, 0.9, 0.9);
-  _actorLearning = new CACLAActor(p_actor);
 }
 
-CACLA::~CACLA() {
+RGAC::~RGAC() {
 
 }
 
-
-void CACLA::run() {
+void RGAC::run() {
   VectorXd state0 = VectorXd::Zero(_environment->getState()->size());
   VectorXd state1 = VectorXd::Zero(_environment->getState()->size());
   VectorXd action0 = VectorXd::Zero(_actor->getOutput()->size());
@@ -26,15 +26,9 @@ void CACLA::run() {
   state1 = *_environment->getState();
   reward = _environment->getReward();
 
-  CACLAActor* actorLearning = dynamic_cast<CACLAActor *>(_actorLearning);
+  RegularGradientActor* actorLearning = dynamic_cast<RegularGradientActor *>(_actorLearning);
   QLearning* criticLearning = dynamic_cast<QLearning *>(_criticLearning);
 
   double tdError = criticLearning->train(&state0, &action0, &state1, reward);
-  if (tdError > 0) {
-    actorLearning->train(&state0, &action0);
-  }
-}
-
-void CACLA::getAction(VectorXd *p_state, VectorXd *p_action) {
-  ActorCritic::getAction(p_state, p_action);
+  actorLearning->train(&state0, tdError);
 }

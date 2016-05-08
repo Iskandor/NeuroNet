@@ -15,11 +15,276 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="013a3aad-c691-4e14-92a8-215b23aa2c9b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithm/rl/RGAC.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithm/rl/RGAC.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithm/rl/RegularGradientActor.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithm/rl/RegularGradientActor.h" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/algorithm/rl/SimpleActor.cpp" afterPath="$PROJECT_DIR$/algorithm/rl/CACLAActor.cpp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/algorithm/rl/SimpleActor.h" afterPath="$PROJECT_DIR$/algorithm/rl/CACLAActor.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_back_prop.png" afterPath="$PROJECT_DIR$/doc/html/class_back_prop.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_gradient_base.png" afterPath="$PROJECT_DIR$/doc/html/class_gradient_base.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_q_learning.png" afterPath="$PROJECT_DIR$/doc/html/class_q_learning.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_t_d_lambda.png" afterPath="$PROJECT_DIR$/doc/html/class_t_d_lambda.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/NeuroNet.iml" afterPath="$PROJECT_DIR$/.idea/NeuroNet.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Doxyfile" afterPath="$PROJECT_DIR$/Doxyfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/rl/ActorCritic.cpp" afterPath="$PROJECT_DIR$/algorithm/rl/ActorCritic.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/rl/ActorCritic.h" afterPath="$PROJECT_DIR$/algorithm/rl/ActorCritic.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/rl/CACLA.cpp" afterPath="$PROJECT_DIR$/algorithm/rl/CACLA.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/rl/CACLA.h" afterPath="$PROJECT_DIR$/algorithm/rl/CACLA.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_back_prop_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_back_prop_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_back_prop_8h.html" afterPath="$PROJECT_DIR$/doc/html/_back_prop_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_back_prop_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_back_prop_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_connection_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_connection_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_connection_8h.html" afterPath="$PROJECT_DIR$/doc/html/_connection_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_connection_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_connection_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_dataset_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_dataset_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_dataset_8h.html" afterPath="$PROJECT_DIR$/doc/html/_dataset_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_dataset_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_dataset_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_dataset_config_8h.html" afterPath="$PROJECT_DIR$/doc/html/_dataset_config_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_dataset_config_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_dataset_config_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_define_8h.html" afterPath="$PROJECT_DIR$/doc/html/_define_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_define_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_define_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_gradient_base_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_gradient_base_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_gradient_base_8h.html" afterPath="$PROJECT_DIR$/doc/html/_gradient_base_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_gradient_base_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_gradient_base_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_greedy_policy_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_greedy_policy_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_greedy_policy_8h.html" afterPath="$PROJECT_DIR$/doc/html/_greedy_policy_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_greedy_policy_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_greedy_policy_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_i_environment_8h.html" afterPath="$PROJECT_DIR$/doc/html/_i_environment_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_i_environment_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_i_environment_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_network_utils_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_network_utils_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_network_utils_8h.html" afterPath="$PROJECT_DIR$/doc/html/_network_utils_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_network_utils_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_network_utils_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_group_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_neural_group_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_group_8h.html" afterPath="$PROJECT_DIR$/doc/html/_neural_group_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_group_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_neural_group_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_network_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_neural_network_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_network_8h.html" afterPath="$PROJECT_DIR$/doc/html/_neural_network_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_neural_network_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_neural_network_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_q_learning_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_q_learning_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_q_learning_8h.html" afterPath="$PROJECT_DIR$/doc/html/_q_learning_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_q_learning_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_q_learning_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_s_o_m_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_s_o_m_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_s_o_m_8h.html" afterPath="$PROJECT_DIR$/doc/html/_s_o_m_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_s_o_m_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_s_o_m_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_string_utils_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_string_utils_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_string_utils_8h.html" afterPath="$PROJECT_DIR$/doc/html/_string_utils_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_string_utils_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_string_utils_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_t_d_lambda_8cpp.html" afterPath="$PROJECT_DIR$/doc/html/_t_d_lambda_8cpp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_t_d_lambda_8h.html" afterPath="$PROJECT_DIR$/doc/html/_t_d_lambda_8h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/_t_d_lambda_8h_source.html" afterPath="$PROJECT_DIR$/doc/html/_t_d_lambda_8h_source.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/annotated.html" afterPath="$PROJECT_DIR$/doc/html/annotated.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_back_prop-members.html" afterPath="$PROJECT_DIR$/doc/html/class_back_prop-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_back_prop.html" afterPath="$PROJECT_DIR$/doc/html/class_back_prop.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_connection-members.html" afterPath="$PROJECT_DIR$/doc/html/class_connection-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_connection.html" afterPath="$PROJECT_DIR$/doc/html/class_connection.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_dataset-members.html" afterPath="$PROJECT_DIR$/doc/html/class_dataset-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_dataset.html" afterPath="$PROJECT_DIR$/doc/html/class_dataset.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_gradient_base-members.html" afterPath="$PROJECT_DIR$/doc/html/class_gradient_base-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_gradient_base.html" afterPath="$PROJECT_DIR$/doc/html/class_gradient_base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_greedy_policy-members.html" afterPath="$PROJECT_DIR$/doc/html/class_greedy_policy-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_greedy_policy.html" afterPath="$PROJECT_DIR$/doc/html/class_greedy_policy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_i_environment-members.html" afterPath="$PROJECT_DIR$/doc/html/class_i_environment-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_i_environment.html" afterPath="$PROJECT_DIR$/doc/html/class_i_environment.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_network_utils-members.html" afterPath="$PROJECT_DIR$/doc/html/class_network_utils-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_network_utils.html" afterPath="$PROJECT_DIR$/doc/html/class_network_utils.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_neural_group-members.html" afterPath="$PROJECT_DIR$/doc/html/class_neural_group-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_neural_group.html" afterPath="$PROJECT_DIR$/doc/html/class_neural_group.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_neural_network-members.html" afterPath="$PROJECT_DIR$/doc/html/class_neural_network-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_neural_network.html" afterPath="$PROJECT_DIR$/doc/html/class_neural_network.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_q_learning-members.html" afterPath="$PROJECT_DIR$/doc/html/class_q_learning-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_q_learning.html" afterPath="$PROJECT_DIR$/doc/html/class_q_learning.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_s_o_m-members.html" afterPath="$PROJECT_DIR$/doc/html/class_s_o_m-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_s_o_m.html" afterPath="$PROJECT_DIR$/doc/html/class_s_o_m.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_string_utils-members.html" afterPath="$PROJECT_DIR$/doc/html/class_string_utils-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_string_utils.html" afterPath="$PROJECT_DIR$/doc/html/class_string_utils.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_t_d_lambda-members.html" afterPath="$PROJECT_DIR$/doc/html/class_t_d_lambda-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/class_t_d_lambda.html" afterPath="$PROJECT_DIR$/doc/html/class_t_d_lambda.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/classes.html" afterPath="$PROJECT_DIR$/doc/html/classes.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/dir_692f640cc74363071c5c0e14282656e9.html" afterPath="$PROJECT_DIR$/doc/html/dir_692f640cc74363071c5c0e14282656e9.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/dir_69d161b310b416c017cd8d605393fc45.html" afterPath="$PROJECT_DIR$/doc/html/dir_69d161b310b416c017cd8d605393fc45.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/dir_c901c14b65aa229498a52b725b3d4a2c.html" afterPath="$PROJECT_DIR$/doc/html/dir_c901c14b65aa229498a52b725b3d4a2c.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/dir_f1d898c538e6d788f60535fd84bc929f.html" afterPath="$PROJECT_DIR$/doc/html/dir_f1d898c538e6d788f60535fd84bc929f.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/doxygen.css" afterPath="$PROJECT_DIR$/doc/html/doxygen.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/dynsections.js" afterPath="$PROJECT_DIR$/doc/html/dynsections.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/files.html" afterPath="$PROJECT_DIR$/doc/html/files.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/functions.html" afterPath="$PROJECT_DIR$/doc/html/functions.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/functions_enum.html" afterPath="$PROJECT_DIR$/doc/html/functions_enum.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/functions_eval.html" afterPath="$PROJECT_DIR$/doc/html/functions_eval.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/functions_func.html" afterPath="$PROJECT_DIR$/doc/html/functions_func.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/functions_vars.html" afterPath="$PROJECT_DIR$/doc/html/functions_vars.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/globals.html" afterPath="$PROJECT_DIR$/doc/html/globals.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/globals_defs.html" afterPath="$PROJECT_DIR$/doc/html/globals_defs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/hierarchy.html" afterPath="$PROJECT_DIR$/doc/html/hierarchy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/index.html" afterPath="$PROJECT_DIR$/doc/html/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/jquery.js" afterPath="$PROJECT_DIR$/doc/html/jquery.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_0.html" afterPath="$PROJECT_DIR$/doc/html/search/all_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_0.js" afterPath="$PROJECT_DIR$/doc/html/search/all_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_1.html" afterPath="$PROJECT_DIR$/doc/html/search/all_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_1.js" afterPath="$PROJECT_DIR$/doc/html/search/all_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_10.html" afterPath="$PROJECT_DIR$/doc/html/search/all_10.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_10.js" afterPath="$PROJECT_DIR$/doc/html/search/all_10.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_11.html" afterPath="$PROJECT_DIR$/doc/html/search/all_11.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_11.js" afterPath="$PROJECT_DIR$/doc/html/search/all_11.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_12.html" afterPath="$PROJECT_DIR$/doc/html/search/all_12.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_12.js" afterPath="$PROJECT_DIR$/doc/html/search/all_12.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_13.html" afterPath="$PROJECT_DIR$/doc/html/search/all_13.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_13.js" afterPath="$PROJECT_DIR$/doc/html/search/all_13.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_14.html" afterPath="$PROJECT_DIR$/doc/html/search/all_14.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_14.js" afterPath="$PROJECT_DIR$/doc/html/search/all_14.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_15.html" afterPath="$PROJECT_DIR$/doc/html/search/all_15.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_15.js" afterPath="$PROJECT_DIR$/doc/html/search/all_15.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_2.html" afterPath="$PROJECT_DIR$/doc/html/search/all_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_2.js" afterPath="$PROJECT_DIR$/doc/html/search/all_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_3.html" afterPath="$PROJECT_DIR$/doc/html/search/all_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_3.js" afterPath="$PROJECT_DIR$/doc/html/search/all_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_4.html" afterPath="$PROJECT_DIR$/doc/html/search/all_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_4.js" afterPath="$PROJECT_DIR$/doc/html/search/all_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_5.html" afterPath="$PROJECT_DIR$/doc/html/search/all_5.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_5.js" afterPath="$PROJECT_DIR$/doc/html/search/all_5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_6.html" afterPath="$PROJECT_DIR$/doc/html/search/all_6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_6.js" afterPath="$PROJECT_DIR$/doc/html/search/all_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_7.html" afterPath="$PROJECT_DIR$/doc/html/search/all_7.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_7.js" afterPath="$PROJECT_DIR$/doc/html/search/all_7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_8.html" afterPath="$PROJECT_DIR$/doc/html/search/all_8.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_8.js" afterPath="$PROJECT_DIR$/doc/html/search/all_8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_9.html" afterPath="$PROJECT_DIR$/doc/html/search/all_9.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_9.js" afterPath="$PROJECT_DIR$/doc/html/search/all_9.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_a.html" afterPath="$PROJECT_DIR$/doc/html/search/all_a.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_a.js" afterPath="$PROJECT_DIR$/doc/html/search/all_a.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_b.html" afterPath="$PROJECT_DIR$/doc/html/search/all_b.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_b.js" afterPath="$PROJECT_DIR$/doc/html/search/all_b.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_c.html" afterPath="$PROJECT_DIR$/doc/html/search/all_c.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_c.js" afterPath="$PROJECT_DIR$/doc/html/search/all_c.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_d.html" afterPath="$PROJECT_DIR$/doc/html/search/all_d.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_d.js" afterPath="$PROJECT_DIR$/doc/html/search/all_d.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_e.html" afterPath="$PROJECT_DIR$/doc/html/search/all_e.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_e.js" afterPath="$PROJECT_DIR$/doc/html/search/all_e.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_f.html" afterPath="$PROJECT_DIR$/doc/html/search/all_f.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/all_f.js" afterPath="$PROJECT_DIR$/doc/html/search/all_f.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_0.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_0.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_1.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_1.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_2.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_2.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_3.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_3.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_4.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_4.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_5.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_5.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_5.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_6.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_6.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_7.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_7.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_7.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_8.html" afterPath="$PROJECT_DIR$/doc/html/search/classes_8.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/classes_8.js" afterPath="$PROJECT_DIR$/doc/html/search/classes_8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_0.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_0.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_1.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_1.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_2.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_2.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_3.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_3.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_4.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_4.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_5.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_5.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_5.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_6.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_6.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_7.html" afterPath="$PROJECT_DIR$/doc/html/search/defines_7.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/defines_7.js" afterPath="$PROJECT_DIR$/doc/html/search/defines_7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enums_0.html" afterPath="$PROJECT_DIR$/doc/html/search/enums_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enums_0.js" afterPath="$PROJECT_DIR$/doc/html/search/enums_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enums_1.html" afterPath="$PROJECT_DIR$/doc/html/search/enums_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enums_1.js" afterPath="$PROJECT_DIR$/doc/html/search/enums_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_0.html" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_0.js" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_1.html" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_1.js" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_2.html" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_2.js" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_3.html" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_3.js" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_4.html" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/enumvalues_4.js" afterPath="$PROJECT_DIR$/doc/html/search/enumvalues_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_0.html" afterPath="$PROJECT_DIR$/doc/html/search/files_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_0.js" afterPath="$PROJECT_DIR$/doc/html/search/files_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_1.html" afterPath="$PROJECT_DIR$/doc/html/search/files_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_1.js" afterPath="$PROJECT_DIR$/doc/html/search/files_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_2.html" afterPath="$PROJECT_DIR$/doc/html/search/files_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_2.js" afterPath="$PROJECT_DIR$/doc/html/search/files_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_3.html" afterPath="$PROJECT_DIR$/doc/html/search/files_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_3.js" afterPath="$PROJECT_DIR$/doc/html/search/files_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_4.html" afterPath="$PROJECT_DIR$/doc/html/search/files_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_4.js" afterPath="$PROJECT_DIR$/doc/html/search/files_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_5.html" afterPath="$PROJECT_DIR$/doc/html/search/files_5.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_5.js" afterPath="$PROJECT_DIR$/doc/html/search/files_5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_6.html" afterPath="$PROJECT_DIR$/doc/html/search/files_6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_6.js" afterPath="$PROJECT_DIR$/doc/html/search/files_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_7.html" afterPath="$PROJECT_DIR$/doc/html/search/files_7.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_7.js" afterPath="$PROJECT_DIR$/doc/html/search/files_7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_8.html" afterPath="$PROJECT_DIR$/doc/html/search/files_8.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/files_8.js" afterPath="$PROJECT_DIR$/doc/html/search/files_8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_0.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_0.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_1.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_1.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_10.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_10.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_10.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_10.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_11.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_11.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_11.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_11.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_12.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_12.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_12.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_12.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_2.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_2.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_3.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_3.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_4.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_4.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_5.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_5.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_5.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_6.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_6.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_7.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_7.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_7.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_8.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_8.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_8.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_9.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_9.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_9.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_9.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_a.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_a.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_a.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_a.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_b.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_b.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_b.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_b.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_c.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_c.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_c.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_c.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_d.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_d.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_d.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_d.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_e.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_e.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_e.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_e.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_f.html" afterPath="$PROJECT_DIR$/doc/html/search/functions_f.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/functions_f.js" afterPath="$PROJECT_DIR$/doc/html/search/functions_f.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/nomatches.html" afterPath="$PROJECT_DIR$/doc/html/search/nomatches.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/search.css" afterPath="$PROJECT_DIR$/doc/html/search/search.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/search.js" afterPath="$PROJECT_DIR$/doc/html/search/search.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/searchdata.js" afterPath="$PROJECT_DIR$/doc/html/search/searchdata.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_0.html" afterPath="$PROJECT_DIR$/doc/html/search/variables_0.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_0.js" afterPath="$PROJECT_DIR$/doc/html/search/variables_0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_1.html" afterPath="$PROJECT_DIR$/doc/html/search/variables_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_1.js" afterPath="$PROJECT_DIR$/doc/html/search/variables_1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_2.html" afterPath="$PROJECT_DIR$/doc/html/search/variables_2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_2.js" afterPath="$PROJECT_DIR$/doc/html/search/variables_2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_3.html" afterPath="$PROJECT_DIR$/doc/html/search/variables_3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/search/variables_3.js" afterPath="$PROJECT_DIR$/doc/html/search/variables_3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/struct_dataset_config-members.html" afterPath="$PROJECT_DIR$/doc/html/struct_dataset_config-members.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/struct_dataset_config.html" afterPath="$PROJECT_DIR$/doc/html/struct_dataset_config.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/html/tabs.css" afterPath="$PROJECT_DIR$/doc/html/tabs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/network/NeuralGroup.cpp" afterPath="$PROJECT_DIR$/network/NeuralGroup.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/sampleLunarLander.cpp" afterPath="$PROJECT_DIR$/samples/sampleLunarLander.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/sampleTDAC.cpp" afterPath="$PROJECT_DIR$/samples/sampleTDAC.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/sample_bp.cpp" afterPath="$PROJECT_DIR$/samples/sample_bp.cpp" />
     </list>
     <ignored path="libNeuroNet.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,53 +308,11 @@
       <file leaf-file-name="sampleTDAC.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/samples/sampleTDAC.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50416666">
-              <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.5088757">
+              <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sampleQ.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samples/sampleQ.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActorCritic.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithm/rl/ActorCritic.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="74" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample_bp.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samples/sample_bp.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActorCritic.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithm/rl/ActorCritic.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -108,7 +331,7 @@
         <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLA.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
               <folding>
                 <element signature="e#93#133#0" expanded="true" />
               </folding>
@@ -120,8 +343,62 @@
         <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLA.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="34" selection-end-column="3" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegularGradientActor.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorithm/rl/RegularGradientActor.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NeuralGroup.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/network/NeuralGroup.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="198" column="20" selection-start-line="198" selection-start-column="20" selection-end-line="198" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RGAC.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorithm/rl/RGAC.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+              <folding>
+                <element signature="e#41#58#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RGAC.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorithm/rl/RGAC.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegularGradientActor.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorithm/rl/RegularGradientActor.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="19" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="19" />
+              <folding>
+                <element signature="e#123#156#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -135,15 +412,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/samples/sampleSOM.cpp" />
-        <option value="$PROJECT_DIR$/log/log.h" />
-        <option value="$PROJECT_DIR$/dataset/Dataset.cpp" />
-        <option value="$PROJECT_DIR$/network/Graph.h" />
-        <option value="$PROJECT_DIR$/network/Graph.cpp" />
-        <option value="$PROJECT_DIR$/network/filters/IFilter.cpp" />
-        <option value="$PROJECT_DIR$/network/filters/IFilter.h" />
-        <option value="$PROJECT_DIR$/network/filters/NormalizationFilter.h" />
-        <option value="$PROJECT_DIR$/network/NeuralGroup.cpp" />
         <option value="$PROJECT_DIR$/network/NetworkUtils.h" />
         <option value="$PROJECT_DIR$/network/filters/NormalizationFilter.cpp" />
         <option value="$PROJECT_DIR$/network/Connection.cpp" />
@@ -166,14 +434,12 @@
         <option value="$PROJECT_DIR$/algorithm/rl/SARSA.h" />
         <option value="$PROJECT_DIR$/algorithm/rl/SARSA.cpp" />
         <option value="$PROJECT_DIR$/samples/sampleSARSA.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/algorithm/LearningAlgorithm.cpp" />
         <option value="$PROJECT_DIR$/algorithm/BackProp.h" />
         <option value="$PROJECT_DIR$/algorithm/BackProp.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/ActorCritic.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/ActorCritic.h" />
         <option value="$PROJECT_DIR$/algorithm/rl/SimpleActor.cpp" />
-        <option value="$PROJECT_DIR$/samples/sampleLunarLander.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/TDLambda.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/SimpleActor.h" />
         <option value="$PROJECT_DIR$/algorithm/rl/TDLambda.h" />
@@ -182,9 +448,20 @@
         <option value="$PROJECT_DIR$/algorithm/rl/QLearning.h" />
         <option value="$PROJECT_DIR$/algorithm/rl/QLearning.cpp" />
         <option value="$PROJECT_DIR$/samples/sample_bp.cpp" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/CACLA.h" />
+        <option value="$PROJECT_DIR$/samples/LunarLander.h" />
+        <option value="$PROJECT_DIR$/samples/LunarLander.cpp" />
+        <option value="$PROJECT_DIR$/samples/sampleLunarLander.cpp" />
         <option value="$PROJECT_DIR$/algorithm/rl/CACLA.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/algorithm/rl/CACLAActor.h" />
+        <option value="$PROJECT_DIR$/algorithm/rl/CACLAActor.cpp" />
+        <option value="$PROJECT_DIR$/algorithm/rl/RGAC.h" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/algorithm/rl/RegularGradientActor.h" />
+        <option value="$PROJECT_DIR$/algorithm/rl/RGAC.cpp" />
+        <option value="$PROJECT_DIR$/algorithm/rl/RegularGradientActor.cpp" />
+        <option value="$PROJECT_DIR$/network/NeuralGroup.cpp" />
         <option value="$PROJECT_DIR$/samples/sampleTDAC.cpp" />
       </list>
     </option>
@@ -520,48 +797,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dataset/Dataset.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.029513888">
-          <caret line="45" column="14" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/filters/NormalizationFilter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.265625">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samples/LunarLander.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/NetworkUtils.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/filters/NormalizationFilter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/eigen3/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8362919">
-          <caret line="703" column="21" selection-start-line="703" selection-start-column="21" selection-end-line="703" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/mingw-w64/x86_64-5.3.0-posix-seh-rt_v4-rev0/mingw64/x86_64-w64-mingw32/include/c++/bits/stl_iterator.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -584,13 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/network/NeuralGroup.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/network/Connection.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -602,20 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/NeuralGroup.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/NeuralNetwork.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -674,6 +888,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="199" column="0" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -702,14 +917,6 @@
           <folding>
             <marker date="1461700762785" expanded="true" signature="1456:1710" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2816092">
-          <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,14 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/LearningAlgorithm.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5029586">
-          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/BackProp.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2130177">
@@ -779,31 +978,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samples/sampleLunarLander.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="25" />
-          <folding>
-            <element signature="e#45#82#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/rl/TDLambda.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/rl/SimpleActor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-          <folding>
-            <element signature="e#106#134#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -857,32 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/rl/SimpleActor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLA.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-          <folding>
-            <element signature="e#93#133#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/rl/ActorCritic.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -904,7 +1057,81 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/network/NeuralNetwork.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13412228">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/LunarLander.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/LunarLander.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/sampleLunarLander.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8888888">
+          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLAActor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/LearningAlgorithm.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1773913">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLAActor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLA.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+          <folding>
+            <element signature="e#93#133#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -912,15 +1139,75 @@
     <entry file="file://$PROJECT_DIR$/algorithm/rl/CACLA.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="34" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/RegularGradientActor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="19" />
+          <folding>
+            <element signature="e#123#156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/RGAC.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/RGAC.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <folding>
+            <element signature="e#41#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/rl/RegularGradientActor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/network/NeuralGroup.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/network/NeuralGroup.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="198" column="20" selection-start-line="198" selection-start-column="20" selection-end-line="198" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/samples/sampleTDAC.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50416666">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.5088757">
+          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['evaluateaction',['evaluateAction',['../class_i_environment.html#a7b763a5722643b0007294ccfacaaf28e',1,'IEnvironment']]]
+  ['neuralgroup',['NeuralGroup',['../class_neural_group.html#af1e807bb727971564f7096a6bf7f1ede',1,'NeuralGroup']]]
 ];

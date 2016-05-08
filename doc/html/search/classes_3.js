@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gradientbase',['GradientBase',['../class_gradient_base.html',1,'']]],
-  ['greedypolicy',['GreedyPolicy',['../class_greedy_policy.html',1,'']]]
+  ['dataset',['Dataset',['../class_dataset.html',1,'']]],
+  ['datasetconfig',['DatasetConfig',['../struct_dataset_config.html',1,'']]]
 ];

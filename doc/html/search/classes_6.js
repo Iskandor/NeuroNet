@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qlearning',['QLearning',['../class_q_learning.html',1,'']]]
+  ['kwtafilter',['KwtaFilter',['../class_kwta_filter.html',1,'']]]
 ];

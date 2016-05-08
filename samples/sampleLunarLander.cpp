@@ -10,6 +10,7 @@
 #include "../network/som/SOM.h"
 #include "../network/filters/NormalizationFilter.h"
 #include "../algorithm/GreedyPolicy.h"
+#include "../algorithm/rl/CACLA.h"
 
 void sampleLunarLander() {
     double sumReward = 0;
@@ -19,62 +20,54 @@ void sampleLunarLander() {
     const int EPISODES = 100000;
     const int SIZE = 9;
 
-    NeuralNetwork network;
-
-    NeuralGroup* inputGroup = network.addLayer("input", dim+2, IDENTITY, NeuralNetwork::INPUT);
-    NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 2, SIGMOID, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralNetwork critic;
+    critic.addLayer("input", dim+2, IDENTITY, NeuralNetwork::INPUT);
+    critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    critic.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
+    critic.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
     VectorXd limit(dim+2);
     limit << 20,50,20,1,1;
-    inputGroup->addInFilter(new NormalizationFilter(&limit));
+    critic.getGroup("input")->addInFilter(new NormalizationFilter(&limit));
     // feed-forward connections
-    network.addConnection(inputGroup, hiddenGroup);
-    network.addConnection(hiddenGroup, outputGroup);
+    critic.addConnection("input", "hidden");
+    critic.addConnection("hidden", "output");
     // bias connections
-    network.addConnection(biasUnitH, hiddenGroup);
-    network.addConnection(biasUnitO, outputGroup);
+    critic.addConnection("biasH", "hidden");
+    critic.addConnection("biasO", "output");
 
-    SOM som(dim, SIZE, SIZE, EXPONENTIAL);
-    som.initTraining(0.01, EPISODES / 2);
+    NeuralNetwork actor;
+    actor.addLayer("input", dim, IDENTITY, NeuralNetwork::INPUT);
+    actor.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    actor.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    actor.addLayer("hidden", 4, SIGMOID, NeuralNetwork::HIDDEN);
+    actor.addLayer("output", 2, SIGMOID, NeuralNetwork::OUTPUT);
+    // feed-forward connections
+    actor.addConnection("input", "hidden");
+    actor.addConnection("hidden", "output");
+    // bias connections
+    actor.addConnection("biasH", "hidden");
+    actor.addConnection("biasO", "output");
 
-    QLearning qAgent(&network, 0.9, 0.9);
-    qAgent.setAlpha(0.1);
-
+    CACLA agent(&actor, &critic);
     LunarLander lander;
-    VectorXd action(2);
-    VectorXd state0(dim);
-    VectorXd state1(dim);
 
-    GreedyPolicy policy(&network, &lander);
-    policy.setEpsilon(0.01);
+    agent.setAlpha(0.5);
+    agent.setBeta(0.1);
+    agent.setExploration(0.01);
+    agent.init(&lander);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
     FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
     while(episode < 100000) {
-        double maxOutput = -INFINITY;
-        int action_i = 0;
-        double reward = 0;
 
-        //lander.print(cout);
-        //som.train(lander.getState()->data());
-        //som.activate(lander.getState());
-        //state0 = *som.getOutput();
-        state0 = *lander.getState();
-        policy.getActionQ(&state0, &action);
-        lander.updateState(&action);
-        //som.activate(lander.getState());
-        //state1 = *som.getOutput();
-        state1 = *lander.getState();
-        reward = lander.getReward();
-        sumReward += reward;
+        agent.run();
+        sumReward += lander.getReward();
 
         // 3. update
-        qAgent.train(&state0, &action, &state1, reward);
         time++;
 
         // 4. check whether terminal state was reached
@@ -86,10 +79,6 @@ void sampleLunarLander() {
             sumReward = 0;
             lander.reset();
             episode++;
-            if (episode > 99000) {
-                policy.setEpsilon(0);
-            }
-            //som.paramDecay();
         }
     }
 

@@ -8,7 +8,7 @@
 ActorCritic::ActorCritic(NeuralNetwork *p_actor, NeuralNetwork *p_critic) {
   _actor = p_actor;
   _critic = p_critic;
-  //_actorLearning = new SimpleActor(_actor);
+  //_actorLearning = new CACLAActor(_actor);
   //_criticLearning = new QLearning(_critic, 0.9, 0.9);
   _epsilon = 0;
 }

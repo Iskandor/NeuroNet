@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['max_5fthread',['MAX_THREAD',['../_define_8h.html#a04922e4673a244d94b12566890b2e96c',1,'Define.h']]]
+  ['regulargradientactor',['RegularGradientActor',['../class_regular_gradient_actor.html',1,'']]],
+  ['rgac',['RGAC',['../class_r_g_a_c.html',1,'']]]
 ];

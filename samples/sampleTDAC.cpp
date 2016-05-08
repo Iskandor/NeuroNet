@@ -6,6 +6,7 @@
 #include "../algorithm/rl/QLearning.h"
 #include "../algorithm/rl/ActorCritic.h"
 #include "../algorithm/rl/CACLA.h"
+#include "../algorithm/rl/RGAC.h"
 
 void sampleTDAC() {
     double sumReward = 0;
@@ -41,8 +42,8 @@ void sampleTDAC() {
     Maze maze(dim);
     maze.reset();
 
-    CACLA actorCritic(&actor, &critic);
-    actorCritic.setAlpha(0.5);
+    RGAC actorCritic(&actor, &critic);
+    actorCritic.setAlpha(0.3);
     actorCritic.setBeta(0.1);
     actorCritic.setExploration(0.01);
     actorCritic.init(&maze);
@@ -54,9 +55,7 @@ void sampleTDAC() {
 
     int episode = 0;
 
-    VectorXd state0(dim*dim);
-
-    while(episode < 10000) {
+    while(episode < 6000) {
 
         actorCritic.run();
 
@@ -68,17 +67,7 @@ void sampleTDAC() {
 
             cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
-            /*
-            for(auto i = 0; i < dim; i++) {
-              for(auto j = 0; j < dim; j++) {
-                state0.fill(0);
-                state0[i*dim + j] = 1;
-                critic.activate(&state0);
-                cout << critic.getScalarOutput() << ",";
-              }
-              cout << endl;
-            }
-             */
+
             maze.reset();
             time = 0;
             sumReward = 0;

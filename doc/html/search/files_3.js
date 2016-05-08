@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['gradientbase_2ecpp',['GradientBase.cpp',['../_gradient_base_8cpp.html',1,'']]],
-  ['gradientbase_2eh',['GradientBase.h',['../_gradient_base_8h.html',1,'']]],
-  ['greedypolicy_2ecpp',['GreedyPolicy.cpp',['../_greedy_policy_8cpp.html',1,'']]],
-  ['greedypolicy_2eh',['GreedyPolicy.h',['../_greedy_policy_8h.html',1,'']]]
+  ['dataset_2ecpp',['Dataset.cpp',['../_dataset_8cpp.html',1,'']]],
+  ['dataset_2eh',['Dataset.h',['../_dataset_8h.html',1,'']]],
+  ['datasetconfig_2eh',['DatasetConfig.h',['../_dataset_config_8h.html',1,'']]],
+  ['define_2eh',['Define.h',['../_define_8h.html',1,'']]]
 ];

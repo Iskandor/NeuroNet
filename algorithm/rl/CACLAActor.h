@@ -9,10 +9,10 @@
 #include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
 
-class SimpleActor : public GradientBase, public LearningAlgorithm {
+class CACLAActor : public GradientBase, public LearningAlgorithm {
 public:
-    SimpleActor(NeuralNetwork* p_network);
-    virtual ~SimpleActor();
+    CACLAActor(NeuralNetwork* p_network);
+    virtual ~CACLAActor();
 
     void train(VectorXd* p_state0, VectorXd* p_action0);
 

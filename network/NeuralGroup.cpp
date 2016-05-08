@@ -6,6 +6,12 @@
 
 using namespace std;
 
+/**
+ * NeuralGroup constructor creates layer of p_dim neurons with p_activationFunction
+ * @param p_id name of layer must be unique per network
+ * @param p_dim dimension of layer
+ * @param p_activationFunction type of activation function
+ */
 NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
 {
     _id = p_id;
@@ -19,7 +25,9 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
     _valid = false;
 }
 
-
+/**
+ * NeuralGroup destructor frees filters
+ */
 NeuralGroup::~NeuralGroup(void)
 {
     for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
@@ -31,26 +39,43 @@ NeuralGroup::~NeuralGroup(void)
     }
 }
 
-/* calculate output of group */
+/**
+ * calculates output of group and processes it by output filters
+ */
 void NeuralGroup::fire() {
     _valid = true;
     activate();
     processOutput(_output);
 }
 
+/**
+ * adds input connection
+ * @param p_index index of connection from connections pool
+ */
 void NeuralGroup::addInConnection(int p_index) {
     _inConnections.push_back(p_index);
 }
 
+/**
+ * adds output connection (currently only one is possible)
+ * @param p_index index of connection from connections pool
+ */
 void NeuralGroup::addOutConnection(int p_index) {
     _outConnection = p_index;
 }
 
+/**
+ * performs product of weights and input which is stored in actionPotential vector
+ * @param p_input vector of input values
+ * @param p_weights matrix of input connection params
+ */
 void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
   _actionPotential += (*p_weights) * (*p_input);
 }
 
-/* function which should calculate the output of neuron (activation function output) according to action potential */
+/**
+ * calculates the output of layer according to activation function
+ */
 void NeuralGroup::activate() {
     for(auto index = 0; index < _dim; index++) {
         switch (_activationFunction) {
@@ -101,6 +126,9 @@ void NeuralGroup::activate() {
     }
 }
 
+/**
+ * calculates derivative of the output of layer according to activation function
+ */
 void NeuralGroup::calcDerivs() {
     switch (_activationFunction) {
         case IDENTITY:
@@ -142,14 +170,24 @@ void NeuralGroup::calcDerivs() {
     }
 }
 
+/**
+ * adds filter into input filter queue
+ */
 void NeuralGroup::addInFilter(IFilter *p_filter) {
     _inFilter.push_back(p_filter);
 }
 
+/**
+ * adds filter into output filter queue
+ */
 void NeuralGroup::addOutFilter(IFilter *p_filter) {
     _outFilter.push_back(p_filter);
 }
 
+/**
+ * the input is being processed through input filter queue
+ * @param p_input reference to input which is processed
+ */
 VectorXd &NeuralGroup::processInput(VectorXd &p_input) {
     for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
         p_input = (*it)->process(&p_input);
@@ -157,6 +195,10 @@ VectorXd &NeuralGroup::processInput(VectorXd &p_input) {
     return p_input;
 }
 
+/**
+ * the output is being processed through output filter queue
+ * @param p_output reference to input which is processed
+ */
 VectorXd &NeuralGroup::processOutput(VectorXd &p_output) {
     for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
         p_output = (*it)->process(&p_output);

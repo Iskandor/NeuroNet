@@ -9,7 +9,7 @@
 #include "../../network/NeuralNetwork.h"
 #include "TDLambda.h"
 #include "../BackProp.h"
-#include "SimpleActor.h"
+#include "CACLAActor.h"
 #include "../IEnvironment.h"
 #include "QLearning.h"
 

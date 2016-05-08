@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['som',['SOM',['../class_s_o_m.html',1,'']]],
-  ['stringutils',['StringUtils',['../class_string_utils.html',1,'']]]
+  ['learningalgorithm',['LearningAlgorithm',['../class_learning_algorithm.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['connection',['Connection',['../class_connection.html',1,'']]]
+  ['backprop',['BackProp',['../class_back_prop.html',1,'']]]
 ];

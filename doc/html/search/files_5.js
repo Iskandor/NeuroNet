@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['networkutils_2ecpp',['NetworkUtils.cpp',['../_network_utils_8cpp.html',1,'']]],
-  ['networkutils_2eh',['NetworkUtils.h',['../_network_utils_8h.html',1,'']]],
-  ['neuralgroup_2ecpp',['NeuralGroup.cpp',['../_neural_group_8cpp.html',1,'']]],
-  ['neuralgroup_2eh',['NeuralGroup.h',['../_neural_group_8h.html',1,'']]],
-  ['neuralnetwork_2ecpp',['NeuralNetwork.cpp',['../_neural_network_8cpp.html',1,'']]],
-  ['neuralnetwork_2eh',['NeuralNetwork.h',['../_neural_network_8h.html',1,'']]]
+  ['ienvironment_2eh',['IEnvironment.h',['../_i_environment_8h.html',1,'']]],
+  ['ifilter_2eh',['IFilter.h',['../_i_filter_8h.html',1,'']]]
 ];

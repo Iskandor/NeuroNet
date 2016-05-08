@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['findwinner',['findWinner',['../class_s_o_m.html#a76a142adf5b00f018a4a355b22984d41',1,'SOM']]],
-  ['fire',['fire',['../class_neural_group.html#ac6e81149dc216c780e6b551dce8ada52',1,'NeuralGroup']]]
+  ['ienvironment',['IEnvironment',['../class_i_environment.html',1,'']]],
+  ['ifilter',['IFilter',['../class_i_filter.html',1,'']]],
+  ['integrate',['integrate',['../class_neural_group.html#a082aa6bf07f9acce8273bdd64ff2f801',1,'NeuralGroup']]]
 ];
