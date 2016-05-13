@@ -6,6 +6,8 @@
 #define NEURONET_LEARNINGALGORITHM_H
 
 
+namespace NeuroNet {
+
 class LearningAlgorithm {
 
 public:
@@ -17,5 +19,5 @@ protected:
     double  _alpha;
 };
 
-
+}
 #endif //NEURONET_LEARNINGALGORITHM_H

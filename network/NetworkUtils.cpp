@@ -4,6 +4,8 @@
 
 #include "NetworkUtils.h"
 
+using namespace NeuroNet;
+
 void NetworkUtils::coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd &p_vector) {
 
 }

@@ -4,6 +4,8 @@
 
 #include "CACLAActor.h"
 
+using namespace NeuroNet;
+
 CACLAActor::CACLAActor(NeuralNetwork *p_network) : GradientBase(p_network), LearningAlgorithm() {
   _error.resize(p_network->getOutput()->size());
 }

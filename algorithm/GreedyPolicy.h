@@ -11,6 +11,8 @@
 
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class GreedyPolicy {
 public:
     GreedyPolicy(NeuralNetwork *p_network, IEnvironment* p_environment);
@@ -26,5 +28,5 @@ private:
     double _epsilon;
 };
 
-
+}
 #endif //LIBNEURONET_GREEDYPOLICY_H

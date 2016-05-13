@@ -12,6 +12,8 @@
 using namespace std;
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class Dataset {
 public:
     Dataset();
@@ -29,5 +31,5 @@ private:
     vector<pair<VectorXd, VectorXd>> _buffer;
 };
 
-
+}
 #endif //LIBNEURONET_DATASET_H

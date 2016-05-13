@@ -5,6 +5,8 @@
 #include "ActorCritic.h"
 #include "QLearning.h"
 
+using namespace NeuroNet;
+
 ActorCritic::ActorCritic(NeuralNetwork *p_actor, NeuralNetwork *p_critic) {
   _actor = p_actor;
   _critic = p_critic;

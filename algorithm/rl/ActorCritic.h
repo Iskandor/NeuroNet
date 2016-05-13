@@ -13,6 +13,8 @@
 #include "../IEnvironment.h"
 #include "QLearning.h"
 
+namespace NeuroNet {
+
 class ActorCritic {
 public:
     ActorCritic(NeuralNetwork* p_actor, NeuralNetwork* p_critic);
@@ -41,5 +43,5 @@ protected:
     LearningAlgorithm* _actorLearning;
 };
 
-
+}
 #endif //NEURONET_ACTORCRITIC_H

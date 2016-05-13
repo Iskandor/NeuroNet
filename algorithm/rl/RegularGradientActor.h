@@ -9,6 +9,8 @@
 #include "../LearningAlgorithm.h"
 #include "../GradientBase.h"
 
+namespace NeuroNet {
+
 class RegularGradientActor : public GradientBase, public LearningAlgorithm {
 
 public:
@@ -24,5 +26,5 @@ private:
     VectorXd  _error;
 };
 
-
+}
 #endif //NEURONET_REGULARGRADIENTACTOR_H

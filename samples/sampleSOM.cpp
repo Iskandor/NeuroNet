@@ -7,6 +7,8 @@
 #include "../dataset/Dataset.h"
 #include "../network/Define.h"
 
+using namespace NeuroNet;
+
 void sampleSOM() {
     Dataset dataset;
     DatasetConfig config = {13, 1, ",", 13};

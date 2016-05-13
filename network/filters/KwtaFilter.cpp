@@ -4,6 +4,8 @@
 
 #include "KwtaFilter.h"
 
+using namespace NeuroNet;
+
 KwtaFilter::KwtaFilter(int p_k, bool p_binaryVector) : IFilter() {
   _k = p_k;
   _binaryVector = p_binaryVector;

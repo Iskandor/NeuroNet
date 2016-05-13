@@ -9,6 +9,8 @@
 #include "../log/log.h"
 #include "../algorithm/rl/QLearning.h"
 
+using namespace NeuroNet;
+
 void sampleQ() {
   double sumReward = 0;
   int time = 0;

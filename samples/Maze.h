@@ -2,6 +2,8 @@
 
 #include "../algorithm/IEnvironment.h"
 
+using namespace NeuroNet;
+
 class Maze : public IEnvironment
 {
 public:

@@ -10,6 +10,8 @@
 #include "../log/log.h"
 #include "Maze.h"
 
+using namespace NeuroNet;
+
 void sampleSARSA() {
   double sumReward = 0;
   const int dim = 3;

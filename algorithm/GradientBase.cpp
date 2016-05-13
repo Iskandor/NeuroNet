@@ -5,6 +5,8 @@
 #include <iostream>
 #include "GradientBase.h"
 
+using namespace NeuroNet;
+
 GradientBase::GradientBase(NeuralNetwork *p_network) {
   _network = p_network;
 

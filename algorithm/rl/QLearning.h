@@ -9,6 +9,8 @@
 #include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
 
+namespace NeuroNet {
+
 class QLearning : public GradientBase, public LearningAlgorithm {
 
 public:
@@ -28,5 +30,5 @@ private:
     map<int, MatrixXd> _eligTrace;
 };
 
-
+}
 #endif //LIBNEURONET_QLEARNING_H

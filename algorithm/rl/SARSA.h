@@ -6,27 +6,28 @@
 #define NEURONET_SARSA_H
 
 #include "../GradientBase.h"
+#include "../LearningAlgorithm.h"
 
-class SARSA : public GradientBase {
+namespace NeuroNet {
+
+class SARSA : public GradientBase, public LearningAlgorithm {
 
 public:
     SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda);
     ~SARSA();
 
     double train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, VectorXd* p_action1, double p_reward);
-    void setAlpha(double p_alpha);
 
 private:
     void updateWeights(Connection* p_connection);
     void updateEligTrace(Connection* p_connection);
 
 private:
-    double _alpha;
     double _gamma;
     double _lambda;
     VectorXd _error;
     map<int, MatrixXd> _eligTrace;
 };
 
-
+}
 #endif //NEURONET_SARSA_H

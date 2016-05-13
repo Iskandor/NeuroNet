@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 class NeuralNetwork
 {
 public:
@@ -60,4 +62,5 @@ protected:
 
     bool _running;
 };
+}
 

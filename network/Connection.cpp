@@ -1,6 +1,8 @@
 #include <random>
 #include "Connection.h"
 
+using namespace NeuroNet;
+
 Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup)
 {
     _id = p_id;

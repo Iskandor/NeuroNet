@@ -4,6 +4,8 @@
 
 #include "SARSA.h"
 
+using namespace NeuroNet;
+
 SARSA::SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network) {
     _gamma = p_gamma;
     _lambda = p_lambda;
@@ -40,10 +42,6 @@ double SARSA::train(VectorXd *p_state0, VectorXd *p_action0, VectorXd *p_state1,
     }
 
     return _error[0];
-}
-
-void SARSA::setAlpha(double p_alpha) {
-    _alpha = p_alpha;
 }
 
 void SARSA::updateWeights(Connection *p_connection) {

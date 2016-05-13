@@ -9,6 +9,8 @@
 
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class IFilter {
 public:
     IFilter() {};
@@ -19,5 +21,6 @@ protected:
     VectorXd _output;
 };
 
+}
 
 #endif //NEURONET_IFILTER_H

@@ -4,6 +4,8 @@
 
 #include "QLearning.h"
 
+using namespace NeuroNet;
+
 QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientBase(p_network), LearningAlgorithm() {
     _gamma = p_gamma;
     _lambda = p_lambda;

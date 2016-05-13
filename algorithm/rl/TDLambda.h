@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 class TDLambda : public GradientBase, public LearningAlgorithm
 {
 
@@ -30,3 +32,5 @@ protected:
     map<int, MatrixXd> _eligTrace;
 
 };
+
+}

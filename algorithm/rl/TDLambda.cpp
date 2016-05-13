@@ -4,6 +4,7 @@
 #include "../GradientBase.h"
 
 using namespace std;
+using namespace NeuroNet;
 
 TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network), LearningAlgorithm() {
     _lambda = p_lambda;

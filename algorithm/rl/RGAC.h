@@ -8,6 +8,8 @@
 
 #include "ActorCritic.h"
 
+namespace NeuroNet {
+
 class RGAC : public ActorCritic {
 public:
     RGAC(NeuralNetwork* p_actor, NeuralNetwork* p_critic);
@@ -16,5 +18,5 @@ public:
     void run() override;
 };
 
-
+}
 #endif //NEURONET_RGAC_H

@@ -9,6 +9,7 @@
 #include "../algorithm/IEnvironment.h"
 
 using namespace std;
+using namespace NeuroNet;
 
 class LunarLander: public IEnvironment {
     public:

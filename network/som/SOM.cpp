@@ -5,6 +5,8 @@
 #include "SOM.h"
 #include "../Define.h"
 
+using namespace NeuroNet;
+
 SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : NeuralNetwork() {
     addLayer("input", p_dimInput, IDENTITY, INPUT);
     addLayer("lattice", p_dimX * p_dimY, p_actFunction, OUTPUT);

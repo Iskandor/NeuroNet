@@ -9,6 +9,8 @@
 
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class NetworkUtils {
 public:
     NetworkUtils() {};
@@ -23,5 +25,6 @@ public:
     }
 };
 
+}
 
 #endif //NEURONET_NETWORKUTILS_H

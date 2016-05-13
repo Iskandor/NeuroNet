@@ -4,6 +4,8 @@
 
 #include "GreedyPolicy.h"
 
+using namespace NeuroNet;
+
 GreedyPolicy::GreedyPolicy(NeuralNetwork *p_network, IEnvironment *p_environment) {
     _network = p_network;
     _environment = p_environment;

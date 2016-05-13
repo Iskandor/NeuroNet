@@ -9,11 +9,15 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 struct DatasetConfig {
     int     inDim;
     int     targetDim;
     string  delimiter;
     int     targetPos;
 };
+
+}
 
 #endif //LIBNEURONET_DATASETCONFIG_H

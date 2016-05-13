@@ -4,6 +4,8 @@
 
 #include "LearningAlgorithm.h"
 
+using namespace NeuroNet;
+
 LearningAlgorithm::LearningAlgorithm() {
   _alpha = 0;
 }

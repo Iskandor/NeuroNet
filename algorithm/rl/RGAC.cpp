@@ -5,6 +5,8 @@
 #include "RGAC.h"
 #include "RegularGradientActor.h"
 
+using namespace NeuroNet;
+
 RGAC::RGAC(NeuralNetwork *p_actor, NeuralNetwork *p_critic) : ActorCritic(p_actor, p_critic) {
   _actorLearning = new RegularGradientActor(p_actor);
   _criticLearning = new QLearning(p_critic, 0.9, 0.9);

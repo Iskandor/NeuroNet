@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 class Connection
 {
 public:
@@ -26,3 +28,5 @@ private:
     int _inDim, _outDim;
     MatrixXd* _weights;
 };
+
+}

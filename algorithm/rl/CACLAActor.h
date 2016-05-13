@@ -9,6 +9,8 @@
 #include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
 
+namespace NeuroNet {
+
 class CACLAActor : public GradientBase, public LearningAlgorithm {
 public:
     CACLAActor(NeuralNetwork* p_network);
@@ -22,5 +24,5 @@ private:
     VectorXd  _error;
 };
 
-
+}
 #endif //NEURONET_SIMPLEACTOR_H

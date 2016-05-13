@@ -7,7 +7,7 @@
 #include "Dataset.h"
 #include "StringUtils.h"
 
-
+using namespace NeuroNet;
 
 Dataset::Dataset() {
 }

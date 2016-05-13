@@ -11,6 +11,8 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 class SOM : public NeuralNetwork {
 public:
     enum NEIGHBORHOOD_TYPE {
@@ -55,5 +57,6 @@ private:
     int _dimY;
 };
 
+}
 
 #endif //LIBNEURONET_SOM_H

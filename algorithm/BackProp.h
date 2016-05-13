@@ -7,6 +7,8 @@
 
 using namespace std;
 
+namespace NeuroNet {
+
 class BackProp : public GradientBase, public LearningAlgorithm
 {
 
@@ -32,3 +34,5 @@ protected:
   double* _input;
   VectorXd _error;
 };
+
+}

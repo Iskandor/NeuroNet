@@ -3,6 +3,8 @@
 #include "../network/Define.h"
 #include "../algorithm/BackProp.h"
 
+using namespace NeuroNet;
+
 void sampleBP() {
     double trainingSet[4][4] = {{1,0,0,0},{1,1,0,0},{0,0,1,0},{0,0,1,1}};
     double targetSet[4][2] = {{1,0},{0,1},{1,0},{0,1}};

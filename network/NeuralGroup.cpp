@@ -5,7 +5,7 @@
 #include "NetworkUtils.h"
 
 using namespace std;
-
+using namespace NeuroNet;
 /**
  * NeuralGroup constructor creates layer of p_dim neurons with p_activationFunction
  * @param p_id name of layer must be unique per network

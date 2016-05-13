@@ -5,6 +5,8 @@
 #include "NormalizationFilter.h"
 #include "../NetworkUtils.h"
 
+using namespace NeuroNet;
+
 NormalizationFilter::NormalizationFilter(VectorXd* p_limit) : IFilter() {
   _limit.resize(p_limit->size());
   _limit << *p_limit;

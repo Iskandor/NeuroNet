@@ -8,6 +8,8 @@
 
 #include "../network/NeuralNetwork.h"
 
+namespace NeuroNet {
+
 class GradientBase {
 public:
     GradientBase(NeuralNetwork *p_network);
@@ -29,5 +31,5 @@ private:
     void deltaKernel(NeuralGroup *p_group);
 };
 
-
+}
 #endif //LIBNEURONET_GRADIENTBASE_H

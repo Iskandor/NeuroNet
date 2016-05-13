@@ -1,6 +1,8 @@
 #include <iostream>
 #include "NeuralNetwork.h"
 
+using namespace NeuroNet;
+
 NeuralNetwork::NeuralNetwork(void)
 {
     _running = true;

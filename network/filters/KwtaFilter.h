@@ -8,6 +8,8 @@
 
 #include "IFilter.h"
 
+namespace NeuroNet {
+
 class KwtaFilter : public IFilter {
 public:
     KwtaFilter(int p_k, bool p_binaryVector = false);
@@ -20,5 +22,6 @@ private:
     bool _binaryVector;
 };
 
+}
 
 #endif //NEURONET_KWTAFILTER_H

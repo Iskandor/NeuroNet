@@ -3,6 +3,8 @@
 
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class IEnvironment
 {
   public:
@@ -20,3 +22,5 @@ class IEnvironment
   double _reward;
   VectorXd _state;
 };
+
+}

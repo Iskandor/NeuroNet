@@ -8,6 +8,8 @@
 #include "../algorithm/rl/CACLA.h"
 #include "../algorithm/rl/RGAC.h"
 
+using namespace NeuroNet;
+
 void sampleTDAC() {
     double sumReward = 0;
     int time = 0;

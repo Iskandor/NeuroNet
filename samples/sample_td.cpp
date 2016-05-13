@@ -6,6 +6,8 @@
 #include "../algorithm/GreedyPolicy.h"
 #include "../algorithm/rl/TDLambda.h"
 
+using namespace NeuroNet;
+
 void sampleTD() {
     double sumReward = 0;
     int time = 0;

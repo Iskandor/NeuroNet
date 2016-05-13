@@ -2,6 +2,7 @@
 #include "../network/NeuralNetwork.h"
 #include "BackProp.h"
 
+using namespace NeuroNet;
 
 BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network), LearningAlgorithm() {
   _alpha = 0;

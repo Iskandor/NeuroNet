@@ -4,6 +4,8 @@
 
 #include "CACLA.h"
 
+using namespace NeuroNet;
+
 CACLA::CACLA(NeuralNetwork *p_actor, NeuralNetwork *p_critic) : ActorCritic(p_actor, p_critic) {
   _criticLearning = new QLearning(p_critic, 0.9, 0.9);
   _actorLearning = new CACLAActor(p_actor);

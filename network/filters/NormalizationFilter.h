@@ -7,6 +7,8 @@
 
 #include "IFilter.h"
 
+namespace NeuroNet {
+
 class NormalizationFilter : public IFilter {
 public:
   NormalizationFilter(VectorXd* p_limit);
@@ -17,5 +19,5 @@ private:
   VectorXd _limit;
 };
 
-
+}
 #endif //NEURONET_NORMALIZATIONFILTER_H

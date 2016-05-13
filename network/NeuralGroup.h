@@ -7,6 +7,8 @@
 using namespace std;
 using namespace Eigen;
 
+namespace NeuroNet {
+
 class NeuralGroup
 {
 public:
@@ -58,3 +60,4 @@ private:
     vector<IFilter*> _outFilter;
 };
 
+}

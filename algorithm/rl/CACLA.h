@@ -9,6 +9,8 @@
 #include "../../network/NeuralNetwork.h"
 #include "ActorCritic.h"
 
+namespace NeuroNet {
+
 class CACLA : public ActorCritic {
 public:
     CACLA(NeuralNetwork* p_actor, NeuralNetwork* p_critic);
@@ -20,5 +22,5 @@ private:
     void getAction(VectorXd *p_state, VectorXd *p_action) override;
 };
 
-
+}
 #endif //NEURONET_CACLA_H
