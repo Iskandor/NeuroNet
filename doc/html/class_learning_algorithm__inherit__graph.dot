@@ -1,0 +1,16 @@
+digraph "LearningAlgorithm"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="LearningAlgorithm",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="BackProp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_back_prop.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CACLAActor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_c_a_c_l_a_actor.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="QLearning",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_q_learning.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="RegularGradientActor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_regular_gradient_actor.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="TDLambda",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_d_lambda.html"];
+}

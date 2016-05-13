@@ -35,10 +35,6 @@ set ( EIGEN3_VERSION_PATCH  "92" )
 add_definitions     ( ${EIGEN3_DEFINITIONS} )
 include_directories ( ${EIGEN3_INCLUDE_DIRS} )
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "./lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "./lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstdc++ -static -lpthread")
 
 set(SOURCE_FILES
@@ -97,7 +93,14 @@ set(SOURCE_FILES
         algorithm/rl/CACLA.cpp
         algorithm/rl/CACLA.h
         algorithm/LearningAlgorithm.cpp
-        algorithm/LearningAlgorithm.h algorithm/rl/RegularGradientActor.cpp algorithm/rl/RegularGradientActor.cpp algorithm/rl/RegularGradientActor.h algorithm/rl/RGAC.cpp algorithm/rl/RGAC.h)
+        algorithm/LearningAlgorithm.h
+        algorithm/rl/RegularGradientActor.cpp
+        algorithm/rl/RegularGradientActor.cpp
+        algorithm/rl/RegularGradientActor.h
+        algorithm/rl/RGAC.cpp
+        algorithm/rl/RGAC.h)
 
-add_executable(NeuroNet ${SOURCE_FILES})
-#add_library(NeuroNet ${SOURCE_FILES})
+add_executable(NeuroNet-bin ${SOURCE_FILES})
+add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
+set_target_properties(NeuroNet-bin PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set_target_properties(NeuroNet PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)

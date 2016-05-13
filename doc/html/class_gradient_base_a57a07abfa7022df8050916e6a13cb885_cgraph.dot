@@ -1,0 +1,28 @@
+digraph "GradientBase::calcGradient"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="GradientBase::calcGradient",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="NeuralNetwork::getOutput\lGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html#aa16b5e7dc76f9af0a86daf2d24072b44"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="NeuralGroup::getDim",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#afed5bfe263ed08affeb3990ec66fabc1"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="NeuralGroup::getId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#a527a8128dd344e2dde768d3f9910f827"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="NeuralGroup::getDerivs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#aa38c50a04215f1b7dc383c04341feca9"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="NeuralNetwork::getConnections",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html#a4bd338c0ad1700017a082084bb682b83"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="GradientBase::gradientKernel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_gradient_base.html#a56429f5f06c7d252b3383b32926d4052"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Connection::getId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_connection.html#ac1ef8b586beedf168dabbc8fa1174abe"];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="Connection::getOutGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_connection.html#aa090022b0b33dc2ce0d5aa777f9a713d"];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="Connection::getInGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_connection.html#a2c9f5f0f410c2b59fd9784afd8b19595"];
+  Node7 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="NeuralGroup::getOutput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#a34f6070fcf39d5ead845132bd6fb77f6"];
+}

@@ -1,0 +1,19 @@
+digraph "GradientBase::groupTreeCreate"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="GradientBase::groupTreeCreate",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="NeuralNetwork::getGroups",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html#ae98e9be1e09a24ce437083030db067b0"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="NeuralNetwork::getOutput\lGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html#aa16b5e7dc76f9af0a86daf2d24072b44"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="GradientBase::bfsRecursive",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_gradient_base.html#acc7480de67538a9712a88dabf6131640"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="NeuralGroup::setValid",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#a35c4097bb9d3be9198462692a1b33920"];
+  Node4 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="NeuralGroup::getInConnections",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html#a593b023c9e06107475f286cf2104b804"];
+  Node4 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="NeuralNetwork::getConnections",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html#a4bd338c0ad1700017a082084bb682b83"];
+}

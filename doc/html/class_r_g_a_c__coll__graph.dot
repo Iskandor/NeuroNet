@@ -1,0 +1,16 @@
+digraph "RGAC"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="RGAC",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ActorCritic",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_actor_critic.html"];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" _criticLearning\n_actorLearning" ,fontname="Helvetica"];
+  Node3 [label="LearningAlgorithm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_learning_algorithm.html"];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" _actor\n_critic" ,fontname="Helvetica"];
+  Node4 [label="NeuralNetwork",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_network.html"];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" _outputGroup\n_inputGroup" ,fontname="Helvetica"];
+  Node5 [label="NeuralGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_neural_group.html"];
+  Node6 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" _environment" ,fontname="Helvetica"];
+  Node6 [label="IEnvironment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_i_environment.html"];
+}

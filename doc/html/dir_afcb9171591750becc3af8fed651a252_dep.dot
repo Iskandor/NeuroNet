@@ -1,0 +1,9 @@
+digraph "network/filters" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_c901c14b65aa229498a52b725b3d4a2c {
+    graph [ bgcolor="#ddddee", pencolor="black", label="network" fontname="Helvetica", fontsize="10", URL="dir_c901c14b65aa229498a52b725b3d4a2c.html"]
+  dir_afcb9171591750becc3af8fed651a252 [shape=box, label="filters", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_afcb9171591750becc3af8fed651a252.html"];
+  }
+}
