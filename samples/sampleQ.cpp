@@ -8,6 +8,9 @@
 #include "Maze.h"
 #include "../log/log.h"
 #include "../algorithm/rl/QLearning.h"
+#include "../network/NetworkUtils.h"
+#include "../network/RandomGenerator.h"
+#include "../algorithm/GreedyPolicy.h"
 
 using namespace NeuroNet;
 
@@ -21,7 +24,7 @@ void sampleQ() {
   NeuralGroup* inputGroup = network.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, SIGMOID, NeuralNetwork::HIDDEN);
   NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
 
@@ -37,50 +40,24 @@ void sampleQ() {
 
   Maze maze(dim);
   maze.reset();
-  double epsilon = 0.01;
 
   VectorXd action(4);
   VectorXd state0(dim*dim);
   VectorXd state1(dim*dim);
 
   int episode = 0;
+  GreedyPolicy policy(&network, &maze);
+  policy.setEpsilon(0.01);
 
   FILE* pFile = fopen("application.log", "w");
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 2000) {
-    double maxOutput = -INFINITY;
-    int action_i = 0;
+  while(episode < 6000) {
     double reward = 0;
 
     state0 = *maze.getState();
-
-    for (int i = 0; i < action.size(); i++) {
-        action.fill(0);
-        action[i] = 1;
-
-        double roll = rand() % 100;
-        if (roll < epsilon * 100) {
-          action_i = i;
-          break;
-        }
-
-        VectorXd input(state0.size() + action.size());
-        input << state0, action;
-        network.activate(&input);
-
-        if (maxOutput < network.getScalarOutput()) {
-          action_i = i;
-          maxOutput = network.getScalarOutput();
-        }
-
-        //cout << "a = " << i << " Q(s,a) = " << (*network.getOutput())[i] << endl;
-    }
-
-    action.fill(0);
-    action[action_i] = 1;
-
+    policy.getActionQ(&state0, &action);
     maze.updateState(&action);
     state1 = *maze.getState();
     reward = maze.getReward();
@@ -100,12 +77,7 @@ void sampleQ() {
       time = 0;
       sumReward = 0;
       maze.reset();
-      //epsilon -= 0.0007;
       episode++;
-
-      if (episode > 1000) {
-        epsilon = 0;
-      }
     }
   }
 

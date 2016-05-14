@@ -12,6 +12,7 @@
 #include "CACLAActor.h"
 #include "../IEnvironment.h"
 #include "QLearning.h"
+#include "../../network/RandomGenerator.h"
 
 namespace NeuroNet {
 
@@ -32,6 +33,7 @@ protected:
 
 protected:
     IEnvironment* _environment;
+    RandomGenerator _generator;
     NeuralNetwork* _actor;
     NeuralNetwork* _critic;
 

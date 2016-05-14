@@ -1,5 +1,7 @@
 #include <random>
 #include "Connection.h"
+#include "NetworkUtils.h"
+#include "RandomGenerator.h"
 
 using namespace NeuroNet;
 
@@ -25,11 +27,12 @@ Connection::~Connection(void)
 
 /* initialize weights where density is from interval 0,1 and also inhibition which is count of negative (inhibitory) weights */
 void Connection::init(double p_density, double p_inhibition) const {
+    RandomGenerator generator;
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
-          if (static_cast<double>(rand()) / RAND_MAX < p_density) {
-              (*_weights)(i, j) =  static_cast<double>(rand()) / RAND_MAX;
-              if (static_cast<double>(rand()) / RAND_MAX < p_inhibition) {
+          if (generator.random() < p_density) {
+              (*_weights)(i, j) =  generator.random();
+              if (generator.random() < p_inhibition) {
                   (*_weights)(i, j) *= -1;
               }
           }

@@ -8,6 +8,7 @@
 
 #include "../network/NeuralNetwork.h"
 #include "IEnvironment.h"
+#include "../network/RandomGenerator.h"
 
 using namespace Eigen;
 
@@ -26,6 +27,7 @@ private:
     NeuralNetwork* _network;
     IEnvironment* _environment;
     double _epsilon;
+    RandomGenerator _generator;
 };
 
 }

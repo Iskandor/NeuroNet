@@ -44,7 +44,7 @@ void sampleTDAC() {
     Maze maze(dim);
     maze.reset();
 
-    RGAC actorCritic(&actor, &critic);
+    CACLA actorCritic(&actor, &critic);
     actorCritic.setAlpha(0.3);
     actorCritic.setBeta(0.1);
     actorCritic.setExploration(0.01);

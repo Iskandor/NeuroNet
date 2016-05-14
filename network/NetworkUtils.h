@@ -5,9 +5,7 @@
 #ifndef NEURONET_NETWORKUTILS_H
 #define NEURONET_NETWORKUTILS_H
 
-#include <Eigen/Dense>
-
-using namespace Eigen;
+//using namespace Eigen;
 
 namespace NeuroNet {
 
@@ -16,8 +14,10 @@ public:
     NetworkUtils() {};
     ~NetworkUtils() {};
 
-    static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd& p_vector);
+    //static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd& p_vector);
     static int kroneckerDelta(int p_i, int p_j);
+
+    static double random();
 
     template <typename T>
     static int sgn(T val) {

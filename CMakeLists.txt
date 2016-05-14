@@ -98,7 +98,9 @@ set(SOURCE_FILES
         algorithm/rl/RegularGradientActor.cpp
         algorithm/rl/RegularGradientActor.h
         algorithm/rl/RGAC.cpp
-        algorithm/rl/RGAC.h)
+        algorithm/rl/RGAC.h
+        network/RandomGenerator.cpp
+        network/RandomGenerator.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

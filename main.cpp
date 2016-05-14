@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <stdlib.h>
 #include "samples/samples.h"
 
 
@@ -10,8 +9,8 @@ int main(int argc, char* argv[])
     //sampleQ();
     //sampleSOM();
     //sampleLunarLander();
-    //sampleSARSA();
-    sampleTDAC();
+    sampleSARSA();
+    //sampleTDAC();
 
     system("pause");
     return 0;
