@@ -38,15 +38,21 @@ void Dataset::parseLine(string p_line, string p_delim) {
     int index = 0;
     size_t pos = 0;
     string token;
-    while ((pos = p_line.find(p_delim)) != std::string::npos) {
-        token = p_line.substr(0, pos);
-        if (index >= _config.targetPos && index < _config.targetPos + _config.targetDim) {
-            targets.push_back(StringUtils::trim(token));
+
+    if (p_delim == "") {
+        tokens.push_back(StringUtils::trim(p_line));
+    }
+    else {
+        while ((pos = p_line.find(p_delim)) != std::string::npos) {
+            token = p_line.substr(0, pos);
+            if (index >= _config.targetPos && index < _config.targetPos + _config.targetDim) {
+                targets.push_back(StringUtils::trim(token));
+            }
+            else {
+                tokens.push_back(StringUtils::trim(token));
+            }
+            p_line.erase(0, pos + p_delim.length());
         }
-        else {
-            tokens.push_back(StringUtils::trim(token));
-        }
-        p_line.erase(0, pos + p_delim.length());
     }
 
     VectorXd sample(_config.inDim);
@@ -77,6 +83,9 @@ void Dataset::normalize() {
     for(int i = 0; i < _buffer.size(); i++) {
         for (int j = 0; j < _config.inDim; j++) {
             _buffer[i].first[j] /= max[j];
+            if (_buffer[i].first[j] != _buffer[i].first[j]) {
+                assert(0);
+            }
         }
     }
 }

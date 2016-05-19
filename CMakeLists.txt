@@ -65,6 +65,8 @@ set(SOURCE_FILES
         samples/LunarLander.h
         network/som/SOM.cpp
         network/som/SOM.h
+        network/som/MSOM.cpp
+        network/som/MSOM.h
         dataset/Dataset.cpp
         dataset/Dataset.h
         dataset/StringUtils.cpp
@@ -100,7 +102,10 @@ set(SOURCE_FILES
         algorithm/rl/RGAC.cpp
         algorithm/rl/RGAC.h
         network/RandomGenerator.cpp
-        network/RandomGenerator.h)
+        network/RandomGenerator.h
+        dataset/SequenceDataset.cpp
+        dataset/SequenceDataset.h
+        samples/sampleMSOM.cpp)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

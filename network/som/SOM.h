@@ -24,24 +24,23 @@ public:
     ~SOM(void);
 
     virtual void train(double *p_input);
-    void activate(VectorXd *p_input) override;
-    void initTraining(double p_alpha, double p_epochs);
-    void paramDecay();
+    virtual void activate(VectorXd *p_input) override;
+    virtual void initTraining(double p_alpha, double p_epochs);
+    virtual void paramDecay();
 
     double getError() { return _qError; };
     double getWinnerDifferentiation();
 
 protected:
-    void updateWeights();
-    void findWinner();
-    double calcDistance(int p_index);
+    virtual void updateWeights();
+    virtual void findWinner();
+    virtual double calcDistance(int p_index);
     double calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type);
-
-private:
+    double vectorDistance(VectorXd* p_v1, VectorXd* p_v2);
     double euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2);
     double gaussianDistance(int p_d, double p_sigma = 1);
 
-private:
+protected:
     double _sigma;
     double _sigma0;
     double _lambda;

@@ -13,5 +13,6 @@ void sampleBP();
 void sampleSOM();
 void sampleLunarLander();
 void sampleTDAC();
+void sampleMSOM();
 
 #endif //NEURONET_SAMPLES_H

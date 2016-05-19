@@ -7,5 +7,6 @@
 
 #include "Dataset.h"
 #include "DatasetConfig.h"
+#include "SequenceDataset.h"
 
 #endif //NEURONET_DATASETCORE_H

@@ -54,9 +54,8 @@ void SOM::updateWeights() {
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, GAUSSIAN);
-        for(int j = 0; j < getGroup("input")->getDim(); j++) {
-            delta(i, j) = theta * _alpha * (_input[j] - (*getConnection("input", "lattice")->getWeights())(i, j));
-        }
+        VectorXd wi = getConnection("input", "lattice")->getWeights()->row(i);
+        delta.row(i) = theta * _alpha * (_input - wi);
     }
 
     (*getConnection("input", "lattice")->getWeights()) += delta;
@@ -83,12 +82,9 @@ void SOM::activate(VectorXd *p_input) {
 }
 
 double SOM::calcDistance(int p_index) {
-    double result = 0;
-    for(int i = 0; i < getGroup("input")->getDim(); i++) {
-        result += pow(_input[i] - (*getConnection("input", "lattice")->getWeights())(p_index, i), 2);
-    }
+    VectorXd row = getConnection("input", "lattice")->getWeights()->row(p_index);
 
-    return sqrt(result);
+    return vectorDistance(&_input, &row);
 }
 
 double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
@@ -139,4 +135,10 @@ double SOM::gaussianDistance(int p_d, double p_sigma) {
 
 double SOM::getWinnerDifferentiation() {
     return (double)_winnerSet.size()/ (double)getGroup("lattice")->getDim();
+}
+
+double SOM::vectorDistance(VectorXd *p_v1, VectorXd *p_v2) {
+    VectorXd diffVector = *p_v1 - *p_v2;
+
+    return diffVector.norm();
 }
