@@ -21,7 +21,7 @@ public:
     };
 
     SOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction);
-    ~SOM(void);
+    virtual ~SOM(void);
 
     virtual void train(double *p_input);
     virtual void activate(VectorXd *p_input) override;

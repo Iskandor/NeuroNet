@@ -1,22 +1,22 @@
 //
-// Created by mpechac on 13. 4. 2016.
+// Created by mpechac on 19. 5. 2016.
 //
 
-#include "MSOM.h"
+#include "RecSOM.h"
 #include "../Define.h"
 
 using namespace NeuroNet;
 
-MSOM::MSOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
-    addLayer("context", p_dimInput, IDENTITY, NeuralNetwork::HIDDEN);
+RecSOM::RecSOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
+    addLayer("context", p_dimX * p_dimY, IDENTITY, NeuralNetwork::HIDDEN);
     addConnection("context", "lattice");
 }
 
-MSOM::~MSOM() {
+RecSOM::~RecSOM() {
 
 }
 
-void MSOM::train(double *p_input) {
+void RecSOM::train(double *p_input) {
     setInput(p_input);
     onLoop();
 
@@ -25,11 +25,11 @@ void MSOM::train(double *p_input) {
     updateContext();
 }
 
-void MSOM::activate(VectorXd *p_input) {
+void RecSOM::activate(VectorXd *p_input) {
     SOM::activate(p_input);
 }
 
-void MSOM::updateWeights() {
+void RecSOM::updateWeights() {
     MatrixXd deltaW(getGroup("lattice")->getDim(), getGroup("input")->getDim());
     double theta = 0;
 
@@ -52,29 +52,40 @@ void MSOM::updateWeights() {
     (*getConnection("context", "lattice")->getWeights()) += deltaC;
 }
 
-void MSOM::updateContext() {
+void RecSOM::updateContext() {
     NeuralGroup* context = getGroup("context");
     VectorXd ct = VectorXd::Zero(context->getDim());
     MatrixXd unitary = MatrixXd::Identity(context->getDim(), context->getDim());
 
-    VectorXd wIt = getConnection("input", "lattice")->getWeights()->row(_winner);
-    VectorXd cIt = getConnection("context", "lattice")->getWeights()->row(_winner);
+    double neuronDist = 0;
 
-    ct = (1 - _beta) * wIt + _beta * cIt;
-    cIt = ct;
+    for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
+        neuronDist = calcDistance(i);
+        switch(getOutputGroup()->getActivationFunction()) {
+            case LINEAR:
+                ct[i] = neuronDist;
+                break;
+            case EXPONENTIAL:
+                ct[i] = exp(-neuronDist);
+                break;
+        }
+    }
+
+    context->integrate(&ct, &unitary);
+    context->fire();
 }
 
-double MSOM::calcDistance(int p_index) {
+double RecSOM::calcDistance(int p_index) {
     VectorXd xi = getConnection("input", "lattice")->getWeights()->row(p_index);
     VectorXd ci = getConnection("context", "lattice")->getWeights()->row(p_index);
     VectorXd* xt = getGroup("input")->getOutput();
     VectorXd* ct = getGroup("context")->getOutput();
 
-    double dt = (1 - _alpha) * pow(vectorDistance(xt, &xi), 2) + _alpha * pow(vectorDistance(ct, &ci),2);
+    double dt = _alpha * pow(vectorDistance(xt, &xi), 2) + _beta * pow(vectorDistance(ct, &ci),2);
     return dt;
 }
 
-void MSOM::initTraining(double p_gamma1, double p_gamma2, double p_alpha, double p_beta, double p_epochs) {
+void RecSOM::initTraining(double p_gamma1, double p_gamma2, double p_alpha, double p_beta, double p_epochs) {
     _iteration = 0;
     _qError = 0;
     _alpha = p_alpha;
@@ -87,10 +98,10 @@ void MSOM::initTraining(double p_gamma1, double p_gamma2, double p_alpha, double
     _gamma2 =  _gamma2_0 * exp(-_iteration/_lambda);
 }
 
-void MSOM::initTraining(double p_alpha, double p_epochs) {
+void RecSOM::initTraining(double p_alpha, double p_epochs) {
 }
 
-void MSOM::paramDecay() {
+void RecSOM::paramDecay() {
     _iteration++;
     _qError = 0;
     _sigma =  _sigma0 * exp(-_iteration/_lambda);
