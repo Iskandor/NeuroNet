@@ -97,3 +97,7 @@ void MSOM::paramDecay() {
     _gamma1 =  _gamma1_0 * exp(-_iteration/_lambda);
     _gamma2 =  _gamma2_0 * exp(-_iteration/_lambda);
 }
+
+void MSOM::resetContext() {
+    getConnection("context", "lattice")->getWeights()->fill(0);
+}

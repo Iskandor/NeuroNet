@@ -16,6 +16,7 @@ public:
     ~RandomGenerator();
 
     double random();
+    int randomInt(int p_lower, int p_upper);
 
 private:
     std::random_device _rd;

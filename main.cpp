@@ -8,7 +8,8 @@ int main(int argc, char* argv[])
     //sampleTD();
     //sampleQ();
     //sampleSOM();
-    sampleMSOM();
+    //sampleMSOM();
+    sampleDigits();
     //sampleLunarLander();
     //sampleSARSA();
     //sampleTDAC();

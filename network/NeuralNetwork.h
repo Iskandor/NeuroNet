@@ -40,7 +40,7 @@ public:
 	void setInput(VectorXd *p_input) { _input = *p_input; };
 	void setInput(double *p_input);
 	void onLoop();
-	void resetContext();
+	virtual void resetContext();
 	virtual void activate(VectorXd *p_input);
 
 protected:

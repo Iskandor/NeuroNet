@@ -22,6 +22,7 @@ public:
     void initTraining(double p_alpha, double p_epochs) override;
 
     void paramDecay() override;
+    void resetContext() override;
 
 private:
     void updateWeights() override;
