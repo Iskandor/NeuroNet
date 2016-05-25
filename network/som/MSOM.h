@@ -8,6 +8,8 @@
 
 #include "SOM.h"
 
+using json = nlohmann::json;
+
 namespace NeuroNet {
 
 class MSOM : public SOM {
@@ -24,6 +26,7 @@ public:
     void paramDecay() override;
     void resetContext() override;
 
+    json getFileData() override;
 private:
     void updateWeights() override;
     void updateContext();

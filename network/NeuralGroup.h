@@ -3,9 +3,11 @@
 #include <vector>
 #include <Eigen/Dense>
 #include "filters/IFilter.h"
+#include "json.hpp"
 
 using namespace std;
 using namespace Eigen;
+using json = nlohmann::json;
 
 namespace NeuroNet {
 
@@ -42,6 +44,8 @@ public:
     void setValid() { _valid = true; };
 
     int getActivationFunction() { return _activationFunction; };
+
+    json getFileData();
 
 private:
     string  _id;

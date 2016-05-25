@@ -4,6 +4,7 @@
 #include <map>
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace NeuroNet {
 
@@ -43,6 +44,8 @@ public:
 	virtual void resetContext();
 	virtual void activate(VectorXd *p_input);
 
+	virtual json getFileData();
+
 protected:
     void activate(NeuralGroup* p_node);
 
@@ -54,7 +57,7 @@ protected:
 
     map<string, NeuralGroup*> _groups;
     map<int, Connection*> _connections;
-		map<int, Connection*> _recConnections;
+	map<int, Connection*> _recConnections;
 
     MatrixXd _inputWeights;
     VectorXd _input;

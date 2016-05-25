@@ -1,5 +1,11 @@
 #pragma once
 
+#include <string>
+
+using namespace std;
+
+static const string VERSION = "1.0.0";
+
 // MLP
 #define IDENTITY 0
 #define BIAS 1

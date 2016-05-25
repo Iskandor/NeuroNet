@@ -101,3 +101,7 @@ void MSOM::paramDecay() {
 void MSOM::resetContext() {
     getConnection("context", "lattice")->getWeights()->fill(0);
 }
+
+json MSOM::getFileData() {
+    return json({{"type", "msom"},{"dimx", _dimX}, {"dimy", _dimY}});
+}

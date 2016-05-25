@@ -154,3 +154,7 @@ void NeuralNetwork::resetContext() {
         recConnection->getOutGroup()->fire();
     }
 }
+
+json NeuralNetwork::getFileData() {
+    return json({{"type", "feedforward"}});
+}

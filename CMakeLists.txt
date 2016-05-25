@@ -105,7 +105,11 @@ set(SOURCE_FILES
         network/RandomGenerator.h
         dataset/SequenceDataset.cpp
         dataset/SequenceDataset.h
-        samples/sampleMSOM.cpp network/som/RecSOM.cpp network/som/RecSOM.h samples/sampleDigits.cpp)
+        samples/sampleMSOM.cpp
+        network/som/RecSOM.cpp
+        network/som/RecSOM.h
+        samples/sampleDigits.cpp
+        network/json.hpp)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

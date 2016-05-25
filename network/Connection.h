@@ -3,6 +3,7 @@
 #include "NeuralGroup.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace NeuroNet {
 
@@ -21,6 +22,7 @@ public:
     NeuralGroup* getInGroup() const { return _inGroup; };
     int getId() const { return _id; };
 
+    json getFileData();
 private:
     int _id;
     NeuralGroup* _inGroup;

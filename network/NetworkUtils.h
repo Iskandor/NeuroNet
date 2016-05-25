@@ -6,8 +6,10 @@
 #define NEURONET_NETWORKUTILS_H
 
 #include <Eigen/Dense>
+#include "NeuralNetwork.h"
 
 using namespace Eigen;
+using namespace std;
 
 namespace NeuroNet {
 
@@ -15,6 +17,8 @@ class NetworkUtils {
 public:
     NetworkUtils() {};
     ~NetworkUtils() {};
+
+    static void saveNetwork(string p_filename, NeuralNetwork *p_network);
 
     static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd* p_vector);
     static void binaryEncoding(double p_value, VectorXd* p_vector);

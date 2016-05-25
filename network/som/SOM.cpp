@@ -142,3 +142,7 @@ double SOM::vectorDistance(VectorXd *p_v1, VectorXd *p_v2) {
 
     return diffVector.norm();
 }
+
+json SOM::getFileData() {
+    return json({{"type", "som"},{"dimx", _dimX}, {"dimy", _dimY}});
+}

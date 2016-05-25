@@ -205,3 +205,7 @@ VectorXd &NeuralGroup::processOutput(VectorXd &p_output) {
     }
     return p_output;
 }
+
+json NeuralGroup::getFileData() {
+    return json({{"dim", _dim}, {"actfn", _activationFunction}});
+}

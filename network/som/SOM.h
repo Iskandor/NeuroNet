@@ -10,6 +10,7 @@
 #include "../NeuralNetwork.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace NeuroNet {
 
@@ -30,6 +31,8 @@ public:
 
     double getError() { return _qError; };
     double getWinnerDifferentiation();
+
+    json getFileData() override;
 
 protected:
     virtual void updateWeights();

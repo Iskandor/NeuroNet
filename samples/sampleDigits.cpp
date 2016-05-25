@@ -21,6 +21,8 @@ void sampleDigits() {
     int digit;
     VectorXd binDigit(10);
 
+    NetworkUtils::saveNetwork("msom.net", &msom);
+
     for(int t = 0; t < epochs; t++) {
         for (int n = 0; n < 1000; n++) {
             length = generator.randomInt(1, 3);

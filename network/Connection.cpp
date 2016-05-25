@@ -46,3 +46,16 @@ void Connection::init(double p_density, double p_inhibition) const {
 void Connection::init(MatrixXd *p_weights) {
     _weights = p_weights;
 }
+
+json Connection::getFileData() {
+    string weights;
+
+    for(int i = 0; i < _outDim; i++) {
+        for (int j = 0; j < _inDim; j++) {
+            weights += to_string((*_weights)(i, j));
+            weights += "|";
+        }
+    }
+
+    return json({{"ingroup", _inGroup->getId()}, {"outgroup", _outGroup->getId()}, {"weights", weights}});
+}

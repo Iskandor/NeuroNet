@@ -108,3 +108,7 @@ void RecSOM::paramDecay() {
     _gamma1 =  _gamma1_0 * exp(-_iteration/_lambda);
     _gamma2 =  _gamma2_0 * exp(-_iteration/_lambda);
 }
+
+json RecSOM::getFileData() {
+    return json({{"type", "recsom"},{"dimx", _dimX}, {"dimy", _dimY}});
+}
