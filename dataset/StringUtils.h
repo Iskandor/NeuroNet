@@ -6,6 +6,7 @@
 #define LIBNEURONET_STRINGUTILS_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,8 @@ public:
     static string &ltrim(string &s);
     static string &rtrim(string &s);
     static string &trim(string &s);
+    static vector<std::string> split(const std::string &s, char delim);
+    static vector<std::string> &split(const std::string &s, char delim, vector<std::string> &elems);
 };
 
 

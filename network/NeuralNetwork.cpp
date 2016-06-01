@@ -7,6 +7,7 @@ NeuralNetwork::NeuralNetwork(void)
 {
     _running = true;
     _connectionId = 0;
+    _groupId = 0;
 }
 
 NeuralNetwork::~NeuralNetwork(void)

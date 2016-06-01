@@ -5,6 +5,9 @@
 #include "NetworkUtils.h"
 #include "json.hpp"
 #include "Define.h"
+#include "som/RecSOM.h"
+#include "../dataset/StringUtils.h"
+#include "som/MSOM.h"
 #include <iostream>
 #include <fstream>
 
@@ -48,4 +51,88 @@ void NetworkUtils::saveNetwork(string p_filename, NeuralNetwork *p_network) {
  file.open (p_filename);
  file << data.dump();
  file.close();
+}
+
+NeuralNetwork* NetworkUtils::loadNetwork(string p_filename) {
+ json data;
+ ifstream file;
+ file.open (p_filename);
+ file >> data;
+ file.close();
+
+ string version = data["_version"];
+
+ if (version.compare(VERSION) != 0) {
+  cout << "Warning: versions could not be compatible" << endl;
+ }
+
+ string type = data["_network"]["type"];
+
+ if (type.compare("feedforward") == 0) {
+   /*
+   for (json::iterator it = o.begin(); it != o.end(); ++it) {
+    std::cout << it.key() << " : " << it.value() << "\n";
+   }
+   */
+ }
+
+ if (type.compare("recsom") == 0) {
+  int dimX = data["_network"]["dimx"].get<int>();
+  int dimY = data["_network"]["dimy"].get<int>();
+
+  json inputLayer = data["layers"].find("input").value();
+  int dimInput = inputLayer["dim"].get<int>();
+  json latticeLayer = data["layers"].find("lattice").value();
+  int actFunction = latticeLayer["actfn"].get<int>();
+
+  RecSOM* recSOM = new RecSOM(dimInput, dimX, dimY, actFunction);
+
+  for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
+   json connection = it.value();
+
+   MatrixXd* weights = new MatrixXd(recSOM->getGroup(connection["outgroup"])->getDim(), recSOM->getGroup(connection["ingroup"])->getDim());
+   vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
+
+   for(int i = 0; i < weights->rows(); i++) {
+     for(int j = 0; j < weights->cols(); j++) {
+       (*weights)(i,j) = stod(weightsRaw[i * weights->cols() + j]);
+     }
+   }
+
+   recSOM->getConnection(connection["ingroup"], connection["outgroup"])->init(weights);
+  }
+
+  return recSOM;
+ }
+
+ if (type.compare("msom") == 0) {
+  int dimX = data["_network"]["dimx"].get<int>();
+  int dimY = data["_network"]["dimy"].get<int>();
+
+  json inputLayer = data["layers"].find("input").value();
+  int dimInput = inputLayer["dim"].get<int>();
+  json latticeLayer = data["layers"].find("lattice").value();
+  int actFunction = latticeLayer["actfn"].get<int>();
+
+  MSOM* mSOM = new MSOM(dimInput, dimX, dimY, actFunction);
+
+  for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
+   json connection = it.value();
+
+   MatrixXd* weights = new MatrixXd(mSOM->getGroup(connection["outgroup"])->getDim(), mSOM->getGroup(connection["ingroup"])->getDim());
+   vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
+
+   for(int i = 0; i < weights->rows(); i++) {
+    for(int j = 0; j < weights->cols(); j++) {
+     (*weights)(i,j) = stod(weightsRaw[i * weights->cols() + j]);
+    }
+   }
+
+   mSOM->getConnection(connection["ingroup"], connection["outgroup"])->init(weights);
+  }
+
+  return mSOM;
+ }
+
+ return nullptr;
 }

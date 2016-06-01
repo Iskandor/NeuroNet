@@ -19,6 +19,7 @@ public:
     ~NetworkUtils() {};
 
     static void saveNetwork(string p_filename, NeuralNetwork *p_network);
+    static NeuralNetwork* loadNetwork(string p_filename);
 
     static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd* p_vector);
     static void binaryEncoding(double p_value, VectorXd* p_vector);
