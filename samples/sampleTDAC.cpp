@@ -7,6 +7,7 @@
 #include "../algorithm/rl/ActorCritic.h"
 #include "../algorithm/rl/CACLA.h"
 #include "../algorithm/rl/RGAC.h"
+#include "../network/NetworkUtils.h"
 
 using namespace NeuroNet;
 
@@ -15,36 +16,46 @@ void sampleTDAC() {
     int time = 0;
     int dim = 3;
 
-    NeuralNetwork critic;
-    critic.addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
-    critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
-    critic.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
-    // feed-forward connections
-    critic.addConnection("input", "hidden");
-    critic.addConnection("hidden", "output");
-    // bias connections
-    critic.addConnection("biasH", "hidden");
-    critic.addConnection("biasO", "output");
 
-    NeuralNetwork actor;
-    actor.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
-    actor.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("hidden", 8, SIGMOID, NeuralNetwork::HIDDEN);
-    actor.addLayer("output", 4, SIGMOID, NeuralNetwork::OUTPUT);
-    actor.addConnection("input", "hidden");
-    actor.addConnection("hidden", "output");
-    actor.addConnection("biasH", "hidden");
-    actor.addConnection("biasO", "output");
+    NeuralNetwork* critic = new NeuralNetwork();
+    critic->addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
+    critic->addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
+    critic->addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    // feed-forward connections
+    critic->addConnection("input", "hidden");
+    critic->addConnection("hidden", "output");
+    // bias connections
+    critic->addConnection("biasH", "hidden");
+    critic->addConnection("biasO", "output");
+
+    NeuralNetwork* actor = new NeuralNetwork();
+    actor->addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
+    actor->addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("hidden", 8, SIGMOID, NeuralNetwork::HIDDEN);
+    actor->addLayer("output", 4, SIGMOID, NeuralNetwork::OUTPUT);
+    actor->addConnection("input", "hidden");
+    actor->addConnection("hidden", "output");
+    actor->addConnection("biasH", "hidden");
+    actor->addConnection("biasO", "output");
     //actor.getGroup("output")->addOutFilter(new KwtaFilter(1, true));
+
+    /*
+    NetworkUtils::saveNetwork("cacla_actor.net", actor);
+    NetworkUtils::saveNetwork("calca_ciritc.net", critic);
+    */
+
+    //NeuralNetwork* actor = NetworkUtils::loadNetwork("cacla_actor.net");
+    //NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
+
 
 
     Maze maze(dim);
     maze.reset();
 
-    CACLA actorCritic(&actor, &critic);
+    CACLA actorCritic(actor, critic);
     actorCritic.setAlpha(0.3);
     actorCritic.setBeta(0.1);
     actorCritic.setExploration(0.01);
@@ -77,6 +88,11 @@ void sampleTDAC() {
         }
     }
 
+    NetworkUtils::saveNetwork("cacla_actor.net", actor);
+    NetworkUtils::saveNetwork("calca_ciritc.net", critic);
+
+    delete actor;
+    delete critic;
 
     cout << "Uspesne ukoncene." << endl;
 }

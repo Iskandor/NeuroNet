@@ -56,6 +56,11 @@ void NetworkUtils::saveNetwork(string p_filename, NeuralNetwork *p_network) {
 NeuralNetwork* NetworkUtils::loadNetwork(string p_filename) {
  json data;
  ifstream file;
+
+ if (p_filename.find(".net") == p_filename.size()) {
+  p_filename += ".net";
+ }
+
  file.open (p_filename);
  file >> data;
  file.close();
@@ -69,11 +74,43 @@ NeuralNetwork* NetworkUtils::loadNetwork(string p_filename) {
  string type = data["_network"]["type"];
 
  if (type.compare("feedforward") == 0) {
-   /*
-   for (json::iterator it = o.begin(); it != o.end(); ++it) {
-    std::cout << it.key() << " : " << it.value() << "\n";
+
+  NeuralNetwork* network = new NeuralNetwork();
+
+  string inGroupId = data["_network"]["ingroup"];
+  string outGroupId = data["_network"]["outgroup"];
+
+  for (json::iterator it = data["layers"].begin(); it != data["layers"].end(); ++it) {
+   string id = it.key();
+   json group = it.value();
+
+   if (id.compare(inGroupId) == 0) {
+     network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::INPUT);
    }
-   */
+   else if (id.compare(outGroupId) == 0) {
+    network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::OUTPUT);
+   }
+   else {
+    network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::HIDDEN);
+   }
+  }
+
+  for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
+   json connection = it.value();
+
+   MatrixXd* weights = new MatrixXd(network->getGroup(connection["outgroup"])->getDim(), network->getGroup(connection["ingroup"])->getDim());
+   vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
+
+   for(int i = 0; i < weights->rows(); i++) {
+    for(int j = 0; j < weights->cols(); j++) {
+     (*weights)(i,j) = stod(weightsRaw[i * weights->cols() + j]);
+    }
+   }
+
+   network->addConnection(connection["ingroup"], connection["outgroup"])->init(weights);
+  }
+
+  return network;
  }
 
  if (type.compare("recsom") == 0) {

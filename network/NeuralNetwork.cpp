@@ -157,5 +157,5 @@ void NeuralNetwork::resetContext() {
 }
 
 json NeuralNetwork::getFileData() {
-    return json({{"type", "feedforward"}});
+    return json({{"type", "feedforward"}, {"ingroup", _inputGroup->getId()}, {"outgroup", _outputGroup->getId()}});
 }

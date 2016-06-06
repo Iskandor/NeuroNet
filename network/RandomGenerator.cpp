@@ -21,5 +21,5 @@ double RandomGenerator::random() {
 }
 
 int RandomGenerator::randomInt(int p_lower, int p_upper) {
-  return p_lower + round(random() * (p_upper - p_lower));
+  return p_lower + (int)round(random() * (p_upper - p_lower));
 }

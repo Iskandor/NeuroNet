@@ -27,7 +27,6 @@ void sampleQ() {
   NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, SIGMOID, NeuralNetwork::HIDDEN);
   NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
 
-
   // feed-forward connections
   network.addConnection(inputGroup, hiddenGroup);
   network.addConnection(hiddenGroup, outputGroup);
@@ -80,6 +79,8 @@ void sampleQ() {
       episode++;
     }
   }
+
+  NetworkUtils::saveNetwork("qmaze.net", &network);
 
   cout << "Uspesne ukoncene." << endl;
 }
