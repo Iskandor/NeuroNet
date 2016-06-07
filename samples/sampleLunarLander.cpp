@@ -24,7 +24,7 @@ void sampleLunarLander() {
     critic.addLayer("input", dim+2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     critic.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     critic.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 5, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic.addLayer("hidden", 30, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     critic.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     //VectorXd limit(dim+2);
@@ -62,7 +62,7 @@ void sampleLunarLander() {
     Output2FILE::Stream() = pFile;
     FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-    while(episode < 100000) {
+    while(episode < 10000) {
 
         agent.run();
         sumReward += lander.getReward();

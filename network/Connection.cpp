@@ -31,7 +31,7 @@ void Connection::init(double p_density, double p_inhibition) const {
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
           if (generator.random() < p_density) {
-              (*_weights)(i, j) =  generator.random();
+              (*_weights)(i, j) =  generator.random() * 0.1;
               if (generator.random() < p_inhibition) {
                   (*_weights)(i, j) *= -1;
               }

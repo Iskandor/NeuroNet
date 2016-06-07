@@ -11,6 +11,13 @@ GradientBase::GradientBase(NeuralNetwork *p_network) {
   _network = p_network;
 
   groupTreeCreate();
+
+  int nRows;
+  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+    nRows = it->second->getOutGroup()->getDim();
+    _invFisherMatrix[it->second->getId()] = MatrixXd::Identity(nRows, nRows);
+  }
+
 }
 
 GradientBase::~GradientBase() {
@@ -80,4 +87,27 @@ void GradientBase::deltaKernel(NeuralGroup *p_group) {
 
 void GradientBase::gradientKernel(Connection *p_connection) {
   _gradient[p_connection->getId()] = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
+}
+
+void GradientBase::calcNatGradient(double p_epsilon, VectorXd *p_error) {
+  _epsilon = p_epsilon;
+  calcGradient(_network->getOutput());
+  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+    invFisherMatrixKernel(it->second);
+  }
+
+  calcGradient(p_error);
+  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+    natGradientKernel(it->second);
+  }
+}
+
+
+void GradientBase::invFisherMatrixKernel(Connection *p_connection) {
+  int connectionId = p_connection->getId();
+  _invFisherMatrix[connectionId] = (1 + _epsilon) * _invFisherMatrix[connectionId] - _epsilon * _invFisherMatrix[connectionId] * _gradient[connectionId] * _gradient[connectionId].transpose() * _invFisherMatrix[connectionId];
+}
+
+void GradientBase::natGradientKernel(Connection *p_connection) {
+  _natGradient[p_connection->getId()] = _invFisherMatrix[p_connection->getId()] * _gradient[p_connection->getId()];
 }

@@ -32,6 +32,8 @@ public:
 
     bool isFinished() const;
 
+    int getStateSize() override;
+
 private:
     void decodeAction(VectorXd *p_action, double &p_command) const;
 

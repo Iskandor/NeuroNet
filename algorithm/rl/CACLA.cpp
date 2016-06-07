@@ -17,8 +17,8 @@ CACLA::~CACLA() {
 
 
 void CACLA::run() {
-  VectorXd state0 = VectorXd::Zero(_environment->getState()->size());
-  VectorXd state1 = VectorXd::Zero(_environment->getState()->size());
+  VectorXd state0 = VectorXd::Zero(_environment->getStateSize());
+  VectorXd state1 = VectorXd::Zero(_environment->getStateSize());
   VectorXd action0 = VectorXd::Zero(_actor->getOutput()->size());
   double reward = 0;
 

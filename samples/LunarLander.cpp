@@ -91,9 +91,11 @@ VectorXd *LunarLander::getState() {
     NetworkUtils::gaussianEncoding(_velocity, 20, 0, 20, &velocity);
     NetworkUtils::gaussianEncoding(_fuel, 20, 0, 20, &fuel);
 
-    _neuralState << height;
-    _neuralState << velocity;
-    _neuralState << fuel;
+    _neuralState << height, velocity, fuel;
 
     return &_neuralState;
+}
+
+int LunarLander::getStateSize() {
+    return 90;
 }
