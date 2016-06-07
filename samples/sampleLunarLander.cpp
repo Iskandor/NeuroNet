@@ -15,21 +15,21 @@
 void sampleLunarLander() {
     double sumReward = 0;
     int time = 0;
-    int dim = 3;
+    int dim = 50+20+20;
     int episode = 0;
     const int EPISODES = 100000;
     const int SIZE = 9;
 
     NeuralNetwork critic;
-    critic.addLayer("input", dim+2, IDENTITY, NeuralNetwork::INPUT);
-    critic.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
-    critic.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    critic.addLayer("input", dim+2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    critic.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic.addLayer("hidden", 5, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
-    VectorXd limit(dim+2);
-    limit << 20,50,20,1,1;
-    critic.getGroup("input")->addInFilter(new NormalizationFilter(&limit));
+    //VectorXd limit(dim+2);
+    //limit << 20,50,20,1,1;
+    //critic.getGroup("input")->addInFilter(new NormalizationFilter(&limit));
     // feed-forward connections
     critic.addConnection("input", "hidden");
     critic.addConnection("hidden", "output");
@@ -38,11 +38,11 @@ void sampleLunarLander() {
     critic.addConnection("biasO", "output");
 
     NeuralNetwork actor;
-    actor.addLayer("input", dim, IDENTITY, NeuralNetwork::INPUT);
-    actor.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("hidden", 4, SIGMOID, NeuralNetwork::HIDDEN);
-    actor.addLayer("output", 2, SIGMOID, NeuralNetwork::OUTPUT);
+    actor.addLayer("input", dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    actor.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor.addLayer("hidden", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    actor.addLayer("output", 2, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
     // feed-forward connections
     actor.addConnection("input", "hidden");
     actor.addConnection("hidden", "output");

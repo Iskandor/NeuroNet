@@ -14,7 +14,20 @@ namespace NeuroNet {
 class NeuralGroup
 {
 public:
-    NeuralGroup(string p_id, int p_dim, int p_activationFunction);
+    enum ACTIVATION_FN {
+     IDENTITY = 0,
+     BIAS = 1,
+     BINARY = 2,
+     SIGMOID = 3,
+     TANH = 4,
+     SOFTMAX = 5,
+     LINEAR = 6,
+     EXPONENTIAL = 7,
+     SOFTPLUS = 8,
+     BENT = 9
+    };
+
+    NeuralGroup(string p_id, int p_dim, ACTIVATION_FN p_activationFunction);
     ~NeuralGroup(void);
 
 
@@ -43,14 +56,14 @@ public:
     void invalidate() { _valid = false; };
     void setValid() { _valid = true; };
 
-    int getActivationFunction() { return _activationFunction; };
+    ACTIVATION_FN getActivationFunction() { return _activationFunction; };
 
     json getFileData();
 
 private:
     string  _id;
     int     _dim;
-    int     _activationFunction;
+    ACTIVATION_FN _activationFunction;
     bool    _valid;
 
     VectorXd _output;

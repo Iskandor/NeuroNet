@@ -18,7 +18,7 @@ void sampleMSOM() {
     dataset.normalize();
 
     //RecSOM msom(1, 8, 8, EXPONENTIAL);
-    MSOM msom(1, 8, 8, EXPONENTIAL);
+    MSOM msom(1, 8, 8, NeuralGroup::EXPONENTIAL);
     double epochs = 300;
     msom.initTraining(0.01, 0.01, 0.6, 0.4, epochs);
 

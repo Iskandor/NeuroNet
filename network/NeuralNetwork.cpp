@@ -68,7 +68,7 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
     }
 }
 
-NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, int p_activationFunction, GROUP_TYPE p_type) {
+NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION_FN p_activationFunction, GROUP_TYPE p_type) {
     NeuralGroup* group = new NeuralGroup(p_id, p_dim, p_activationFunction);
     _groups[p_id] = group;
     _groupId++;

@@ -12,7 +12,7 @@ using namespace NeuroNet;
  * @param p_dim dimension of layer
  * @param p_activationFunction type of activation function
  */
-NeuralGroup::NeuralGroup(string p_id, int p_dim, int p_activationFunction)
+NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION_FN p_activationFunction)
 {
     _id = p_id;
     _dim = p_dim;

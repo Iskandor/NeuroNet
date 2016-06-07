@@ -14,7 +14,7 @@ class IEnvironment
 
   virtual bool evaluateAction (VectorXd *p_action, VectorXd *p_state) = 0;
   virtual void updateState(VectorXd *p_action) = 0;
-  VectorXd *getState() { return &_state; };
+  virtual VectorXd *getState() { return &_state; };
   virtual void reset() = 0;
   double getReward() const {return _reward;};
   

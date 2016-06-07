@@ -3,6 +3,7 @@
 //
 
 #include "LunarLander.h"
+#include "../network/NetworkUtils.h"
 
 //Class definitions
 LunarLander::LunarLander()
@@ -78,5 +79,21 @@ void LunarLander::decodeAction(VectorXd *p_action, double &p_command) const {
     if ((*p_action)[1] == 1) {
         p_command = 1;
     }
+}
 
+VectorXd *LunarLander::getState() {
+    VectorXd height = VectorXd::Zero(50);
+    VectorXd velocity = VectorXd::Zero(20);
+    VectorXd fuel = VectorXd::Zero(20);
+    _neuralState = VectorXd::Zero(50+20+20);
+
+    NetworkUtils::gaussianEncoding(_height, 50, 0, 50, &height);
+    NetworkUtils::gaussianEncoding(_velocity, 20, 0, 20, &velocity);
+    NetworkUtils::gaussianEncoding(_fuel, 20, 0, 20, &fuel);
+
+    _neuralState << height;
+    _neuralState << velocity;
+    _neuralState << fuel;
+
+    return &_neuralState;
 }

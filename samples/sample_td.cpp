@@ -15,11 +15,11 @@ void sampleTD() {
 
     NeuralNetwork network;
 
-    NeuralGroup* inputGroup = network.addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
-    NeuralGroup* biasUnitH = network.addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* biasUnitO = network.addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, TANH, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    NeuralGroup* inputGroup = network.addLayer("input", dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    NeuralGroup* biasUnitH = network.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* biasUnitO = network.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
 
     // feed-forward connections

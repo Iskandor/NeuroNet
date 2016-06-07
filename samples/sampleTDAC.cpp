@@ -18,11 +18,11 @@ void sampleTDAC() {
 
 
     NeuralNetwork* critic = new NeuralNetwork();
-    critic->addLayer("input", 4+dim*dim, IDENTITY, NeuralNetwork::INPUT);
-    critic->addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic->addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    critic->addLayer("hidden", 5, SIGMOID, NeuralNetwork::HIDDEN);
-    critic->addLayer("output", 1, TANH, NeuralNetwork::OUTPUT);
+    critic->addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    critic->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("hidden", 5, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic->addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
     // feed-forward connections
     critic->addConnection("input", "hidden");
     critic->addConnection("hidden", "output");
@@ -31,11 +31,11 @@ void sampleTDAC() {
     critic->addConnection("biasO", "output");
 
     NeuralNetwork* actor = new NeuralNetwork();
-    actor->addLayer("input", dim*dim, IDENTITY, NeuralNetwork::INPUT);
-    actor->addLayer("biasH", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor->addLayer("biasO", 1, BIAS, NeuralNetwork::HIDDEN);
-    actor->addLayer("hidden", 8, SIGMOID, NeuralNetwork::HIDDEN);
-    actor->addLayer("output", 4, SIGMOID, NeuralNetwork::OUTPUT);
+    actor->addLayer("input", dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    actor->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("hidden", 8, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    actor->addLayer("output", 4, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
     actor->addConnection("input", "hidden");
     actor->addConnection("hidden", "output");
     actor->addConnection("biasH", "hidden");

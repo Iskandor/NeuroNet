@@ -7,8 +7,8 @@
 
 using namespace NeuroNet;
 
-RecSOM::RecSOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
-    addLayer("context", p_dimX * p_dimY, IDENTITY, NeuralNetwork::HIDDEN);
+RecSOM::RecSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
+    addLayer("context", p_dimX * p_dimY, NeuralGroup::IDENTITY, NeuralNetwork::HIDDEN);
     addConnection("context", "lattice");
 }
 

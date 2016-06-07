@@ -21,11 +21,9 @@ public:
     static void saveNetwork(string p_filename, NeuralNetwork *p_network);
     static NeuralNetwork* loadNetwork(string p_filename);
 
-    static void coarseEncoding(double p_value, double p_upperLimit, double p_lowerLimit, double p_populationDim, VectorXd* p_vector);
-    static void binaryEncoding(double p_value, VectorXd* p_vector);
+    static void binaryEncoding(double p_value, double p_upperLimit, double p_lowerLimit, int p_populationDim, VectorXd* p_vector);
+    static void gaussianEncoding(double p_value, double p_upperLimit, double p_lowerLimit, int p_populationDim, VectorXd* p_vector);
     static int kroneckerDelta(int p_i, int p_j);
-
-    static double random();
 
     template <typename T>
     static int sgn(T val) {

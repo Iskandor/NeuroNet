@@ -7,8 +7,8 @@
 
 using namespace NeuroNet;
 
-SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, int p_actFunction) : NeuralNetwork() {
-    addLayer("input", p_dimInput, IDENTITY, INPUT);
+SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction) : NeuralNetwork() {
+    addLayer("input", p_dimInput, NeuralGroup::IDENTITY, INPUT);
     addLayer("lattice", p_dimX * p_dimY, p_actFunction, OUTPUT);
     addConnection("input", "lattice");
 
@@ -53,7 +53,7 @@ void SOM::updateWeights() {
     double theta = 0;
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
-        theta = calcNeighborhood(i, GAUSSIAN);
+        theta = calcNeighborhood(i, NEIGHBORHOOD_TYPE::GAUSSIAN);
         VectorXd wi = getConnection("input", "lattice")->getWeights()->row(i);
         delta.row(i) = theta * _alpha * (_input - wi);
     }
@@ -71,10 +71,10 @@ void SOM::activate(VectorXd *p_input) {
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         neuronDist = calcDistance(i);
         switch(getOutputGroup()->getActivationFunction()) {
-            case LINEAR:
+            case NeuralGroup::LINEAR:
                 _output[i] = neuronDist;
                 break;
-            case EXPONENTIAL:
+            case NeuralGroup::EXPONENTIAL:
                 _output[i] = exp(-neuronDist);
                 break;
         }
@@ -97,10 +97,10 @@ double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
     y2 = _winner / _dimX;
 
     switch (p_type) {
-        case EUCLIDEAN:
+        case NEIGHBORHOOD_TYPE::EUCLIDEAN:
             result = 1 / euclideanDistance(x1, y1, x2, y2);
             break;
-        case GAUSSIAN:
+        case NEIGHBORHOOD_TYPE::GAUSSIAN:
             result = gaussianDistance(euclideanDistance(x1, y1, x2, y2), _sigma);
             break;
     }
