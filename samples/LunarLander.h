@@ -13,7 +13,7 @@ using namespace NeuroNet;
 
 class LunarLander : public IEnvironment {
 public:
-    const double dt = 1.0;
+    const double dt = 0.5;
     const double gravity = 0.5;
     const double engine_strength = 1.0;
     const double safe_velocity = -0.5;

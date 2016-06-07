@@ -54,7 +54,7 @@ void LunarLander::updateState(VectorXd *p_action) {
             cout<<"...good landing!\n";
         }
         else {
-            _reward = _velocity - safe_velocity;
+            _reward = (_velocity - safe_velocity) / 35;
             cout<<"...you crashed!\n";
         }
     }
@@ -88,7 +88,7 @@ VectorXd *LunarLander::getState() {
     _neuralState = VectorXd::Zero(50+20+20);
 
     NetworkUtils::gaussianEncoding(_height, 50, 0, 50, &height);
-    NetworkUtils::gaussianEncoding(_velocity, 20, 0, 20, &velocity);
+    NetworkUtils::gaussianEncoding(_velocity, 35, 0, 20, &velocity);
     NetworkUtils::gaussianEncoding(_fuel, 20, 0, 20, &fuel);
 
     _neuralState << height, velocity, fuel;

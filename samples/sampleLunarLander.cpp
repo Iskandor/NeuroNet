@@ -11,6 +11,7 @@
 #include "../network/filters/NormalizationFilter.h"
 #include "../algorithm/GreedyPolicy.h"
 #include "../algorithm/rl/CACLA.h"
+#include "../network/NetworkUtils.h"
 
 void sampleLunarLander() {
     double sumReward = 0;
@@ -53,8 +54,8 @@ void sampleLunarLander() {
     CACLA agent(&actor, &critic);
     LunarLander lander;
 
-    agent.setAlpha(0.5);
-    agent.setBeta(0.1);
+    agent.setAlpha(0.1);
+    agent.setBeta(0.08);
     agent.setExploration(0.01);
     agent.init(&lander);
 
@@ -81,6 +82,10 @@ void sampleLunarLander() {
             episode++;
         }
     }
+
+    NetworkUtils::saveNetwork("lander_actor.net", &actor);
+    NetworkUtils::saveNetwork("lander_ciritc.net", &critic);
+
 
     cout << "Uspesne ukoncene." << endl;
 }
