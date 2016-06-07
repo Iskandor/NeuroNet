@@ -62,10 +62,10 @@ void RecSOM::updateContext() {
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         neuronDist = calcDistance(i);
         switch(getOutputGroup()->getActivationFunction()) {
-            case LINEAR:
+            case NeuralGroup::LINEAR:
                 ct[i] = neuronDist;
                 break;
-            case EXPONENTIAL:
+            case NeuralGroup::EXPONENTIAL:
                 ct[i] = exp(-neuronDist);
                 break;
         }

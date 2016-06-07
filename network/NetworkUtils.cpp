@@ -18,7 +18,7 @@ int NetworkUtils::kroneckerDelta(int p_i, int p_j) {
     return p_i == p_j ? 1 : 0;
 }
 
-void NetworkUtils::binaryEncoding(double p_value, double p_upperLimit, double p_lowerLimit, int p_populationDim, VectorXd *p_vector) {
+void NetworkUtils::binaryEncoding(double p_value, VectorXd *p_vector) {
     p_vector->fill(0);
     (*p_vector)[p_value] = 1;
 }
@@ -89,14 +89,16 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
             string id = it.key();
             json group = it.value();
 
+            int actFunction = group["actfn"].get<int>();
+
             if (id.compare(inGroupId) == 0) {
-                network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::INPUT);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::INPUT);
             }
             else if (id.compare(outGroupId) == 0) {
-                network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::OUTPUT);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::OUTPUT);
             }
             else {
-                network->addLayer(id, group["dim"], group["actfn"], NeuralNetwork::HIDDEN);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::HIDDEN);
             }
         }
 
@@ -128,7 +130,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         json latticeLayer = data["layers"].find("lattice").value();
         int actFunction = latticeLayer["actfn"].get<int>();
 
-        RecSOM *recSOM = new RecSOM(dimInput, dimX, dimY, actFunction);
+        RecSOM *recSOM = new RecSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION_FN>(actFunction));
 
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
@@ -158,7 +160,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         json latticeLayer = data["layers"].find("lattice").value();
         int actFunction = latticeLayer["actfn"].get<int>();
 
-        MSOM *mSOM = new MSOM(dimInput, dimX, dimY, actFunction);
+        MSOM *mSOM = new MSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION_FN>(actFunction));
 
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
