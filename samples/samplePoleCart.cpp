@@ -48,7 +48,7 @@ void samplePoleCart() {
 
     agent.setAlpha(0.001);
     agent.setBeta(0.001);
-    agent.setExploration(0.1);
+    agent.setExploration(0.3);
     agent.init(&poleCart);
 
     FILE* pFile = fopen("application.log", "w");

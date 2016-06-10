@@ -16,7 +16,7 @@ void sampleTDAC() {
     int time = 0;
     int dim = 3;
 
-
+    /*
     NeuralNetwork* critic = new NeuralNetwork();
     critic->addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     critic->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
@@ -42,23 +42,23 @@ void sampleTDAC() {
     actor->addConnection("biasO", "output");
     //actor.getGroup("output")->addOutFilter(new KwtaFilter(1, true));
 
-    /*
+
     NetworkUtils::saveNetwork("cacla_actor.net", actor);
     NetworkUtils::saveNetwork("calca_ciritc.net", critic);
     */
 
-    //NeuralNetwork* actor = NetworkUtils::loadNetwork("cacla_actor.net");
-    //NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
+    NeuralNetwork* actor = NetworkUtils::loadNetwork("cacla_actor.net");
+    NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
 
 
 
     Maze maze(dim);
     maze.reset();
 
-    CACLA actorCritic(actor, critic);
-    actorCritic.setAlpha(0.3);
-    actorCritic.setBeta(0.1);
-    actorCritic.setExploration(0.01);
+    RGAC actorCritic(actor, critic);
+    actorCritic.setAlpha(0.1);
+    actorCritic.setBeta(0.08);
+    actorCritic.setExploration(0.1);
     actorCritic.init(&maze);
 
 

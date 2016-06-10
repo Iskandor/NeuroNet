@@ -132,13 +132,9 @@ void NeuralGroup::activate() {
 void NeuralGroup::calcDerivs() {
     switch (_activationFunction) {
         case IDENTITY:
-            _derivs = MatrixXd::Identity(_dim, _dim);
-            break;
         case BIAS:
-            _derivs = MatrixXd::Zero(_dim, _dim);
-            break;
         case BINARY:
-            _derivs = MatrixXd::Zero(_dim, _dim);
+            _derivs = MatrixXd::Identity(_dim, _dim);
             break;
         case SIGMOID:
             for(int i = 0; i < _dim; i++) {

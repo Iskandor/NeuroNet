@@ -18,7 +18,7 @@ bool PoleCart::evaluateAction(VectorXd *p_action, VectorXd *p_state) {
 }
 
 void PoleCart::updateState(VectorXd *p_action) {
-    _force = (*p_action)[0] * 50;
+    _force = (*p_action)[0] * 10;
     update();
     _time++;
 

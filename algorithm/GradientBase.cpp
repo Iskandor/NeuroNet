@@ -74,15 +74,7 @@ void GradientBase::deltaKernel(NeuralGroup *p_group) {
     Connection* connection = _network->getConnection(p_group->getOutConnection());
     string id = p_group->getId();
     string outId = connection->getOutGroup()->getId();
-
-    _delta[id] = VectorXd::Zero(p_group->getDim());
-    for(int i = 0; i < connection->getOutGroup()->getDim(); i++) {
-        for(int j = 0; j < p_group->getDim(); j++) {
-            _delta[id][j] += _delta[outId][i] * (*connection->getWeights())(i, j);
-        }
-    }
-
-    _delta[id] = (*p_group->getDerivs()) * _delta[id];
+    _delta[id] = (*p_group->getDerivs()) * (connection->getWeights()->transpose() * _delta[outId]);
 }
 
 void GradientBase::gradientKernel(Connection *p_connection) {
