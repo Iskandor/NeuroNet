@@ -17,15 +17,15 @@ public:
     void operator=(RandomGenerator const&)  = delete;
     ~RandomGenerator();
 
-    double random();
+    double randomOld();
+    double normalRandom(double p_sigma);
     int random(int p_lower, int p_upper);
-    double random(double p_lower, double p_upper);
+    double random(double p_lower = 0, double p_upper = 1);
 
 private:
     RandomGenerator();
     std::random_device _rd;
     std::mt19937 _mt;
-    std::uniform_real_distribution<double> *_dist;
 };
 
 }

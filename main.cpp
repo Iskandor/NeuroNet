@@ -6,13 +6,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    /*
-    NeuroNet::RandomGenerator generator;
-    for(int i = 0; i < 100; i++) {
-        cout << generator.random() << endl;
-    }
-    */
-    //sampleBP();
+    sampleBP();
     //sampleTD();
     //sampleQ();
     //sampleSOM();
@@ -22,7 +16,7 @@ int main(int argc, char* argv[])
     //sampleTDAC();
 
     //sampleLunarLander();
-    samplePoleCart();
+    //samplePoleCart();
 
     system("pause");
     return 0;
