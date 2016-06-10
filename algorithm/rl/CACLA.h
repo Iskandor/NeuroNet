@@ -17,9 +17,12 @@ public:
     ~CACLA();
 
     void run() override;
+    void setSigma(double p_sigma);
 
 private:
     void getAction(VectorXd *p_state, VectorXd *p_action) override;
+
+    double _sigma;
 };
 
 }

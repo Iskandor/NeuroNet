@@ -1,14 +1,11 @@
 var searchData=
 [
-  ['regulargradientactor',['RegularGradientActor',['../class_regular_gradient_actor.html',1,'RegularGradientActor'],['../class_regular_gradient_actor.html#aff0d5f4fbc70582a658a96dfbc37b8dd',1,'RegularGradientActor::RegularGradientActor()']]],
-  ['regulargradientactor_2ecpp',['RegularGradientActor.cpp',['../_regular_gradient_actor_8cpp.html',1,'']]],
-  ['regulargradientactor_2eh',['RegularGradientActor.h',['../_regular_gradient_actor_8h.html',1,'']]],
-  ['reset',['reset',['../class_i_environment.html#ac2b2be8f8b9af82283f1be7eb36e28f2',1,'IEnvironment']]],
-  ['resetcontext',['resetContext',['../class_neural_network.html#a426292ae9fb41f485e3b67a28a40ed50',1,'NeuralNetwork']]],
-  ['rgac',['RGAC',['../class_r_g_a_c.html',1,'RGAC'],['../class_r_g_a_c.html#a1163282fc1d8eb0ac72a2c9703b3d005',1,'RGAC::RGAC()']]],
-  ['rgac_2ecpp',['RGAC.cpp',['../_r_g_a_c_8cpp.html',1,'']]],
-  ['rgac_2eh',['RGAC.h',['../_r_g_a_c_8h.html',1,'']]],
-  ['rtrim',['rtrim',['../class_string_utils.html#ac42e16732ae5ce65599b1979ba4b0059',1,'StringUtils']]],
-  ['run',['run',['../class_actor_critic.html#ab00f7c8a0c3c1624b4354f7005cd544a',1,'ActorCritic::run()'],['../class_c_a_c_l_a.html#a29c337f1287718b1c5607a18241a79bb',1,'CACLA::run()'],['../class_r_g_a_c.html#a610e8bcbe991ad82f50af78dd97ba101',1,'RGAC::run()']]],
-  ['running',['running',['../class_neural_network.html#a7ea6b11a17625492d42b2d18a1fbe88d',1,'NeuralNetwork']]]
+  ['randomgenerator',['RandomGenerator',['../class_neuro_net_1_1_random_generator.html',1,'NeuroNet']]],
+  ['rbegin',['rbegin',['../classnlohmann_1_1basic__json.html#a62ccf5b9b3674aec2403fbc02da03db8',1,'nlohmann::basic_json::rbegin() noexcept'],['../classnlohmann_1_1basic__json.html#a4635e8c6d5a4599f12a76368e325acd8',1,'nlohmann::basic_json::rbegin() const  noexcept']]],
+  ['recsom',['RecSOM',['../class_neuro_net_1_1_rec_s_o_m.html',1,'NeuroNet']]],
+  ['reference',['reference',['../classnlohmann_1_1basic__json.html#a3ec8e17be8732fe436e9d6733f52b7a3',1,'nlohmann::basic_json::reference()'],['../classnlohmann_1_1basic__json_1_1const__iterator.html#aefd248cac6493eed1e6ff53ba6a63eb2',1,'nlohmann::basic_json::const_iterator::reference()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#a7265535f39299824f9712a2ca15013c3',1,'nlohmann::basic_json::json_reverse_iterator::reference()']]],
+  ['regulargradientactor',['RegularGradientActor',['../class_neuro_net_1_1_regular_gradient_actor.html',1,'NeuroNet']]],
+  ['rend',['rend',['../classnlohmann_1_1basic__json.html#aaa160a960dd3dd90856a72b1d8dbe707',1,'nlohmann::basic_json::rend() noexcept'],['../classnlohmann_1_1basic__json.html#a018ea61dbc973192d2ffc6bccc50696b',1,'nlohmann::basic_json::rend() const  noexcept']]],
+  ['reverse_5fiterator',['reverse_iterator',['../classnlohmann_1_1basic__json.html#a2f1f83aa187a56dc5ec7a7027065ac8a',1,'nlohmann::basic_json']]],
+  ['rgac',['RGAC',['../class_neuro_net_1_1_r_g_a_c.html',1,'NeuroNet']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['neighborhood_5ftype',['NEIGHBORHOOD_TYPE',['../class_s_o_m.html#a7d5cb75ae896af51ab8d8966d9ee475f',1,'SOM']]]
+  ['value_5ft',['value_t',['../classnlohmann_1_1basic__json.html#a231b02148577b69a154b2ce2c87a5522',1,'nlohmann::basic_json']]]
 ];

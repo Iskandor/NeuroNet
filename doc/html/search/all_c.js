@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['regulargradientactor',['RegularGradientActor',['../class_regular_gradient_actor.html',1,'']]],
-  ['rgac',['RGAC',['../class_r_g_a_c.html',1,'']]]
+  ['max_5fsize',['max_size',['../classnlohmann_1_1basic__json.html#ad5514a7435f246fc5335856465022a7a',1,'nlohmann::basic_json']]],
+  ['msom',['MSOM',['../class_neuro_net_1_1_m_s_o_m.html',1,'NeuroNet']]]
 ];

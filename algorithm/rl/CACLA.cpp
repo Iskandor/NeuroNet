@@ -38,5 +38,9 @@ void CACLA::run() {
 }
 
 void CACLA::getAction(VectorXd *p_state, VectorXd *p_action) {
-  ActorCritic::getAction(p_state, p_action);
+  //ActorCritic::getAction(p_state, p_action);
+  for(int i = 0; i < p_action->size(); i++) {
+    (*p_action)[i] = (*_actor->getOutput())[i] + RandomGenerator::getInstance().random() * _epsilon;
+  }
+
 }

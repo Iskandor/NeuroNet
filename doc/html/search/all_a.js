@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['processinput',['processInput',['../class_neural_group.html#ae7f141e766dc5cbbcdae8f20b589fe58',1,'NeuralGroup']]],
-  ['processoutput',['processOutput',['../class_neural_group.html#a09ecd19fd3178dae8ba7f4920137c8ff',1,'NeuralGroup']]]
+  ['key',['key',['../classnlohmann_1_1basic__json_1_1const__iterator.html#a5d4320e24fcb7df041ff2c95d976dba0',1,'nlohmann::basic_json::const_iterator::key()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#acecae6d237fcf14c909fb42b9d2e2955',1,'nlohmann::basic_json::json_reverse_iterator::key()'],['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafea3c6e0b8a9c15224a8228b9a98ca1531d',1,'nlohmann::basic_json::key()']]],
+  ['kwtafilter',['KwtaFilter',['../class_neuro_net_1_1_kwta_filter.html',1,'NeuroNet']]]
 ];

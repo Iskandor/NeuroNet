@@ -21,8 +21,8 @@ public:
 	virtual ~NeuralNetwork(void);
 
   	NeuralGroup* addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION_FN p_activationFunction, GROUP_TYPE p_type);
-	Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density = 1, double p_inhibition = 0.5);
-	Connection* addConnection(string p_inGroupId, string p_outGroupId, double p_density = 1, double p_inhibition = 0.5);
+	Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_limit = .1, double p_density = 1, double p_inhibition = 0.5);
+	Connection* addConnection(string p_inGroupId, string p_outGroupId, double p_limit = .1, double p_density = 1, double p_inhibition = 0.5);
 	Connection* addRecConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);
 	Connection* addRecConnection(string p_inGroupId, string p_outGroupId);
 

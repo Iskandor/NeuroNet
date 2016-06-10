@@ -11,9 +11,11 @@ void sampleQ2();
 void sampleTD();
 void sampleBP();
 void sampleSOM();
-void sampleLunarLander();
 void sampleTDAC();
 void sampleMSOM();
 void sampleDigits();
+
+void sampleLunarLander();
+void samplePoleCart();
 
 #endif //NEURONET_SAMPLES_H

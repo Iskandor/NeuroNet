@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaussian',['GAUSSIAN',['../class_s_o_m.html#a7d5cb75ae896af51ab8d8966d9ee475fa8247239528c71b04b7cab660d4544366',1,'SOM']]]
+  ['boolean',['boolean',['../classnlohmann_1_1basic__json.html#a231b02148577b69a154b2ce2c87a5522a84e2c64f38f78ba3ea5c905ab5a2da27',1,'nlohmann::basic_json']]]
 ];

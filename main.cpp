@@ -18,9 +18,11 @@ int main(int argc, char* argv[])
     //sampleSOM();
     //sampleMSOM();
     //sampleDigits();
-    sampleLunarLander();
     //sampleSARSA();
     //sampleTDAC();
+
+    //sampleLunarLander();
+    samplePoleCart();
 
     system("pause");
     return 0;

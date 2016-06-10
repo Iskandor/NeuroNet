@@ -16,10 +16,19 @@ RandomGenerator::~RandomGenerator() {
 }
 
 double RandomGenerator::random() {
-  //return (*_dist)(_mt);
-  return static_cast<double>(rand()) / RAND_MAX;
+  return (*_dist)(_mt);
+  //return static_cast<double>(rand()) / RAND_MAX;
 }
 
-int RandomGenerator::randomInt(int p_lower, int p_upper) {
+int RandomGenerator::random(int p_lower, int p_upper) {
   return p_lower + (int)round(random() * (p_upper - p_lower));
+}
+
+double RandomGenerator::random(double p_lower, double p_upper) {
+  return p_lower + random() * (p_upper - p_lower);
+}
+
+RandomGenerator& RandomGenerator::getInstance() {
+  static RandomGenerator instance;
+  return instance;
 }

@@ -30,7 +30,7 @@ void GreedyPolicy::getActionV(VectorXd *p_state, VectorXd *p_action) {
         (*p_action)[i] = 1;
 
         if (_environment->evaluateAction(p_action, p_state)) {
-            double roll = _generator.random();
+            double roll = RandomGenerator::getInstance().random();
             if (roll < _epsilon) {
                 action_i = i;
                 break;
@@ -58,7 +58,7 @@ void GreedyPolicy::getActionQ(VectorXd *p_state, VectorXd *p_action) {
         p_action->fill(0);
         (*p_action)[i] = 1;
 
-        double roll = _generator.random();
+        double roll = RandomGenerator::getInstance().random();
         if (roll < _epsilon) {
             action_i = i;
             break;

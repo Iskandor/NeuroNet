@@ -33,7 +33,6 @@ protected:
 
 protected:
     IEnvironment* _environment;
-    RandomGenerator _generator;
     NeuralNetwork* _actor;
     NeuralNetwork* _critic;
 

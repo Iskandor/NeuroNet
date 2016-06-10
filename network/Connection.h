@@ -14,6 +14,7 @@ public:
     ~Connection(void);
 
 public:
+    void init(double p_limit);
     void init(double p_density, double p_inhibition) const;
     void init(MatrixXd* p_weights);
     MatrixXd* getWeights() const { return _weights; };

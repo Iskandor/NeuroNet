@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['onloop',['onLoop',['../class_neural_network.html#a4044438cda6aba54b4e206fc4ed68db0',1,'NeuralNetwork']]]
+  ['neuralgroup',['NeuralGroup',['../class_neuro_net_1_1_neural_group.html#a5e134efe01bdab8f75ac166b343c542d',1,'NeuroNet::NeuralGroup']]]
 ];

@@ -11,7 +11,6 @@
 using namespace NeuroNet;
 
 void sampleDigits() {
-    RandomGenerator generator;
     RecSOM* msom = dynamic_cast<RecSOM*>(NetworkUtils::loadNetwork("msom.net")); //(10, 7, 7, EXPONENTIAL);
     double epochs = 300;
 
@@ -23,9 +22,9 @@ void sampleDigits() {
 
     for(int t = 0; t < epochs; t++) {
         for (int n = 0; n < 1000; n++) {
-            length = generator.randomInt(1, 3);
+            length = RandomGenerator::getInstance().random(1, 3);
             for(int i = 0; i < length; i++) {
-                digit = generator.randomInt(0,9);
+                digit = RandomGenerator::getInstance().random(0,9);
                 NetworkUtils::binaryEncoding(digit, &binDigit);
                 msom->train(binDigit.data());
                 if (digit == 0 && i == 0) {

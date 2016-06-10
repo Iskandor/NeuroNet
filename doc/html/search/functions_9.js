@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['learningalgorithm',['LearningAlgorithm',['../class_learning_algorithm.html#a8b12d35aaf1f76b6a3c1043868a11eeb',1,'LearningAlgorithm']]],
-  ['load',['load',['../class_dataset.html#a31fe7477819425d262680b15455b32fd',1,'Dataset']]],
-  ['ltrim',['ltrim',['../class_string_utils.html#abfb85838f51aaa6e7b6500a5c2383558',1,'StringUtils']]]
+  ['key',['key',['../classnlohmann_1_1basic__json_1_1const__iterator.html#a5d4320e24fcb7df041ff2c95d976dba0',1,'nlohmann::basic_json::const_iterator::key()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#acecae6d237fcf14c909fb42b9d2e2955',1,'nlohmann::basic_json::json_reverse_iterator::key()']]]
 ];

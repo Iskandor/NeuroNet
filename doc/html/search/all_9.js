@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['networkutils',['NetworkUtils',['../class_network_utils.html',1,'']]],
-  ['neuralgroup',['NeuralGroup',['../class_neural_group.html',1,'NeuralGroup'],['../class_neural_group.html#af1e807bb727971564f7096a6bf7f1ede',1,'NeuralGroup::NeuralGroup()']]],
-  ['neuralnetwork',['NeuralNetwork',['../class_neural_network.html',1,'']]],
-  ['normalizationfilter',['NormalizationFilter',['../class_normalization_filter.html',1,'']]]
+  ['json',['json',['../namespacenlohmann.html#a2bfd99e845a2e5cd90aeaf1b1431f474',1,'nlohmann']]],
+  ['json_5fpointer',['json_pointer',['../classnlohmann_1_1basic__json_1_1json__pointer.html',1,'nlohmann::basic_json']]],
+  ['json_5fpointer',['json_pointer',['../classnlohmann_1_1basic__json_1_1json__pointer.html#ae12db117a2742d826465080979d7c835',1,'nlohmann::basic_json::json_pointer']]],
+  ['json_5freverse_5fiterator',['json_reverse_iterator',['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#a86c97bbb8ebe19aef4656cf796e30e99',1,'nlohmann::basic_json::json_reverse_iterator::json_reverse_iterator(const typename base_iterator::iterator_type &amp;it) noexcept'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#a530f042e2ab1c83dddfc344931b0375a',1,'nlohmann::basic_json::json_reverse_iterator::json_reverse_iterator(const base_iterator &amp;it) noexcept']]],
+  ['json_5freverse_5fiterator',['json_reverse_iterator',['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html',1,'nlohmann::basic_json']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tdlambda',['TDLambda',['../class_t_d_lambda.html',1,'']]]
+  ['qlearning',['QLearning',['../class_neuro_net_1_1_q_learning.html',1,'NeuroNet']]]
 ];

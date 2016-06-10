@@ -45,7 +45,7 @@ void ActorCritic::getAction(VectorXd *p_state, VectorXd *p_action) {
   int max_i = 0;
   _actor->activate(p_state);
 
-  double roll = _generator.random();
+  double roll = RandomGenerator::getInstance().random();
   if (roll < _epsilon) {
     max_i = rand() % p_action->size();
   }

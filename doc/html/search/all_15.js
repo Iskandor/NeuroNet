@@ -1,25 +1,6 @@
 var searchData=
 [
-  ['_7eactorcritic',['~ActorCritic',['../class_actor_critic.html#a437db03437faac7e40b58d7e0be97c1d',1,'ActorCritic']]],
-  ['_7ebackprop',['~BackProp',['../class_back_prop.html#a22771f4e377b040d0419216296803e7f',1,'BackProp']]],
-  ['_7ecacla',['~CACLA',['../class_c_a_c_l_a.html#a6df806d0fd24ca618eb60626bc4162b9',1,'CACLA']]],
-  ['_7ecaclaactor',['~CACLAActor',['../class_c_a_c_l_a_actor.html#a38d3406ca8540b6c5a86c7358e2a71fe',1,'CACLAActor']]],
-  ['_7econnection',['~Connection',['../class_connection.html#a789c6eb3bd1f04309a156182073e527e',1,'Connection']]],
-  ['_7edataset',['~Dataset',['../class_dataset.html#a7f38b79ccbf9ada90d68d3a50250b193',1,'Dataset']]],
-  ['_7egradientbase',['~GradientBase',['../class_gradient_base.html#a44991d0635e5a9a9626bec4a0f36fdd4',1,'GradientBase']]],
-  ['_7egreedypolicy',['~GreedyPolicy',['../class_greedy_policy.html#a93242bb4d733f86598a5d7416bff445e',1,'GreedyPolicy']]],
-  ['_7eienvironment',['~IEnvironment',['../class_i_environment.html#ae509a59c5848f6c9674a61fa36140834',1,'IEnvironment']]],
-  ['_7eifilter',['~IFilter',['../class_i_filter.html#a818141073e41991d81f8939bf34baef2',1,'IFilter']]],
-  ['_7ekwtafilter',['~KwtaFilter',['../class_kwta_filter.html#a6b6710755c50986532c96705ca66403f',1,'KwtaFilter']]],
-  ['_7elearningalgorithm',['~LearningAlgorithm',['../class_learning_algorithm.html#a0ec630ac5340988eea92b8ede9a4422d',1,'LearningAlgorithm']]],
-  ['_7enetworkutils',['~NetworkUtils',['../class_network_utils.html#ae3d8bcfe9a6f82193094916f33c7f3a1',1,'NetworkUtils']]],
-  ['_7eneuralgroup',['~NeuralGroup',['../class_neural_group.html#ab1982232dcbd7d9196301f9d1c29bacd',1,'NeuralGroup']]],
-  ['_7eneuralnetwork',['~NeuralNetwork',['../class_neural_network.html#adc33c9d1ec1eee21347ed939e2e34a2a',1,'NeuralNetwork']]],
-  ['_7enormalizationfilter',['~NormalizationFilter',['../class_normalization_filter.html#a05b3e76c0922193b402b9b3468617972',1,'NormalizationFilter']]],
-  ['_7eregulargradientactor',['~RegularGradientActor',['../class_regular_gradient_actor.html#a0f009a10f50ce17e8bd32ba60d7bdd9e',1,'RegularGradientActor']]],
-  ['_7ergac',['~RGAC',['../class_r_g_a_c.html#a2af84f99afd88caea34080963f656cf1',1,'RGAC']]],
-  ['_7esarsa',['~SARSA',['../class_s_a_r_s_a.html#ae3091f0a31ee868db6e06ca5ca17002e',1,'SARSA']]],
-  ['_7esom',['~SOM',['../class_s_o_m.html#a9c7d5a96968678ed7a65190576db0fda',1,'SOM']]],
-  ['_7estringutils',['~StringUtils',['../class_string_utils.html#adcd5c42b8e47a0401a91ea822fff037f',1,'StringUtils']]],
-  ['_7etdlambda',['~TDLambda',['../class_t_d_lambda.html#a86d7a91a96de02822a3c5c2b78c52ce3',1,'TDLambda']]]
+  ['value',['value',['../classnlohmann_1_1basic__json.html#a0a2cbbd95862a623e7dc5c37e67dead0',1,'nlohmann::basic_json::value(const typename object_t::key_type &amp;key, ValueType default_value) const '],['../classnlohmann_1_1basic__json.html#af071057ebab57744f5767eb369e99d42',1,'nlohmann::basic_json::value(const typename object_t::key_type &amp;key, const char *default_value) const '],['../classnlohmann_1_1basic__json_1_1const__iterator.html#ac75e80d30b6169ee2a29ec93fb4d2acd',1,'nlohmann::basic_json::const_iterator::value()'],['../classnlohmann_1_1basic__json_1_1iterator.html#a8ffbf287736048e683f58306fdb8701f',1,'nlohmann::basic_json::iterator::value()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#aca5116682e206dac48f8a56716a3280b',1,'nlohmann::basic_json::json_reverse_iterator::value()'],['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafea2063c1608d6e0baf80249c42e2be5804',1,'nlohmann::basic_json::value()']]],
+  ['value_5ft',['value_t',['../classnlohmann_1_1basic__json.html#a231b02148577b69a154b2ce2c87a5522',1,'nlohmann::basic_json']]],
+  ['value_5ftype',['value_type',['../classnlohmann_1_1basic__json.html#ac8d45b57874b4a6e9c07f7d3b5daa1f9',1,'nlohmann::basic_json::value_type()'],['../classnlohmann_1_1basic__json_1_1const__iterator.html#a9ea0497199b1e96ce9cadd1f202ec343',1,'nlohmann::basic_json::const_iterator::value_type()']]]
 ];

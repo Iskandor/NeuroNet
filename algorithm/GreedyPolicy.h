@@ -27,7 +27,6 @@ private:
     NeuralNetwork* _network;
     IEnvironment* _environment;
     double _epsilon;
-    RandomGenerator _generator;
 };
 
 }

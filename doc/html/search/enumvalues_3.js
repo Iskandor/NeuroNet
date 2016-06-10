@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['input',['INPUT',['../class_neural_network.html#a41ca21fb79278d16a8aa5187c8870e41a93d5ba0fc5c7babd6302b8779e9652c8',1,'NeuralNetwork']]]
+  ['key',['key',['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafea3c6e0b8a9c15224a8228b9a98ca1531d',1,'nlohmann::basic_json']]]
 ];

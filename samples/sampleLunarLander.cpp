@@ -21,42 +21,47 @@ void sampleLunarLander() {
     const int EPISODES = 100000;
     const int SIZE = 9;
 
-    NeuralNetwork critic;
-    critic.addLayer("input", dim+2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    critic.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    critic.addLayer("hidden", 30, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
-    critic.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
+    /*
+    NeuralNetwork *critic = new NeuralNetwork();
+    critic->addLayer("input", dim+2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    critic->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    critic->addLayer("hidden", 30, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic->addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     //VectorXd limit(dim+2);
     //limit << 20,50,20,1,1;
     //critic.getGroup("input")->addInFilter(new NormalizationFilter(&limit));
     // feed-forward connections
-    critic.addConnection("input", "hidden");
-    critic.addConnection("hidden", "output");
+    critic->addConnection("input", "hidden");
+    critic->addConnection("hidden", "output");
     // bias connections
-    critic.addConnection("biasH", "hidden");
-    critic.addConnection("biasO", "output");
+    critic->addConnection("biasH", "hidden");
+    critic->addConnection("biasO", "output");
 
-    NeuralNetwork actor;
-    actor.addLayer("input", dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    actor.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    actor.addLayer("hidden", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
-    actor.addLayer("output", 2, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
+    NeuralNetwork *actor = new NeuralNetwork();
+    actor->addLayer("input", dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    actor->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
+    actor->addLayer("hidden", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    actor->addLayer("output", 2, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
     // feed-forward connections
-    actor.addConnection("input", "hidden");
-    actor.addConnection("hidden", "output");
+    actor->addConnection("input", "hidden");
+    actor->addConnection("hidden", "output");
     // bias connections
-    actor.addConnection("biasH", "hidden");
-    actor.addConnection("biasO", "output");
+    actor->addConnection("biasH", "hidden");
+    actor->addConnection("biasO", "output");
+    */
 
-    CACLA agent(&actor, &critic);
+    NeuralNetwork *critic = NetworkUtils::loadNetwork("lander_ciritc.net");
+    NeuralNetwork *actor = NetworkUtils::loadNetwork("lander_actor.net");
+
+    CACLA agent(actor, critic);
     LunarLander lander;
 
     agent.setAlpha(0.1);
     agent.setBeta(0.08);
-    agent.setExploration(0.01);
+    agent.setExploration(0.1);
     agent.init(&lander);
 
     FILE* pFile = fopen("application.log", "w");
@@ -83,8 +88,8 @@ void sampleLunarLander() {
         }
     }
 
-    NetworkUtils::saveNetwork("lander_actor.net", &actor);
-    NetworkUtils::saveNetwork("lander_ciritc.net", &critic);
+    NetworkUtils::saveNetwork("lander_actor.net", actor);
+    NetworkUtils::saveNetwork("lander_ciritc.net", critic);
 
 
     cout << "Uspesne ukoncene." << endl;

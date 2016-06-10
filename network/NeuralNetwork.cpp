@@ -93,14 +93,14 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
     return group;
 }
 
-Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, double p_density,double p_inhibition) {
-    return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_density, p_inhibition);
+Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, double p_limit, double p_density,double p_inhibition) {
+    return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_limit, p_density, p_inhibition);
 }
 
-Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_density, double p_inhibition) {
+Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_limit, double p_density, double p_inhibition) {
     Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);    
 
-    connection->init(p_density, p_inhibition);
+    connection->init(p_limit);
     _connections[_connectionId] = connection;
     if (p_inGroup != nullptr) p_inGroup->addOutConnection(_connectionId);
     if (p_outGroup != nullptr) p_outGroup->addInConnection(_connectionId);
@@ -108,6 +108,7 @@ Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_
 
     return connection;
 }
+
 
 void NeuralNetwork::setInput(double *p_input) {
   for(int i = 0; i < _input.rows(); i++) {

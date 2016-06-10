@@ -12,13 +12,17 @@ namespace NeuroNet {
 
 class RandomGenerator {
 public:
-    RandomGenerator();
+    static RandomGenerator& getInstance();
+    RandomGenerator(RandomGenerator const&) = delete;
+    void operator=(RandomGenerator const&)  = delete;
     ~RandomGenerator();
 
     double random();
-    int randomInt(int p_lower, int p_upper);
+    int random(int p_lower, int p_upper);
+    double random(double p_lower, double p_upper);
 
 private:
+    RandomGenerator();
     std::random_device _rd;
     std::mt19937 _mt;
     std::uniform_real_distribution<double> *_dist;

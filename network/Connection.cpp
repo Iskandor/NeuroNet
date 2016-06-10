@@ -27,12 +27,11 @@ Connection::~Connection(void)
 
 /* initialize weights where density is from interval 0,1 and also inhibition which is count of negative (inhibitory) weights */
 void Connection::init(double p_density, double p_inhibition) const {
-    RandomGenerator generator;
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
-          if (generator.random() < p_density) {
-              (*_weights)(i, j) =  generator.random() * 0.1;
-              if (generator.random() < p_inhibition) {
+          if (RandomGenerator::getInstance().random() < p_density) {
+              (*_weights)(i, j) =  RandomGenerator::getInstance().random() * 0.1;
+              if (RandomGenerator::getInstance().random() < p_inhibition) {
                   (*_weights)(i, j) *= -1;
               }
           }
@@ -40,6 +39,14 @@ void Connection::init(double p_density, double p_inhibition) const {
               (*_weights)(i, j) = 0;
           }
       }
+    }
+}
+
+void Connection::init(double p_limit) {
+    for(int i = 0; i < _outDim; i++) {
+        for (int j = 0; j < _inDim; j++) {
+            (*_weights)(i, j) = RandomGenerator::getInstance().random(-p_limit, p_limit);
+        }
     }
 }
 
