@@ -40,8 +40,8 @@ double BackProp::train(double *p_input, double* p_target) {
 }
 
 void BackProp::backProp() {
-    calcGradient(&_error);
-    //calcNatGradient(0.05, &_error);
+    //calcGradient(&_error);
+    calcNatGradient(0.001, &_error);
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
       update(*it);
     }
@@ -61,7 +61,7 @@ void BackProp::updateWeights(Connection* p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _gradient[p_connection->getId()];
+  delta = _alpha * _natGradient[p_connection->getId()];
 
   (*p_connection->getWeights()) += delta;
 }
