@@ -8,12 +8,12 @@ int main(int argc, char* argv[])
 {
     //sampleBP();
     //sampleTD();
-    sampleQ();
+    //sampleQ();
     //sampleSOM();
     //sampleMSOM();
     //sampleDigits();
     //sampleSARSA();
-    //sampleTDAC();
+    sampleTDAC();
 
     //sampleLunarLander();
     //samplePoleCart();

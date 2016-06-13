@@ -19,12 +19,12 @@ ActorCritic::~ActorCritic() {
   delete _criticLearning;
 }
 
-void ActorCritic::setAlpha(double p_alpha) {
+void ActorCritic::setCriticStepSize(double p_alpha) {
   _alpha = p_alpha;
   _criticLearning->setAlpha(_alpha);
 }
 
-void ActorCritic::setBeta(double p_beta) {
+void ActorCritic::setActorStepSize(double p_beta) {
   _beta = p_beta;
   _actorLearning->setAlpha(_beta);
 }

@@ -59,8 +59,8 @@ void sampleLunarLander() {
     CACLA agent(actor, critic);
     LunarLander lander;
 
-    agent.setAlpha(0.1);
-    agent.setBeta(0.08);
+    agent.setCriticStepSize(0.1);
+    agent.setActorStepSize(0.08);
     agent.setExploration(0.1);
     agent.init(&lander);
 
