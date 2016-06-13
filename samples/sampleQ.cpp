@@ -11,6 +11,7 @@
 #include "../network/NetworkUtils.h"
 #include "../network/RandomGenerator.h"
 #include "../algorithm/GreedyPolicy.h"
+#include "../algorithm/rl/QNatLearning.h"
 
 using namespace NeuroNet;
 
@@ -24,7 +25,7 @@ void sampleQ() {
   NeuralGroup* inputGroup = network.addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 32, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
   NeuralGroup* outputGroup = network.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
   // feed-forward connections
@@ -35,7 +36,7 @@ void sampleQ() {
   network.addConnection(biasUnitO, outputGroup);
 
   QLearning qAgent(&network, 0.9, 0.9);
-  qAgent.setAlpha(0.1);
+  qAgent.setAlpha(0.00001);
 
   Maze maze(dim);
   maze.reset();
@@ -46,13 +47,13 @@ void sampleQ() {
 
   int episode = 0;
   GreedyPolicy policy(&network, &maze);
-  policy.setEpsilon(0.01);
+  policy.setEpsilon(0);
 
   FILE* pFile = fopen("application.log", "w");
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 6000) {
+  while(episode < 1000) {
     double reward = 0;
 
     state0 = *maze.getState();
