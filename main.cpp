@@ -6,14 +6,14 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    sampleBP();
+    //sampleBP();
     //sampleTD();
     //sampleQ();
     //sampleSOM();
     //sampleMSOM();
     //sampleDigits();
     //sampleSARSA();
-    //sampleTDAC();
+    sampleTDAC();
 
     //sampleLunarLander();
     //samplePoleCart();

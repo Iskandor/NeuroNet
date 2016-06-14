@@ -21,8 +21,8 @@ public:
     ActorCritic(NeuralNetwork* p_actor, NeuralNetwork* p_critic);
     virtual ~ActorCritic();
 
-    void setAlpha(double p_alpha);
-    void setBeta(double p_beta);
+    void setCriticStepSize(double p_alpha);
+    void setActorStepSize(double p_beta);
     void setExploration(double p_epsilon);
 
     virtual void init(IEnvironment* p_environment);

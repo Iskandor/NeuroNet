@@ -16,12 +16,12 @@ void sampleTDAC() {
     int time = 0;
     int dim = 3;
 
-    /*
+
     NeuralNetwork* critic = new NeuralNetwork();
     critic->addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     critic->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     critic->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    critic->addLayer("hidden", 5, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic->addLayer("hidden", 32, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     critic->addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
     // feed-forward connections
     critic->addConnection("input", "hidden");
@@ -34,7 +34,7 @@ void sampleTDAC() {
     actor->addLayer("input", dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     actor->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     actor->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    actor->addLayer("hidden", 8, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    actor->addLayer("hidden", 32, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     actor->addLayer("output", 4, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
     actor->addConnection("input", "hidden");
     actor->addConnection("hidden", "output");
@@ -42,23 +42,21 @@ void sampleTDAC() {
     actor->addConnection("biasO", "output");
     //actor.getGroup("output")->addOutFilter(new KwtaFilter(1, true));
 
-
+    /*
     NetworkUtils::saveNetwork("cacla_actor.net", actor);
     NetworkUtils::saveNetwork("calca_ciritc.net", critic);
-    */
 
     NeuralNetwork* actor = NetworkUtils::loadNetwork("cacla_actor.net");
     NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
-
-
+    */
 
     Maze maze(dim);
     maze.reset();
 
     RGAC actorCritic(actor, critic);
-    actorCritic.setAlpha(0.1);
-    actorCritic.setBeta(0.08);
-    actorCritic.setExploration(0.1);
+    actorCritic.setCriticStepSize(0.0001);
+    actorCritic.setActorStepSize(0.0001);
+    actorCritic.setExploration(0.01);
     actorCritic.init(&maze);
 
 
@@ -88,8 +86,8 @@ void sampleTDAC() {
         }
     }
 
-    NetworkUtils::saveNetwork("cacla_actor.net", actor);
-    NetworkUtils::saveNetwork("calca_ciritc.net", critic);
+    NetworkUtils::saveNetwork("tdac_actor.net", actor);
+    NetworkUtils::saveNetwork("tdac_ciritc.net", critic);
 
     delete actor;
     delete critic;
