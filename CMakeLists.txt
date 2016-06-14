@@ -116,7 +116,7 @@ set(SOURCE_FILES
 		algorithm/rl/NaturalGradientActor.cpp
 		algorithm/rl/NaturalGradientActor.h
 		algorithm/rl/NGAC.cpp
-		algorithm/rl/NGAC.h)
+		algorithm/rl/NGAC.h
         algorithm/rl/QNatLearning.cpp
 		algorithm/rl/QNatLearning.h)
 

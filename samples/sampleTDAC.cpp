@@ -8,6 +8,7 @@
 #include "../algorithm/rl/CACLA.h"
 #include "../algorithm/rl/RGAC.h"
 #include "../network/NetworkUtils.h"
+#include "../algorithm/rl/NGAC.h"
 
 using namespace NeuroNet;
 
@@ -45,6 +46,7 @@ void sampleTDAC() {
     /*
     NetworkUtils::saveNetwork("cacla_actor.net", actor);
     NetworkUtils::saveNetwork("calca_ciritc.net", critic);
+
 
     NeuralNetwork* actor = NetworkUtils::loadNetwork("cacla_actor.net");
     NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
