@@ -46,7 +46,7 @@ void GradientBase::bfsRecursive(NeuralGroup* p_node) {
   }
 }
 
-void GradientBase::calcGradient(VectorXd *p_error) {
+void GradientBase::calcRegGradient(VectorXd *p_error) {
     VectorXd unitary(_network->getOutputGroup()->getDim());
     unitary.fill(1);
 
@@ -66,7 +66,7 @@ void GradientBase::calcGradient(VectorXd *p_error) {
     }
 
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
-        gradientKernel(it->second);
+        regGradientKernel(it->second);
     }
 }
 
@@ -77,18 +77,18 @@ void GradientBase::deltaKernel(NeuralGroup *p_group) {
     _delta[id] = (*p_group->getDerivs()) * (connection->getWeights()->transpose() * _delta[outId]);
 }
 
-void GradientBase::gradientKernel(Connection *p_connection) {
-  _gradient[p_connection->getId()] = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
+void GradientBase::regGradientKernel(Connection *p_connection) {
+  _regGradient[p_connection->getId()] = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
 }
 
 void GradientBase::calcNatGradient(double p_epsilon, VectorXd *p_error) {
   _epsilon = p_epsilon;
-  calcGradient(_network->getOutput());
+    calcRegGradient(_network->getOutput());
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
     invFisherMatrixKernel(it->second);
   }
 
-  calcGradient(p_error);
+    calcRegGradient(p_error);
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
     natGradientKernel(it->second);
   }
@@ -97,9 +97,9 @@ void GradientBase::calcNatGradient(double p_epsilon, VectorXd *p_error) {
 
 void GradientBase::invFisherMatrixKernel(Connection *p_connection) {
   int connectionId = p_connection->getId();
-  _invFisherMatrix[connectionId] = (1 + _epsilon) * _invFisherMatrix[connectionId] - _epsilon * _invFisherMatrix[connectionId] * _gradient[connectionId] * _gradient[connectionId].transpose() * _invFisherMatrix[connectionId];
+  _invFisherMatrix[connectionId] = (1 + _epsilon) * _invFisherMatrix[connectionId] - _epsilon * _invFisherMatrix[connectionId] * _regGradient[connectionId] * _regGradient[connectionId].transpose() * _invFisherMatrix[connectionId];
 }
 
 void GradientBase::natGradientKernel(Connection *p_connection) {
-  _natGradient[p_connection->getId()] = _invFisherMatrix[p_connection->getId()] * _gradient[p_connection->getId()];
+  _natGradient[p_connection->getId()] = _invFisherMatrix[p_connection->getId()] * _regGradient[p_connection->getId()];
 }

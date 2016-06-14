@@ -11,20 +11,20 @@
 
 namespace NeuroNet {
 
-class RegularGradientActor : public GradientBase, public LearningAlgorithm {
+    class RegularGradientActor : public GradientBase, public LearningAlgorithm {
 
-public:
-    RegularGradientActor(NeuralNetwork *p_network);
-    virtual ~RegularGradientActor();
+    public:
+        RegularGradientActor(NeuralNetwork *p_network);
+        virtual ~RegularGradientActor();
 
-    void train(VectorXd* p_state0, double tdError);
+        void train(VectorXd* p_state0, double tdError);
 
-private:
-    void updateWeights(Connection* p_connection);
+    private:
+        void updateWeights(Connection* p_connection);
 
-    double _tdError;
-    VectorXd  _error;
-};
+        double _tdError;
+        VectorXd  _error;
+    };
 
 }
 #endif //NEURONET_REGULARGRADIENTACTOR_H

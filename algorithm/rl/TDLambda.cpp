@@ -35,7 +35,7 @@ double TDLambda::train(VectorXd *p_state0, VectorXd *p_state1,  double reward) {
     // updating phase for V(s)
     _network->activate(p_state0);
 
-    calcGradient(&_error);
+    calcRegGradient(&_error);
 
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         updateEligTrace(it->second);
@@ -96,5 +96,5 @@ void TDLambda::deltaKernel(NeuralGroup *p_group) {
  */
 
 void TDLambda::updateEligTrace(Connection *p_connection) {
-    _eligTrace[p_connection->getId()] = _gradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
+    _eligTrace[p_connection->getId()] = _regGradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }

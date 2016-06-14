@@ -19,7 +19,7 @@ void CACLAActor::train(VectorXd *p_state0, VectorXd *p_action0) {
 
   _error = *p_action0 - *_network->getOutput();
 
-  calcGradient(&_error);
+  calcRegGradient(&_error);
 
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
     updateWeights(it->second);
@@ -31,6 +31,6 @@ void CACLAActor::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _gradient[p_connection->getId()];
+  delta = _alpha * _regGradient[p_connection->getId()];
   p_connection->getWeights()->operator+=(delta);
 }

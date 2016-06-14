@@ -18,8 +18,7 @@ void RegularGradientActor::train(VectorXd *p_state0, double tdError) {
   _network->activate(p_state0);
 
   _error = tdError * *_network->getOutput();
-  _tdError = tdError;
-  calcGradient();
+  calcRegGradient(&_error);
 
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
     updateWeights(it->second);
@@ -31,6 +30,6 @@ void RegularGradientActor::updateWeights(Connection *p_connection) {
   int nRows = p_connection->getOutGroup()->getDim();
   MatrixXd delta(nRows, nCols);
 
-  delta = _alpha * _tdError * _gradient[p_connection->getId()];
+  delta = _alpha * _regGradient[p_connection->getId()];
   p_connection->getWeights()->operator+=(delta);
 }

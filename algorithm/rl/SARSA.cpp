@@ -35,7 +35,7 @@ double SARSA::train(VectorXd *p_state0, VectorXd *p_action0, VectorXd *p_state1,
     input << *p_state0, *p_action0;
     _network->activate(&input);
 
-    calcGradient(&_error);
+    calcRegGradient(&_error);
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         updateEligTrace(it->second);
         updateWeights(it->second);
@@ -54,5 +54,5 @@ void SARSA::updateWeights(Connection *p_connection) {
 }
 
 void SARSA::updateEligTrace(Connection *p_connection) {
-    _eligTrace[p_connection->getId()] = _gradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
+    _eligTrace[p_connection->getId()] = _regGradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }

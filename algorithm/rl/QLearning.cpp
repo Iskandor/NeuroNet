@@ -29,7 +29,7 @@ double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_sta
     // updating phase for Q(s,a)
     _network->activate(&input);
 
-    calcGradient(&_error);
+    calcRegGradient(&_error);
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         updateEligTrace(it->second);
         updateWeights(it->second);
@@ -43,7 +43,7 @@ void QLearning::updateWeights(Connection *p_connection) {
     int nRows = p_connection->getOutGroup()->getDim();
     MatrixXd delta(nRows, nCols);
 
-    delta = _alpha * _eligTrace[p_connection->getId()]; //_gradient[p_connection->getId()];
+    delta = _alpha * _eligTrace[p_connection->getId()]; //_regGradient[p_connection->getId()];
     p_connection->getWeights()->operator+=(delta);
 }
 
@@ -68,5 +68,5 @@ double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
 }
 
 void QLearning::updateEligTrace(Connection* p_connection) {
-    _eligTrace[p_connection->getId()] = _gradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
+    _eligTrace[p_connection->getId()] = _regGradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }

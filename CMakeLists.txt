@@ -109,7 +109,7 @@ set(SOURCE_FILES
         network/som/RecSOM.cpp
         network/som/RecSOM.h
         samples/sampleDigits.cpp
-        network/json.hpp samples/PoleCart.cpp samples/PoleCart.h samples/samplePoleCart.cpp)
+        network/json.hpp samples/PoleCart.cpp samples/PoleCart.h samples/samplePoleCart.cpp algorithm/rl/NaturalGradientActor.cpp algorithm/rl/NaturalGradientActor.h algorithm/rl/NGAC.cpp algorithm/rl/NGAC.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

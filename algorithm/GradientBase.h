@@ -18,17 +18,17 @@ public:
 protected:
     NeuralNetwork* _network;
     vector<NeuralGroup*> _groupTree;
-    map<int, MatrixXd> _gradient;
+    map<int, MatrixXd> _regGradient;
     map<int, MatrixXd> _natGradient;
     map<int, MatrixXd> _invFisherMatrix;
     double _epsilon;
 
     void groupTreeCreate();
     void bfsRecursive(NeuralGroup* p_node);
-    void calcGradient(VectorXd *p_error = nullptr);
+    void calcRegGradient(VectorXd *p_error = nullptr);
     void calcNatGradient(double p_epsilon, VectorXd *p_error = nullptr);
 
-    void gradientKernel(Connection *p_connection);
+    void regGradientKernel(Connection *p_connection);
     void natGradientKernel(Connection *p_connection);
     void invFisherMatrixKernel(Connection *p_connection);
 private:
