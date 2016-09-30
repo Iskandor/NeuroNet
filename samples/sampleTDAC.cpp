@@ -22,7 +22,7 @@ void sampleTDAC() {
     critic->addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     critic->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     critic->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    critic->addLayer("hidden", 32, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    critic->addLayer("hidden", 32, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
     critic->addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
     // feed-forward connections
     critic->addConnection("input", "hidden");
@@ -31,11 +31,12 @@ void sampleTDAC() {
     critic->addConnection("biasH", "hidden");
     critic->addConnection("biasO", "output");
 
+
     NeuralNetwork* actor = new NeuralNetwork();
     actor->addLayer("input", dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     actor->addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     actor->addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    actor->addLayer("hidden", 32, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    actor->addLayer("hidden", 50, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     actor->addLayer("output", 4, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
     actor->addConnection("input", "hidden");
     actor->addConnection("hidden", "output");
@@ -57,7 +58,7 @@ void sampleTDAC() {
 
     RGAC actorCritic(actor, critic);
     actorCritic.setCriticStepSize(0.0001);
-    actorCritic.setActorStepSize(0.0001);
+    actorCritic.setActorStepSize(.1);
     actorCritic.setExploration(0.01);
     actorCritic.init(&maze);
 
@@ -68,7 +69,7 @@ void sampleTDAC() {
 
     int episode = 0;
 
-    while(episode < 6000) {
+    while(episode < 2000) {
 
         actorCritic.run();
 

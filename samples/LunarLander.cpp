@@ -87,9 +87,9 @@ VectorXd *LunarLander::getState() {
     VectorXd fuel = VectorXd::Zero(20);
     _neuralState = VectorXd::Zero(50+20+20);
 
-    NetworkUtils::gaussianEncoding(_height, 50, 0, 50, &height);
-    NetworkUtils::gaussianEncoding(_velocity, 20, 0, 20, &velocity);
-    NetworkUtils::gaussianEncoding(_fuel, 20, 0, 20, &fuel);
+    NetworkUtils::gaussianEncoding(_height, 0, 50, 50, &height);
+    NetworkUtils::gaussianEncoding(_velocity, 0, 20, 20, &velocity);
+    NetworkUtils::gaussianEncoding(_fuel, 0, 20, 20, &fuel);
 
     _neuralState << height, velocity, fuel;
 

@@ -1,5 +1,8 @@
+#include <iostream>
 #include "../algorithm/IEnvironment.h"
 #include "Maze.h"
+
+using namespace std;
 
 Maze::Maze(int p_dim) : IEnvironment() {
   _dim = p_dim;
@@ -28,10 +31,15 @@ void Maze::reset() {
   _state.fill(0);
   _state[_player[1] * _dim + _player[0]] = 1;
   _reward = 0;
+  _failed = false;
 }
 
 bool Maze::isFinished() const {
   return _player == _goal;
+}
+
+bool Maze::isFailed() const {
+  return _failed;
 }
 
 void Maze::updateState(VectorXd* p_action) {
@@ -50,6 +58,7 @@ void Maze::updateState(VectorXd* p_action) {
   }
   else
   {
+    _failed = true;
     _reward = -1;
     //_state.fill(1);
 
@@ -102,4 +111,10 @@ bool Maze::isValidMove(double p_x, double p_y) const
 
 VectorXd* Maze::getPlayer() {
   return &_player;
+}
+
+double Maze::getStateValue() {
+  VectorXd diffVector = _player - _goal;
+  double value = diffVector.norm() == 0 ? 10 : 1 / diffVector.norm();
+  return value;
 }

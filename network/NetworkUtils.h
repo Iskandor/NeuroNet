@@ -22,7 +22,7 @@ public:
     static NeuralNetwork* loadNetwork(string p_filename);
 
     static void binaryEncoding(double p_value, VectorXd* p_vector);
-    static void gaussianEncoding(double p_value, double p_upperLimit, double p_lowerLimit, int p_populationDim, VectorXd* p_vector);
+    static void gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, VectorXd* p_vector);
     static int kroneckerDelta(int p_i, int p_j);
 
     template <typename T>

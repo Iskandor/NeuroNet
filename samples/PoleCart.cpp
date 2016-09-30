@@ -4,9 +4,11 @@
 
 #include "PoleCart.h"
 #include "../network/NetworkUtils.h"
+#include "../network/Define.h"
 
 PoleCart::PoleCart() {
     reset();
+    _force = 0.1;
 }
 
 PoleCart::~PoleCart() {
@@ -18,28 +20,36 @@ bool PoleCart::evaluateAction(VectorXd *p_action, VectorXd *p_state) {
 }
 
 void PoleCart::updateState(VectorXd *p_action) {
-    _force = (*p_action)[0] * 10;
+    _force = FORCE * (*p_action)[0];
     update();
     _time++;
 
-    _reward = 0;
+    _reward = 1;
+    /*
     if (isFinished()) {
         _reward = 2 * (_time * .001) - 1;
     }
+    */
     if (isFailed()) {
-        _reward = 2 * (_time * .001) - 1;
+        _reward = -1;
+        //_reward = 2 * (_time * .001) - 1;
     }
 }
 
 VectorXd *PoleCart::getState() {
-    VectorXd position = VectorXd::Zero(48);
-    VectorXd angle = VectorXd::Zero(100);
-    _neuralState = VectorXd::Zero(148);
+    VectorXd position = VectorXd::Zero(20);
+    VectorXd angle = VectorXd::Zero(20);
+    VectorXd positionV = VectorXd::Zero(20);
+    VectorXd angleV = VectorXd::Zero(20);
 
-    NetworkUtils::gaussianEncoding(_x, track_limit, -track_limit, 48, &position);
-    NetworkUtils::gaussianEncoding(_th, pole_failure, -pole_failure, 100, &angle);
+    _neuralState = VectorXd::Zero(80);
 
-    _neuralState << position, angle;
+    NetworkUtils::gaussianEncoding(_x / track_limit, -1, 1, 20, &position);
+    NetworkUtils::gaussianEncoding(_th * 15 / PI, -1, 1, 20, &angle);
+    NetworkUtils::gaussianEncoding(_xVel / track_limit, -1, 1, 20, &positionV);
+    NetworkUtils::gaussianEncoding(_thVel * 15 / PI, -1, 1, 20, &angleV);
+
+    _neuralState << position, angle, positionV, angleV;
 
     return &_neuralState;
 }
@@ -53,11 +63,11 @@ void PoleCart::reset() {
 }
 
 int PoleCart::getStateSize() {
-    return 148;
+    return 80;
 }
 
 bool PoleCart::isFinished() const {
-    return _time == 1000;
+    return _time == 195;
 }
 
 bool PoleCart::isFailed() const {

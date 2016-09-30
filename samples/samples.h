@@ -14,6 +14,7 @@ void sampleSOM();
 void sampleTDAC();
 void sampleMSOM();
 void sampleDigits();
+void sampleActor();
 
 void sampleLunarLander();
 void samplePoleCart();

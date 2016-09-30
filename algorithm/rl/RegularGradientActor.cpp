@@ -17,7 +17,7 @@ RegularGradientActor::~RegularGradientActor() {
 void RegularGradientActor::train(VectorXd *p_state0, double tdError) {
   _network->activate(p_state0);
 
-  _error = tdError * *_network->getOutput();
+  _error = *_network->getOutput() * tdError;
   calcRegGradient(&_error);
 
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {

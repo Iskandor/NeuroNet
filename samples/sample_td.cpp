@@ -18,7 +18,7 @@ void sampleTD() {
     NeuralGroup* inputGroup = network.addLayer("input", dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     NeuralGroup* biasUnitH = network.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
     NeuralGroup* biasUnitO = network.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup = network.addLayer("hidden", 3, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup = network.addLayer("hidden", 16, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
     NeuralGroup* outputGroup = network.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
 
@@ -30,7 +30,7 @@ void sampleTD() {
     network.addConnection(biasUnitO, outputGroup);
 
     TDLambda td(&network, 0.9, 0.9);
-    td.setAlpha(.1);
+    td.setAlpha(.001);
 
     Maze maze(dim);
     maze.reset();
@@ -48,8 +48,19 @@ void sampleTD() {
 
     int episode = 0;
 
-    while(episode < 2000) {
+    while(episode < 6000) {
         double reward = 0;
+
+        /*
+        cout << time << " " << reward << " " << sumReward << " " << endl;
+        for(auto i = 0; i < dim; i++) {
+            for(auto j = 0; j < dim; j++) {
+                cout << (*maze.getState())(i*dim + j);
+            }
+            cout << endl;
+        }
+        */
+
         state0 = *maze.getState();
         policy.getActionV(&state0, &action);
         maze.updateState(&action);
@@ -61,33 +72,23 @@ void sampleTD() {
         td.train(&state0, &state1, reward);
         time++;
 
-        /*
-        cout << time << " " << reward << " " << action_i << " " <<  network.getScalarOutput() << endl;
-        for(auto i = 0; i < dim; i++) {
-        for(auto j = 0; j < dim; j++) {
-          cout << (*maze.getState())(i*dim + j);
-        }
-        cout << endl;
-        }
-        */
-
         // 4. check whether terminal state was reached
         if (maze.isFinished()) {
 
+            /*
+            cout << time << " " << reward << " " << sumReward << " " << endl;
+            for(auto i = 0; i < dim; i++) {
+                for(auto j = 0; j < dim; j++) {
+                    cout << (*maze.getState())(i*dim + j);
+                }
+                cout << endl;
+            }
+            */
+
             cout << "Finished episode " << episode << "! " << time << " Reward:" << sumReward << endl;
             FILE_LOG(logDEBUG1) << sumReward;
-            /*
-            for(auto i = 0; i < dim; i++) {
-              for(auto j = 0; j < dim; j++) {
-                state0.fill(0);
-                state0[i*dim + j] = 1;
-                network.activate(&state0);
-                cout << network.getScalarOutput() << ",";
-              }
-              cout << endl;
-            }
-             */
 
+            maze.reset();
             time = 0;
             sumReward = 0;
             episode++;

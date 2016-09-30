@@ -22,7 +22,7 @@ void sampleSARSA() {
   NeuralGroup* inputGroup = network.addLayer("input", 4+dim*dim, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
   NeuralGroup* biasUnitH = network.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
   NeuralGroup* biasUnitO = network.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-  NeuralGroup* hiddenGroup = network.addLayer("hidden", 5, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+  NeuralGroup* hiddenGroup = network.addLayer("hidden", 48, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
   NeuralGroup* outputGroup = network.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
 
@@ -31,16 +31,16 @@ void sampleSARSA() {
   network.addConnection(hiddenGroup, outputGroup);
   // bias connections
   network.addConnection(biasUnitH, hiddenGroup);
-  network.addConnection(biasUnitO, outputGroup);
+  network.addConnection(biasUnitH, outputGroup);
 
-  SARSA agent(&network, 0.9, 0.9);
-  agent.setAlpha(0.1);
+  SARSA agent(&network, 0.99, 0.9);
+  agent.setAlpha(0.000001);
 
   Maze maze(dim);
   maze.reset();
 
   GreedyPolicy policy(&network, &maze);
-  policy.setEpsilon(0.01);
+  policy.setEpsilon(0);
 
   VectorXd action0(4);
   VectorXd action1(4);
@@ -53,7 +53,7 @@ void sampleSARSA() {
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 2000) {
+  while(episode < 1000) {
     double reward = 0;
 
     state0 = *maze.getState();

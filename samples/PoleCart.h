@@ -13,12 +13,13 @@ using namespace std;
 class PoleCart : public IEnvironment {
 public:
     const double dt = 0.02;
-    const double gravity = -9.81;
+    const double gravity = 9.81;
     const double mass_cart = 1.0;
     const double mass_pole = 0.1;
     const double pole_length = 0.5;
     const double pole_failure = 0.209;
     const double track_limit = 2.4;
+    const double FORCE = 10;
 
     PoleCart();
     ~PoleCart();
@@ -33,6 +34,8 @@ public:
     bool isFailed() const;
 
     void print(ostream &os);
+
+    double getTheta() { return _th; };
 
 private:
     void update();

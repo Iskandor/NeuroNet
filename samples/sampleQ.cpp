@@ -53,7 +53,7 @@ void sampleQ() {
   Output2FILE::Stream() = pFile;
   FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
-  while(episode < 1000) {
+  while(episode < 2000) {
     double reward = 0;
 
     state0 = *maze.getState();

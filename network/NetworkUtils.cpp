@@ -23,7 +23,7 @@ void NetworkUtils::binaryEncoding(double p_value, VectorXd *p_vector) {
     (*p_vector)[p_value] = 1;
 }
 
-void NetworkUtils::gaussianEncoding(double p_value, double p_upperLimit, double p_lowerLimit, int p_populationDim, VectorXd *p_vector) {
+void NetworkUtils::gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, VectorXd *p_vector) {
     double index = p_value * p_populationDim / (p_upperLimit - p_lowerLimit);
     double sigma = 0.5;
 

@@ -13,10 +13,11 @@ int main(int argc, char* argv[])
     //sampleMSOM();
     //sampleDigits();
     //sampleSARSA();
-    sampleTDAC();
+    //sampleTDAC();
+    //sampleActor();
 
     //sampleLunarLander();
-    //samplePoleCart();
+    samplePoleCart();
 
     system("pause");
     return 0;

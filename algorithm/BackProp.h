@@ -17,7 +17,7 @@ public:
   virtual ~BackProp(void);
 
   virtual double train(double *p_input, double* p_target);
-   void setWeightDecay(double p_weightDecay);
+  void setWeightDecay(double p_weightDecay);
   void setMomentum(double p_momentum);
 
 protected:

@@ -118,7 +118,10 @@ set(SOURCE_FILES
 		algorithm/rl/NGAC.cpp
 		algorithm/rl/NGAC.h
         algorithm/rl/QNatLearning.cpp
-		algorithm/rl/QNatLearning.h)
+		algorithm/rl/QNatLearning.h
+		samples/MountainCar.cpp
+		samples/MountainCar.h
+		samples/sampleMountainCar.cpp samples/sampleActor.cpp algorithm/rec/RTRL.cpp algorithm/rec/RTRL.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
