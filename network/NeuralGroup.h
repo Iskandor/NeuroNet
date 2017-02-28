@@ -14,7 +14,7 @@ namespace NeuroNet {
 class NeuralGroup
 {
 public:
-    enum ACTIVATION_FN {
+    enum ACTIVATION {
      IDENTITY = 0,
      BIAS = 1,
      BINARY = 2,
@@ -24,10 +24,10 @@ public:
      LINEAR = 6,
      EXPONENTIAL = 7,
      SOFTPLUS = 8,
-     BENT = 9
+     RELU = 9
     };
 
-    NeuralGroup(string p_id, int p_dim, ACTIVATION_FN p_activationFunction);
+    NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias = true);
     ~NeuralGroup(void);
 
 
@@ -41,6 +41,7 @@ public:
 
     VectorXd* getOutput() { return &_output; };
     MatrixXd* getDerivs() { return &_derivs; };
+    VectorXd* getBias() { return &_bias; };
 
     void addOutConnection(int p_index);
     void addInConnection(int p_index);
@@ -56,19 +57,20 @@ public:
     void invalidate() { _valid = false; };
     void setValid() { _valid = true; };
 
-    ACTIVATION_FN getActivationFunction() { return _activationFunction; };
+    ACTIVATION getActivationFunction() { return _activationFunction; };
 
     json getFileData();
 
 private:
     string  _id;
     int     _dim;
-    ACTIVATION_FN _activationFunction;
+    ACTIVATION _activationFunction;
     bool    _valid;
 
     VectorXd _output;
     MatrixXd _derivs;
-    VectorXd _actionPotential;
+    VectorXd _ap;
+    VectorXd _bias;
 
     vector<int> _inConnections;
     int _outConnection;

@@ -1,12 +1,11 @@
 #include <iostream>
 #include "TDLambda.h"
 #include "../../network/NeuralNetwork.h"
-#include "../GradientBase.h"
 
 using namespace std;
 using namespace NeuroNet;
 
-TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientBase(p_network), LearningAlgorithm() {
+TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : StochasticGradientDescent(p_network), LearningAlgorithm() {
     _lambda = p_lambda;
     _gamma = p_gamma;
     _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());

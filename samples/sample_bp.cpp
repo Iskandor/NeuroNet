@@ -8,27 +8,21 @@ using namespace NeuroNet;
 
 void sampleBP() {
     double trainingSet[4][2] = {{0,0},{0,1},{1,0},{1,1}};
-    double targetSet[4][1] = {{0},{0},{0},{1}};
+    double targetSet[4][1] = {{0},{1},{1},{0}};
     double mse = 1;
 
     NeuralNetwork network;
     
     network.addLayer("input", 2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("biasH", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    network.addLayer("biasO", 1, NeuralGroup::BIAS, NeuralNetwork::HIDDEN);
-    network.addLayer("hidden", 8, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     network.addLayer("output", 1, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
-    network.addConnection("input", "hidden");
-    network.addConnection("hidden", "output");
-    // bias connections
-    network.addConnection("biasH", "hidden");
-    network.addConnection("biasO", "output");
+    network.addConnection("input", "hidden0");
+    network.addConnection("hidden0", "output");
 
-    BackProp bp(&network);
+    BackProp bp(&network, 0.1e-6, 0.9);
     bp.setAlpha(0.1);
-    //bp.setWeightDecay(0.001);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
@@ -42,7 +36,7 @@ void sampleBP() {
         //cout << network.getScalarOutput() << endl;
       }
       cout << "Error " << mse << endl;
-        FILE_LOG(logDEBUG1) << mse;
+      FILE_LOG(logDEBUG1) << mse;
     }
 
     for(int i = 0; i < 4; i++) {

@@ -4,10 +4,9 @@
 
 using namespace NeuroNet;
 
-BackProp::BackProp(NeuralNetwork* p_network) : GradientBase(p_network), LearningAlgorithm() {
+BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov) : StochasticGradientDescent(p_network, p_momentum, p_nesterov), LearningAlgorithm() {
   _alpha = 0;
-  _weightDecay = 0;
-  _momentum = 0;
+  _weightDecay = p_weightDecay;
   _input = nullptr;
   _error.resize(p_network->getOutputGroup()->getDim());
 }
@@ -64,18 +63,10 @@ void BackProp::updateWeights(Connection* p_connection) {
   delta = _alpha * _regGradient[p_connection->getId()];
 
   (*p_connection->getWeights()) += delta;
+  (*p_connection->getOutGroup()->getBias()) += _delta[p_connection->getOutGroup()->getId()];
 }
 
 void BackProp::weightDecay(Connection* p_connection) const
 {
   *p_connection->getWeights() *= (1 - _weightDecay);
-}
-
-void BackProp::setWeightDecay(double p_weightDecay) {
-  _weightDecay = p_weightDecay;
-}
-
-void BackProp::setMomentum(double p_momentum)
-{
-  _momentum = p_momentum;
 }

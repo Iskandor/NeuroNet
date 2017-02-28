@@ -7,7 +7,7 @@
 
 using namespace NeuroNet;
 
-SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction) : NeuralNetwork() {
+SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction) : NeuralNetwork() {
     addLayer("input", p_dimInput, NeuralGroup::IDENTITY, INPUT);
     addLayer("lattice", p_dimX * p_dimY, p_actFunction, OUTPUT);
     addConnection("input", "lattice");

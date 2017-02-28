@@ -1,13 +1,13 @@
 #pragma once
-#include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
+#include "../StochasticGradientDescent.h"
 #include <map>
 
 using namespace std;
 
 namespace NeuroNet {
 
-class TDLambda : public GradientBase, public LearningAlgorithm
+class TDLambda : public StochasticGradientDescent, public LearningAlgorithm
 {
 
 public:

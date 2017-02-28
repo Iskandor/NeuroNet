@@ -7,11 +7,11 @@
 
 
 #include "../LearningAlgorithm.h"
-#include "../GradientBase.h"
+#include "../StochasticGradientDescent.h"
 
 namespace NeuroNet {
 
-    class RegularGradientActor : public GradientBase, public LearningAlgorithm {
+    class RegularGradientActor : public StochasticGradientDescent, public LearningAlgorithm {
 
     public:
         RegularGradientActor(NeuralNetwork *p_network);

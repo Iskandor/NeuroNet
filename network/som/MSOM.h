@@ -14,7 +14,7 @@ namespace NeuroNet {
 
 class MSOM : public SOM {
 public:
-    MSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction);
+    MSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction);
     ~MSOM();
 
     void train(double *p_input) override ;

@@ -56,8 +56,8 @@ set(SOURCE_FILES
         samples/sample_td.cpp
         log/log.h
         main.cpp
-        algorithm/GradientBase.cpp
-        algorithm/GradientBase.h
+		algorithm/StochasticGradientDescent.cpp
+		algorithm/StochasticGradientDescent.h
         algorithm/rl/QLearning.cpp
         algorithm/rl/QLearning.h
         samples/sampleQ.cpp

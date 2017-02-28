@@ -6,12 +6,12 @@
 #define LIBNEURONET_QLEARNING_H
 
 
-#include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
+#include "../StochasticGradientDescent.h"
 
 namespace NeuroNet {
 
-class QLearning : public GradientBase, public LearningAlgorithm {
+class QLearning : public StochasticGradientDescent, public LearningAlgorithm {
 
 public:
     QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda);

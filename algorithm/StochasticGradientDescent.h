@@ -10,10 +10,10 @@
 
 namespace NeuroNet {
 
-class GradientBase {
+class StochasticGradientDescent {
 public:
-    GradientBase(NeuralNetwork *p_network);
-    virtual ~GradientBase(void);
+    StochasticGradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
+    virtual ~StochasticGradientDescent(void);
 
 protected:
     NeuralNetwork* _network;
@@ -21,19 +21,20 @@ protected:
     map<int, MatrixXd> _regGradient;
     map<int, MatrixXd> _natGradient;
     map<int, MatrixXd> _invFisherMatrix;
+    map<string, VectorXd> _delta;
     double _epsilon;
+    double _momentum;
+    bool _nesterov;
 
     void groupTreeCreate();
     void bfsRecursive(NeuralGroup* p_node);
-    void calcRegGradient(VectorXd *p_error = nullptr);
-    void calcNatGradient(double p_epsilon, VectorXd *p_error = nullptr);
-
+    void calcRegGradient(VectorXd *p_error);
+    void calcNatGradient(double p_epsilon, VectorXd *p_error);
+    void deltaKernel(NeuralGroup *p_group);
     void regGradientKernel(Connection *p_connection);
     void natGradientKernel(Connection *p_connection);
     void invFisherMatrixKernel(Connection *p_connection);
-private:
-    map<string, VectorXd> _delta;
-    void deltaKernel(NeuralGroup *p_group);
+
 };
 
 }

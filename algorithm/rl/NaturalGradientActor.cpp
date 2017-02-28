@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-NaturalGradientActor::NaturalGradientActor(NeuralNetwork *p_network) : GradientBase(p_network), LearningAlgorithm() {
+NaturalGradientActor::NaturalGradientActor(NeuralNetwork *p_network) : StochasticGradientDescent(p_network), LearningAlgorithm() {
     _error.resize(p_network->getOutput()->size());
 }
 

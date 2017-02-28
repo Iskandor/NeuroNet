@@ -8,7 +8,7 @@
 #include "IEnvironment.h"
 
 #include "LearningAlgorithm.h"
-#include "GradientBase.h"
+#include "StochasticGradientDescent.h"
 
 #include "BackProp.h"
 

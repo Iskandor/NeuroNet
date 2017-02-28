@@ -92,13 +92,13 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
             int actFunction = group["actfn"].get<int>();
 
             if (id.compare(inGroupId) == 0) {
-                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::INPUT);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION>(actFunction), NeuralNetwork::INPUT);
             }
             else if (id.compare(outGroupId) == 0) {
-                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::OUTPUT);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION>(actFunction), NeuralNetwork::OUTPUT);
             }
             else {
-                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION_FN>(actFunction), NeuralNetwork::HIDDEN);
+                network->addLayer(id, group["dim"], static_cast<NeuralGroup::ACTIVATION>(actFunction), NeuralNetwork::HIDDEN);
             }
         }
 
@@ -130,7 +130,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         json latticeLayer = data["layers"].find("lattice").value();
         int actFunction = latticeLayer["actfn"].get<int>();
 
-        RecSOM *recSOM = new RecSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION_FN>(actFunction));
+        RecSOM *recSOM = new RecSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION>(actFunction));
 
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
@@ -160,7 +160,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         json latticeLayer = data["layers"].find("lattice").value();
         int actFunction = latticeLayer["actfn"].get<int>();
 
-        MSOM *mSOM = new MSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION_FN>(actFunction));
+        MSOM *mSOM = new MSOM(dimInput, dimX, dimY, static_cast<NeuralGroup::ACTIVATION>(actFunction));
 
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();

@@ -2,8 +2,8 @@
 // Created by mpechac on 12. 7. 2016.
 //
 
-#include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
+#include "../StochasticGradientDescent.h"
 
 #ifndef NEURONET_RTRL_H
 #define NEURONET_RTRL_H
@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class RTRL : public GradientBase, public LearningAlgorithm {
+class RTRL : public StochasticGradientDescent, public LearningAlgorithm {
     public:
     RTRL(NeuralNetwork* p_network);
     ~RTRL();

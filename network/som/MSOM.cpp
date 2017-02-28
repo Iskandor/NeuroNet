@@ -7,7 +7,7 @@
 
 using namespace NeuroNet;
 
-MSOM::MSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
+MSOM::MSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction) : SOM(p_dimInput, p_dimX, p_dimY, p_actFunction) {
     addLayer("context", p_dimInput, NeuralGroup::IDENTITY, NeuralNetwork::HIDDEN);
     addConnection("context", "lattice");
 }

@@ -6,12 +6,12 @@
 #define NEURONET_SIMPLEACTOR_H
 
 
-#include "../GradientBase.h"
 #include "../LearningAlgorithm.h"
+#include "../StochasticGradientDescent.h"
 
 namespace NeuroNet {
 
-class CACLAActor : public GradientBase, public LearningAlgorithm {
+class CACLAActor : public StochasticGradientDescent, public LearningAlgorithm {
 public:
     CACLAActor(NeuralNetwork* p_network);
     virtual ~CACLAActor();

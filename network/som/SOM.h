@@ -21,7 +21,7 @@ public:
         GAUSSIAN = 1
     };
 
-    SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction);
+    SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction);
     virtual ~SOM(void);
 
     virtual void train(double *p_input);

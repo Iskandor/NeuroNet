@@ -13,7 +13,7 @@ namespace NeuroNet {
 
 class RecSOM : public SOM {
 public:
-    RecSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction);
+    RecSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction);
     ~RecSOM();
 
     void train(double *p_input) override ;

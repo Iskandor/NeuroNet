@@ -1,7 +1,6 @@
 #include <memory>
 #include <cmath>
 #include "NeuralGroup.h"
-#include "Define.h"
 #include "NetworkUtils.h"
 
 using namespace std;
@@ -12,7 +11,7 @@ using namespace NeuroNet;
  * @param p_dim dimension of layer
  * @param p_activationFunction type of activation function
  */
-NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION_FN p_activationFunction)
+NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias)
 {
     _id = p_id;
     _dim = p_dim;
@@ -20,8 +19,9 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION_FN p_activationFunct
     _outConnection = -1;
 
     _output = VectorXd::Zero(_dim);
+    _ap = VectorXd::Zero(_dim);
+    _bias = VectorXd::Random(_dim);
     _derivs = MatrixXd::Zero(_dim, _dim);
-    _actionPotential = VectorXd::Zero(_dim);
     _valid = false;
 }
 
@@ -70,7 +70,7 @@ void NeuralGroup::addOutConnection(int p_index) {
  * @param p_weights matrix of input connection params
  */
 void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
-  _actionPotential += (*p_weights) * (*p_input);
+  _ap += (*p_weights) * (*p_input) + _bias;
 }
 
 /**
@@ -80,47 +80,43 @@ void NeuralGroup::activate() {
     for(auto index = 0; index < _dim; index++) {
         switch (_activationFunction) {
             case IDENTITY:
-                _output[index] = _actionPotential(index);
-                _actionPotential[index] = 0;
-                break;
-            case BIAS:
-                _output[index] = -1;
-                _actionPotential[index] = 0;
+                _output[index] = _ap(index);
+                _ap[index] = 0;
                 break;
             case BINARY:
-                if (_actionPotential[index] > 0) {
+                if (_ap[index] > 0) {
                     _output[index] = 1;
-                    _actionPotential[index] = 0;
+                    _ap[index] = 0;
                 }
                 else {
                     _output[index] = 0;
                 }
                 break;
             case SIGMOID:
-                _output[index] = 1 / (1 + exp(-_actionPotential[index]));
-                _actionPotential[index] = 0;
+                _output[index] = 1 / (1 + exp(-_ap[index]));
+                _ap[index] = 0;
                 break;
             case TANH:
-                _output[index] = tanh(_actionPotential[index]);
-                _actionPotential[index] = 0;
+                _output[index] = tanh(_ap[index]);
+                _ap[index] = 0;
                 break;
             case SOFTMAX:
                 {
                 double sumExp = 0;
                 for(int i = 0; i < _dim; i++) {
-                    sumExp += exp(_actionPotential[i]);
+                    sumExp += exp(_ap[i]);
                 }
-                _output[index] = exp(_actionPotential[index]) / sumExp;
-                _actionPotential[index] = 0;
+                _output[index] = exp(_ap[index]) / sumExp;
+                _ap[index] = 0;
                 }
                 break;
             case SOFTPLUS:
-                _output[index] = log( 1 + exp(_actionPotential[index]));
-                _actionPotential[index] = 0;
+                _output[index] = log( 1 + exp(_ap[index]));
+                _ap[index] = 0;
                 break;
-            case BENT:
-                _output[index] = (sqrt(pow(_actionPotential[index], 2) + 1) - 1) / 2 + _actionPotential[index];
-                _actionPotential[index] = 0;
+            case RELU:
+                _output[index] = max(0., _ap[index]);
+                _ap[index] = 0;
                 break;
         }
     }
@@ -132,7 +128,6 @@ void NeuralGroup::activate() {
 void NeuralGroup::calcDerivs() {
     switch (_activationFunction) {
         case IDENTITY:
-        case BIAS:
         case BINARY:
             _derivs = MatrixXd::Identity(_dim, _dim);
             break;
@@ -158,9 +153,9 @@ void NeuralGroup::calcDerivs() {
                 _derivs(i,i) = 1 / (1 + exp(-_output[i]));
             }
             break;
-        case BENT:
+        case RELU:
             for(int i = 0; i < _dim; i++) {
-                _derivs(i,i) = _output[i] / 2*(sqrt(pow(_output[i],2) + 1)) + 1;
+                _derivs(i,i) = (_output[i] > 0) ? 1 : 0;
             }
             break;
     }

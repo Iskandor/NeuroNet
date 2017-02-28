@@ -1,7 +1,7 @@
 #pragma once
 #include "../network/NeuralGroup.h"
 #include "../network/Connection.h"
-#include "GradientBase.h"
+#include "StochasticGradientDescent.h"
 #include "LearningAlgorithm.h"
 #include <map>
 
@@ -9,16 +9,14 @@ using namespace std;
 
 namespace NeuroNet {
 
-class BackProp : public GradientBase, public LearningAlgorithm
+class BackProp : public StochasticGradientDescent, public LearningAlgorithm
 {
 
 public:
-  explicit BackProp(NeuralNetwork* p_network);
+  explicit BackProp(NeuralNetwork* p_network, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false);
   virtual ~BackProp(void);
 
   virtual double train(double *p_input, double* p_target);
-  void setWeightDecay(double p_weightDecay);
-  void setMomentum(double p_momentum);
 
 protected:
   virtual void backProp();
@@ -30,7 +28,6 @@ private:
 
 protected:
   double  _weightDecay;
-  double  _momentum;
   double* _input;
   VectorXd _error;
 };
