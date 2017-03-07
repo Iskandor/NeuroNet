@@ -10,7 +10,7 @@
 
 namespace NeuroNet {
 
-    class NaturalGradientActor : public StochasticGradientDescent, public LearningAlgorithm {
+    class NaturalGradientActor : public StochasticGradientDescent {
 
     public:
         NaturalGradientActor(NeuralNetwork *p_network);

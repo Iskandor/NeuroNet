@@ -6,11 +6,11 @@
 
 using namespace NeuroNet;
 
-NaturalGradientActor::NaturalGradientActor(NeuralNetwork *p_network) : StochasticGradientDescent(p_network), LearningAlgorithm() {
+NaturalGradientActor::NaturalGradientActor(NeuralNetwork *p_network) : StochasticGradientDescent(p_network) {
     _error.resize(p_network->getOutput()->size());
 }
 
-void NeuroNet::NaturalGradientActor::train(VectorXd *p_state0, double tdError) {
+void NaturalGradientActor::train(VectorXd *p_state0, double tdError) {
     _network->activate(p_state0);
 
     _error = tdError * *_network->getOutput();
@@ -21,7 +21,7 @@ void NeuroNet::NaturalGradientActor::train(VectorXd *p_state0, double tdError) {
     }
 }
 
-void NeuroNet::NaturalGradientActor::updateWeights(NeuroNet::Connection *p_connection) {
+void NaturalGradientActor::updateWeights(NeuroNet::Connection *p_connection) {
     int nCols = p_connection->getInGroup()->getDim();
     int nRows = p_connection->getOutGroup()->getDim();
     MatrixXd delta(nRows, nCols);

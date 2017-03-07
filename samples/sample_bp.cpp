@@ -23,6 +23,7 @@ void sampleBP() {
 
     BackProp bp(&network, 0.1e-6, 0.9);
     bp.setAlpha(0.1);
+    //bp.setBatchSize(4);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;

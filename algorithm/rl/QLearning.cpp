@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : StochasticGradientDescent(p_network), LearningAlgorithm() {
+QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : StochasticGradientDescent(p_network) {
     _gamma = p_gamma;
     _lambda = p_lambda;
     _error = VectorXd::Zero(p_network->getOutput()->size());

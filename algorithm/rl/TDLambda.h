@@ -7,7 +7,7 @@ using namespace std;
 
 namespace NeuroNet {
 
-class TDLambda : public StochasticGradientDescent, public LearningAlgorithm
+class TDLambda : public StochasticGradientDescent
 {
 
 public:

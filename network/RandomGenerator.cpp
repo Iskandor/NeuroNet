@@ -18,10 +18,6 @@ RandomGenerator& RandomGenerator::getInstance() {
   return instance;
 }
 
-double RandomGenerator::randomOld() {
-  return static_cast<double>(rand()) / RAND_MAX;
-}
-
 int RandomGenerator::random(int p_lower, int p_upper) {
   std::uniform_int_distribution<int> distribution(p_lower, p_upper);
   return distribution(_mt);

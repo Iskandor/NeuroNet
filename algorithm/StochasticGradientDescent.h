@@ -7,16 +7,16 @@
 
 
 #include "../network/NeuralNetwork.h"
+#include "LearningAlgorithm.h"
 
 namespace NeuroNet {
 
-class StochasticGradientDescent {
+class StochasticGradientDescent : public LearningAlgorithm {
 public:
     StochasticGradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
     virtual ~StochasticGradientDescent(void);
 
 protected:
-    NeuralNetwork* _network;
     vector<NeuralGroup*> _groupTree;
     map<int, MatrixXd> _regGradient;
     map<int, MatrixXd> _natGradient;
@@ -34,7 +34,6 @@ protected:
     void regGradientKernel(Connection *p_connection);
     void natGradientKernel(Connection *p_connection);
     void invFisherMatrixKernel(Connection *p_connection);
-
 };
 
 }

@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class CACLAActor : public StochasticGradientDescent, public LearningAlgorithm {
+class CACLAActor : public StochasticGradientDescent {
 public:
     CACLAActor(NeuralNetwork* p_network);
     virtual ~CACLAActor();

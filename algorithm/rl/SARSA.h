@@ -10,7 +10,7 @@
 
 namespace NeuroNet {
 
-class SARSA : public StochasticGradientDescent, public LearningAlgorithm {
+class SARSA : public StochasticGradientDescent {
 
 public:
     SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda);

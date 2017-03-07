@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class RTRL : public StochasticGradientDescent, public LearningAlgorithm {
+class RTRL : public StochasticGradientDescent {
     public:
     RTRL(NeuralNetwork* p_network);
     ~RTRL();

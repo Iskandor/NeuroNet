@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-RTRL::RTRL(NeuralNetwork *p_network) : StochasticGradientDescent(p_network), LearningAlgorithm() {
+RTRL::RTRL(NeuralNetwork *p_network) : StochasticGradientDescent(p_network) {
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         int nRows = it->second->getInGroup()->getDim();
         int nCols = it->second->getOutGroup()->getDim();

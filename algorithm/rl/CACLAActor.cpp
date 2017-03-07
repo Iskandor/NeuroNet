@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-CACLAActor::CACLAActor(NeuralNetwork *p_network) : StochasticGradientDescent(p_network), LearningAlgorithm() {
+CACLAActor::CACLAActor(NeuralNetwork *p_network) : StochasticGradientDescent(p_network) {
   _error.resize(p_network->getOutput()->size());
 }
 

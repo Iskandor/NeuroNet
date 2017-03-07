@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class QLearning : public StochasticGradientDescent, public LearningAlgorithm {
+class QLearning : public StochasticGradientDescent {
 
 public:
     QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda);

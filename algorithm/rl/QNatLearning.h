@@ -10,7 +10,7 @@
 
 namespace NeuroNet {
 
-class QNatLearning : public StochasticGradientDescent, public LearningAlgorithm {
+class QNatLearning : public StochasticGradientDescent {
 public:
     QNatLearning(NeuralNetwork *p_network, double p_gamma, double p_epislon, double p_lambda);
 

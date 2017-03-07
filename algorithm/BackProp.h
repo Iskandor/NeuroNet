@@ -2,14 +2,13 @@
 #include "../network/NeuralGroup.h"
 #include "../network/Connection.h"
 #include "StochasticGradientDescent.h"
-#include "LearningAlgorithm.h"
 #include <map>
 
 using namespace std;
 
 namespace NeuroNet {
 
-class BackProp : public StochasticGradientDescent, public LearningAlgorithm
+class BackProp : public StochasticGradientDescent
 {
 
 public:
@@ -19,7 +18,6 @@ public:
   virtual double train(double *p_input, double* p_target);
 
 protected:
-  virtual void backProp();
   virtual void update(NeuralGroup* p_node);
   virtual void updateWeights(Connection* p_connection);
 
@@ -28,7 +26,6 @@ private:
 
 protected:
   double  _weightDecay;
-  double* _input;
   VectorXd _error;
 };
 

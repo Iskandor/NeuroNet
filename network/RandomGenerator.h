@@ -17,7 +17,6 @@ public:
     void operator=(RandomGenerator const&)  = delete;
     ~RandomGenerator();
 
-    double randomOld();
     double normalRandom(double p_sigma);
     int random(int p_lower, int p_upper);
     double random(double p_lower = 0, double p_upper = 1);
