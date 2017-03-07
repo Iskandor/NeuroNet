@@ -7,6 +7,9 @@
 
 
 #include <random>
+#include <vector>
+
+using namespace std;
 
 namespace NeuroNet {
 
@@ -20,6 +23,7 @@ public:
     double normalRandom(double p_sigma);
     int random(int p_lower, int p_upper);
     double random(double p_lower = 0, double p_upper = 1);
+    vector<int> choice(vector<int>* p_array, int p_num = 1);
 
 private:
     RandomGenerator();

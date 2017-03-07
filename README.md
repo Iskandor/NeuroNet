@@ -17,7 +17,7 @@ Library focusing on reinforcement learning algorithms using neural natworks as f
 
 ####Actor Critic algorithms
 * CACLA
-* Regular Gradient Actor Critic
+* Regular Gradient actor Critic
 
 ##Author
 Matej Pechac (matej.pechac(at)gmail.com)

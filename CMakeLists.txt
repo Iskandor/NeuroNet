@@ -42,12 +42,12 @@ set(SOURCE_FILES
         network/Connection.h
         network/Define.h
         algorithm/IEnvironment.h
-        samples/Maze.h
+        samples/MazeOld.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
         algorithm/BackProp.cpp
         network/Connection.cpp
-        samples/Maze.cpp
+        samples/MazeOld.cpp
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
@@ -121,7 +121,7 @@ set(SOURCE_FILES
 		algorithm/rl/QNatLearning.h
 		samples/MountainCar.cpp
 		samples/MountainCar.h
-		samples/sampleMountainCar.cpp samples/sampleActor.cpp algorithm/rec/RTRL.cpp algorithm/rec/RTRL.h)
+		samples/sampleMountainCar.cpp samples/sampleActor.cpp algorithm/rec/RTRL.cpp algorithm/rec/RTRL.h environments/Environment.cpp environments/Environment.h environments/maze/Maze.cpp environments/maze/Maze.h environments/maze/MazeAction.cpp environments/maze/MazeAction.h samples/MazeTask.cpp samples/MazeTask.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

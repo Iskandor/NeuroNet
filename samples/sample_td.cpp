@@ -2,7 +2,7 @@
 #include "../log/log.h"
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "Maze.h"
+#include "MazeOld.h"
 #include "../algorithm/GreedyPolicy.h"
 #include "../algorithm/rl/TDLambda.h"
 
@@ -32,7 +32,7 @@ void sampleTD() {
     TDLambda td(&network, 0.9, 0.9);
     td.setAlpha(.001);
 
-    Maze maze(dim);
+    MazeOld maze(dim);
     maze.reset();
 
     VectorXd action(4);

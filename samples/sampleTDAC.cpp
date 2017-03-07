@@ -2,7 +2,7 @@
 #include "../log/log.h"
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "Maze.h"
+#include "MazeOld.h"
 #include "../algorithm/rl/QLearning.h"
 #include "../algorithm/rl/ActorCritic.h"
 #include "../algorithm/rl/CACLA.h"
@@ -53,7 +53,7 @@ void sampleTDAC() {
     NeuralNetwork* critic = NetworkUtils::loadNetwork("calca_ciritc.net");
     */
 
-    Maze maze(dim);
+    MazeOld maze(dim);
     maze.reset();
 
     RGAC actorCritic(actor, critic);

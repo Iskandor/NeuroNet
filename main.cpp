@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    sampleBP();
+    //sampleBP();
     //sampleTD();
     //sampleQ();
     //sampleSOM();
@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
 
     //sampleLunarLander();
     //samplePoleCart();
+
+    sampleQ2();
 
     system("pause");
     return 0;

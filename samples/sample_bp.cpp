@@ -3,6 +3,7 @@
 #include "../network/Define.h"
 #include "../algorithm/BackProp.h"
 #include "../log/log.h"
+#include "../network/RandomGenerator.h"
 
 using namespace NeuroNet;
 
@@ -14,7 +15,7 @@ void sampleBP() {
     NeuralNetwork network;
     
     network.addLayer("input", 2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("hidden0", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 4, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     network.addLayer("output", 1, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
@@ -23,12 +24,18 @@ void sampleBP() {
 
     BackProp bp(&network, 0.1e-6, 0.9);
     bp.setAlpha(0.1);
-    //bp.setBatchSize(4);
+    bp.setBatchSize(4);
 
     FILE* pFile = fopen("application.log", "w");
     Output2FILE::Stream() = pFile;
     FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
+    vector<double> vec;
+    vector<double> res;
+
+    for (int i = 0; i < 10; i++) {
+        vec.push_back(i);
+    }
 
     while(mse > 0.01) {
       mse = 0;

@@ -4,11 +4,11 @@
 
 using namespace NeuroNet;
 
-class Maze : public IEnvironment
+class MazeOld : public IEnvironment
 {
 public:
-    Maze(int p_dim);
-    ~Maze(void);
+    MazeOld(int p_dim);
+    ~MazeOld(void);
 
     bool evaluateAction(VectorXd* p_action, VectorXd* p_state) override;
     void updateState(VectorXd* p_action) override;

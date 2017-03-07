@@ -8,7 +8,7 @@
 #include "../algorithm/rl/SARSA.h"
 #include "../algorithm/GreedyPolicy.h"
 #include "../log/log.h"
-#include "Maze.h"
+#include "MazeOld.h"
 
 using namespace NeuroNet;
 
@@ -36,7 +36,7 @@ void sampleSARSA() {
   SARSA agent(&network, 0.99, 0.9);
   agent.setAlpha(0.000001);
 
-  Maze maze(dim);
+  MazeOld maze(dim);
   maze.reset();
 
   GreedyPolicy policy(&network, &maze);

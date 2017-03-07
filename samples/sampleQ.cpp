@@ -5,16 +5,18 @@
 #include <iostream>
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
-#include "Maze.h"
+#include "../environments/maze/Maze.h"
 #include "../log/log.h"
 #include "../algorithm/rl/QLearning.h"
 #include "../network/NetworkUtils.h"
 #include "../network/RandomGenerator.h"
 #include "../algorithm/GreedyPolicy.h"
 #include "../algorithm/rl/QNatLearning.h"
+#include "MazeTask.h"
 
 using namespace NeuroNet;
 
+/*
 void sampleQ() {
   double sumReward = 0;
   int time = 0;
@@ -38,7 +40,7 @@ void sampleQ() {
   QLearning qAgent(&network, 0.9, 0.9);
   qAgent.setAlpha(0.00001);
 
-  Maze maze(dim);
+  MazeOld maze(dim);
   maze.reset();
 
   VectorXd action(4);
@@ -84,4 +86,11 @@ void sampleQ() {
   NetworkUtils::saveNetwork("qmaze.net", &network);
 
   cout << "Uspesne ukoncene." << endl;
+}
+*/
+
+void sampleQ2() {
+    MazeTask task;
+
+    task.run();
 }

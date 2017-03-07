@@ -1,10 +1,10 @@
 #include <iostream>
 #include "../algorithm/IEnvironment.h"
-#include "Maze.h"
+#include "MazeOld.h"
 
 using namespace std;
 
-Maze::Maze(int p_dim) : IEnvironment() {
+MazeOld::MazeOld(int p_dim) : IEnvironment() {
   _dim = p_dim;
 
   _player.resize(2);
@@ -17,11 +17,11 @@ Maze::Maze(int p_dim) : IEnvironment() {
   _player = _goal;
 }
 
-Maze::~Maze(void)
+MazeOld::~MazeOld(void)
 {
 }
 
-void Maze::reset() {
+void MazeOld::reset() {
   while(_player == _goal) {
     //_player[0] = rand() % _dim;
     //_player[1] = rand() % _dim;
@@ -34,15 +34,15 @@ void Maze::reset() {
   _failed = false;
 }
 
-bool Maze::isFinished() const {
+bool MazeOld::isFinished() const {
   return _player == _goal;
 }
 
-bool Maze::isFailed() const {
+bool MazeOld::isFailed() const {
   return _failed;
 }
 
-void Maze::updateState(VectorXd* p_action) {
+void MazeOld::updateState(VectorXd* p_action) {
   VectorXd command(4);
   decodeAction(p_action, &command);
 
@@ -70,7 +70,7 @@ void Maze::updateState(VectorXd* p_action) {
   }
 }
 
-bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
+bool MazeOld::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
   VectorXd command(4);
   decodeAction(p_action, &command);
 
@@ -88,7 +88,7 @@ bool Maze::evaluateAction(VectorXd* p_action, VectorXd* p_state) {
   return isValidMove(newX, newY);
 }
 
-void Maze::decodeAction(VectorXd* p_action, VectorXd* p_command) const {
+void MazeOld::decodeAction(VectorXd* p_action, VectorXd* p_command) const {
   p_command->fill(0);
   if ((*p_action)(0) == 1) { // north
     (*p_command)(0) = -1;
@@ -104,16 +104,16 @@ void Maze::decodeAction(VectorXd* p_action, VectorXd* p_command) const {
   }
 }
 
-bool Maze::isValidMove(double p_x, double p_y) const
+bool MazeOld::isValidMove(double p_x, double p_y) const
 {
   return p_x >= 0 && p_x < _dim && p_y >= 0 && p_y < _dim;
 }
 
-VectorXd* Maze::getPlayer() {
+VectorXd*MazeOld::getPlayer() {
   return &_player;
 }
 
-double Maze::getStateValue() {
+double MazeOld::getStateValue() {
   VectorXd diffVector = _player - _goal;
   double value = diffVector.norm() == 0 ? 10 : 1 / diffVector.norm();
   return value;

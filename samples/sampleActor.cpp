@@ -4,7 +4,7 @@
 
 #include "samples.h"
 #include "../network/NeuralNetwork.h"
-#include "Maze.h"
+#include "MazeOld.h"
 #include "../log/log.h"
 #include "../algorithm/rl/RegularGradientActor.h"
 #include "../network/NetworkUtils.h"
@@ -32,7 +32,7 @@ void sampleActor() {
     actor->addConnection("biasO", "output");
     //actor->getGroup("output")->addOutFilter(new KwtaFilter(1, true));
 
-    Maze maze(dim);
+    MazeOld maze(dim);
     maze.reset();
 
     FILE* pFile = fopen("application.log", "w");
