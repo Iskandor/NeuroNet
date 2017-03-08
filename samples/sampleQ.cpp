@@ -89,8 +89,98 @@ void sampleQ() {
 }
 */
 
+VectorXd encodeState(vector<int> *p_sensors) {
+    VectorXd res(p_sensors->size());
+
+    for(unsigned int i = 0; i < p_sensors->size(); i++) {
+        res[i] = p_sensors->at(i);
+    }
+
+    return VectorXd(res);
+}
+
+int chooseAction(VectorXd* p_input) {
+    int maxI = 0;
+
+    for(int i = 0; i < p_input->size(); i++) {
+        if ((*p_input)[i] > (*p_input)[maxI]) {
+            maxI = i;
+        }
+    }
+
+    return maxI;
+}
+
 void sampleQ2() {
     MazeTask task;
+    Maze* maze = task.getEnvironment();
 
-    task.run();
+    NeuralNetwork network;
+
+    NeuralGroup* inputGroup = network.addLayer("input", 4, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    NeuralGroup* hiddenGroup0 = network.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    NeuralGroup* hiddenGroup1 = network.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    NeuralGroup* outputGroup = network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
+
+    // feed-forward connections
+    network.addConnection(inputGroup, hiddenGroup0);
+    network.addConnection(hiddenGroup0, hiddenGroup1);
+    network.addConnection(hiddenGroup1, outputGroup);
+
+    QLearning agent(&network, 0.9, 0, 1e-6, 0.9);
+    agent.setAlpha(0.1);
+    agent.setBatchSize(10);
+
+    vector<int> sensors;
+    VectorXd state0, state1;
+    int action;
+    double reward;
+    double epsilon = 1;
+    int epochs = 2000;
+
+    int wins = 0, loses = 0;
+
+    FILE* pFile = fopen("application.log", "w");
+    Output2FILE::Stream() = pFile;
+    FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
+
+    for (int e = 0; e < epochs; e++) {
+        cout << "Epoch " << e << endl;
+        while(!task.isFinished()) {
+            //cout << maze->toString() << endl;
+
+            sensors = maze->getSensors();
+            state0 = encodeState(&sensors);
+            network.activate(&state0);
+
+            if (RandomGenerator::getInstance().random() < epsilon) {
+                action = RandomGenerator::getInstance().random(0, 3);
+            }
+            else {
+                action = chooseAction(network.getOutput());
+            }
+            maze->performAction(action);
+
+            sensors = maze->getSensors();
+            state1 = encodeState(&sensors);
+            reward = task.getReward();
+
+            if (reward > 0) {
+                wins++;
+            }
+            else if (reward < 0) {
+                loses++;
+            }
+
+            agent.train(&state0, action, &state1, reward);
+        }
+        //cout << maze->toString() << endl;
+        cout << (double)wins / (double)loses << endl;
+        FILE_LOG(logDEBUG1) << (double)wins / (double)loses;
+        task.getEnvironment()->reset();
+
+        if (epsilon > 0.1) {
+            epsilon -= (1 / epochs);
+        }
+    }
 }

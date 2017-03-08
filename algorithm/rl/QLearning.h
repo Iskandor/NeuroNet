@@ -5,23 +5,20 @@
 #ifndef LIBNEURONET_QLEARNING_H
 #define LIBNEURONET_QLEARNING_H
 
-
-#include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "../BackProp.h"
 
 namespace NeuroNet {
 
-class QLearning : public StochasticGradientDescent {
+class QLearning : public BackProp {
 
 public:
-    QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda);
+    QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false);
 
-    double train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward);
+    double train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward);
 
 private:
-    void updateWeights(Connection* p_connection);
     void updateEligTrace(Connection* p_connection);
-    double calcMaxQa(VectorXd* p_state, VectorXd* p_action);
+    double calcMaxQa(VectorXd* p_state);
 
 private:
     double _gamma;

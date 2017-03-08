@@ -60,7 +60,7 @@ int Maze::moveInDir(int p_x, int p_y) {
 }
 
 void Maze::performAction(int p_action) {
-    cout << _actions[p_action].Id() << endl;
+    //cout << _actions[p_action].Id() << endl;
     int newPos = moveInDir(_actions[p_action].X(), _actions[p_action].Y());
 
     if (newPos < 0 || newPos > _mazeTable.size()) {

@@ -31,6 +31,6 @@ void NGAC::run() {
     NaturalGradientActor* actorLearning = dynamic_cast<NaturalGradientActor *>(_actorLearning);
     QLearning* criticLearning = dynamic_cast<QLearning *>(_criticLearning);
 
-    double tdError = criticLearning->train(&state0, &action0, &state1, reward);
-    actorLearning->train(&state0, tdError);
+    //double tdError = criticLearning->train(&state0, &action0, &state1, reward);
+    //actorLearning->train(&state0, tdError);
 }

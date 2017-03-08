@@ -40,7 +40,7 @@ void sampleBP() {
     while(mse > 0.01) {
       mse = 0;
       for(int i = 0; i < 4; i++) {
-        mse += bp.train(trainingSet[i], targetSet[i]);
+        //mse += bp.train(trainingSet[i], targetSet[i]);
         //cout << network.getScalarOutput() << endl;
       }
       cout << "Error " << mse << endl;

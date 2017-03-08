@@ -14,22 +14,18 @@ BackProp::~BackProp(void)
 {
 }
 
-double BackProp::train(double *p_input, double* p_target) {
+double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
     double mse = 0;
     
     // forward activation phase
-    _network->setInput(p_input);
-    _network->onLoop();
-
-    // calc MSE
-    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      mse += pow(p_target[i] - (*_network->getOutput())[i], 2);
-    }
+    _network->activate(p_input);
 
     // backward training phase
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _error[i] = p_target[i] - (*_network->getOutput())[i];
+      _error[i] = (*p_target)[i] - (*_network->getOutput())[i];
     }
+
+    mse = calcMse(p_target);
 
     calcRegGradient(&_error);
     //calcNatGradient(0.001, &_error);
@@ -37,12 +33,7 @@ double BackProp::train(double *p_input, double* p_target) {
         update(*it);
     }
 
-    if (_batch < _batchSize) {
-        _batch++;
-    }
-    else {
-        _batch = 0;
-    }
+    updateBatch();
 
     return mse;
 }
@@ -78,4 +69,23 @@ void BackProp::updateWeights(Connection* p_connection) {
 void BackProp::weightDecay(Connection* p_connection) const
 {
   *p_connection->getWeights() *= (1 - _weightDecay);
+}
+
+double BackProp::calcMse(VectorXd *p_target) {
+    double mse = 0;
+    // calc MSE
+    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
+        mse += pow((*p_target)[i] - (*_network->getOutput())[i], 2);
+    }
+
+    return mse;
+}
+
+void BackProp::updateBatch() {
+    if (_batch < _batchSize) {
+        _batch++;
+    }
+    else {
+        _batch = 0;
+    }
 }

@@ -6,61 +6,49 @@
 
 using namespace NeuroNet;
 
-QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda) : StochasticGradientDescent(p_network) {
+QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda, double p_weightDecay, double p_momentum, bool p_nesterov) : BackProp(p_network, p_weightDecay, p_momentum, p_nesterov) {
     _gamma = p_gamma;
     _lambda = p_lambda;
     _error = VectorXd::Zero(p_network->getOutput()->size());
 
+    /*
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
         _eligTrace[it->second->getId()] = MatrixXd::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
     }
+    */
 }
 
-double QLearning::train(VectorXd* p_state0, VectorXd* p_action0, VectorXd* p_state1, double p_reward) {
-    VectorXd input(p_state0->size() + p_action0->size());
-    input << *p_state0, *p_action0;
-    _network->activate(&input);
-
-    double Qs0a0 = _network->getScalarOutput();
-    double maxQs1a = calcMaxQa(p_state1, p_action0);
-
-    _error[0] = p_reward + _gamma * maxQs1a - Qs0a0;
+double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward) {
+    double mse = 0;
+    double maxQs1a = calcMaxQa(p_state1);
+    VectorXd target = VectorXd::Zero(_network->getOutput()->size());
 
     // updating phase for Q(s,a)
-    _network->activate(&input);
+    _network->activate(p_state0);
+    target = _network->getOutput()->replicate(1,1);
+    target[p_action0] = p_reward + _gamma * maxQs1a;
 
-    calcRegGradient(&_error);
-    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-        updateEligTrace(it->second);
-        updateWeights(it->second);
+    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
+        _error[i] = target[i] - (*_network->getOutput())[i];
     }
 
-    return _error[0];
+    mse = calcMse(&target);
+    calcRegGradient(&_error);
+
+    for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
+        update(*it);
+    }
+
+    return mse;
 }
 
-void QLearning::updateWeights(Connection *p_connection) {
-    int nCols = p_connection->getInGroup()->getDim();
-    int nRows = p_connection->getOutGroup()->getDim();
-    MatrixXd delta(nRows, nCols);
-
-    delta = _alpha * _eligTrace[p_connection->getId()]; //_regGradient[p_connection->getId()];
-    p_connection->getWeights()->operator+=(delta);
-}
-
-double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
+double QLearning::calcMaxQa(VectorXd* p_state) {
     double maxQa = -INFINITY;
 
-    VectorXd action = VectorXd::Zero(p_action->size());
-    for(int i = 0; i < p_action->size(); i++) {
-        action.fill(0);
-        action[i] = 1;
-        VectorXd input(p_state->size() + p_action->size());
-        input << *p_state, action;
-
-        _network->activate(&input);
-
-        if (_network->getScalarOutput() >  maxQa) {
-            maxQa = _network->getScalarOutput();
+    _network->activate(p_state);
+    for(int i = 0; i < _network->getOutput()->size(); i++) {
+        if ((*_network->getOutput())[i] >  maxQa) {
+            maxQa = (*_network->getOutput())[i];
         }
     }
 
@@ -70,3 +58,4 @@ double QLearning::calcMaxQa(VectorXd* p_state, VectorXd* p_action) {
 void QLearning::updateEligTrace(Connection* p_connection) {
     _eligTrace[p_connection->getId()] = _regGradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }
+

@@ -20,10 +20,14 @@ public:
     bool isFinished();
     double getReward();
 
+    inline Maze *getEnvironment() {
+        return maze;
+    }
+
 
 private:
     const double defautPenalty = 0;
-    const double bangPenalty = 0;
+    const double bangPenalty = -1;
     const double finalReward = 1;
 
     Maze *maze;
