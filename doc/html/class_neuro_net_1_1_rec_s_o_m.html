@@ -108,7 +108,7 @@ Inheritance diagram for NeuroNet::RecSOM:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b0c131db2aaacfff2dd21adff26b3bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b0c131db2aaacfff2dd21adff26b3bc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RecSOM</b> (int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RecSOM</b> (int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction)</td></tr>
 <tr class="separator:a5b0c131db2aaacfff2dd21adff26b3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7d7e14f0b66677b8573324e5a8b567e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7d7e14f0b66677b8573324e5a8b567e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>train</b> (double *p_input) override</td></tr>
@@ -130,7 +130,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>paramDecay</b> () ove
 <tr class="separator:aac52dc6948c6489e8daca2af62a10cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_neuro_net_1_1_s_o_m"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neuro_net_1_1_s_o_m')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neuro_net_1_1_s_o_m.html">NeuroNet::SOM</a></td></tr>
 <tr class="memitem:ae360b0893ac47f9930b775279e516b38 inherit pub_methods_class_neuro_net_1_1_s_o_m"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae360b0893ac47f9930b775279e516b38"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SOM</b> (int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION_FN p_actFunction)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SOM</b> (int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction)</td></tr>
 <tr class="separator:ae360b0893ac47f9930b775279e516b38 inherit pub_methods_class_neuro_net_1_1_s_o_m"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8850e7efbe0c2fcb5ea2c042d577e0d inherit pub_methods_class_neuro_net_1_1_s_o_m"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8850e7efbe0c2fcb5ea2c042d577e0d"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> ()</td></tr>
@@ -143,7 +143,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>getWinnerDifferenti
 <tr class="separator:a374897dcfc00e94916ec127451ca86ed inherit pub_methods_class_neuro_net_1_1_s_o_m"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_neuro_net_1_1_neural_network"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neuro_net_1_1_neural_network')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neuro_net_1_1_neural_network.html">NeuroNet::NeuralNetwork</a></td></tr>
 <tr class="memitem:a0de4e2c095dc971d7f60958433811aa1 inherit pub_methods_class_neuro_net_1_1_neural_network"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0de4e2c095dc971d7f60958433811aa1"></a>
-<a class="el" href="class_neuro_net_1_1_neural_group.html">NeuralGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addLayer</b> (string p_id, int p_dim, NeuralGroup::ACTIVATION_FN p_activationFunction, GROUP_TYPE p_type)</td></tr>
+<a class="el" href="class_neuro_net_1_1_neural_group.html">NeuralGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addLayer</b> (string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type)</td></tr>
 <tr class="separator:a0de4e2c095dc971d7f60958433811aa1 inherit pub_methods_class_neuro_net_1_1_neural_network"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a445c29d414ba72c30d29d6e2175d0b7c inherit pub_methods_class_neuro_net_1_1_neural_network"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a445c29d414ba72c30d29d6e2175d0b7c"></a>
 <a class="el" href="class_neuro_net_1_1_connection.html">Connection</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addConnection</b> (<a class="el" href="class_neuro_net_1_1_neural_group.html">NeuralGroup</a> *p_inGroup, <a class="el" href="class_neuro_net_1_1_neural_group.html">NeuralGroup</a> *p_outGroup, double p_limit=.1, double p_density=1, double p_inhibition=0.5)</td></tr>

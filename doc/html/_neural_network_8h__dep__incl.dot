@@ -6,7 +6,7 @@ digraph "network/NeuralNetwork.h"
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="algorithm/BackProp.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_back_prop_8cpp.html"];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="algorithm/GradientBase.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
+  Node3 [label="algorithm/StochasticGradientDescent.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
   Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 [label="algorithm/BackProp.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_back_prop_8h.html"];
   Node4 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -23,7 +23,7 @@ digraph "network/NeuralNetwork.h"
   Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node10 [label="algorithm/rl/RGAC.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_r_g_a_c_8cpp.html"];
   Node3 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node11 [label="algorithm/GradientBase.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8cpp.html"];
+  Node11 [label="algorithm/StochasticGradientDescent.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8cpp.html"];
   Node3 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node12 [label="algorithm/rl/TDLambda.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_t_d_lambda_8h.html"];
   Node12 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

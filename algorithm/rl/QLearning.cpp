@@ -28,6 +28,7 @@ double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, d
     target = _network->getOutput()->replicate(1,1);
     target[p_action0] = p_reward + _gamma * maxQs1a;
 
+    /*
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
         _error[i] = target[i] - (*_network->getOutput())[i];
     }
@@ -38,6 +39,9 @@ double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, d
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
         update(*it);
     }
+    */
+
+    mse = BackProp::train(p_state0, &target);
 
     return mse;
 }

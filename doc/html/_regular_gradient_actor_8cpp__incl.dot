@@ -8,7 +8,7 @@ digraph "algorithm/rl/RegularGradientActor.cpp"
   Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="../LearningAlgorithm.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_learning_algorithm_8h.html"];
   Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="../GradientBase.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
+  Node4 [label="../StochasticGradientDescent.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
   Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 [label="../network/NeuralNetwork.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_neural_network_8h.html"];
   Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

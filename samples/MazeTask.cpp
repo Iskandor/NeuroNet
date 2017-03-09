@@ -7,13 +7,12 @@
 #include "../network/RandomGenerator.h"
 
 MazeTask::MazeTask() {
-    int topology[] = {1, 1, 1, 1, 1,
-                      1, 0, 0, 0, 1,
-                      1, 1, 0, 1, 1,
-                      1, 0, 0, 0, 1,
-                      1, 1, 1, 1, 1};
+    int topology[] = {0, 0, 0, 0,
+                      0, 0, 0, 2,
+                      0, 0, 1, 0,
+                      0, 0, 0, 0};
 
-    maze = new Maze(topology, 5, 5, 18);
+    maze = new Maze(topology, 4, 4, 15);
 }
 
 void MazeTask::run() {
@@ -35,7 +34,7 @@ MazeTask::~MazeTask() {
 }
 
 bool MazeTask::isFinished() {
-    return maze->actor() == maze->goal();
+    return (maze->actor() == maze->goal() || maze->kill());
 }
 
 double MazeTask::getReward() {
@@ -43,6 +42,7 @@ double MazeTask::getReward() {
 
     if (isFinished()) reward = finalReward;
     if (maze->bang()) reward = bangPenalty;
+    if (maze->kill()) reward = killPenalty;
 
     return reward;
 }

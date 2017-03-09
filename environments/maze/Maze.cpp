@@ -9,7 +9,7 @@
 
 using namespace NeuroNet;
 
-Maze::Maze(int *p_topology, int p_mazeX, int p_mazeY, int p_goal) {
+Maze::Maze(int *p_topology, unsigned int p_mazeX, unsigned int p_mazeY, int p_goal) {
     for (int i = 0; i < p_mazeX * p_mazeY; i++) {
         _mazeTable.push_back(p_topology[i]);
     }
@@ -40,6 +40,7 @@ Maze::~Maze() {
 
 void Maze::reset() {
     _bang = false;
+    _kill = false;
     _actor = RandomGenerator::getInstance().choice(&_initPos)[0];
 }
 
@@ -71,6 +72,10 @@ void Maze::performAction(int p_action) {
             _actor = newPos;
             _bang = false;
         }
+        else if (_mazeTable[newPos] == 2) {
+            _actor = newPos;
+            _kill = true;
+        }
         else {
             _bang = true;
         }
@@ -78,6 +83,7 @@ void Maze::performAction(int p_action) {
 }
 
 vector<int> Maze::getSensors() {
+    /*
     vector<int> res(_numActions, 0);
     int obs;
 
@@ -87,10 +93,18 @@ vector<int> Maze::getSensors() {
             res[i] = _mazeTable[(unsigned int) obs];
         }
     }
+    */
+    vector<int> res(_mazeTable.size(), 0);
+
+    for(int i = 0; i < _mazeTable.size(); i++) {
+        res[i] = _mazeTable[i];
+    }
+
+    res[_actor] = 3;
+    res[_goal] = 4;
 
     return vector<int>(res);
 }
-
 
 string Maze::toString() {
     string s;
@@ -107,10 +121,13 @@ string Maze::toString() {
                 s += "*";
             }
             else if (_mazeTable[index] == 0) {
-                s += "O";
+                s += " ";
             }
-            else {
+            else if (_mazeTable[index] == 1) {
                 s += "#";
+            }
+            else if (_mazeTable[index] == 2) {
+                s += "O";
             }
         }
         s += '\n';

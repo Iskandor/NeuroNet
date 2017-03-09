@@ -26,7 +26,7 @@ digraph "algorithm/rl/CACLA.h"
   Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node10 [label="TDLambda.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_t_d_lambda_8h.html"];
   Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node11 [label="../GradientBase.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
+  Node11 [label="../StochasticGradientDescent.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_gradient_base_8h.html"];
   Node11 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node10 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node12 [label="../LearningAlgorithm.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_learning_algorithm_8h.html"];

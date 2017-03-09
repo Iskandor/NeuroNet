@@ -16,7 +16,7 @@ namespace NeuroNet {
 
 class Maze : public Environment {
 public:
-    Maze(int* p_topology, int p_mazeX, int p_mazeY, int p_goal);
+    Maze(int* p_topology, unsigned int p_mazeX, unsigned int p_mazeY, int p_goal);
     ~Maze();
 
     vector<int> getSensors();
@@ -37,13 +37,17 @@ public:
         return _bang;
     }
 
+    inline bool kill() {
+        return _kill;
+    }
+
 
 private:
     vector<int> freePos();
     int moveInDir(int p_x, int p_y);
 
 private:
-    int _mazeX, _mazeY;
+    unsigned int _mazeX, _mazeY;
     vector<int> _initPos;
     vector<int> _mazeTable;
     vector<MazeAction> _actions;
@@ -51,6 +55,7 @@ private:
     int _actor;
     int _goal;
     bool _bang;
+    bool _kill;
 
 };
 

@@ -100,7 +100,7 @@ Inheritance diagram for NeuroNet::RegularGradientActor:</div>
  <div class="center">
   <img src="class_neuro_net_1_1_regular_gradient_actor.png" usemap="#NeuroNet::RegularGradientActor_map" alt=""/>
   <map id="NeuroNet::RegularGradientActor_map" name="NeuroNet::RegularGradientActor_map">
-<area href="class_neuro_net_1_1_gradient_base.html" alt="NeuroNet::GradientBase" shape="rect" coords="0,0,195,24"/>
+<area href="class_neuro_net_1_1_gradient_base.html" alt="NeuroNet::StochasticGradientDescent" shape="rect" coords="0,0,195,24"/>
 <area href="class_neuro_net_1_1_learning_algorithm.html" alt="NeuroNet::LearningAlgorithm" shape="rect" coords="205,0,400,24"/>
 </map>
  </div></div>
@@ -113,9 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a81035ffc78bb05c9184910da5482a302"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81035ffc78bb05c9184910da5482a302"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>train</b> (VectorXd *p_state0, double tdError)</td></tr>
 <tr class="separator:a81035ffc78bb05c9184910da5482a302"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::GradientBase</a></td></tr>
+<tr class="inherit_header pub_methods_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::StochasticGradientDescent</a></td></tr>
 <tr class="memitem:ad0d4db16780e23d47f7fe91cadd5e68b inherit pub_methods_class_neuro_net_1_1_gradient_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0d4db16780e23d47f7fe91cadd5e68b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GradientBase</b> (<a class="el" href="class_neuro_net_1_1_neural_network.html">NeuralNetwork</a> *p_network)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>StochasticGradientDescent</b> (<a class="el" href="class_neuro_net_1_1_neural_network.html">NeuralNetwork</a> *p_network)</td></tr>
 <tr class="separator:ad0d4db16780e23d47f7fe91cadd5e68b inherit pub_methods_class_neuro_net_1_1_gradient_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_neuro_net_1_1_learning_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neuro_net_1_1_learning_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neuro_net_1_1_learning_algorithm.html">NeuroNet::LearningAlgorithm</a></td></tr>
 <tr class="memitem:a262455880372c267345270cfc59c57cd inherit pub_methods_class_neuro_net_1_1_learning_algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a262455880372c267345270cfc59c57cd"></a>
@@ -124,7 +124,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAlpha</b> (double 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::GradientBase</a></td></tr>
+<tr class="inherit_header pro_methods_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::StochasticGradientDescent</a></td></tr>
 <tr class="memitem:ac8aec8596d28b68493d9b4fb0f833c92 inherit pro_methods_class_neuro_net_1_1_gradient_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac8aec8596d28b68493d9b4fb0f833c92"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>groupTreeCreate</b> ()</td></tr>
 <tr class="separator:ac8aec8596d28b68493d9b4fb0f833c92 inherit pro_methods_class_neuro_net_1_1_gradient_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,7 +146,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>natGradientKernel</b>
 <tr class="memitem:a15d090e6dd500a7269fcd0ef925d4d0a inherit pro_methods_class_neuro_net_1_1_gradient_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15d090e6dd500a7269fcd0ef925d4d0a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>invFisherMatrixKernel</b> (<a class="el" href="class_neuro_net_1_1_connection.html">Connection</a> *p_connection)</td></tr>
 <tr class="separator:a15d090e6dd500a7269fcd0ef925d4d0a inherit pro_methods_class_neuro_net_1_1_gradient_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::GradientBase</a></td></tr>
+<tr class="inherit_header pro_attribs_class_neuro_net_1_1_gradient_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_neuro_net_1_1_gradient_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_neuro_net_1_1_gradient_base.html">NeuroNet::StochasticGradientDescent</a></td></tr>
 <tr class="memitem:ac014cb991f69359f8257be59e507727d inherit pro_attribs_class_neuro_net_1_1_gradient_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac014cb991f69359f8257be59e507727d"></a>
 <a class="el" href="class_neuro_net_1_1_neural_network.html">NeuralNetwork</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_network</b></td></tr>
 <tr class="separator:ac014cb991f69359f8257be59e507727d inherit pro_attribs_class_neuro_net_1_1_gradient_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
