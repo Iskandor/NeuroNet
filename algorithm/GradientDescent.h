@@ -11,10 +11,10 @@
 
 namespace NeuroNet {
 
-class StochasticGradientDescent : public LearningAlgorithm {
+class GradientDescent : public LearningAlgorithm {
 public:
-    StochasticGradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
-    virtual ~StochasticGradientDescent(void);
+    GradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
+    virtual ~GradientDescent(void);
 
 protected:
     vector<NeuralGroup*> _groupTree;

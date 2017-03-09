@@ -3,11 +3,11 @@
 //
 
 #include <iostream>
-#include "StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 using namespace NeuroNet;
 
-StochasticGradientDescent::StochasticGradientDescent(NeuralNetwork *p_network, double p_momentum, bool p_nesterov) : LearningAlgorithm(p_network) {
+GradientDescent::GradientDescent(NeuralNetwork *p_network, double p_momentum, bool p_nesterov) : LearningAlgorithm(p_network) {
     _momentum = p_momentum;
     _nesterov = p_nesterov;
 
@@ -24,10 +24,10 @@ StochasticGradientDescent::StochasticGradientDescent(NeuralNetwork *p_network, d
     }
 }
 
-StochasticGradientDescent::~StochasticGradientDescent() {
+GradientDescent::~GradientDescent() {
 }
 
-void StochasticGradientDescent::groupTreeCreate() {
+void GradientDescent::groupTreeCreate() {
   for(auto it = _network->getGroups()->begin(); it != _network->getGroups()->end(); ++it) {
     it->second->invalidate();
   }
@@ -35,7 +35,7 @@ void StochasticGradientDescent::groupTreeCreate() {
   bfsRecursive(_network->getOutputGroup());
 }
 
-void StochasticGradientDescent::bfsRecursive(NeuralGroup* p_node) {
+void GradientDescent::bfsRecursive(NeuralGroup* p_node) {
   p_node->setValid();
   for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); ++it) {
     if (!_network->getConnections()->at(*it)->getInGroup()->isValid()) {
@@ -50,7 +50,7 @@ void StochasticGradientDescent::bfsRecursive(NeuralGroup* p_node) {
   }
 }
 
-void StochasticGradientDescent::calcRegGradient(VectorXd *p_error) {
+void GradientDescent::calcRegGradient(VectorXd *p_error) {
     for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
         (*it)->calcDerivs();
     }
@@ -66,14 +66,14 @@ void StochasticGradientDescent::calcRegGradient(VectorXd *p_error) {
     }
 }
 
-void StochasticGradientDescent::deltaKernel(NeuralGroup *p_group) {
+void GradientDescent::deltaKernel(NeuralGroup *p_group) {
     Connection* connection = _network->getConnection(p_group->getOutConnection());
     string id = p_group->getId();
     string outId = connection->getOutGroup()->getId();
     _delta[id] = (*p_group->getDerivs()) * (connection->getWeights()->transpose() * _delta[outId]);
 }
 
-void StochasticGradientDescent::regGradientKernel(Connection *p_connection) {
+void GradientDescent::regGradientKernel(Connection *p_connection) {
     MatrixXd grad = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
 
     if (_momentum > 0) {
@@ -91,7 +91,7 @@ void StochasticGradientDescent::regGradientKernel(Connection *p_connection) {
     }
 }
 
-void StochasticGradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
+void GradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
   _epsilon = p_epsilon;
   calcRegGradient(_network->getOutput());
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
@@ -105,11 +105,11 @@ void StochasticGradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_er
 }
 
 
-void StochasticGradientDescent::invFisherMatrixKernel(Connection *p_connection) {
+void GradientDescent::invFisherMatrixKernel(Connection *p_connection) {
   int connectionId = p_connection->getId();
   _invFisherMatrix[connectionId] = (1 + _epsilon) * _invFisherMatrix[connectionId] - _epsilon * _invFisherMatrix[connectionId] * _regGradient[connectionId] * _regGradient[connectionId].transpose() * _invFisherMatrix[connectionId];
 }
 
-void StochasticGradientDescent::natGradientKernel(Connection *p_connection) {
+void GradientDescent::natGradientKernel(Connection *p_connection) {
   _natGradient[p_connection->getId()] = _invFisherMatrix[p_connection->getId()] * _regGradient[p_connection->getId()];
 }

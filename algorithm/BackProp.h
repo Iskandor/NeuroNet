@@ -1,14 +1,14 @@
 #pragma once
 #include "../network/NeuralGroup.h"
 #include "../network/Connection.h"
-#include "StochasticGradientDescent.h"
+#include "GradientDescent.h"
 #include <map>
 
 using namespace std;
 
 namespace NeuroNet {
 
-class BackProp : public StochasticGradientDescent
+class BackProp : public GradientDescent
 {
 
 public:

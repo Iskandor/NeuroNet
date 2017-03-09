@@ -6,11 +6,11 @@
 #define NEURONET_QNATLEARNING_H
 
 #include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 namespace NeuroNet {
 
-class QNatLearning : public StochasticGradientDescent {
+class QNatLearning : public GradientDescent {
 public:
     QNatLearning(NeuralNetwork *p_network, double p_gamma, double p_epislon, double p_lambda);
 

@@ -6,11 +6,11 @@
 #define NEURONET_SARSA_H
 
 #include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 namespace NeuroNet {
 
-class SARSA : public StochasticGradientDescent {
+class SARSA : public GradientDescent {
 
 public:
     SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda);

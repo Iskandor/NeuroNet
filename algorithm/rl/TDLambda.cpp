@@ -5,7 +5,7 @@
 using namespace std;
 using namespace NeuroNet;
 
-TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : StochasticGradientDescent(p_network) {
+TDLambda::TDLambda(NeuralNetwork* p_network, double p_lambda, double p_gamma) : GradientDescent(p_network) {
     _lambda = p_lambda;
     _gamma = p_gamma;
     _error = VectorXd::Zero(p_network->getOutputGroup()->getDim());

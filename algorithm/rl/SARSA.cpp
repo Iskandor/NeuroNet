@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-SARSA::SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda) : StochasticGradientDescent(p_network) {
+SARSA::SARSA(NeuralNetwork *p_network, double p_gamma, double p_lambda) : GradientDescent(p_network) {
     _gamma = p_gamma;
     _lambda = p_lambda;
     _error = VectorXd::Zero(p_network->getOutput()->size());

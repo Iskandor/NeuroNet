@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-QNatLearning::QNatLearning(NeuralNetwork *p_network, double p_gamma, double p_epsilon, double p_lambda) : StochasticGradientDescent(p_network) {
+QNatLearning::QNatLearning(NeuralNetwork *p_network, double p_gamma, double p_epsilon, double p_lambda) : GradientDescent(p_network) {
     _gamma = p_gamma;
     _epsilon = p_epsilon;
     _lambda = p_lambda;

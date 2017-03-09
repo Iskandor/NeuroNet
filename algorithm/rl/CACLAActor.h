@@ -7,11 +7,11 @@
 
 
 #include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 namespace NeuroNet {
 
-class CACLAActor : public StochasticGradientDescent {
+class CACLAActor : public GradientDescent {
 public:
     CACLAActor(NeuralNetwork* p_network);
     virtual ~CACLAActor();

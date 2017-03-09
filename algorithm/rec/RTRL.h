@@ -3,7 +3,7 @@
 //
 
 #include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 #ifndef NEURONET_RTRL_H
 #define NEURONET_RTRL_H
@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class RTRL : public StochasticGradientDescent {
+class RTRL : public GradientDescent {
     public:
     RTRL(NeuralNetwork* p_network);
     ~RTRL();

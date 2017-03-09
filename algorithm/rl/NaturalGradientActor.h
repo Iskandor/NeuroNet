@@ -6,11 +6,11 @@
 #define NEURONET_NATURALGRADIENTACTOR_H
 
 #include "../LearningAlgorithm.h"
-#include "../StochasticGradientDescent.h"
+#include "GradientDescent.h"
 
 namespace NeuroNet {
 
-    class NaturalGradientActor : public StochasticGradientDescent {
+    class NaturalGradientActor : public GradientDescent {
 
     public:
         NaturalGradientActor(NeuralNetwork *p_network);

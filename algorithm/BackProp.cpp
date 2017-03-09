@@ -4,7 +4,7 @@
 
 using namespace NeuroNet;
 
-BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov) : StochasticGradientDescent(p_network, p_momentum, p_nesterov) {
+BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov) {
   _alpha = 0;
   _weightDecay = p_weightDecay;
   _error = VectorXd::Zero(p_network->getOutput()->size());
