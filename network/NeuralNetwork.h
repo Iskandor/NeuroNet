@@ -59,7 +59,6 @@ protected:
     map<int, Connection*> _connections;
 	map<int, Connection*> _recConnections;
 
-    MatrixXd _inputWeights;
     VectorXd _input;
     VectorXd _output;
 

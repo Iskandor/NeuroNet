@@ -3,7 +3,7 @@
 //
 
 #include "../LearningAlgorithm.h"
-#include "GradientDescent.h"
+#include "../GradientDescent.h"
 
 #ifndef NEURONET_RTRL_H
 #define NEURONET_RTRL_H

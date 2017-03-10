@@ -6,7 +6,7 @@
 #define NEURONET_QNATLEARNING_H
 
 #include "../LearningAlgorithm.h"
-#include "GradientDescent.h"
+#include "../GradientDescent.h"
 
 namespace NeuroNet {
 

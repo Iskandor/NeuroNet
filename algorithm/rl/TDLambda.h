@@ -1,6 +1,6 @@
 #pragma once
 #include "../LearningAlgorithm.h"
-#include "GradientDescent.h"
+#include "../GradientDescent.h"
 #include <map>
 
 using namespace std;

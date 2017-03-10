@@ -6,7 +6,7 @@
 #define NEURONET_SARSA_H
 
 #include "../LearningAlgorithm.h"
-#include "GradientDescent.h"
+#include "../GradientDescent.h"
 
 namespace NeuroNet {
 

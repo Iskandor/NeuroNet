@@ -80,6 +80,7 @@ void NeuralGroup::activate() {
     for(auto index = 0; index < _dim; index++) {
         switch (_activationFunction) {
             case IDENTITY:
+            case LINEAR:
                 _output[index] = _ap(index);
                 _ap[index] = 0;
                 break;
@@ -129,6 +130,7 @@ void NeuralGroup::calcDerivs() {
     switch (_activationFunction) {
         case IDENTITY:
         case BINARY:
+        case LINEAR:
             _derivs = MatrixXd::Identity(_dim, _dim);
             break;
         case SIGMOID:
@@ -199,4 +201,8 @@ VectorXd &NeuralGroup::processOutput(VectorXd &p_output) {
 
 json NeuralGroup::getFileData() {
     return json({{"dim", _dim}, {"actfn", _activationFunction}});
+}
+
+void NeuralGroup::setOutput(VectorXd *p_output) {
+    _output = p_output->replicate(1,1);
 }

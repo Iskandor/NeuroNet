@@ -39,6 +39,7 @@ public:
     string getId() const { return _id; };
     int getDim() const { return _dim; };
 
+    void setOutput(VectorXd* p_output);
     VectorXd* getOutput() { return &_output; };
     MatrixXd* getDerivs() { return &_derivs; };
     VectorXd* getBias() { return &_bias; };

@@ -7,7 +7,7 @@
 
 
 #include "../LearningAlgorithm.h"
-#include "GradientDescent.h"
+#include "../GradientDescent.h"
 
 namespace NeuroNet {
 

@@ -6,10 +6,11 @@
 #define LIBNEURONET_QLEARNING_H
 
 #include "../BackProp.h"
+#include "../RMSProp.h"
 
 namespace NeuroNet {
 
-class QLearning : public BackProp {
+class QLearning : public RMSProp {
 
 public:
     QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false);

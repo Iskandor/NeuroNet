@@ -98,7 +98,7 @@ VectorXd encodeState(vector<int> *p_sensors) {
             NetworkUtils::binaryEncoding(p_sensors->at(i) - 1, &encoded);
         }
         else {
-            encoded.fill(0);
+            encoded.fill(1);
         }
 
         for(int j = 0; j < 4; j++) {
@@ -127,15 +127,15 @@ void sampleQ2() {
 
     NeuralNetwork network;
 
-    NeuralGroup* inputGroup = network.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    NeuralGroup* hiddenGroup0 = network.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    NeuralGroup* hiddenGroup1 = network.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    NeuralGroup* outputGroup = network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
+    network.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    network.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
-    network.addConnection(inputGroup, hiddenGroup0);
-    network.addConnection(hiddenGroup0, hiddenGroup1);
-    network.addConnection(hiddenGroup1, outputGroup);
+    network.addConnection("input", "hidden0");
+    network.addConnection("hidden0", "hidden1");
+    network.addConnection("hidden1", "output");
 
     QLearning agent(&network, 0.9, 0, 1e-6, 0.9);
     agent.setAlpha(0.1);

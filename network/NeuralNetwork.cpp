@@ -39,8 +39,7 @@ void NeuralNetwork::onLoop() {
     }
 
     /* prepare input signal and propagate it through the network */
-    _inputGroup->processInput(_input);
-    _inputGroup->integrate(&_input, &_inputWeights);
+    _inputGroup->setOutput(&_input);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
 }
@@ -76,8 +75,6 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
         case INPUT:
             _inputGroup = group;
             _input.resize(group->getDim());
-            /* initialize input weights to unitary matrix */
-            _inputWeights = MatrixXd::Identity(group->getDim(), group->getDim());
         break;
 
         case OUTPUT:
