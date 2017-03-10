@@ -6,10 +6,11 @@
 
 using namespace NeuroNet;
 
-QLearning::QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda, double p_weightDecay, double p_momentum, bool p_nesterov) : RMSProp(p_network, p_weightDecay, p_momentum, p_nesterov) {
+QLearning::QLearning(Optimizer *p_optimizer, NeuralNetwork *p_network, double p_gamma, double p_lambda) {
+    _optimizer = p_optimizer;
+    _network = p_network;
     _gamma = p_gamma;
     _lambda = p_lambda;
-    _error = VectorXd::Zero(p_network->getOutput()->size());
 
     /*
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
@@ -29,7 +30,7 @@ double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, d
     target = _network->getOutput()->replicate(1,1);
     target[p_action0] = p_reward + _gamma * maxQs1a;
 
-    mse = RMSProp::train(p_state0, &target);
+    mse = _optimizer->train(p_state0, &target);
 
     return mse;
 }
@@ -47,7 +48,16 @@ double QLearning::calcMaxQa(VectorXd* p_state) {
     return maxQa;
 }
 
+/*
 void QLearning::updateEligTrace(Connection* p_connection) {
     _eligTrace[p_connection->getId()] = _regGradient[p_connection->getId()] + _lambda * _eligTrace[p_connection->getId()];
 }
+*/
+
+QLearning::~QLearning() {
+    if (_optimizer != nullptr) {
+        //delete _optimizer;
+    }
+}
+
 

@@ -6,20 +6,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    //sampleBP();
-    //sampleTD();
-    //sampleQ();
+    sampleBP();
     //sampleSOM();
     //sampleMSOM();
-    //sampleDigits();
-    //sampleSARSA();
-    //sampleTDAC();
-    //sampleActor();
-
-    //sampleLunarLander();
-    //samplePoleCart();
-
-    sampleQ2();
+    //sampleQ2();
 
     system("pause");
     return 0;

@@ -51,9 +51,6 @@ set(SOURCE_FILES
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
-        algorithm/rl/TDLambda.cpp
-        algorithm/rl/TDLambda.h
-        samples/sample_td.cpp
         log/log.h
         main.cpp
         algorithm/GradientDescent.cpp
@@ -76,7 +73,6 @@ set(SOURCE_FILES
         algorithm/GreedyPolicy.cpp
         algorithm/GreedyPolicy.h
         samples/samples.h
-        samples/sampleLunarLander.cpp
         network/NetworkUtils.cpp
         network/NetworkUtils.h
         network/filters/IFilter.h
@@ -84,23 +80,8 @@ set(SOURCE_FILES
         network/filters/NormalizationFilter.h
         network/filters/KwtaFilter.cpp
         network/filters/KwtaFilter.h
-        algorithm/rl/SARSA.cpp
-        algorithm/rl/SARSA.h
-        samples/sampleSARSA.cpp
-        samples/sampleTDAC.cpp
-        algorithm/rl/ActorCritic.cpp
-        algorithm/rl/ActorCritic.h
-        algorithm/rl/CACLAActor.cpp
-        algorithm/rl/CACLAActor.h
-        algorithm/rl/CACLA.cpp
-        algorithm/rl/CACLA.h
         algorithm/LearningAlgorithm.cpp
         algorithm/LearningAlgorithm.h
-        algorithm/rl/RegularGradientActor.cpp
-        algorithm/rl/RegularGradientActor.cpp
-        algorithm/rl/RegularGradientActor.h
-        algorithm/rl/RGAC.cpp
-        algorithm/rl/RGAC.h
         network/RandomGenerator.cpp
         network/RandomGenerator.h
         dataset/SequenceDataset.cpp
@@ -108,20 +89,27 @@ set(SOURCE_FILES
         samples/sampleMSOM.cpp
         network/som/RecSOM.cpp
         network/som/RecSOM.h
-        samples/sampleDigits.cpp
         network/json.hpp
 		samples/PoleCart.cpp
 		samples/PoleCart.h
-		samples/samplePoleCart.cpp
-		algorithm/rl/NaturalGradientActor.cpp
-		algorithm/rl/NaturalGradientActor.h
-		algorithm/rl/NGAC.cpp
-		algorithm/rl/NGAC.h
-        algorithm/rl/QNatLearning.cpp
-		algorithm/rl/QNatLearning.h
 		samples/MountainCar.cpp
 		samples/MountainCar.h
-		samples/sampleMountainCar.cpp samples/sampleActor.cpp algorithm/rec/RTRL.cpp algorithm/rec/RTRL.h environments/Environment.cpp environments/Environment.h environments/maze/Maze.cpp environments/maze/Maze.h environments/maze/MazeAction.cpp environments/maze/MazeAction.h samples/MazeTask.cpp samples/MazeTask.h algorithm/RMSProp.cpp algorithm/RMSProp.h)
+        algorithm/rec/RTRL.cpp
+        algorithm/rec/RTRL.h
+        environments/Environment.cpp
+        environments/Environment.h
+        environments/maze/Maze.cpp
+        environments/maze/Maze.h
+        environments/maze/MazeAction.cpp
+        environments/maze/MazeAction.h
+        samples/MazeTask.cpp
+        samples/MazeTask.h
+        algorithm/RMSProp.cpp
+        algorithm/RMSProp.h
+        algorithm/Optimizer.cpp
+        algorithm/Optimizer.h
+        backend/Matrix.cpp
+        backend/Matrix.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

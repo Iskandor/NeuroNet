@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov) {
+RMSProp::RMSProp(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_cacheDecay, double p_weightDecay, double p_momentum, bool p_nesterov) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
     int nRows;
     int nCols;
 
@@ -41,41 +41,17 @@ double RMSProp::train(VectorXd *p_input, VectorXd *p_target) {
 
     mse = calcMse(p_target);
 
-    calcRegGradient(&_error);
-    //calcNatGradient(0.001, &_error);
+    calcGradient();
+
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
         update(*it);
     }
 
-    updateBatch();
-
-    return mse;
-}
-
-void RMSProp::updateBatch() {
-    if (_batch < _batchSize) {
-        _batch++;
-    }
-    else {
-        _batch = 0;
-    }
-}
-
-double RMSProp::calcMse(VectorXd *p_target) {
-    double mse = 0;
-    // calc MSE
-    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-        mse += pow((*p_target)[i] - (*_network->getOutput())[i], 2);
+    if (_batchSize > 1) {
+        updateBatch();
     }
 
     return mse;
-}
-
-void RMSProp::update(NeuralGroup *p_node) {
-    for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
-        updateWeights(_network->getConnections()->at(*it));
-        if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
-    }
 }
 
 void RMSProp::updateWeights(Connection *p_connection) {
@@ -89,17 +65,14 @@ void RMSProp::updateWeights(Connection *p_connection) {
     MatrixXd matrix4 = matrix3 + _eps[p_connection->getId()];
     MatrixXd matrix5 = matrix4.cwiseInverse();
 
-    (*p_connection->getWeights()) += _alpha * _regGradient[p_connection->getId()].cwiseProduct(matrix5);
-
-    /*
     if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * _regGradient[p_connection->getId()];
+        (*p_connection->getWeights()) += _alpha * _regGradient[p_connection->getId()].cwiseProduct(matrix5);
         (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
     }
     else {
         if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * _regGradient[p_connection->getId()];
-            _biasDelta[p_connection->getId()] += _delta[p_connection->getOutGroup()->getId()];
+            _weightDelta[p_connection->getId()] += _alpha * _regGradient[p_connection->getId()].cwiseProduct(matrix5);
+            _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
         }
         else {
             (*p_connection->getWeights()) += _weightDelta[p_connection->getId()];
@@ -110,9 +83,4 @@ void RMSProp::updateWeights(Connection *p_connection) {
         }
 
     }
-    */
-}
-
-void RMSProp::weightDecay(Connection *p_connection) const {
-
 }

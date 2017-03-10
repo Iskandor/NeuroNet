@@ -10,21 +10,26 @@
 
 namespace NeuroNet {
 
-class QLearning : public RMSProp {
+class QLearning : public LearningAlgorithm {
 
 public:
-    QLearning(NeuralNetwork *p_network, double p_gamma, double p_lambda, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false);
+    QLearning(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma, double p_lambda);
+    ~QLearning();
 
     double train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward);
 
 private:
-    void updateEligTrace(Connection* p_connection);
+    //void updateEligTrace(Connection* p_connection);
     double calcMaxQa(VectorXd* p_state);
 
 private:
+    NeuralNetwork*  _network;
+
     double _gamma;
     double _lambda;
-    VectorXd _error;
+
+    Optimizer* _optimizer;
+
     map<int, MatrixXd> _eligTrace;
 };
 

@@ -13,17 +13,16 @@ namespace NeuroNet {
 class LearningAlgorithm {
 
 public:
-    LearningAlgorithm(NeuralNetwork* p_network);
+    LearningAlgorithm();
     virtual ~LearningAlgorithm();
 
     void setAlpha(double p_alpha);
     void setBatchSize(int p_batchSize);
 
 protected:
-    NeuralNetwork* _network;
-    map<int, MatrixXd> _weightDelta;
-    map<int, VectorXd> _biasDelta;
+    void    updateBatch();
 
+protected:
     double  _alpha;
     int     _batchSize;
     int     _batch;

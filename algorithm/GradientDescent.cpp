@@ -7,7 +7,8 @@
 
 using namespace NeuroNet;
 
-GradientDescent::GradientDescent(NeuralNetwork *p_network, double p_momentum, bool p_nesterov) : LearningAlgorithm(p_network) {
+GradientDescent::GradientDescent(NeuralNetwork *p_network, double p_momentum, bool p_nesterov) {
+    _network = p_network;
     _momentum = p_momentum;
     _nesterov = p_nesterov;
 

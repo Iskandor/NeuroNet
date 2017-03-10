@@ -4,14 +4,10 @@
 
 using namespace NeuroNet;
 
-BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov) {
-  _alpha = 0;
-  _weightDecay = p_weightDecay;
-  _error = VectorXd::Zero(p_network->getOutput()->size());
+BackProp::BackProp(NeuralNetwork* p_network, const GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
 }
 
-BackProp::~BackProp(void)
-{
+BackProp::~BackProp(void) {
 }
 
 double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
@@ -26,23 +22,17 @@ double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
     }
 
     mse = calcMse(p_target);
+    calcGradient();
 
-    calcRegGradient(&_error);
-    //calcNatGradient(0.001, &_error);
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
         update(*it);
     }
 
-    updateBatch();
+    if (_batchSize > 1) {
+        updateBatch();
+    }
 
     return mse;
-}
-
-void BackProp::update(NeuralGroup* p_node) {
-    for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
-      updateWeights(_network->getConnections()->at(*it));
-      if (_weightDecay != 0) weightDecay(_network->getConnections()->at(*it));
-    }
 }
 
 void BackProp::updateWeights(Connection* p_connection) {
@@ -63,29 +53,5 @@ void BackProp::updateWeights(Connection* p_connection) {
             _biasDelta[p_connection->getId()].fill(0);
         }
 
-    }
-}
-
-void BackProp::weightDecay(Connection* p_connection) const
-{
-  *p_connection->getWeights() *= (1 - _weightDecay);
-}
-
-double BackProp::calcMse(VectorXd *p_target) {
-    double mse = 0;
-    // calc MSE
-    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-        mse += pow((*p_target)[i] - (*_network->getOutput())[i], 2);
-    }
-
-    return mse;
-}
-
-void BackProp::updateBatch() {
-    if (_batch < _batchSize) {
-        _batch++;
-    }
-    else {
-        _batch = 0;
     }
 }
