@@ -39,7 +39,8 @@ void NeuralNetwork::onLoop() {
     }
 
     /* prepare input signal and propagate it through the network */
-    _inputGroup->setOutput(&_input);
+    _inputGroup->processInput(_input);
+    _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
 }
@@ -75,16 +76,18 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
         case INPUT:
             _inputGroup = group;
             _input.resize(group->getDim());
-        break;
+            /* initialize input weights to unitary matrix */
+            _inputWeights = MatrixXd::Identity(group->getDim(), group->getDim());
+            break;
 
         case OUTPUT:
             _outputGroup = group;
             _output.resize(group->getDim());
-        break;
-        case HIDDEN: 
-        break;
-        default: 
-        break;
+            break;
+        case HIDDEN:
+            break;
+        default:
+            break;
     }
 
     return group;
@@ -95,7 +98,7 @@ Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId
 }
 
 Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_limit, double p_density, double p_inhibition) {
-    Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);    
+    Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);
 
     connection->init(p_limit);
     _connections[_connectionId] = connection;
@@ -108,9 +111,9 @@ Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_
 
 
 void NeuralNetwork::setInput(double *p_input) {
-  for(int i = 0; i < _input.rows(); i++) {
-    _input[i] = p_input[i];
-  }
+    for(int i = 0; i < _input.rows(); i++) {
+        _input[i] = p_input[i];
+    }
 }
 
 Connection* NeuralNetwork::getConnection(string p_inGroupId, string p_outGroupId) {
