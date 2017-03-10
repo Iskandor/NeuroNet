@@ -63,11 +63,11 @@ void sampleQ2() {
     network.addConnection("hidden0", "hidden1");
     network.addConnection("hidden1", "output");
 
-    //RMSProp optimizer(&network, GradientDescent::REGULAR, 0.9, 1e-6, 0.9);
-    BackProp optimizer(&network, GradientDescent::REGULAR, 1e-6, 0.9, true);
+    RMSProp optimizer(&network, 0.9, 1e-6, 0.9);
+    //BackProp optimizer(&network, 1e-6, 0.9, true);
     QLearning agent(&optimizer, &network, 0.9, 0);
 
-    agent.setAlpha(0.1);
+    agent.setAlpha(0.001);
     agent.setBatchSize(10);
 
     vector<int> sensors;

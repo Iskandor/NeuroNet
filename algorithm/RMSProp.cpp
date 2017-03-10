@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-RMSProp::RMSProp(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_cacheDecay, double p_weightDecay, double p_momentum, bool p_nesterov) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
+RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_weightDecay, double p_momentum, bool p_nesterov, const GradientDescent::GRADIENT &p_gradient) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
     int nRows;
     int nCols;
 
@@ -20,8 +20,6 @@ RMSProp::RMSProp(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gr
         _eps[it->second->getId()].setOnes();
         _eps[it->second->getId()] *= 1e-4;
     }
-
-    _error = VectorXd::Zero(p_network->getOutput()->size());
 }
 
 RMSProp::~RMSProp() {
@@ -41,7 +39,7 @@ double RMSProp::train(VectorXd *p_input, VectorXd *p_target) {
 
     mse = calcMse(p_target);
 
-    calcGradient();
+    calcGradient(&_error);
 
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
         update(*it);

@@ -65,6 +65,7 @@ void GradientDescent::calcRegGradient(VectorXd *p_error) {
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         regGradientKernel(it->second);
     }
+
 }
 
 void GradientDescent::deltaKernel(NeuralGroup *p_group) {

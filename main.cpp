@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     sampleBP();
     //sampleSOM();
     //sampleMSOM();
-    //sampleQ2();
+    sampleQ2();
 
     system("pause");
     return 0;

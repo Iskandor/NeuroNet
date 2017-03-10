@@ -11,7 +11,7 @@
 
 namespace NeuroNet {
 
-class GradientDescent {
+class GradientDescent : public LearningAlgorithm {
 public:
     GradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
     virtual ~GradientDescent(void);

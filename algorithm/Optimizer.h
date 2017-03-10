@@ -9,7 +9,7 @@
 
 namespace NeuroNet {
 
-class Optimizer : public GradientDescent, public LearningAlgorithm {
+class Optimizer : public GradientDescent {
 
 public:
     Optimizer(NeuralNetwork *p_network, const GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov);
@@ -17,11 +17,12 @@ public:
     virtual double train(VectorXd *p_input, VectorXd* p_target) = 0;
 
 protected:
-    void    calcGradient();
+    virtual void updateWeights(Connection* p_connection) = 0;
+
+    void    calcGradient(VectorXd* p_error);
     double  calcMse(VectorXd *p_target);
 
     void update(NeuralGroup* p_node);
-    virtual void updateWeights(Connection* p_connection) = 0;
     void weightDecay(Connection* p_connection);
 
 protected:

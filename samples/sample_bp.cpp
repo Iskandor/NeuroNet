@@ -24,10 +24,11 @@ void sampleBP() {
     *training[2] << 1,0;
     *training[3] << 1,1;
 
+
     *target[0] << 0;
     *target[1] << 1;
     *target[2] << 1;
-    *target[3] << 0;
+    *target[3] << 1;
 
     NeuralNetwork network;
     
@@ -39,7 +40,7 @@ void sampleBP() {
     network.addConnection("input", "hidden0");
     network.addConnection("hidden0", "output");
 
-    BackProp bp(&network, GradientDescent::REGULAR, 1e-6, 0.99);
+    BackProp bp(&network, 0, 0.9);
     bp.setAlpha(0.1);
     //bp.setBatchSize(4);
 

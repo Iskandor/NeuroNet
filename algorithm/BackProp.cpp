@@ -4,7 +4,7 @@
 
 using namespace NeuroNet;
 
-BackProp::BackProp(NeuralNetwork* p_network, const GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
+BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov, const GRADIENT &p_gradient) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
 }
 
 BackProp::~BackProp(void) {
@@ -22,7 +22,7 @@ double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
     }
 
     mse = calcMse(p_target);
-    calcGradient();
+    calcGradient(&_error);
 
     for(auto it = _groupTree.rbegin(); it != _groupTree.rend(); ++it) {
         update(*it);

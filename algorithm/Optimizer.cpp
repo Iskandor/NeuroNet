@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov), LearningAlgorithm() {
+Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov) {
     _gradType = p_gradient;
     _network = p_network;
     _naturalEpsilon = 1e-3;
@@ -45,13 +45,13 @@ void Optimizer::weightDecay(Connection *p_connection) {
     *p_connection->getWeights() *= (1 - _weightDecay);
 }
 
-void Optimizer::calcGradient() {
+void Optimizer::calcGradient(VectorXd* p_error) {
     switch(_gradType) {
         case GRADIENT::REGULAR:
-            calcRegGradient(&_error);
+            calcRegGradient(p_error);
             break;
         case GRADIENT::NATURAL:
-            calcNatGradient(_naturalEpsilon, &_error);
+            calcNatGradient(_naturalEpsilon, p_error);
             break;
         default:
             assert("No gradient type defined!");
