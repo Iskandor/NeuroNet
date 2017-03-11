@@ -27,12 +27,12 @@ public:
      RELU = 9
     };
 
-    NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias = true);
+    NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction);
     ~NeuralGroup(void);
 
 
     void fire();
-    void integrate(VectorXd* p_input, MatrixXd* p_weights);
+    void integrate(VectorXd* p_input, MatrixXd* p_weights, bool p_bias = true);
     void activate();
     void calcDerivs();
 

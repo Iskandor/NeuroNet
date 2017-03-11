@@ -13,7 +13,7 @@ namespace NeuroNet {
 class RMSProp : public Optimizer {
 
 public:
-    RMSProp(NeuralNetwork *p_network, double p_cacheDecay = 0, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false, const GRADIENT &p_gradient = GRADIENT::REGULAR);
+    RMSProp(NeuralNetwork *p_network, double p_cacheDecay = 0.9, double p_epsilon = 1e-8, const GRADIENT &p_gradient = GRADIENT::REGULAR);
     ~RMSProp();
 
     double train(VectorXd *p_input, VectorXd* p_target);

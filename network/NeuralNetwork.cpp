@@ -40,7 +40,7 @@ void NeuralNetwork::onLoop() {
 
     /* prepare input signal and propagate it through the network */
     _inputGroup->processInput(_input);
-    _inputGroup->integrate(&_input, &_inputWeights);
+    _inputGroup->integrate(&_input, &_inputWeights, false);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
 }

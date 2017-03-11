@@ -95,7 +95,7 @@ void GradientDescent::regGradientKernel(Connection *p_connection) {
 
 void GradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
   _epsilon = p_epsilon;
-  calcRegGradient(_network->getOutput());
+  calcRegGradient(p_error);
   for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
     invFisherMatrixKernel(it->second);
   }

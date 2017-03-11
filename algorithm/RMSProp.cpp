@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_weightDecay, double p_momentum, bool p_nesterov, const GradientDescent::GRADIENT &p_gradient) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
+RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_epsilon, const GradientDescent::GRADIENT &p_gradient) : Optimizer(p_network, p_gradient) {
     int nRows;
     int nCols;
 
@@ -18,7 +18,7 @@ RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_weightD
         _gradientCache[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
         _eps[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
         _eps[it->second->getId()].setOnes();
-        _eps[it->second->getId()] *= 1e-4;
+        _eps[it->second->getId()] *= p_epsilon;
     }
 }
 

@@ -11,7 +11,7 @@ using namespace NeuroNet;
  * @param p_dim dimension of layer
  * @param p_activationFunction type of activation function
  */
-NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias)
+NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction)
 {
     _id = p_id;
     _dim = p_dim;
@@ -69,8 +69,13 @@ void NeuralGroup::addOutConnection(int p_index) {
  * @param p_input vector of input values
  * @param p_weights matrix of input connection params
  */
-void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights) {
-  _ap += (*p_weights) * (*p_input) + _bias;
+void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights, bool p_bias) {
+    if (p_bias) {
+        _ap += (*p_weights) * (*p_input) + _bias;
+    }
+    else {
+        _ap += (*p_weights) * (*p_input);
+    }
 }
 
 /**

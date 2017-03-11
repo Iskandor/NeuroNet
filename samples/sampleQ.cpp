@@ -63,7 +63,7 @@ void sampleQ2() {
     network.addConnection("hidden0", "hidden1");
     network.addConnection("hidden1", "output");
 
-    RMSProp optimizer(&network, 0.9, 1e-6, 0.9);
+    RMSProp optimizer(&network);
     //BackProp optimizer(&network, 1e-6, 0.9, true);
     QLearning agent(&optimizer, &network, 0.9, 0);
 
