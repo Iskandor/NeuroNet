@@ -24,22 +24,28 @@ public:
 protected:
     NeuralNetwork*  _network;
     vector<NeuralGroup*> _groupTree;
-    map<int, MatrixXd> _regGradient;
-    map<int, MatrixXd> _natGradient;
-    map<int, MatrixXd> _invFisherMatrix;
     map<string, VectorXd> _delta;
     double _epsilon;
     double _momentum;
     bool   _nesterov;
 
     void groupTreeCreate();
+
+    map<int, MatrixXd>* calcRegGradient(VectorXd *p_error);
+    map<int, MatrixXd>* calcNatGradient(double p_epsilon, VectorXd *p_error);
+
+
+private:
+    map<int, MatrixXd> _regGradient;
+    map<int, MatrixXd> _natGradient;
+    map<int, MatrixXd> _invFisherMatrix;
+
     void bfsRecursive(NeuralGroup* p_node);
-    void calcRegGradient(VectorXd *p_error);
-    void calcNatGradient(double p_epsilon, VectorXd *p_error);
     void deltaKernel(NeuralGroup *p_group);
     void regGradientKernel(Connection *p_connection);
     void natGradientKernel(Connection *p_connection);
     void invFisherMatrixKernel(Connection *p_connection);
+
 };
 
 }

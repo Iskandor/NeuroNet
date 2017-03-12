@@ -51,7 +51,7 @@ void GradientDescent::bfsRecursive(NeuralGroup* p_node) {
   }
 }
 
-void GradientDescent::calcRegGradient(VectorXd *p_error) {
+map<int, MatrixXd>* GradientDescent::calcRegGradient(VectorXd *p_error) {
     for(auto it = _groupTree.begin(); it != _groupTree.end(); ++it) {
         (*it)->calcDerivs();
     }
@@ -66,6 +66,7 @@ void GradientDescent::calcRegGradient(VectorXd *p_error) {
         regGradientKernel(it->second);
     }
 
+    return &_regGradient;
 }
 
 void GradientDescent::deltaKernel(NeuralGroup *p_group) {
@@ -93,17 +94,19 @@ void GradientDescent::regGradientKernel(Connection *p_connection) {
     }
 }
 
-void GradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
-  _epsilon = p_epsilon;
-  calcRegGradient(p_error);
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
-    invFisherMatrixKernel(it->second);
-  }
+map<int, MatrixXd>* GradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
+    _epsilon = p_epsilon;
+    calcRegGradient(p_error);
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+        invFisherMatrixKernel(it->second);
+    }
 
-  calcRegGradient(p_error);
-  for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
-    natGradientKernel(it->second);
-  }
+    calcRegGradient(p_error);
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+        natGradientKernel(it->second);
+    }
+
+    return &_natGradient;
 }
 
 

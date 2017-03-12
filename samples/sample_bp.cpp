@@ -33,19 +33,19 @@ void sampleBP() {
     NeuralNetwork network;
     
     network.addLayer("input", 2, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("hidden0", 4, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
     network.addLayer("output", 1, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     network.addConnection("input", "hidden0");
     network.addConnection("hidden0", "output");
 
-    BackProp bp(&network, 1e-6, 0, false, GradientDescent::NATURAL);
+    BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
     //RMSProp bp(&network);
     bp.setAlpha(0.1);
     //bp.setBatchSize(4);
 
-    for(int e = 0; e < 3000; e++) {
+    for(int e = 0; e < 500; e++) {
       mse = 0;
       for(int i = 0; i < 4; i++) {
         mse += bp.train(training[i], target[i]);

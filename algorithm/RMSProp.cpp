@@ -55,7 +55,7 @@ double RMSProp::train(VectorXd *p_input, VectorXd *p_target) {
 void RMSProp::updateWeights(Connection *p_connection) {
 
     MatrixXd matrix1 = _cacheDecay * _gradientCache[p_connection->getId()];
-    MatrixXd matrix2 = (1 - _cacheDecay) * _regGradient[p_connection->getId()].cwiseProduct(_regGradient[p_connection->getId()]);
+    MatrixXd matrix2 = (1 - _cacheDecay) * (*_gradient)[p_connection->getId()].cwiseProduct((*_gradient)[p_connection->getId()]);
 
     _gradientCache[p_connection->getId()] += matrix1 + matrix2;
 
@@ -64,12 +64,12 @@ void RMSProp::updateWeights(Connection *p_connection) {
     MatrixXd matrix5 = matrix4.cwiseInverse();
 
     if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * _regGradient[p_connection->getId()].cwiseProduct(matrix5);
+        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()].cwiseProduct(matrix5);
         (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
     }
     else {
         if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * _regGradient[p_connection->getId()].cwiseProduct(matrix5);
+            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()].cwiseProduct(matrix5);
             _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
         }
         else {

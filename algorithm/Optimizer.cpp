@@ -48,10 +48,10 @@ void Optimizer::weightDecay(Connection *p_connection) {
 void Optimizer::calcGradient(VectorXd* p_error) {
     switch(_gradType) {
         case GRADIENT::REGULAR:
-            calcRegGradient(p_error);
+            _gradient = calcRegGradient(p_error);
             break;
         case GRADIENT::NATURAL:
-            calcNatGradient(_naturalEpsilon, p_error);
+            _gradient = calcNatGradient(_naturalEpsilon, p_error);
             break;
         default:
             assert("No gradient type defined!");

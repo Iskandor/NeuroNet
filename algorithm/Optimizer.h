@@ -29,6 +29,7 @@ protected:
     GRADIENT _gradType;
     double   _naturalEpsilon;
 
+    map<int, MatrixXd> *_gradient;
     map<int, MatrixXd> _weightDelta;
     map<int, VectorXd> _biasDelta;
     double             _weightDecay;

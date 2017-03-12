@@ -37,12 +37,12 @@ double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
 
 void BackProp::updateWeights(Connection* p_connection) {
     if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * _regGradient[p_connection->getId()];
+        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()];
         (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
     }
     else {
         if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * _regGradient[p_connection->getId()];
+            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()];
             _biasDelta[p_connection->getId()] += _delta[p_connection->getOutGroup()->getId()];
         }
         else {
