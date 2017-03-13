@@ -1,5 +1,4 @@
 #include <math.h>
-#include "../network/NeuralNetwork.h"
 #include "BackProp.h"
 
 using namespace NeuroNet;

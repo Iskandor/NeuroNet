@@ -5,7 +5,8 @@
 #ifndef NEURONET_OPTIMIZER_H
 #define NEURONET_OPTIMIZER_H
 
-#include "GradientDescent.h"
+
+#include "../GradientDescent.h"
 
 namespace NeuroNet {
 

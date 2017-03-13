@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../network/NeuralNetwork.h"
+#include "../algorithm/optimizer/ADAM.h"
 
 
 using namespace NeuroNet;

@@ -12,6 +12,7 @@
 #include "../network/RandomGenerator.h"
 
 #include "MazeTask.h"
+#include "../algorithm/optimizer/RMSProp.h"
 
 using namespace NeuroNet;
 

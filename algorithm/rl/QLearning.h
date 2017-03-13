@@ -5,8 +5,8 @@
 #ifndef LIBNEURONET_QLEARNING_H
 #define LIBNEURONET_QLEARNING_H
 
-#include "../BackProp.h"
-#include "../RMSProp.h"
+#include "../LearningAlgorithm.h"
+#include "../optimizer/Optimizer.h"
 
 namespace NeuroNet {
 
