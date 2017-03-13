@@ -16,6 +16,12 @@ public:
 
 protected:
     void updateWeights(Connection* p_connection);
+
+private:
+    map<int, MatrixXd> _v;
+
+    double  _momentum;
+    bool    _nesterov;
 };
 
 }

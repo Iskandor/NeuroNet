@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_weightDecay, double p_momentum, bool p_nesterov) : GradientDescent(p_network, p_momentum, p_nesterov) {
+Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &p_gradient, double p_weightDecay) : GradientDescent(p_network) {
     _gradType = p_gradient;
     _network = p_network;
     _naturalEpsilon = 1e-3;

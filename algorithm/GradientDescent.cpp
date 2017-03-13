@@ -7,10 +7,8 @@
 
 using namespace NeuroNet;
 
-GradientDescent::GradientDescent(NeuralNetwork *p_network, double p_momentum, bool p_nesterov) {
+GradientDescent::GradientDescent(NeuralNetwork *p_network) {
     _network = p_network;
-    _momentum = p_momentum;
-    _nesterov = p_nesterov;
 
     groupTreeCreate();
 
@@ -77,21 +75,7 @@ void GradientDescent::deltaKernel(NeuralGroup *p_group) {
 }
 
 void GradientDescent::regGradientKernel(Connection *p_connection) {
-    MatrixXd grad = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
-
-    if (_momentum > 0) {
-        MatrixXd prev = _regGradient[p_connection->getId()] * _momentum;
-
-        if (_nesterov) {
-            _regGradient[p_connection->getId()] = ((MatrixXd)(_momentum * (prev + grad))) + grad;
-        }
-        else {
-            _regGradient[p_connection->getId()] = prev + grad;
-        }
-    }
-    else {
-        _regGradient[p_connection->getId()] = grad;
-    }
+    _regGradient[p_connection->getId()] = _delta[p_connection->getOutGroup()->getId()] * p_connection->getInGroup()->getOutput()->transpose();
 }
 
 map<int, MatrixXd>* GradientDescent::calcNatGradient(double p_epsilon, VectorXd *p_error) {
@@ -101,7 +85,6 @@ map<int, MatrixXd>* GradientDescent::calcNatGradient(double p_epsilon, VectorXd 
         invFisherMatrixKernel(it->second);
     }
 
-    calcRegGradient(p_error);
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         natGradientKernel(it->second);
     }

@@ -4,7 +4,18 @@
 
 using namespace NeuroNet;
 
-BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov, const GRADIENT &p_gradient) : Optimizer(p_network, p_gradient, p_weightDecay, p_momentum, p_nesterov) {
+BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_momentum, bool p_nesterov, const GRADIENT &p_gradient) : Optimizer(p_network, p_gradient, p_weightDecay) {
+    _momentum = p_momentum;
+    _nesterov = p_nesterov;
+
+    int nRows;
+    int nCols;
+
+    for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
+        nRows = it->second->getOutGroup()->getDim();
+        nCols = it->second->getInGroup()->getDim();
+        _v[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
+    }
 }
 
 BackProp::~BackProp(void) {
@@ -36,22 +47,35 @@ double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
 }
 
 void BackProp::updateWeights(Connection* p_connection) {
-    if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()];
-        (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
+    /*
+    # Momentum update
+    v = mu * v - learning_rate * dx # integrate velocity
+    x += v # integrate position
+    */
+
+    MatrixXd v_prev;
+
+    int id = p_connection->getId();
+
+    if (_nesterov) {
+        v_prev = _v[id].replicate(1,1);
+    }
+
+    _v[id] = _momentum * _v[id] + _alpha * (*_gradient)[id];
+
+    /*
+    v_prev = v # back this up
+    v = mu * v - learning_rate * dx # velocity update stays the same
+    x += -mu * v_prev + (1 + mu) * v # position update changes form
+    */
+
+    if (_nesterov) {
+        (*p_connection->getWeights()) += -_momentum * v_prev + (1 + _momentum) * _v[id];
     }
     else {
-        if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()];
-            _biasDelta[p_connection->getId()] += _delta[p_connection->getOutGroup()->getId()];
-        }
-        else {
-            (*p_connection->getWeights()) += _weightDelta[p_connection->getId()];
-            (*p_connection->getOutGroup()->getBias()) += _biasDelta[p_connection->getId()];
-
-            _weightDelta[p_connection->getId()].fill(0);
-            _biasDelta[p_connection->getId()].fill(0);
-        }
-
+        (*p_connection->getWeights()) += _v[id];
     }
+
+    (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
+
 }

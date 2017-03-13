@@ -12,7 +12,7 @@ namespace NeuroNet {
 class Optimizer : public GradientDescent {
 
 public:
-    Optimizer(NeuralNetwork *p_network, const GRADIENT &p_gradient = GRADIENT::REGULAR, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false);
+    Optimizer(NeuralNetwork *p_network, const GRADIENT &p_gradient = GRADIENT::REGULAR, double p_weightDecay = 0);
 
     virtual double train(VectorXd *p_input, VectorXd* p_target) = 0;
 

@@ -13,7 +13,7 @@ namespace NeuroNet {
 
 class GradientDescent : public LearningAlgorithm {
 public:
-    GradientDescent(NeuralNetwork *p_network, double p_momentum = 0, bool p_nesterov = false);
+    GradientDescent(NeuralNetwork *p_network);
     virtual ~GradientDescent(void);
 
     enum GRADIENT {
@@ -26,8 +26,6 @@ protected:
     vector<NeuralGroup*> _groupTree;
     map<string, VectorXd> _delta;
     double _epsilon;
-    double _momentum;
-    bool   _nesterov;
 
     void groupTreeCreate();
 
