@@ -16,8 +16,8 @@ public:
     LearningAlgorithm();
     virtual ~LearningAlgorithm();
 
-    void setAlpha(double p_alpha);
-    void setBatchSize(int p_batchSize);
+    virtual void setAlpha(double p_alpha);
+    virtual void setBatchSize(int p_batchSize);
 
 protected:
     void    updateBatch();

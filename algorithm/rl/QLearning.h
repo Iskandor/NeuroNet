@@ -18,6 +18,9 @@ public:
 
     double train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward);
 
+    void setAlpha(double p_alpha);
+    void setBatchSize(int p_batchSize);
+
 private:
     //void updateEligTrace(Connection* p_connection);
     double calcMaxQa(VectorXd* p_state);

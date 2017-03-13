@@ -61,3 +61,14 @@ QLearning::~QLearning() {
 }
 
 
+void QLearning::setAlpha(double p_alpha) {
+    if (_optimizer != nullptr) {
+        _optimizer->setAlpha(p_alpha);
+    }
+}
+
+void QLearning::setBatchSize(int p_batchSize) {
+    if (_optimizer != nullptr) {
+        _optimizer->setBatchSize(p_batchSize);
+    }
+}
