@@ -1,11 +1,6 @@
 #include <iostream>
 #include "../network/NeuralNetwork.h"
-#include "../network/Define.h"
-#include "../algorithm/BackProp.h"
-#include "../log/log.h"
-#include "../network/RandomGenerator.h"
-#include "../algorithm/RMSProp.h"
-#include "../algorithm/ADAM.h"
+
 
 using namespace NeuroNet;
 

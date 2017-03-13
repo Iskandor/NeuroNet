@@ -38,14 +38,14 @@ include_directories ( ${EIGEN3_INCLUDE_DIRS} )
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstdc++ -static -lpthread")
 
 set(SOURCE_FILES
-        algorithm/BackProp.h
+        algorithm/optimizer/BackProp.h
         network/Connection.h
         network/Define.h
         algorithm/IEnvironment.h
         samples/MazeOld.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
-        algorithm/BackProp.cpp
+        algorithm/optimizer/BackProp.cpp
         network/Connection.cpp
         samples/MazeOld.cpp
         network/NeuralGroup.cpp
@@ -104,12 +104,12 @@ set(SOURCE_FILES
         environments/maze/MazeAction.h
         samples/MazeTask.cpp
         samples/MazeTask.h
-        algorithm/RMSProp.cpp
-        algorithm/RMSProp.h
-        algorithm/Optimizer.cpp
-        algorithm/Optimizer.h
+        algorithm/optimizer/RMSProp.cpp
+        algorithm/optimizer/RMSProp.h
+        algorithm/optimizer/Optimizer.cpp
+        algorithm/optimizer/Optimizer.h
         backend/Matrix.cpp
-        backend/Matrix.h algorithm/ADAM.cpp algorithm/ADAM.h)
+        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
