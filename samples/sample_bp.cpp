@@ -40,8 +40,8 @@ void sampleBP() {
     network.addConnection("input", "hidden0");
     network.addConnection("hidden0", "output");
 
-    BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
-    //RMSProp bp(&network);
+    //BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::REGULAR);
+    RMSProp bp(&network);
     bp.setAlpha(0.1);
     //bp.setBatchSize(4);
 
@@ -58,7 +58,4 @@ void sampleBP() {
         network.activate(training[i]);
         cout << (*network.getOutput()) << endl;
     }
-
-    //cout << mse << endl;
-    cout << "Uspesne ukoncene." << endl;
 }
