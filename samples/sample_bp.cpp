@@ -37,15 +37,15 @@ void sampleBP() {
     network.addLayer("output", 1, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
-    network.addConnection("input", "hidden0");
-    network.addConnection("hidden0", "output");
+    network.addConnection("input", "hidden0", Connection::GLOROT_UNIFORM);
+    network.addConnection("hidden0", "output", Connection::GLOROT_UNIFORM);
 
     //BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::REGULAR);
     RMSProp bp(&network);
     bp.setAlpha(0.1);
     //bp.setBatchSize(4);
 
-    for(int e = 0; e < 500; e++) {
+    for(int e = 0; e < 300; e++) {
       mse = 0;
       for(int i = 0; i < 4; i++) {
         mse += bp.train(training[i], target[i]);

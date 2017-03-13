@@ -10,11 +10,16 @@ namespace NeuroNet {
 class Connection
 {
 public:
+    enum INIT {
+        UNIFORM = 0,
+        LECUN_UNIFORM = 1,
+        GLOROT_UNIFORM = 2
+    };
+
     Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);
     ~Connection(void);
 
-public:
-    void init(double p_limit);
+    void init(INIT p_init, double p_limit);
     void init(double p_density, double p_inhibition) const;
     void init(MatrixXd* p_weights);
     MatrixXd* getWeights() const { return _weights; };
@@ -25,6 +30,9 @@ public:
 
     json getFileData();
 private:
+    void uniform(double p_limit);
+
+
     int _id;
     NeuralGroup* _inGroup;
     NeuralGroup* _outGroup;

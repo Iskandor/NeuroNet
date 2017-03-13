@@ -93,14 +93,14 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
     return group;
 }
 
-Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, double p_limit, double p_density,double p_inhibition) {
-    return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_limit, p_density, p_inhibition);
+Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, Connection::INIT p_init, double p_limit) {
+    return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_init, p_limit);
 }
 
-Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, double p_limit, double p_density, double p_inhibition) {
+Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection::INIT p_init, double p_limit) {
     Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);
 
-    connection->init(p_limit);
+    connection->init(p_init, p_limit);
     _connections[_connectionId] = connection;
     if (p_inGroup != nullptr) p_inGroup->addOutConnection(_connectionId);
     if (p_outGroup != nullptr) p_outGroup->addInConnection(_connectionId);

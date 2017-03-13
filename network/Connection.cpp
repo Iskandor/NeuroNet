@@ -42,11 +42,17 @@ void Connection::init(double p_density, double p_inhibition) const {
     }
 }
 
-void Connection::init(double p_limit) {
-    for(int i = 0; i < _outDim; i++) {
-        for (int j = 0; j < _inDim; j++) {
-            (*_weights)(i, j) = RandomGenerator::getInstance().random(-p_limit, p_limit);
-        }
+void Connection::init(Connection::INIT p_init, double p_limit) {
+    switch(p_init) {
+        case UNIFORM:
+            uniform(p_limit);
+            break;
+        case LECUN_UNIFORM:
+            uniform(pow(_inDim, -.5));
+            break;
+        case GLOROT_UNIFORM:
+            uniform(2 / (_inDim + _outDim));
+            break;
     }
 }
 
@@ -65,4 +71,12 @@ json Connection::getFileData() {
     }
 
     return json({{"ingroup", _inGroup->getId()}, {"outgroup", _outGroup->getId()}, {"weights", weights}});
+}
+
+void Connection::uniform(double p_limit) {
+    for(int i = 0; i < _outDim; i++) {
+        for (int j = 0; j < _inDim; j++) {
+            (*_weights)(i, j) = RandomGenerator::getInstance().random(-p_limit, p_limit);
+        }
+    }
 }
