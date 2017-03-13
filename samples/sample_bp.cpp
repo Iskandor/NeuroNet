@@ -5,6 +5,7 @@
 #include "../log/log.h"
 #include "../network/RandomGenerator.h"
 #include "../algorithm/RMSProp.h"
+#include "../algorithm/ADAM.h"
 
 using namespace NeuroNet;
 
@@ -40,8 +41,9 @@ void sampleBP() {
     network.addConnection("input", "hidden0", Connection::GLOROT_UNIFORM);
     network.addConnection("hidden0", "output", Connection::GLOROT_UNIFORM);
 
-    //BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::REGULAR);
-    RMSProp bp(&network);
+    BackProp bp(&network, 1e-6, 0.9, true, GradientDescent::REGULAR);
+    //RMSProp bp(&network);
+    //ADAM bp(&network);
     bp.setAlpha(0.1);
     //bp.setBatchSize(4);
 

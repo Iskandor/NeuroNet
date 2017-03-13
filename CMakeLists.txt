@@ -109,7 +109,7 @@ set(SOURCE_FILES
         algorithm/Optimizer.cpp
         algorithm/Optimizer.h
         backend/Matrix.cpp
-        backend/Matrix.h)
+        backend/Matrix.h algorithm/ADAM.cpp algorithm/ADAM.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
