@@ -6,10 +6,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    sampleBP();
+    //sampleBP();
     //sampleSOM();
     //sampleMSOM();
-    //sampleQ2();
+    //sampleQ();
+    sampleSARSA();
 
     system("pause");
     return 0;

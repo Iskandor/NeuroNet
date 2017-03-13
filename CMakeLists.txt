@@ -57,7 +57,7 @@ set(SOURCE_FILES
         algorithm/GradientDescent.h
         algorithm/rl/QLearning.cpp
         algorithm/rl/QLearning.h
-        samples/sampleQ.cpp
+        samples/sampleMazeRL.cpp
         samples/LunarLander.cpp
         samples/LunarLander.h
         network/som/SOM.cpp
@@ -70,8 +70,6 @@ set(SOURCE_FILES
         dataset/StringUtils.h
         samples/sampleSOM.cpp
         dataset/DatasetConfig.h
-        algorithm/GreedyPolicy.cpp
-        algorithm/GreedyPolicy.h
         samples/samples.h
         network/NetworkUtils.cpp
         network/NetworkUtils.h
@@ -109,7 +107,7 @@ set(SOURCE_FILES
         algorithm/optimizer/Optimizer.cpp
         algorithm/optimizer/Optimizer.h
         backend/Matrix.cpp
-        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h)
+        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h algorithm/rl/SARSA.cpp algorithm/rl/SARSA.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

@@ -6,7 +6,7 @@
 #define NEURONET_SAMPLES_H
 
 void sampleQ();
-void sampleQ2();
+void sampleSARSA();
 void sampleBP();
 void sampleSOM();
 void sampleMSOM();
