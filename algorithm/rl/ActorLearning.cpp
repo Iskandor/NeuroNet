@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-ActorLearning::ActorLearning(Optimizer *p_optimizer, NeuralNetwork *p_network, double p_gamma = 0.9) {
+ActorLearning::ActorLearning(Optimizer *p_optimizer, NeuralNetwork *p_network, double p_gamma) {
     _optimizer = p_optimizer;
     _network = p_network;
     _gamma = p_gamma;

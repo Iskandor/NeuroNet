@@ -219,7 +219,7 @@ void sampleAC() {
     nc.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
     nc.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     nc.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
+    nc.addLayer("output", 4, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     nc.addConnection("input", "hidden0");
