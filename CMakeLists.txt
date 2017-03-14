@@ -42,12 +42,10 @@ set(SOURCE_FILES
         network/Connection.h
         network/Define.h
         algorithm/IEnvironment.h
-        samples/MazeOld.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
         algorithm/optimizer/BackProp.cpp
         network/Connection.cpp
-        samples/MazeOld.cpp
         network/NeuralGroup.cpp
         network/NeuralNetwork.cpp
         samples/sample_bp.cpp
@@ -107,7 +105,7 @@ set(SOURCE_FILES
         algorithm/optimizer/Optimizer.cpp
         algorithm/optimizer/Optimizer.h
         backend/Matrix.cpp
-        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h algorithm/rl/SARSA.cpp algorithm/rl/SARSA.h)
+        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h algorithm/rl/SARSA.cpp algorithm/rl/SARSA.h algorithm/rl/ActorLearning.cpp algorithm/rl/ActorLearning.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

@@ -10,7 +10,8 @@ int main(int argc, char* argv[])
     //sampleSOM();
     //sampleMSOM();
     //sampleQ();
-    sampleSARSA();
+    //sampleSARSA();
+    sampleAC();
 
     system("pause");
     return 0;

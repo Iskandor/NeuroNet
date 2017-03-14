@@ -7,6 +7,7 @@
 
 void sampleQ();
 void sampleSARSA();
+void sampleAC();
 void sampleBP();
 void sampleSOM();
 void sampleMSOM();
