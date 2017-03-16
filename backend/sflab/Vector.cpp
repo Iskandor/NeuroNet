@@ -3,9 +3,17 @@
 //
 
 #include "Vector.h"
+#include <random>
 
 using namespace SFLAB;
 
+
+Vector::Vector(int p_dim, double *p_data) : Base(p_dim, 1, p_data) {
+}
+
+Vector::Vector(int p_dim, initializer_list<double> inputs) : Base(p_dim, 1, inputs) {
+
+}
 
 Vector::Vector(int p_dim, const Base::INIT &p_init, double p_value) : Base(p_dim, 1) {
     init(p_init, p_value);
@@ -35,6 +43,11 @@ void Vector::init(INIT p_init, double p_value) {
             break;
         case VALUE:
             fill(p_value);
+            break;
+        case RANDOM:
+            for(int i = 0; i < _rows; i++) {
+                _arr[i][0] = ((double) rand() / (RAND_MAX)) + 1;
+            }
             break;
     }
 }
@@ -160,4 +173,60 @@ double &Vector::operator[](int p_index) {
     }
 
     return *res;
+}
+
+Vector Vector::Zero(int p_dim) {
+    Vector res(p_dim);
+    return Vector(res);
+}
+
+Vector Vector::Random(int p_dim) {
+    Vector res(p_dim, RANDOM);
+    return Vector(res);
+}
+
+void Vector::operator+=(const Vector &p_vector) {
+    if (_cols == 1) {
+        for(int i = 0; i < _rows; i++) {
+            _arr[i][0] = _arr[i][0] + p_vector._arr[i][0];
+        }
+    }
+
+    if (_rows == 1) {
+        for(int i = 0; i < _cols; i++) {
+            _arr[0][i] = _arr[0][i] + p_vector._arr[0][i];
+        }
+    }
+}
+
+void Vector::operator-=(const Vector &p_vector) {
+    if (_cols == 1) {
+        for(int i = 0; i < _rows; i++) {
+            _arr[i][0] = _arr[i][0] - p_vector._arr[i][0];
+        }
+    }
+
+    if (_rows == 1) {
+        for(int i = 0; i < _cols; i++) {
+            _arr[0][i] = _arr[0][i] - p_vector._arr[0][i];
+        }
+    }
+}
+
+double Vector::norm() {
+    double res = 0;
+
+    if (_cols == 1) {
+        for (int i = 0; i < _rows; i++) {
+            res += pow(_arr[i][0], 2);
+        }
+    }
+
+    if (_rows == 1) {
+        for (int i = 0; i < _cols; i++) {
+            res += pow(_arr[0][i], 2);
+        }
+    }
+
+    return sqrt(res);
 }

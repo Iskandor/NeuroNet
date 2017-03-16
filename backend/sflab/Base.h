@@ -15,25 +15,27 @@ class Base {
 public:
     enum INIT {
         ZERO = 0,
-        UNITARY = 1,
+        IDENTITY = 1,
         ONES = 1,
-        VALUE = 2
+        VALUE = 2,
+        RANDOM = 3
     };
 
-    Base(int p_rows, int p_cols);
-
+    Base(int p_rows = 0, int p_cols = 0);
+    Base(int p_rows, int p_cols, double* p_data);
+    Base(int p_rows, int p_cols, initializer_list <double> p_inputs);
     Base(const Base &p_copy);
 
     virtual ~Base();
 
-    friend ostream &operator<<(ostream &output, const Base &p_matrix) {
-        for (int i = 0; i < p_matrix._rows; i++) {
-            for (int j = 0; j < p_matrix._cols; j++) {
-                if (j == p_matrix._cols - 1) {
-                    output << p_matrix._arr[i][j] << endl;
+    friend ostream &operator<<(ostream &output, const Base &p_base) {
+        for (int i = 0; i < p_base._rows; i++) {
+            for (int j = 0; j < p_base._cols; j++) {
+                if (j == p_base._cols - 1) {
+                    output << p_base._arr[i][j] << endl;
                 }
                 else {
-                    output << p_matrix._arr[i][j] << ",";
+                    output << p_base._arr[i][j] << ",";
                 }
             }
         }
@@ -43,10 +45,17 @@ public:
 
     void fill(double p_value);
 
+    double maxCoeff();
+    double minCoeff();
+
+    inline int rows() { return _rows; };
+    inline int cols() { return _cols; };
+
 protected:
     virtual void init(INIT p_init, double p_value) = 0;
     void clone(const Base &p_copy);
-    void internal_init();
+    void internal_init(double *p_data = NULL);
+    void internal_init(initializer_list <double> p_inputs);
 
 protected:
     double **_arr = NULL;

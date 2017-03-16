@@ -5,6 +5,7 @@
 #ifndef NEURONET_VECTOR_H
 #define NEURONET_VECTOR_H
 
+#include <iterator>
 #include "Base.h"
 #include "Matrix.h"
 
@@ -14,19 +15,65 @@ class Matrix;
 
 class Vector : public Base {
 public:
-    Vector(int p_dim, const INIT &p_init = ZERO, double p_value = 0);
+    static Vector Zero(int p_dim);
+    static Vector Random(int p_dim);
+
+    Vector(int p_dim = 0, const INIT &p_init = ZERO, double p_value = 0);
+    Vector(int p_dim, double* p_data);
+    Vector(int p_dim, std::initializer_list <double> inputs);
     Vector(int p_rows, int p_cols, const INIT &p_init = ZERO, double p_value = 0);
     Vector(const Vector& p_copy);
     ~Vector();
 
     void operator = ( const Vector& p_vector);
     Vector operator + ( const Vector& p_vector);
+    void operator += ( const Vector& p_vector);
     Vector operator - ( const Vector& p_vector);
+    void operator -= ( const Vector& p_vector);
     Matrix operator * ( const Vector& p_vector);
     Vector operator * ( const double p_const);
+
+    friend Vector operator * ( const double p_const, const Vector& p_vector) {
+        if (p_vector._cols == 1) {
+            Vector res(p_vector._rows);
+
+            for (int i = 0; i < p_vector._rows; i++) {
+                res._arr[i][0] = p_const * p_vector._arr[i][0];
+            }
+
+            return Vector(res);
+        }
+
+        if (p_vector._rows == 1) {
+            Vector res(p_vector._cols);
+
+            for (int i = 0; i < p_vector._cols; i++) {
+                res._arr[0][i] = p_const * p_vector._arr[0][i];
+            }
+
+            return Vector(res);
+        }
+
+        return Vector();
+    }
+
     Vector T();
+    double norm();
 
     double& operator [] ( int p_index );
+
+    friend istream &operator<<(istream &input, const Vector &p_vector) {
+        typedef std::istream_iterator<double> streamiter;
+        int i = 0;
+        for (streamiter it = streamiter(input); it != streamiter(); it++) {
+            p_vector._arr[i][0] = *it;
+            i++;
+        }
+
+        return input;
+    }
+
+    inline int size() { return _rows * _cols; };
 
 private:
     void init(INIT p_init, double p_value);

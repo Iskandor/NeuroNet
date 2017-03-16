@@ -15,6 +15,24 @@ Base::Base(int p_rows, int p_cols) {
     }
 }
 
+Base::Base(int p_rows, int p_cols, double *p_data) {
+    _rows = p_rows;
+    _cols = p_cols;
+
+    if (_rows != 0 && _cols != 0) {
+        internal_init(p_data);
+    }
+}
+
+Base::Base(int p_rows, int p_cols, initializer_list<double> p_inputs) {
+    _rows = p_rows;
+    _cols = p_cols;
+
+    if (_rows != 0 && _cols != 0) {
+        internal_init(p_inputs);
+    }
+}
+
 Base::Base(const Base &p_copy) {
     clone(p_copy);
 }
@@ -58,10 +76,64 @@ void Base::clone(const Base &p_copy) {
     }
 }
 
-void Base::internal_init() {
+void Base::internal_init(double *p_data) {
+    _arr = (double**)calloc((size_t) (_rows), sizeof(double*));
+
+    for(int i = 0; i < _rows; i++) {
+        _arr[i] = (double*)calloc((size_t) (_cols), sizeof(double));
+        if (p_data != NULL) {
+            for(int j = 0; j < _cols; i++) {
+                _arr[i][j] = p_data[i * _cols + j];
+            }
+        }
+    }
+}
+
+void Base::internal_init(initializer_list<double> p_inputs) {
     _arr = (double**)calloc((size_t) (_rows), sizeof(double*));
 
     for(int i = 0; i < _rows; i++) {
         _arr[i] = (double*)calloc((size_t) (_cols), sizeof(double));
     }
+
+    int i = 0;
+    int j = 0;
+
+    for(double in: p_inputs) {
+        _arr[i][j] = in;
+        j++;
+        if (j == _cols) {
+            i++;
+            j = 0;
+        }
+    }
+
+}
+
+double Base::maxCoeff() {
+    double res = _arr[0][0];
+
+    for(int i = 0; i < _rows; i++) {
+        for(int j = 0; j < _cols; i++) {
+            if (res < _arr[i][j]) {
+                res = _arr[i][j];
+            };
+        }
+    }
+
+    return res;
+}
+
+double Base::minCoeff() {
+    double res = _arr[0][0];
+
+    for(int i = 0; i < _rows; i++) {
+        for(int j = 0; j < _cols; i++) {
+            if (res > _arr[i][j]) {
+                res = _arr[i][j];
+            };
+        }
+    }
+
+    return res;
 }
