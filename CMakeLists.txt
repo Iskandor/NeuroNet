@@ -104,8 +104,14 @@ set(SOURCE_FILES
         algorithm/optimizer/RMSProp.h
         algorithm/optimizer/Optimizer.cpp
         algorithm/optimizer/Optimizer.h
-        backend/Matrix.cpp
-        backend/Matrix.h algorithm/optimizer/ADAM.cpp algorithm/optimizer/ADAM.h algorithm/rl/SARSA.cpp algorithm/rl/SARSA.h algorithm/rl/ActorLearning.cpp algorithm/rl/ActorLearning.h)
+        backend/sflab/Matrix.cpp
+        backend/sflab/Matrix.h
+        algorithm/optimizer/ADAM.cpp
+        algorithm/optimizer/ADAM.h
+        algorithm/rl/SARSA.cpp
+        algorithm/rl/SARSA.h
+        algorithm/rl/ActorLearning.cpp
+        algorithm/rl/ActorLearning.h backend/sflab/Vector.cpp backend/sflab/Vector.h backend/sflab/Base.cpp backend/sflab/Base.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
