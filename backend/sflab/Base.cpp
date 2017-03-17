@@ -77,12 +77,15 @@ void Base::clone(const Base &p_copy) {
 }
 
 void Base::internal_init(double *p_data) {
-    _arr = (double**)calloc((size_t) (_rows), sizeof(double*));
+    _arr = (double **) calloc((size_t) (_rows), sizeof(double *));
 
-    for(int i = 0; i < _rows; i++) {
-        _arr[i] = (double*)calloc((size_t) (_cols), sizeof(double));
-        if (p_data != NULL) {
-            for(int j = 0; j < _cols; i++) {
+    for (int i = 0; i < _rows; i++) {
+        _arr[i] = (double *) calloc((size_t) (_cols), sizeof(double));
+    }
+
+    if (p_data != NULL) {
+        for (int i = 0; i < _rows; i++) {
+            for (int j = 0; j < _cols; j++) {
                 _arr[i][j] = p_data[i * _cols + j];
             }
         }

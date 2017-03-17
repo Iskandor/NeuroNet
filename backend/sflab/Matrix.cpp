@@ -183,6 +183,12 @@ Vector Matrix::row(int p_index) {
     return Vector(_cols, _arr[p_index]);;
 }
 
+void Matrix::setRow(int p_index, Vector p_vector) {
+    for (int i = 0; i < _cols; i++) {
+        _arr[p_index][i] = p_vector[i];
+    }
+}
+
 Vector Matrix::col(int p_index) {
     double data[_rows];
 
@@ -192,6 +198,13 @@ Vector Matrix::col(int p_index) {
 
     return Vector(_rows, data);
 }
+
+void Matrix::setCol(int p_index, Vector p_vector) {
+    for (int i = 0; i < _rows; i++) {
+        _arr[i][p_index] = p_vector[i];
+    }
+}
+
 
 Matrix Matrix::Value(int p_rows, int p_cols, double p_value) {
     return Matrix(p_rows, p_cols, VALUE, p_value);

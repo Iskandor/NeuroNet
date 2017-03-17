@@ -15,7 +15,7 @@ void sampleSOM() {
     dataset.load("../data/wine.dat", config);
     dataset.normalize();
 
-    SOM somNetwork(4, 8, 8, NeuralGroup::SIGMOID);
+    SOM somNetwork(13, 8, 8, NeuralGroup::SIGMOID);
     double epochs = 1000;
     somNetwork.initTraining(0.01, epochs);
 

@@ -36,7 +36,7 @@ void MSOM::updateWeights() {
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, GAUSSIAN);
         Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
-        deltaW.row(i) = theta * _gamma1 * (_input - wi);
+        deltaW.setRow(i, theta * _gamma1 * (_input - wi));
     }
     (*getConnection("input", "lattice")->getWeights()) += deltaW;
 
@@ -46,7 +46,7 @@ void MSOM::updateWeights() {
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, GAUSSIAN);
         Vector ci = getConnection("context", "lattice")->getWeights()->row(i);
-        deltaC.row(i) = theta * _gamma2 * (*ct - ci);
+        deltaC.setRow(i, theta * _gamma2 * (*ct - ci));
     }
 
     (*getConnection("context", "lattice")->getWeights()) += deltaC;

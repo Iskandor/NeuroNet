@@ -54,7 +54,9 @@ public:
     Matrix ew_dot(const Matrix &p_matrix);
 
     Vector row(int p_index);
+    void setRow(int p_index, Vector p_vector);
     Vector col(int p_index);
+    void setCol(int p_index, Vector p_vector);
 
     inline double *operator [] ( int p_index ) { return _arr[p_index]; };
 

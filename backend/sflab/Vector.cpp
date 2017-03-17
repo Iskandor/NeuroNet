@@ -98,7 +98,7 @@ Vector Vector::operator+(const Vector &p_vector) {
         return Vector(res);
     }
 
-    return Vector(0);
+    return Vector();
 }
 
 Vector Vector::operator-(const Vector &p_vector) {
@@ -106,7 +106,7 @@ Vector Vector::operator-(const Vector &p_vector) {
         Vector res(_rows);
 
         for (int i = 0; i < _rows; i++) {
-            res._arr[i][0] = _arr[i][0] + p_vector._arr[i][0];
+            res._arr[i][0] = _arr[i][0] - p_vector._arr[i][0];
         }
 
         return Vector(res);
@@ -115,13 +115,13 @@ Vector Vector::operator-(const Vector &p_vector) {
         Vector res(_cols);
 
         for (int i = 0; i < _cols; i++) {
-            res._arr[0][i] = _arr[0][i] + p_vector._arr[0][i];
+            res._arr[0][i] = _arr[0][i] - p_vector._arr[0][i];
         }
 
         return Vector(res);
     }
 
-    return Vector(0);
+    return Vector();
 }
 
 Matrix Vector::operator*(const Vector &p_vector) {

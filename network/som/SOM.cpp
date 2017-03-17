@@ -55,8 +55,10 @@ void SOM::updateWeights() {
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, NEIGHBORHOOD_TYPE::GAUSSIAN);
         Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
-        delta.row(i) = theta * _alpha * (_input - wi);
+        delta.setRow(i, theta * _alpha * (_input - wi));
     }
+
+    //cout << delta << endl;
 
     (*getConnection("input", "lattice")->getWeights()) += delta;
 }
