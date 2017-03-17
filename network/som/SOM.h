@@ -24,8 +24,8 @@ public:
     SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction);
     virtual ~SOM(void);
 
-    virtual void train(double *p_input);
-    virtual void activate(VectorXd *p_input) override;
+    virtual void train(Vector *p_input);
+    virtual void activate(Vector *p_input) override;
     virtual void initTraining(double p_alpha, double p_epochs);
     virtual void paramDecay();
 
@@ -39,7 +39,7 @@ protected:
     virtual void findWinner();
     virtual double calcDistance(int p_index);
     double calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type);
-    double vectorDistance(VectorXd* p_v1, VectorXd* p_v2);
+    double vectorDistance(Vector* p_v1, Vector* p_v2);
     double euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2);
     double gaussianDistance(int p_d, double p_sigma = 1);
 

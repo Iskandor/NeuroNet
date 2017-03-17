@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace NeuroNet {
+namespace SFLAB {
 
 class RandomGenerator {
 public:

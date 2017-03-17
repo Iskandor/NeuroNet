@@ -16,12 +16,11 @@ SARSA::~SARSA() {
 
 }
 
-double SARSA::train(VectorXd *p_state0, int p_action0, VectorXd *p_state1, int p_action1, double p_reward) {
+double SARSA::train(Vector *p_state0, int p_action0, Vector *p_state1, int p_action1, double p_reward) {
     double mse = 0;
-    VectorXd target = VectorXd::Zero(_network->getOutput()->size());
 
     _network->activate(p_state0);
-    target = _network->getOutput()->replicate(1,1);
+    Vector target = Vector(*_network->getOutput());
     _network->activate(p_state1);
     target[p_action0] = p_reward + _gamma * (*_network->getOutput())[p_action1];
 

@@ -11,12 +11,12 @@ namespace NeuroNet {
 
 class NormalizationFilter : public IFilter {
 public:
-  NormalizationFilter(VectorXd* p_limit);
+  NormalizationFilter(Vector* p_limit);
   ~NormalizationFilter();
 
-  VectorXd& process(VectorXd* p_input);
+  Vector& process(Vector* p_input);
 private:
-  VectorXd _limit;
+  Vector _limit;
 };
 
 }

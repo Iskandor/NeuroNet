@@ -16,15 +16,15 @@ public:
     RMSProp(NeuralNetwork *p_network, double p_cacheDecay = 0.9, double p_epsilon = 1e-8, const GRADIENT &p_gradient = GRADIENT::REGULAR);
     ~RMSProp();
 
-    double train(VectorXd *p_input, VectorXd* p_target);
+    double train(Vector *p_input, Vector* p_target);
 
 protected:
     void updateWeights(Connection* p_connection);
 
 protected:
     double  _cacheDecay;
-    map<int, MatrixXd> _eps;
-    map<int, MatrixXd> _gradientCache;
+    map<int, Matrix> _eps;
+    map<int, Matrix> _gradientCache;
 };
 
 }

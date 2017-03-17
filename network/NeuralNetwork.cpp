@@ -30,7 +30,7 @@ void NeuralNetwork::onLoop() {
     /* transport information through the recurrent connections*/
     for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
         recConnection = it->second;
-        VectorXd* signal = recConnection->getInGroup()->getOutput();
+        Vector* signal = recConnection->getInGroup()->getOutput();
         if (signal != nullptr) {
             recConnection->getOutGroup()->processInput(*signal);
             recConnection->getOutGroup()->integrate(signal, recConnection->getWeights());
@@ -52,7 +52,7 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
         /* generate output if it is possible */
         inGroup = _connections[*it]->getInGroup();
 
-        VectorXd* signal = inGroup->getOutput();
+        Vector* signal = inGroup->getOutput();
         if (signal != nullptr) {
             p_node->processInput(*signal);
             p_node->integrate(signal, _connections[*it]->getWeights());
@@ -75,14 +75,14 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
     switch(p_type) {
         case INPUT:
             _inputGroup = group;
-            _input.resize(group->getDim());
-            /* initialize input weights to unitary matrix */
-            _inputWeights = MatrixXd::Identity(group->getDim(), group->getDim());
+            _input = Vector::Zero(group->getDim());
+            /* initialize input weights to identity matrix */
+            _inputWeights = Matrix::Identity(group->getDim(), group->getDim());
             break;
 
         case OUTPUT:
             _outputGroup = group;
-            _output.resize(group->getDim());
+            _output = Vector::Zero(group->getDim());
             break;
         case HIDDEN:
             break;
@@ -126,7 +126,7 @@ Connection* NeuralNetwork::getConnection(string p_inGroupId, string p_outGroupId
     return result;
 }
 
-void NeuralNetwork::activate(VectorXd *p_input) {
+void NeuralNetwork::activate(Vector *p_input) {
     setInput(p_input);
     onLoop();
 }
@@ -134,8 +134,7 @@ void NeuralNetwork::activate(VectorXd *p_input) {
 Connection *NeuralNetwork::addRecConnection(NeuralGroup *p_inGroup, NeuralGroup *p_outGroup) {
     Connection* connection = new Connection(_connectionId, p_inGroup, p_outGroup);
 
-    MatrixXd* weights = new MatrixXd(p_outGroup->getDim(), p_inGroup->getDim());
-    weights->setIdentity();
+    Matrix* weights = new Matrix(p_outGroup->getDim(), p_inGroup->getDim(), Matrix::IDENTITY);
     connection->init(weights);
     _recConnections[_connectionId] = connection;
     _connectionId++;
@@ -151,7 +150,7 @@ void NeuralNetwork::resetContext() {
     Connection* recConnection;
     for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
         recConnection = it->second;
-        VectorXd zero = VectorXd::Zero(recConnection->getOutGroup()->getDim());
+        Vector zero = Vector::Zero(recConnection->getOutGroup()->getDim());
         recConnection->getOutGroup()->integrate(&zero, recConnection->getWeights());
         recConnection->getOutGroup()->fire();
     }

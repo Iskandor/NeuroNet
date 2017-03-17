@@ -41,7 +41,6 @@ set(SOURCE_FILES
         algorithm/optimizer/BackProp.h
         network/Connection.h
         network/Define.h
-        algorithm/IEnvironment.h
         network/NeuralGroup.h
         network/NeuralNetwork.h
         algorithm/optimizer/BackProp.cpp
@@ -56,8 +55,6 @@ set(SOURCE_FILES
         algorithm/rl/QLearning.cpp
         algorithm/rl/QLearning.h
         samples/sampleMazeRL.cpp
-        samples/LunarLander.cpp
-        samples/LunarLander.h
         network/som/SOM.cpp
         network/som/SOM.h
         network/som/MSOM.cpp
@@ -78,18 +75,14 @@ set(SOURCE_FILES
         network/filters/KwtaFilter.h
         algorithm/LearningAlgorithm.cpp
         algorithm/LearningAlgorithm.h
-        network/RandomGenerator.cpp
-        network/RandomGenerator.h
+        backend/sflab/RandomGenerator.cpp
+        backend/sflab/RandomGenerator.h
         dataset/SequenceDataset.cpp
         dataset/SequenceDataset.h
         samples/sampleMSOM.cpp
         network/som/RecSOM.cpp
         network/som/RecSOM.h
         network/json.hpp
-		samples/PoleCart.cpp
-		samples/PoleCart.h
-		samples/MountainCar.cpp
-		samples/MountainCar.h
         algorithm/rec/RTRL.cpp
         algorithm/rec/RTRL.h
         environments/Environment.cpp
@@ -111,7 +104,11 @@ set(SOURCE_FILES
         algorithm/rl/SARSA.cpp
         algorithm/rl/SARSA.h
         algorithm/rl/ActorLearning.cpp
-        algorithm/rl/ActorLearning.h backend/sflab/Vector.cpp backend/sflab/Vector.h backend/sflab/Base.cpp backend/sflab/Base.h)
+        algorithm/rl/ActorLearning.h
+        backend/sflab/Vector.cpp
+        backend/sflab/Vector.h
+        backend/sflab/Base.cpp
+        backend/sflab/Base.h)
 
 add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)

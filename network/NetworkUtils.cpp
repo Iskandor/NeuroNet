@@ -18,12 +18,12 @@ int NetworkUtils::kroneckerDelta(int p_i, int p_j) {
     return p_i == p_j ? 1 : 0;
 }
 
-void NetworkUtils::binaryEncoding(double p_value, VectorXd *p_vector) {
+void NetworkUtils::binaryEncoding(double p_value, Vector *p_vector) {
     p_vector->fill(0);
     (*p_vector)[p_value] = 1;
 }
 
-void NetworkUtils::gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, VectorXd *p_vector) {
+void NetworkUtils::gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, Vector *p_vector) {
     double index = p_value * p_populationDim / (p_upperLimit - p_lowerLimit);
     double sigma = 0.5;
 
@@ -105,13 +105,13 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
 
-            MatrixXd *weights = new MatrixXd(network->getGroup(connection["outgroup"])->getDim(),
+            Matrix *weights = new Matrix(network->getGroup(connection["outgroup"])->getDim(),
                                              network->getGroup(connection["ingroup"])->getDim());
             vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)(i, j) = stod(weightsRaw[i * weights->cols() + j]);
+                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
                 }
             }
 
@@ -135,13 +135,13 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
 
-            MatrixXd *weights = new MatrixXd(recSOM->getGroup(connection["outgroup"])->getDim(),
+            Matrix *weights = new Matrix(recSOM->getGroup(connection["outgroup"])->getDim(),
                                              recSOM->getGroup(connection["ingroup"])->getDim());
             vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)(i, j) = stod(weightsRaw[i * weights->cols() + j]);
+                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
                 }
             }
 
@@ -165,13 +165,13 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
         for (json::iterator it = data["connections"].begin(); it != data["connections"].end(); ++it) {
             json connection = it.value();
 
-            MatrixXd *weights = new MatrixXd(mSOM->getGroup(connection["outgroup"])->getDim(),
+            Matrix *weights = new Matrix(mSOM->getGroup(connection["outgroup"])->getDim(),
                                              mSOM->getGroup(connection["ingroup"])->getDim());
             vector<string> weightsRaw = StringUtils::split(connection["weights"], '|');
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)(i, j) = stod(weightsRaw[i * weights->cols() + j]);
+                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
                 }
             }
 

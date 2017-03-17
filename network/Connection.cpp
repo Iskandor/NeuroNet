@@ -1,7 +1,7 @@
 #include <random>
 #include "Connection.h"
 #include "NetworkUtils.h"
-#include "RandomGenerator.h"
+#include "../backend/sflab/RandomGenerator.h"
 
 using namespace NeuroNet;
 
@@ -17,7 +17,7 @@ Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup
         _inDim = p_outGroup->getDim();
     }
     _outDim = p_outGroup->getDim();
-    _weights = new MatrixXd(_outDim, _inDim);
+    _weights = new Matrix(_outDim, _inDim);
 }
 
 Connection::~Connection(void)
@@ -30,13 +30,13 @@ void Connection::init(double p_density, double p_inhibition) const {
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
           if (RandomGenerator::getInstance().random() < p_density) {
-              (*_weights)(i, j) =  RandomGenerator::getInstance().random() * 0.1;
+              (*_weights)[i][j] =  RandomGenerator::getInstance().random() * 0.1;
               if (RandomGenerator::getInstance().random() < p_inhibition) {
-                  (*_weights)(i, j) *= -1;
+                  (*_weights)[i][j] *= -1;
               }
           }
           else {
-              (*_weights)(i, j) = 0;
+              (*_weights)[i][j] = 0;
           }
       }
     }
@@ -56,7 +56,7 @@ void Connection::init(Connection::INIT p_init, double p_limit) {
     }
 }
 
-void Connection::init(MatrixXd *p_weights) {
+void Connection::init(Matrix *p_weights) {
     _weights = p_weights;
 }
 
@@ -65,7 +65,7 @@ json Connection::getFileData() {
 
     for(int i = 0; i < _outDim; i++) {
         for (int j = 0; j < _inDim; j++) {
-            weights += to_string((*_weights)(i, j));
+            weights += to_string((*_weights)[i][j]);
             weights += "|";
         }
     }
@@ -76,7 +76,8 @@ json Connection::getFileData() {
 void Connection::uniform(double p_limit) {
     for(int i = 0; i < _outDim; i++) {
         for (int j = 0; j < _inDim; j++) {
-            (*_weights)(i, j) = RandomGenerator::getInstance().random(-p_limit, p_limit);
+            (*_weights)[i][j] = RandomGenerator::getInstance().random(-p_limit, p_limit);
+            //(*_weights)[i][j] = 0;
         }
     }
 }

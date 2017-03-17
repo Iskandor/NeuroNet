@@ -15,7 +15,7 @@ public:
     SARSA(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma);
     ~SARSA();
 
-    double train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, int p_action1, double p_reward);
+    double train(Vector* p_state0, int p_action0, Vector* p_state1, int p_action1, double p_reward);
 
     void setAlpha(double p_alpha);
     void setBatchSize(int p_batchSize);

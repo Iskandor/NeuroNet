@@ -6,6 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include "Matrix.h"
+#include "RandomGenerator.h"
 
 using namespace SFLAB;
 
@@ -40,7 +41,7 @@ void Matrix::init(INIT p_init, double p_value) {
         case RANDOM:
             for(int i = 0; i < _rows; i++) {
                 for(int j = 0; j < _cols; j++) {
-                    _arr[i][j] = ((double) rand() / (RAND_MAX)) + 1;
+                    _arr[i][j] = RandomGenerator::getInstance().random(-1, 1);
                 }
             }
             break;

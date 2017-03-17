@@ -9,7 +9,6 @@
 #include "../log/log.h"
 #include "../algorithm/rl/QLearning.h"
 #include "../network/NetworkUtils.h"
-#include "../network/RandomGenerator.h"
 
 #include "MazeTask.h"
 #include "../algorithm/optimizer/RMSProp.h"
@@ -17,12 +16,13 @@
 #include "../algorithm/optimizer/ADAM.h"
 #include "../algorithm/rl/ActorLearning.h"
 #include "../algorithm/optimizer/BackProp.h"
+#include "../backend/sflab/RandomGenerator.h"
 
 using namespace NeuroNet;
 
-VectorXd encodeState(vector<int> *p_sensors) {
-    VectorXd res(64);
-    VectorXd encoded(4);
+Vector encodeState(vector<int> *p_sensors) {
+    Vector res(64);
+    Vector encoded(4);
 
     for(unsigned int i = 0; i < p_sensors->size(); i++) {
         if (p_sensors->at(i) > 0) {
@@ -37,10 +37,10 @@ VectorXd encodeState(vector<int> *p_sensors) {
         }
     }
 
-    return VectorXd(res);
+    return Vector(res);
 }
 
-int chooseAction(VectorXd* p_input, double epsilon) {
+int chooseAction(Vector* p_input, double epsilon) {
 
     int action = 0;
     double random = RandomGenerator::getInstance().random();
@@ -83,7 +83,7 @@ void sampleQ() {
     //agent.setBatchSize(10);
 
     vector<int> sensors;
-    VectorXd state0, state1;
+    Vector state0, state1;
     int action;
     double reward = 0;
     double epsilon = 1;
@@ -122,7 +122,7 @@ void sampleQ() {
             loses++;
         }
 
-        cout << maze->toString() << endl;
+        //cout << maze->toString() << endl;
         cout << wins << " / " << loses << endl;
         //FILE_LOG(logDEBUG1) << (double)wins / (double)loses;
 
@@ -157,7 +157,7 @@ void sampleSARSA() {
     //agent.setBatchSize(10);
 
     vector<int> sensors;
-    VectorXd state0, state1;
+    Vector state0, state1;
     int action0, action1;
     double reward = 0;
     double epsilon = 1;
@@ -199,7 +199,7 @@ void sampleSARSA() {
             loses++;
         }
 
-        cout << maze->toString() << endl;
+        //cout << maze->toString() << endl;
         cout << wins << " / " << loses << endl;
         FILE_LOG(logDEBUG1) << wins << " " << loses;
 
@@ -250,7 +250,7 @@ void sampleAC() {
 
 
     vector<int> sensors;
-    VectorXd state0, state1;
+    Vector state0, state1;
     int action0;
     double reward = 0;
     double value0, value1;
@@ -296,7 +296,7 @@ void sampleAC() {
             loses++;
         }
 
-        cout << maze->toString() << endl;
+        //cout << maze->toString() << endl;
         cout << wins << " / " << loses << endl;
         FILE_LOG(logDEBUG1) << wins << " " << loses;
 

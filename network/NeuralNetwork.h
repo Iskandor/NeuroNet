@@ -27,8 +27,8 @@ namespace NeuroNet {
         Connection* addRecConnection(string p_inGroupId, string p_outGroupId);
 
         bool running() const { return _running; };
-        VectorXd* getOutput() { return &_output; };
-        double getScalarOutput() const { return _output[0]; };
+        Vector* getOutput() { return &_output; };
+        //double getScalarOutput() const { return _output[0]; };
 
         map<string, NeuralGroup*>* getGroups() { return &_groups; };
         map<int, Connection*>* getConnections() { return &_connections; };
@@ -38,11 +38,11 @@ namespace NeuroNet {
         NeuralGroup* getGroup(string p_id) { return _groups[p_id];};
         NeuralGroup* getOutputGroup() { return _outputGroup;};
 
-        void setInput(VectorXd *p_input) { _input = *p_input; };
+        void setInput(Vector *p_input) { _input = *p_input; };
         void setInput(double *p_input);
         void onLoop();
         virtual void resetContext();
-        virtual void activate(VectorXd *p_input);
+        virtual void activate(Vector *p_input);
 
         virtual json getFileData();
 
@@ -59,9 +59,9 @@ namespace NeuroNet {
         map<int, Connection*> _connections;
         map<int, Connection*> _recConnections;
 
-        MatrixXd _inputWeights;
-        VectorXd _input;
-        VectorXd _output;
+        Matrix _inputWeights;
+        Vector _input;
+        Vector _output;
 
         bool _running;
     };

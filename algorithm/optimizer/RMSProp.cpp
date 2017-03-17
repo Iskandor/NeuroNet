@@ -15,10 +15,8 @@ RMSProp::RMSProp(NeuralNetwork *p_network, double p_cacheDecay, double p_epsilon
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         nRows = it->second->getOutGroup()->getDim();
         nCols = it->second->getInGroup()->getDim();
-        _gradientCache[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _eps[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _eps[it->second->getId()].setOnes();
-        _eps[it->second->getId()] *= p_epsilon;
+        _gradientCache[it->second->getId()] = Matrix::Zero(nRows, nCols);
+        _eps[it->second->getId()] = Matrix::Value(nRows, nCols, p_epsilon);
     }
 }
 
@@ -26,7 +24,7 @@ RMSProp::~RMSProp() {
 
 }
 
-double RMSProp::train(VectorXd *p_input, VectorXd *p_target) {
+double RMSProp::train(Vector *p_input, Vector *p_target) {
     double mse = 0;
 
     // forward activation phase
@@ -54,20 +52,20 @@ double RMSProp::train(VectorXd *p_input, VectorXd *p_target) {
 
 void RMSProp::updateWeights(Connection *p_connection) {
 
-    MatrixXd matrix1 = (1 - _cacheDecay) * (*_gradient)[p_connection->getId()].cwiseProduct((*_gradient)[p_connection->getId()]);
+    Matrix matrix1 = (1 - _cacheDecay) * (*_gradient)[p_connection->getId()].ew_pow(2);
     _gradientCache[p_connection->getId()] = _cacheDecay * _gradientCache[p_connection->getId()] + matrix1;
 
-    MatrixXd matrix2 = _gradientCache[p_connection->getId()].cwiseSqrt();
-    MatrixXd matrix3 = matrix2 + _eps[p_connection->getId()];
-    MatrixXd matrix4 = matrix3.cwiseInverse();
+    Matrix matrix2 = _gradientCache[p_connection->getId()].ew_sqrt();
+    Matrix matrix3 = matrix2 + _eps[p_connection->getId()];
+    Matrix matrix4 = matrix3.inv();
 
     if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()].cwiseProduct(matrix4);
+        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()].ew_dot(matrix4);
         (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
     }
     else {
         if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()].cwiseProduct(matrix4);
+            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()].ew_dot(matrix4);
             _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
         }
         else {

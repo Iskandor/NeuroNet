@@ -4,7 +4,7 @@
 
 #include "RandomGenerator.h"
 
-using namespace NeuroNet;
+using namespace SFLAB;
 
 RandomGenerator::RandomGenerator() {
   _mt.seed(_rd());

@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <assert.h>
 #include "Dataset.h"
 #include "StringUtils.h"
 
@@ -55,8 +56,8 @@ void Dataset::parseLine(string p_line, string p_delim) {
         }
     }
 
-    VectorXd sample(_config.inDim);
-    VectorXd target(_config.targetDim);
+    Vector sample(_config.inDim);
+    Vector target(_config.targetDim);
 
     for(int i = 0; i < _config.inDim; i++) {
         sample[i] = stod(tokens[i]);
@@ -66,11 +67,11 @@ void Dataset::parseLine(string p_line, string p_delim) {
         target[i] = stod(targets[i]);
     }
 
-    _buffer.push_back(pair<VectorXd, VectorXd>(sample, target));
+    _buffer.push_back(pair<Vector, Vector>(sample, target));
 }
 
 void Dataset::normalize() {
-    VectorXd max = VectorXd::Zero(_config.inDim);
+    Vector max = Vector::Zero(_config.inDim);
 
     for(int i = 0; i < _buffer.size(); i++) {
         for(int j = 0; j < _config.inDim; j++) {

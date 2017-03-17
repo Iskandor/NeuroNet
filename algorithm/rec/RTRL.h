@@ -22,7 +22,7 @@ class RTRL : public GradientDescent {
     void updateWeights(Connection* p_connection);
     void updateDerivs(Connection* p_connection);
 
-    map<int, MatrixXd>  _derivs;
+    map<int, Matrix>  _derivs;
 };
 
 }

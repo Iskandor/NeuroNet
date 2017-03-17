@@ -14,20 +14,19 @@ QLearning::QLearning(Optimizer *p_optimizer, NeuralNetwork *p_network, double p_
 
     /*
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); it++) {
-        _eligTrace[it->second->getId()] = MatrixXd::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
+        _eligTrace[it->second->getId()] = Matrix::Zero(it->second->getOutGroup()->getDim(), it->second->getInGroup()->getDim());
     }
     */
 }
 
-double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward) {
+double QLearning::train(Vector* p_state0, int p_action0, Vector* p_state1, double p_reward) {
     double mse = 0;
     double maxQs1a = calcMaxQa(p_state1);
-    VectorXd target = VectorXd::Zero(_network->getOutput()->size());
 
     // updating phase for Q(s,a)
     _network->activate(p_state0);
 
-    target = _network->getOutput()->replicate(1,1);
+    Vector target = Vector(*_network->getOutput());
     target[p_action0] = p_reward + _gamma * maxQs1a;
 
     mse = _optimizer->train(p_state0, &target);
@@ -35,7 +34,7 @@ double QLearning::train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, d
     return mse;
 }
 
-double QLearning::calcMaxQa(VectorXd* p_state) {
+double QLearning::calcMaxQa(Vector* p_state) {
     double maxQa = -INFINITY;
 
     _network->activate(p_state);

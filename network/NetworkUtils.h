@@ -5,10 +5,8 @@
 #ifndef NEURONET_NETWORKUTILS_H
 #define NEURONET_NETWORKUTILS_H
 
-#include <Eigen/Dense>
 #include "NeuralNetwork.h"
 
-using namespace Eigen;
 using namespace std;
 
 namespace NeuroNet {
@@ -21,8 +19,8 @@ public:
     static void saveNetwork(string p_filename, NeuralNetwork *p_network);
     static NeuralNetwork* loadNetwork(string p_filename);
 
-    static void binaryEncoding(double p_value, VectorXd* p_vector);
-    static void gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, VectorXd* p_vector);
+    static void binaryEncoding(double p_value, Vector* p_vector);
+    static void gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, Vector* p_vector);
     static int kroneckerDelta(int p_i, int p_j);
 
     template <typename T>

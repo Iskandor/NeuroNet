@@ -22,7 +22,7 @@ void sampleSOM() {
     for(int t = 0; t < epochs; t++) {
         dataset.permute();
         for(int i = 0; i < dataset.getData()->size(); i++) {
-            somNetwork.train(dataset.getData()->at(i).first.data());
+            somNetwork.train(&dataset.getData()->at(i).first);
         }
         cout << "qError: " << somNetwork.getError() << " WD: " << somNetwork.getWinnerDifferentiation() << endl;
         somNetwork.paramDecay();

@@ -5,9 +5,9 @@
 #ifndef NEURONET_IFILTER_H
 #define NEURONET_IFILTER_H
 
-#include <Eigen/Dense>
+#include "../../backend/sflab/Vector.h"
 
-using namespace Eigen;
+using namespace SFLAB;
 
 namespace NeuroNet {
 
@@ -16,9 +16,9 @@ public:
     IFilter() {};
     ~IFilter() {};
 
-    virtual VectorXd& process(VectorXd* p_input) = 0;
+    virtual Vector& process(Vector* p_input) = 0;
 protected:
-    VectorXd _output;
+    Vector _output;
 };
 
 }

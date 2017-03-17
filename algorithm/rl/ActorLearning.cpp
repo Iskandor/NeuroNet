@@ -17,12 +17,11 @@ ActorLearning::~ActorLearning() {
 
 }
 
-double ActorLearning::train(VectorXd* p_state0, int p_action, double p_value0, double p_value1, double p_reward) {
+double ActorLearning::train(Vector* p_state0, int p_action, double p_value0, double p_value1, double p_reward) {
     double mse = 0;
-    VectorXd target = VectorXd::Zero(_network->getOutput()->size());
 
     _network->activate(p_state0);
-    target = _network->getOutput()->replicate(1,1);
+    Vector target = Vector(*_network->getOutput());
     target[p_action] = p_reward + _gamma * p_value1 - p_value0;
 
     mse = _optimizer->train(p_state0, &target);

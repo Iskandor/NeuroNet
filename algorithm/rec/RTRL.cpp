@@ -10,7 +10,7 @@ RTRL::RTRL(NeuralNetwork *p_network) : GradientDescent(p_network) {
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         int nRows = it->second->getInGroup()->getDim();
         int nCols = it->second->getOutGroup()->getDim();
-        _derivs[it->first] = MatrixXd::Zero(nCols, nRows);
+        _derivs[it->first] = Matrix::Zero(nCols, nRows);
     }
 }
 

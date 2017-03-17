@@ -11,7 +11,7 @@ Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &
     _network = p_network;
     _naturalEpsilon = 1e-3;
     _weightDecay = p_weightDecay;
-    _error = VectorXd::Zero(p_network->getOutput()->size());
+    _error = Vector::Zero(p_network->getOutput()->size());
 
     int nCols;
     int nRows;
@@ -19,12 +19,12 @@ Optimizer::Optimizer(NeuralNetwork *p_network, const GradientDescent::GRADIENT &
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         nRows = it->second->getOutGroup()->getDim();
         nCols = it->second->getInGroup()->getDim();
-        _weightDelta[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _biasDelta[it->second->getId()] = VectorXd::Zero(nRows);
+        _weightDelta[it->second->getId()] = Matrix::Zero(nRows, nCols);
+        _biasDelta[it->second->getId()] = Vector::Zero(nRows);
     }
 }
 
-double Optimizer::calcMse(VectorXd *p_target) {
+double Optimizer::calcMse(Vector *p_target) {
     double mse = 0;
     // calc MSE
     for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
@@ -45,7 +45,7 @@ void Optimizer::weightDecay(Connection *p_connection) {
     *p_connection->getWeights() *= (1 - _weightDecay);
 }
 
-void Optimizer::calcGradient(VectorXd* p_error) {
+void Optimizer::calcGradient(Vector* p_error) {
     switch(_gradType) {
         case GRADIENT::REGULAR:
             _gradient = calcRegGradient(p_error);

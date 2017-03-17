@@ -15,13 +15,13 @@ class Optimizer : public GradientDescent {
 public:
     Optimizer(NeuralNetwork *p_network, const GRADIENT &p_gradient = GRADIENT::REGULAR, double p_weightDecay = 0);
 
-    virtual double train(VectorXd *p_input, VectorXd* p_target) = 0;
+    virtual double train(Vector *p_input, Vector* p_target) = 0;
 
 protected:
     virtual void updateWeights(Connection* p_connection) = 0;
 
-    void    calcGradient(VectorXd* p_error);
-    double  calcMse(VectorXd *p_target);
+    void    calcGradient(Vector* p_error);
+    double  calcMse(Vector *p_target);
 
     void update(NeuralGroup* p_node);
     void weightDecay(Connection* p_connection);
@@ -30,11 +30,11 @@ protected:
     GRADIENT _gradType;
     double   _naturalEpsilon;
 
-    map<int, MatrixXd> *_gradient;
-    map<int, MatrixXd> _weightDelta;
-    map<int, VectorXd> _biasDelta;
+    map<int, Matrix> *_gradient;
+    map<int, Matrix> _weightDelta;
+    map<int, Vector> _biasDelta;
     double             _weightDecay;
-    VectorXd _error;
+    Vector _error;
 };
 
 }

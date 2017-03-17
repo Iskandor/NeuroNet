@@ -12,13 +12,13 @@ public:
     BackProp(NeuralNetwork* p_network, double p_weightDecay = 0, double p_momentum = 0, bool p_nesterov = false, const GRADIENT &p_gradient = GRADIENT::REGULAR);
     virtual ~BackProp(void);
 
-    double train(VectorXd *p_input, VectorXd* p_target);
+    double train(Vector *p_input, Vector* p_target);
 
 protected:
     void updateWeights(Connection* p_connection);
 
 private:
-    map<int, MatrixXd> _v;
+    map<int, Matrix> _v;
 
     double  _momentum;
     bool    _nesterov;

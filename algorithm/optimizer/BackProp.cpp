@@ -13,14 +13,14 @@ BackProp::BackProp(NeuralNetwork* p_network, double p_weightDecay, double p_mome
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         nRows = it->second->getOutGroup()->getDim();
         nCols = it->second->getInGroup()->getDim();
-        _v[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
+        _v[it->second->getId()] = Matrix::Zero(nRows, nCols);
     }
 }
 
 BackProp::~BackProp(void) {
 }
 
-double BackProp::train(VectorXd *p_input, VectorXd* p_target) {
+double BackProp::train(Vector *p_input, Vector* p_target) {
     double mse = 0;
     
     // forward activation phase
@@ -51,13 +51,12 @@ void BackProp::updateWeights(Connection* p_connection) {
     v = mu * v - learning_rate * dx # integrate velocity
     x += v # integrate position
     */
-
-    MatrixXd v_prev;
-
     int id = p_connection->getId();
 
+    Matrix v_prev;
+
     if (_nesterov) {
-        v_prev = _v[id].replicate(1,1);
+        v_prev = Matrix(_v[id]);
     }
 
     _v[id] = _momentum * _v[id] + _alpha * (*_gradient)[id];
@@ -74,7 +73,6 @@ void BackProp::updateWeights(Connection* p_connection) {
     else {
         (*p_connection->getWeights()) += _v[id];
     }
-
     (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
 
 }

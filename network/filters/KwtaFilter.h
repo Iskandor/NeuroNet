@@ -15,7 +15,7 @@ public:
     KwtaFilter(int p_k, bool p_binaryVector = false);
     ~KwtaFilter();
 
-    VectorXd& process(VectorXd* p_input);
+    Vector& process(Vector* p_input);
 
 private:
     int _k;

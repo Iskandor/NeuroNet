@@ -3,6 +3,7 @@
 //
 
 #include "Vector.h"
+#include "RandomGenerator.h"
 #include <random>
 
 using namespace SFLAB;
@@ -46,7 +47,7 @@ void Vector::init(INIT p_init, double p_value) {
             break;
         case RANDOM:
             for(int i = 0; i < _rows; i++) {
-                _arr[i][0] = ((double) rand() / (RAND_MAX)) + 1;
+                _arr[i][0] = RandomGenerator::getInstance().random(-1, 1);
             }
             break;
     }

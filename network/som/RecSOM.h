@@ -16,8 +16,8 @@ public:
     RecSOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFunction);
     ~RecSOM();
 
-    void train(double *p_input) override ;
-    void activate(VectorXd *p_input) override;
+    void train(Vector *p_input) override ;
+    void activate(Vector *p_input) override;
 
     void initTraining(double p_gamma1, double p_gamma2, double p_alpha, double p_beta, double p_epochs);
     void initTraining(double p_alpha, double p_epochs) override;

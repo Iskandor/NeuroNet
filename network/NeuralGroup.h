@@ -1,12 +1,12 @@
 #pragma once
 
 #include <vector>
-#include <Eigen/Dense>
 #include "filters/IFilter.h"
 #include "json.hpp"
+#include "../backend/sflab/Vector.h"
 
 using namespace std;
-using namespace Eigen;
+using namespace SFLAB;
 using json = nlohmann::json;
 
 namespace NeuroNet {
@@ -32,17 +32,17 @@ public:
 
 
     void fire();
-    void integrate(VectorXd* p_input, MatrixXd* p_weights, bool p_bias = true);
+    void integrate(Vector* p_input, Matrix* p_weights, bool p_bias = true);
     void activate();
     void calcDerivs();
 
     string getId() const { return _id; };
     int getDim() const { return _dim; };
 
-    void setOutput(VectorXd* p_output);
-    VectorXd* getOutput() { return &_output; };
-    MatrixXd* getDerivs() { return &_derivs; };
-    VectorXd* getBias() { return &_bias; };
+    void setOutput(Vector* p_output);
+    Vector* getOutput() { return &_output; };
+    Matrix* getDerivs() { return &_derivs; };
+    Vector* getBias() { return &_bias; };
 
     void addOutConnection(int p_index);
     void addInConnection(int p_index);
@@ -51,8 +51,8 @@ public:
 
     void addInFilter(IFilter* p_filter);
     void addOutFilter(IFilter* p_filter);
-    VectorXd& processInput(VectorXd& p_input);
-    VectorXd& processOutput(VectorXd& p_output);
+    Vector& processInput(Vector& p_input);
+    Vector& processOutput(Vector& p_output);
 
     bool isValid() const { return _valid; };
     void invalidate() { _valid = false; };
@@ -68,10 +68,10 @@ private:
     ACTIVATION _activationFunction;
     bool    _valid;
 
-    VectorXd _output;
-    MatrixXd _derivs;
-    VectorXd _ap;
-    VectorXd _bias;
+    Vector _output;
+    Matrix _derivs;
+    Vector _ap;
+    Vector _bias;
 
     vector<int> _inConnections;
     int _outConnection;

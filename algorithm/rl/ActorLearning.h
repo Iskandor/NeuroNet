@@ -15,7 +15,7 @@ public:
     ActorLearning(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma = 0.9);
     ~ActorLearning();
 
-    double train(VectorXd* p_state0, int p_action, double p_value0, double p_value1, double p_reward);
+    double train(Vector* p_state0, int p_action, double p_value0, double p_value1, double p_reward);
 
     void setAlpha(double p_alpha);
     void setBatchSize(int p_batchSize);

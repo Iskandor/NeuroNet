@@ -23,7 +23,7 @@ SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFu
 SOM::~SOM(void) {
 }
 
-void SOM::train(double *p_input) {
+void SOM::train(Vector *p_input) {
     setInput(p_input);
     onLoop();
 
@@ -49,19 +49,19 @@ void SOM::findWinner() {
 }
 
 void SOM::updateWeights() {
-    MatrixXd delta(getGroup("lattice")->getDim(), getGroup("input")->getDim());
+    Matrix delta(getGroup("lattice")->getDim(), getGroup("input")->getDim());
     double theta = 0;
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, NEIGHBORHOOD_TYPE::GAUSSIAN);
-        VectorXd wi = getConnection("input", "lattice")->getWeights()->row(i);
+        Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
         delta.row(i) = theta * _alpha * (_input - wi);
     }
 
     (*getConnection("input", "lattice")->getWeights()) += delta;
 }
 
-void SOM::activate(VectorXd *p_input) {
+void SOM::activate(Vector *p_input) {
     double neuronDist = 0;
     _winner = 0;
 
@@ -82,7 +82,7 @@ void SOM::activate(VectorXd *p_input) {
 }
 
 double SOM::calcDistance(int p_index) {
-    VectorXd row = getConnection("input", "lattice")->getWeights()->row(p_index);
+    Vector row = getConnection("input", "lattice")->getWeights()->row(p_index);
 
     return vectorDistance(&_input, &row);
 }
@@ -137,8 +137,8 @@ double SOM::getWinnerDifferentiation() {
     return (double)_winnerSet.size()/ (double)getGroup("lattice")->getDim();
 }
 
-double SOM::vectorDistance(VectorXd *p_v1, VectorXd *p_v2) {
-    VectorXd diffVector = *p_v1 - *p_v2;
+double SOM::vectorDistance(Vector *p_v1, Vector *p_v2) {
+    Vector diffVector = *p_v1 - *p_v2;
 
     return diffVector.norm();
 }

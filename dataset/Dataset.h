@@ -5,12 +5,12 @@
 #ifndef LIBNEURONET_DATASET_H
 #define LIBNEURONET_DATASET_H
 
-#include <Eigen/Dense>
 #include <vector>
 #include "DatasetConfig.h"
+#include "../backend/sflab/Vector.h"
 
 using namespace std;
-using namespace Eigen;
+using namespace SFLAB;
 
 namespace NeuroNet {
 
@@ -22,13 +22,13 @@ public:
     void load(string p_filename, DatasetConfig p_format);
     void normalize();
 
-    vector<pair<VectorXd, VectorXd>>* getData() { return &_buffer; };
+    vector<pair<Vector, Vector>>* getData() { return &_buffer; };
     void permute();
 protected:
     virtual void parseLine(string p_line, string p_delim);
 private:
     DatasetConfig _config;
-    vector<pair<VectorXd, VectorXd>> _buffer;
+    vector<pair<Vector, Vector>> _buffer;
 };
 
 }

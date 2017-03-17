@@ -16,7 +16,7 @@ MSOM::~MSOM() {
 
 }
 
-void MSOM::train(double *p_input) {
+void MSOM::train(Vector *p_input) {
     setInput(p_input);
     onLoop();
 
@@ -25,27 +25,27 @@ void MSOM::train(double *p_input) {
     updateContext();
 }
 
-void MSOM::activate(VectorXd *p_input) {
+void MSOM::activate(Vector *p_input) {
     SOM::activate(p_input);
 }
 
 void MSOM::updateWeights() {
-    MatrixXd deltaW(getGroup("lattice")->getDim(), getGroup("input")->getDim());
+    Matrix deltaW(getGroup("lattice")->getDim(), getGroup("input")->getDim());
     double theta = 0;
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, GAUSSIAN);
-        VectorXd wi = getConnection("input", "lattice")->getWeights()->row(i);
+        Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
         deltaW.row(i) = theta * _gamma1 * (_input - wi);
     }
     (*getConnection("input", "lattice")->getWeights()) += deltaW;
 
-    MatrixXd deltaC(getGroup("lattice")->getDim(), getGroup("context")->getDim());
-    VectorXd* ct = getGroup("context")->getOutput();
+    Matrix deltaC(getGroup("lattice")->getDim(), getGroup("context")->getDim());
+    Vector* ct = getGroup("context")->getOutput();
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         theta = calcNeighborhood(i, GAUSSIAN);
-        VectorXd ci = getConnection("context", "lattice")->getWeights()->row(i);
+        Vector ci = getConnection("context", "lattice")->getWeights()->row(i);
         deltaC.row(i) = theta * _gamma2 * (*ct - ci);
     }
 
@@ -54,21 +54,21 @@ void MSOM::updateWeights() {
 
 void MSOM::updateContext() {
     NeuralGroup* context = getGroup("context");
-    VectorXd ct = VectorXd::Zero(context->getDim());
-    MatrixXd unitary = MatrixXd::Identity(context->getDim(), context->getDim());
+    Vector ct = Vector::Zero(context->getDim());
+    Matrix unitary = Matrix::Identity(context->getDim(), context->getDim());
 
-    VectorXd wIt = getConnection("input", "lattice")->getWeights()->row(_winner);
-    VectorXd cIt = getConnection("context", "lattice")->getWeights()->row(_winner);
+    Vector wIt = getConnection("input", "lattice")->getWeights()->row(_winner);
+    Vector cIt = getConnection("context", "lattice")->getWeights()->row(_winner);
 
     ct = (1 - _beta) * wIt + _beta * cIt;
     cIt = ct;
 }
 
 double MSOM::calcDistance(int p_index) {
-    VectorXd xi = getConnection("input", "lattice")->getWeights()->row(p_index);
-    VectorXd ci = getConnection("context", "lattice")->getWeights()->row(p_index);
-    VectorXd* xt = getGroup("input")->getOutput();
-    VectorXd* ct = getGroup("context")->getOutput();
+    Vector xi = getConnection("input", "lattice")->getWeights()->row(p_index);
+    Vector ci = getConnection("context", "lattice")->getWeights()->row(p_index);
+    Vector* xt = getGroup("input")->getOutput();
+    Vector* ct = getGroup("context")->getOutput();
 
     double dt = (1 - _alpha) * pow(vectorDistance(xt, &xi), 2) + _alpha * pow(vectorDistance(ct, &ci),2);
     return dt;

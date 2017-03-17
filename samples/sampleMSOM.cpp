@@ -24,7 +24,7 @@ void sampleMSOM() {
 
     for(int t = 0; t < epochs; t++) {
         for(int i = 0; i < dataset.getData()->size(); i++) {
-            msom.train(dataset.getData()->at(i).first.data());
+            msom.train(&dataset.getData()->at(i).first);
         }
         cout << "qError: " << msom.getError() << " WD: " << msom.getWinnerDifferentiation() << endl;
         msom.paramDecay();

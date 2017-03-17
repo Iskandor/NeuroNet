@@ -17,11 +17,9 @@ ADAM::ADAM(NeuralNetwork *p_network, double p_beta1, double p_beta2, double p_ep
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         nRows = it->second->getOutGroup()->getDim();
         nCols = it->second->getInGroup()->getDim();
-        _m[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _v[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _eps[it->second->getId()] = MatrixXd::Zero(nRows, nCols);
-        _eps[it->second->getId()].setOnes();
-        _eps[it->second->getId()] *= p_epsilon;
+        _m[it->second->getId()] = Matrix::Zero(nRows, nCols);
+        _v[it->second->getId()] = Matrix::Zero(nRows, nCols);
+        _eps[it->second->getId()] = Matrix::Value(nRows, nCols, p_epsilon);
     }
 }
 
@@ -29,7 +27,7 @@ ADAM::~ADAM() {
 
 }
 
-double ADAM::train(VectorXd *p_input, VectorXd *p_target) {
+double ADAM::train(Vector *p_input, Vector *p_target) {
     double mse = 0;
 
     // forward activation phase
@@ -63,21 +61,21 @@ void ADAM::updateWeights(Connection *p_connection) {
     */
 
     int id = p_connection->getId();
-    MatrixXd gpow2 = (*_gradient)[id].cwiseProduct((*_gradient)[id]);
+    Matrix gpow2 = (*_gradient)[id].ew_pow(2);
 
     _m[id] = _beta1 * _m[id] + (1 - _beta1) * (*_gradient)[id];
     _v[id] = _beta2 * _v[id] + (1 - _beta2) * gpow2;
 
-    MatrixXd vsqrt = _v[id].cwiseSqrt();
-    MatrixXd gdiv = (vsqrt + _eps[id]).cwiseInverse();
+    Matrix vsqrt = _v[id].ew_sqrt();
+    Matrix gdiv = (vsqrt + _eps[id]).inv();
 
     if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * _m[id].cwiseProduct(gdiv);
+        (*p_connection->getWeights()) += _alpha * _m[id].ew_dot(gdiv);
         (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
     }
     else {
         if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * _m[id].cwiseProduct(gdiv);
+            _weightDelta[p_connection->getId()] += _alpha * _m[id].ew_dot(gdiv);
             _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
         }
         else {

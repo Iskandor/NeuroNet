@@ -16,14 +16,14 @@ public:
     QLearning(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma, double p_lambda);
     ~QLearning();
 
-    double train(VectorXd* p_state0, int p_action0, VectorXd* p_state1, double p_reward);
+    double train(Vector* p_state0, int p_action0, Vector* p_state1, double p_reward);
 
     void setAlpha(double p_alpha);
     void setBatchSize(int p_batchSize);
 
 private:
     //void updateEligTrace(Connection* p_connection);
-    double calcMaxQa(VectorXd* p_state);
+    double calcMaxQa(Vector* p_state);
 
 private:
     NeuralNetwork*  _network;
@@ -33,7 +33,7 @@ private:
 
     Optimizer* _optimizer;
 
-    map<int, MatrixXd> _eligTrace;
+    map<int, Matrix> _eligTrace;
 };
 
 }

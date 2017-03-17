@@ -14,16 +14,16 @@ public:
     ADAM(NeuralNetwork *p_network, double p_beta1 = .9, double p_beta2 = .999, double p_epsilon = 1e-8, const GRADIENT &p_gradient = REGULAR);
     ~ADAM();
 
-    double train(VectorXd *p_input, VectorXd* p_target);
+    double train(Vector *p_input, Vector* p_target);
 
 protected:
     void updateWeights(Connection* p_connection);
 
 private:
     double _beta1, _beta2;
-    map<int, MatrixXd> _eps;
-    map<int, MatrixXd> _m;
-    map<int, MatrixXd> _v;
+    map<int, Matrix> _eps;
+    map<int, Matrix> _m;
+    map<int, Matrix> _v;
 };
 
 }

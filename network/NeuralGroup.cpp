@@ -18,10 +18,11 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction
     _activationFunction = p_activationFunction;
     _outConnection = -1;
 
-    _output = VectorXd::Zero(_dim);
-    _ap = VectorXd::Zero(_dim);
-    _bias = VectorXd::Random(_dim);
-    _derivs = MatrixXd::Zero(_dim, _dim);
+    _output = Vector::Zero(_dim);
+    _ap = Vector::Zero(_dim);
+    _bias = Vector::Random(_dim);
+    //_bias = Vector::Zero(_dim);
+    _derivs = Matrix::Zero(_dim, _dim);
     _valid = false;
 }
 
@@ -69,7 +70,7 @@ void NeuralGroup::addOutConnection(int p_index) {
  * @param p_input vector of input values
  * @param p_weights matrix of input connection params
  */
-void NeuralGroup::integrate(VectorXd* p_input, MatrixXd* p_weights, bool p_bias) {
+void NeuralGroup::integrate(Vector* p_input, Matrix* p_weights, bool p_bias) {
     if (p_bias) {
         _ap += (*p_weights) * (*p_input) + _bias;
     }
@@ -86,7 +87,7 @@ void NeuralGroup::activate() {
         switch (_activationFunction) {
             case IDENTITY:
             case LINEAR:
-                _output[index] = _ap(index);
+                _output[index] = _ap[index];
                 _ap[index] = 0;
                 break;
             case BINARY:
@@ -136,33 +137,33 @@ void NeuralGroup::calcDerivs() {
         case IDENTITY:
         case BINARY:
         case LINEAR:
-            _derivs = MatrixXd::Identity(_dim, _dim);
+            _derivs = Matrix::Identity(_dim, _dim);
             break;
         case SIGMOID:
             for(int i = 0; i < _dim; i++) {
-                _derivs(i,i) = _output[i] * (1 - _output[i]);
+                _derivs[i][i] = _output[i] * (1 - _output[i]);
             }
             break;
         case TANH:
             for(int i = 0; i < _dim; i++) {
-                _derivs(i,i) = (1 - pow(_output[i], 2));
+                _derivs[i][i] = (1 - pow(_output[i], 2));
             }
             break;
         case SOFTMAX:
             for(int i = 0; i < _dim; i++) {
                 for(int j = 0; j < _dim; j++) {
-                    _derivs(i,j) = _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]);
+                    _derivs[i][j] = _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]);
                 }
             }
             break;
         case SOFTPLUS:
             for(int i = 0; i < _dim; i++) {
-                _derivs(i,i) = 1 / (1 + exp(-_output[i]));
+                _derivs[i][i] = 1 / (1 + exp(-_output[i]));
             }
             break;
         case RELU:
             for(int i = 0; i < _dim; i++) {
-                _derivs(i,i) = (_output[i] > 0) ? 1 : 0;
+                _derivs[i][i] = (_output[i] > 0) ? 1 : 0;
             }
             break;
     }
@@ -186,7 +187,7 @@ void NeuralGroup::addOutFilter(IFilter *p_filter) {
  * the input is being processed through input filter queue
  * @param p_input reference to input which is processed
  */
-VectorXd &NeuralGroup::processInput(VectorXd &p_input) {
+Vector &NeuralGroup::processInput(Vector &p_input) {
     for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
         p_input = (*it)->process(&p_input);
     }
@@ -197,7 +198,7 @@ VectorXd &NeuralGroup::processInput(VectorXd &p_input) {
  * the output is being processed through output filter queue
  * @param p_output reference to input which is processed
  */
-VectorXd &NeuralGroup::processOutput(VectorXd &p_output) {
+Vector &NeuralGroup::processOutput(Vector &p_output) {
     for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
         p_output = (*it)->process(&p_output);
     }
@@ -208,6 +209,6 @@ json NeuralGroup::getFileData() {
     return json({{"dim", _dim}, {"actfn", _activationFunction}});
 }
 
-void NeuralGroup::setOutput(VectorXd *p_output) {
-    _output = p_output->replicate(1,1);
+void NeuralGroup::setOutput(Vector *p_output) {
+    _output = Vector(*p_output);
 }
