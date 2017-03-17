@@ -64,8 +64,7 @@ Vector Vector::T() {
             res._arr[0][i] = _arr[i][0];
         }
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         res._rows = _cols;
         res._cols = 1;
         res.internal_init();
@@ -88,8 +87,7 @@ Vector Vector::operator+(const Vector &p_vector) {
 
         return Vector(res);
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         Vector res(_cols);
 
         for(int i = 0; i < _cols; i++) {
@@ -112,8 +110,7 @@ Vector Vector::operator-(const Vector &p_vector) {
 
         return Vector(res);
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         Vector res(_cols);
 
         for (int i = 0; i < _cols; i++) {
@@ -148,8 +145,7 @@ Vector Vector::operator*(const double p_const) {
 
         return Vector(res);
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         Vector res(_cols);
 
         for (int i = 0; i < _cols; i++) {
@@ -167,8 +163,7 @@ double &Vector::operator[](int p_index) {
     if (_cols == 1) {
         res = &_arr[p_index][0];
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         res = &_arr[0][p_index];
     }
 
@@ -191,8 +186,7 @@ void Vector::operator+=(const Vector &p_vector) {
             _arr[i][0] = _arr[i][0] + p_vector._arr[i][0];
         }
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         for(int i = 0; i < _cols; i++) {
             _arr[0][i] = _arr[0][i] + p_vector._arr[0][i];
         }
@@ -205,8 +199,7 @@ void Vector::operator-=(const Vector &p_vector) {
             _arr[i][0] = _arr[i][0] - p_vector._arr[i][0];
         }
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         for(int i = 0; i < _cols; i++) {
             _arr[0][i] = _arr[0][i] - p_vector._arr[0][i];
         }
@@ -221,8 +214,7 @@ double Vector::norm() {
             res += pow(_arr[i][0], 2);
         }
     }
-
-    if (_rows == 1) {
+    else if (_rows == 1) {
         for (int i = 0; i < _cols; i++) {
             res += pow(_arr[0][i], 2);
         }

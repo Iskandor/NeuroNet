@@ -40,7 +40,7 @@ public:
 
         for(int i = 0; i < p_matrix._rows; i++) {
             for(int j = 0; j < p_matrix._cols; j++) {
-                res._arr[i][j] *= p_const;
+                res._arr[i][j] = p_const * p_matrix._arr[i][j];
             }
         }
 

@@ -66,7 +66,7 @@ Matrix Matrix::operator+(const Matrix &p_matrix) {
 void Matrix::operator+=(const Matrix &p_matrix) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            _arr[i][j] = _arr[i][j] + p_matrix._arr[i][j];
+            _arr[i][j] += p_matrix._arr[i][j];
         }
     }
 }
@@ -86,7 +86,7 @@ Matrix Matrix::operator-(const Matrix &p_matrix) {
 void Matrix::operator-=(const Matrix &p_matrix) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            _arr[i][j] = _arr[i][j] - p_matrix._arr[i][j];
+            _arr[i][j] -= _arr[i][j] - p_matrix._arr[i][j];
         }
     }
 }
@@ -97,7 +97,7 @@ Matrix Matrix::operator*(const Matrix &p_matrix) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < p_matrix._cols; j++) {
             for(int k = 0; k < _cols; k++) {
-                res._arr[j][i] += _arr[i][k] * p_matrix._arr[k][j];
+                res._arr[i][j] += _arr[i][k] * p_matrix._arr[k][j];
             }
         }
     }

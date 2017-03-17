@@ -43,8 +43,7 @@ public:
 
             return Vector(res);
         }
-
-        if (p_vector._rows == 1) {
+        else if (p_vector._rows == 1) {
             Vector res(p_vector._cols);
 
             for (int i = 0; i < p_vector._cols; i++) {
