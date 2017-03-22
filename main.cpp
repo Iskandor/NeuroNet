@@ -1,12 +1,13 @@
 ﻿#include <iostream>
 #include <ctime>
-#include <Eigen/Dense>
+#include <c++/iomanip>
 #include "samples/samples.h"
 #include "backend/sflab/Matrix.h"
+#include "environments/cartpole/rk4.hpp"
 
 using namespace std;
 using namespace SFLAB;
-using namespace Eigen;
+
 
 int main(int argc, char* argv[])
 {
@@ -44,13 +45,14 @@ int main(int argc, char* argv[])
     std::cout<<"printf: "<< duration <<'\n';
     */
 
-
     //sampleBP();
     //sampleSOM();
     //sampleMSOM();
     //sampleQ();
     //sampleSARSA();
-    sampleAC();
+    //sampleAC();
+    //sampleALE();
+    sampleContinuousRL();
 
     system("pause");
     return 0;

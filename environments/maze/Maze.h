@@ -19,8 +19,8 @@ public:
     Maze(int* p_topology, unsigned int p_mazeX, unsigned int p_mazeY, int p_goal);
     ~Maze();
 
-    vector<int> getSensors();
-    void performAction(int p_action);
+    vector<double> getSensors();
+    void performAction(double p_action);
     void reset();
 
     string toString();

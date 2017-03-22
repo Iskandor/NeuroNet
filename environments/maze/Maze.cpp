@@ -61,9 +61,9 @@ int Maze::moveInDir(int p_x, int p_y) {
     return _actor + p_y * _mazeX + p_x;
 }
 
-void Maze::performAction(int p_action) {
+void Maze::performAction(double p_action) {
     //cout << _actions[p_action].Id() << endl;
-    int newPos = moveInDir(_actions[p_action].X(), _actions[p_action].Y());
+    int newPos = moveInDir(_actions[(int)p_action].X(), _actions[(int)p_action].Y());
 
     if (newPos < 0 || newPos > _mazeTable.size()) {
         _bang = true;
@@ -83,7 +83,7 @@ void Maze::performAction(int p_action) {
     }
 }
 
-vector<int> Maze::getSensors() {
+vector<double> Maze::getSensors() {
     /*
     vector<int> res(_numActions, 0);
     int obs;
@@ -95,7 +95,7 @@ vector<int> Maze::getSensors() {
         }
     }
     */
-    vector<int> res(_mazeTable.size(), 0);
+    vector<double> res(_mazeTable.size(), 0);
 
     for(int i = 0; i < _mazeTable.size(); i++) {
         res[i] = _mazeTable[i];
@@ -104,7 +104,7 @@ vector<int> Maze::getSensors() {
     res[_actor] = 3;
     res[_goal] = 4;
 
-    return vector<int>(res);
+    return vector<double>(res);
 }
 
 string Maze::toString() {

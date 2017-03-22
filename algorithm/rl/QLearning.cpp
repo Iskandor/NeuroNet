@@ -54,9 +54,6 @@ void QLearning::updateEligTrace(Connection* p_connection) {
 */
 
 QLearning::~QLearning() {
-    if (_optimizer != nullptr) {
-        //delete _optimizer;
-    }
 }
 
 

@@ -11,5 +11,7 @@ void sampleAC();
 void sampleBP();
 void sampleSOM();
 void sampleMSOM();
+void sampleALE();
+void sampleContinuousRL();
 
 #endif //NEURONET_SAMPLES_H

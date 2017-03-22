@@ -20,7 +20,7 @@
 
 using namespace NeuroNet;
 
-Vector encodeState(vector<int> *p_sensors) {
+Vector encodeState(vector<double> *p_sensors) {
     Vector res(64);
     Vector encoded(4);
 
@@ -82,7 +82,7 @@ void sampleQ() {
     agent.setAlpha(0.001);
     //agent.setBatchSize(10);
 
-    vector<int> sensors;
+    vector<double> sensors;
     Vector state0, state1;
     int action;
     double reward = 0;
@@ -156,7 +156,7 @@ void sampleSARSA() {
     agent.setAlpha(0.001);
     //agent.setBatchSize(10);
 
-    vector<int> sensors;
+    vector<double> sensors;
     Vector state0, state1;
     int action0, action1;
     double reward = 0;
@@ -249,7 +249,7 @@ void sampleAC() {
     actor.setAlpha(0.1);
 
 
-    vector<int> sensors;
+    vector<double> sensors;
     Vector state0, state1;
     int action0;
     double reward = 0;

@@ -16,8 +16,8 @@ public:
     Environment();
     virtual ~Environment();
 
-    virtual vector<int> getSensors() = 0;
-    virtual void performAction(int p_action) = 0;
+    virtual vector<double> getSensors() = 0;
+    virtual void performAction(double p_action) = 0;
     virtual void reset() = 0;
 
 protected:
