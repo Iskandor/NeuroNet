@@ -5,13 +5,9 @@
 #ifndef NEURONET_SAMPLES_H
 #define NEURONET_SAMPLES_H
 
-void sampleQ();
-void sampleSARSA();
-void sampleAC();
 void sampleBP();
 void sampleSOM();
 void sampleMSOM();
 void sampleALE();
-void sampleContinuousRL();
 
 #endif //NEURONET_SAMPLES_H

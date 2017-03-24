@@ -4,6 +4,8 @@
 #include "samples/samples.h"
 #include "backend/sflab/Matrix.h"
 #include "environments/cartpole/rk4.hpp"
+#include "samples/sampleMazeRL.h"
+#include "samples/sampleCartPoleRL.h"
 
 using namespace std;
 using namespace SFLAB;
@@ -45,14 +47,18 @@ int main(int argc, char* argv[])
     std::cout<<"printf: "<< duration <<'\n';
     */
 
+    sampleMazeRL sample;
+    //sampleCartPoleRL sample;
+
     //sampleBP();
     //sampleSOM();
     //sampleMSOM();
-    //sampleQ();
+    //sample.sampleQ();
     //sampleSARSA();
     //sampleAC();
+    sample.sampleTD();
     //sampleALE();
-    sampleContinuousRL();
+    //sample.sampleCACLA();
 
     system("pause");
     return 0;

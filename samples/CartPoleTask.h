@@ -19,11 +19,17 @@ public:
     void reset();
 
     bool isFinished();
+    bool failed();
     double getReward();
 
     inline CartPole *getEnvironment() {
         return _cartPole;
     }
+
+    inline int getT() {
+        return _t;
+    }
+
 private:
     const double defautPenalty = -1;
     const double bangPenalty = -1;

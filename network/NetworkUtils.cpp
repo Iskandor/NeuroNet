@@ -23,12 +23,11 @@ void NetworkUtils::binaryEncoding(double p_value, Vector *p_vector) {
     (*p_vector)[p_value] = 1;
 }
 
-void NetworkUtils::gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, Vector *p_vector) {
-    double index = p_value * p_populationDim / (p_upperLimit - p_lowerLimit);
-    double sigma = 0.5;
+void NetworkUtils::gaussianEncoding(double p_value, double p_lowerLimit, double p_upperLimit, int p_populationDim, double p_variance, Vector *p_vector) {
+    double step = (p_upperLimit - p_lowerLimit) / p_populationDim;
 
     for(int i = 0; i < p_populationDim; i++) {
-        (*p_vector)[i] = exp(-pow(index - i,2) / 2 * sigma) / (sigma * sqrt(2*PI));
+        (*p_vector)[i] = exp(-pow(p_value - (p_lowerLimit + step * i),2) / 2 * p_variance) / (p_variance * sqrt(2*PI));
     }
 }
 

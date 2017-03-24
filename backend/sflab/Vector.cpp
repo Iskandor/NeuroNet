@@ -171,16 +171,6 @@ double &Vector::operator[](int p_index) {
     return *res;
 }
 
-Vector Vector::Zero(int p_dim) {
-    Vector res(p_dim);
-    return Vector(res);
-}
-
-Vector Vector::Random(int p_dim) {
-    Vector res(p_dim, RANDOM);
-    return Vector(res);
-}
-
 void Vector::operator+=(const Vector &p_vector) {
     if (_cols == 1) {
         for(int i = 0; i < _rows; i++) {
@@ -222,4 +212,32 @@ double Vector::norm() {
     }
 
     return sqrt(res);
+}
+
+Vector Vector::Zero(int p_dim) {
+    Vector res(p_dim);
+    return Vector(res);
+}
+
+Vector Vector::Random(int p_dim) {
+    Vector res(p_dim, RANDOM);
+    return Vector(res);
+}
+
+Vector Vector::Concat(Vector& p_vector1, Vector& p_vector2) {
+    Vector res(p_vector1.size() + p_vector2.size());
+
+    int index = 0;
+
+    for(int i = 0; i < p_vector1.size(); i++) {
+        res[index] = p_vector1[i];
+        index++;
+    }
+
+    for(int i = 0; i < p_vector2.size(); i++) {
+        res[index] = p_vector2[i];
+        index++;
+    }
+
+    return Vector(res);
 }

@@ -23,7 +23,6 @@ void CartPoleTask::run() {
     double action;
 
     for(int e = 0; e < 1000; e++) {
-        _t++;
         cout << e << endl;
         action = RandomGenerator::getInstance().random(-1, 1);
         cout << _cartPole->toString() << endl;
@@ -46,7 +45,7 @@ bool CartPoleTask::isFinished() {
     if (fabs(_cartPole->getCartPosition()) > 2.4) {
         res = true;
     }
-    if (_t > _maxT) {
+    if (_t >= _maxT) {
         res = true;
     }
 
@@ -56,6 +55,7 @@ bool CartPoleTask::isFinished() {
 double CartPoleTask::getReward() {
     double reward = 0;
 
+    _t++;
     if (_cartPole->getPoleAngle() < 0.05 && fabs(_cartPole->getCartPosition()) < 0.05) {
         reward = 0;
     }
@@ -63,8 +63,10 @@ double CartPoleTask::getReward() {
         reward = -2 * (_maxT - _t);
     }
     else {
-        reward = -1;
+        reward = -fabs(_cartPole->getCartPosition()) / 2;
     }
+
+
 
     return reward;
 }
@@ -72,4 +74,8 @@ double CartPoleTask::getReward() {
 void CartPoleTask::reset() {
     _t = 0;
     _cartPole->reset();
+}
+
+bool CartPoleTask::failed() {
+    return (_t < _maxT);
 }

@@ -20,7 +20,7 @@ public:
     void operator=(RandomGenerator const&)  = delete;
     ~RandomGenerator();
 
-    double normalRandom(double p_sigma);
+    double normalRandom(double p_mean = 0, double p_sigma = 1);
     int random(int p_lower, int p_upper);
     double random(double p_lower = 0, double p_upper = 1);
     vector<int> choice(vector<int>* p_array, int p_num = 1);

@@ -17,6 +17,7 @@ class Vector : public Base {
 public:
     static Vector Zero(int p_dim);
     static Vector Random(int p_dim);
+    static Vector Concat(Vector& p_vector1, Vector& p_vector2);
 
     Vector(int p_dim = 0, const INIT &p_init = ZERO, double p_value = 0);
     Vector(int p_dim, double* p_data);

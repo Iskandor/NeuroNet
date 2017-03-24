@@ -28,8 +28,8 @@ double RandomGenerator::random(double p_lower, double p_upper) {
   return distribution(_mt);
 }
 
-double RandomGenerator::normalRandom(double p_sigma) {
-  normal_distribution<double> distribution(0, p_sigma);
+double RandomGenerator::normalRandom(double p_mean, double p_sigma) {
+  normal_distribution<double> distribution(p_mean, p_sigma);
   return distribution(_mt);
 }
 
