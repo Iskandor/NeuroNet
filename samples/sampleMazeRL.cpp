@@ -19,6 +19,7 @@
 #include "../backend/sflab/RandomGenerator.h"
 #include "sampleMazeRL.h"
 #include "../algorithm/rl/TD.h"
+#include "../algorithm/optimizer/TDBP.h"
 
 using namespace NeuroNet;
 
@@ -101,9 +102,9 @@ void sampleMazeRL::sampleQ() {
 
     int wins = 0, loses = 0;
 
-    //FILE* pFile = fopen("application.log", "w");
-    //Output2FILE::Stream() = pFile;
-    //FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
+    FILE* pFile = fopen("application.log", "w");
+    Output2FILE::Stream() = pFile;
+    FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 
     for (int e = 0; e < epochs; e++) {
         cout << "Epoch " << e << endl;
@@ -134,7 +135,7 @@ void sampleMazeRL::sampleQ() {
 
         //cout << maze->toString() << endl;
         cout << wins << " / " << loses << endl;
-        //FILE_LOG(logDEBUG1) << (double)wins / (double)loses;
+        FILE_LOG(logDEBUG1) << wins << " " << loses;
 
 
         if (epsilon > 0.1) {
@@ -333,8 +334,8 @@ void sampleMazeRL::sampleTD() {
     nc.addConnection("hidden0", "hidden1");
     nc.addConnection("hidden1", "output");
 
-    ADAM optimizer_c(&nc);
-    //BackProp optimizer_c(&nc, 1e-6, 0.9, true);
+    //ADAM optimizer_c(&nc);
+    TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
     TD critic(&optimizer_c, &nc, 0.9);
     critic.setAlpha(0.1);
 
@@ -350,8 +351,8 @@ void sampleMazeRL::sampleTD() {
     na.addConnection("hidden0", "hidden1");
     na.addConnection("hidden1", "output");
 
-    ADAM optimizer_a(&na);
-    //BackProp optimizer_a(&nc, 1e-6, 0.9, true);
+    //ADAM optimizer_a(&na);
+    BackProp optimizer_a(&nc, 1e-6, 0.9, true);
     ActorLearning actor(&optimizer_a, &na);
     actor.setAlpha(0.1);
 

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <assert.h>
 #include "Matrix.h"
 #include "RandomGenerator.h"
 
@@ -54,6 +55,10 @@ void Matrix::operator=(const Matrix &p_matrix) {
 }
 
 Matrix Matrix::operator+(const Matrix &p_matrix) {
+    if (_rows != p_matrix._rows || _cols != p_matrix._cols) {
+        assert(_rows == p_matrix._rows && _cols == p_matrix._cols);
+    }
+
     Matrix res(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
@@ -65,6 +70,10 @@ Matrix Matrix::operator+(const Matrix &p_matrix) {
     return res;
 }
 void Matrix::operator+=(const Matrix &p_matrix) {
+    if (_rows != p_matrix._rows || _cols != p_matrix._cols) {
+        assert(_rows == p_matrix._rows && _cols == p_matrix._cols);
+    }
+
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
             _arr[i][j] += p_matrix._arr[i][j];
@@ -73,6 +82,10 @@ void Matrix::operator+=(const Matrix &p_matrix) {
 }
 
 Matrix Matrix::operator-(const Matrix &p_matrix) {
+    if (_rows != p_matrix._rows || _cols != p_matrix._cols) {
+        assert(_rows == p_matrix._rows && _cols == p_matrix._cols);
+    }
+
     Matrix res(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
@@ -85,6 +98,10 @@ Matrix Matrix::operator-(const Matrix &p_matrix) {
 }
 
 void Matrix::operator-=(const Matrix &p_matrix) {
+    if (_rows != p_matrix._rows || _cols != p_matrix._cols) {
+        assert(_rows == p_matrix._rows && _cols == p_matrix._cols);
+    }
+
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
             _arr[i][j] -= _arr[i][j] - p_matrix._arr[i][j];
@@ -93,6 +110,10 @@ void Matrix::operator-=(const Matrix &p_matrix) {
 }
 
 Matrix Matrix::operator*(const Matrix &p_matrix) {
+    if (_cols != p_matrix._rows) {
+        assert(_cols == p_matrix._rows);
+    }
+
     Matrix res(_rows, p_matrix._cols);
 
     for(int i = 0; i < _rows; i++) {
@@ -107,6 +128,10 @@ Matrix Matrix::operator*(const Matrix &p_matrix) {
 }
 
 Vector Matrix::operator*(Vector p_vector) {
+    if (_cols != p_vector.size()) {
+        assert(_cols == p_vector.size());
+    }
+
     Vector res(_rows);
 
     for(int i = 0; i < _rows; i++) {
@@ -163,20 +188,19 @@ Matrix Matrix::inv() {
 }
 
 Matrix Matrix::Zero(int p_rows, int p_cols) {
-    Matrix res(p_rows, p_cols, ZERO);
-    return Matrix(res);
+    return Matrix(p_rows, p_cols, ZERO);
 }
 
 Matrix Matrix::Random(int p_rows, int p_cols) {
-    Matrix res(p_rows, p_cols, RANDOM);
-
-    return Matrix(res);
+    return Matrix(p_rows, p_cols, RANDOM);
 }
 
 Matrix Matrix::Identity(int p_rows, int p_cols) {
-    Matrix res(p_rows, p_cols, IDENTITY);
+    return Matrix(p_rows, p_cols, IDENTITY);
+}
 
-    return Matrix(res);
+Matrix Matrix::Value(int p_rows, int p_cols, double p_value) {
+    return Matrix(p_rows, p_cols, VALUE, p_value);
 }
 
 Vector Matrix::row(int p_index) {
@@ -205,11 +229,6 @@ void Matrix::setCol(int p_index, Vector p_vector) {
     }
 }
 
-
-Matrix Matrix::Value(int p_rows, int p_cols, double p_value) {
-    return Matrix(p_rows, p_cols, VALUE, p_value);
-}
-
 Matrix Matrix::ew_sqrt() {
     Matrix res(_rows, _cols);
 
@@ -235,6 +254,10 @@ Matrix Matrix::ew_pow(int p_n) {
 }
 
 Matrix Matrix::ew_dot(const Matrix &p_matrix) {
+    if (_rows != p_matrix._rows || _cols != p_matrix._cols) {
+        assert(_rows == p_matrix._rows && _cols == p_matrix._cols);
+    }
+
     Matrix res(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {

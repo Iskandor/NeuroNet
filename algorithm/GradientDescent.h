@@ -29,7 +29,7 @@ protected:
 
     void groupTreeCreate();
 
-    map<int, Matrix>* calcRegGradient(Vector *p_error);
+    virtual map<int, Matrix>* calcRegGradient(Vector *p_error);
     map<int, Matrix>* calcNatGradient(double p_epsilon, Vector *p_error);
 
 

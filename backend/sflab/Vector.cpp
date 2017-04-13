@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "RandomGenerator.h"
 #include <random>
+#include <assert.h>
 
 using namespace SFLAB;
 
@@ -80,6 +81,9 @@ Vector Vector::T() {
 
 Vector Vector::operator+(const Vector &p_vector) {
     if (_cols == 1) {
+        if (_rows != p_vector._rows) {
+            assert(_rows == p_vector._rows);
+        }
         Vector res(_rows);
 
         for(int i = 0; i < _rows; i++) {
@@ -89,6 +93,9 @@ Vector Vector::operator+(const Vector &p_vector) {
         return Vector(res);
     }
     else if (_rows == 1) {
+        if (_cols != p_vector._cols) {
+            assert(_cols == p_vector._cols);
+        }
         Vector res(_cols);
 
         for(int i = 0; i < _cols; i++) {
@@ -103,6 +110,9 @@ Vector Vector::operator+(const Vector &p_vector) {
 
 Vector Vector::operator-(const Vector &p_vector) {
     if (_cols == 1) {
+        if (_rows != p_vector._rows) {
+            assert(_rows == p_vector._rows);
+        }
         Vector res(_rows);
 
         for (int i = 0; i < _rows; i++) {
@@ -112,6 +122,9 @@ Vector Vector::operator-(const Vector &p_vector) {
         return Vector(res);
     }
     else if (_rows == 1) {
+        if (_cols != p_vector._cols) {
+            assert(_cols == p_vector._cols);
+        }
         Vector res(_cols);
 
         for (int i = 0; i < _cols; i++) {
@@ -125,6 +138,10 @@ Vector Vector::operator-(const Vector &p_vector) {
 }
 
 Matrix Vector::operator*(const Vector &p_vector) {
+    if (_cols != p_vector._rows) {
+        assert(_cols == p_vector._rows);
+    }
+
     Matrix res(_rows, p_vector._cols);
 
     for(int i = 0; i < _rows; i++) {
@@ -162,10 +179,20 @@ Vector Vector::operator*(const double p_const) {
 double &Vector::operator[](int p_index) {
     double* res = nullptr;
     if (_cols == 1) {
-        res = &_arr[p_index][0];
+        if (p_index < _rows) {
+            res = &_arr[p_index][0];
+        }
+        else {
+            assert(p_index < _rows);
+        }
     }
     else if (_rows == 1) {
-        res = &_arr[0][p_index];
+        if (p_index < _cols) {
+            res = &_arr[0][p_index];
+        }
+        else {
+            assert(p_index < _cols );
+        }
     }
 
     return *res;
@@ -173,11 +200,17 @@ double &Vector::operator[](int p_index) {
 
 void Vector::operator+=(const Vector &p_vector) {
     if (_cols == 1) {
+        if (_rows != p_vector._rows) {
+            assert(_rows == p_vector._rows);
+        }
         for(int i = 0; i < _rows; i++) {
             _arr[i][0] = _arr[i][0] + p_vector._arr[i][0];
         }
     }
     else if (_rows == 1) {
+        if (_cols != p_vector._cols) {
+            assert(_cols == p_vector._cols);
+        }
         for(int i = 0; i < _cols; i++) {
             _arr[0][i] = _arr[0][i] + p_vector._arr[0][i];
         }
@@ -186,11 +219,17 @@ void Vector::operator+=(const Vector &p_vector) {
 
 void Vector::operator-=(const Vector &p_vector) {
     if (_cols == 1) {
+        if (_rows != p_vector._rows) {
+            assert(_rows == p_vector._rows);
+        }
         for(int i = 0; i < _rows; i++) {
             _arr[i][0] = _arr[i][0] - p_vector._arr[i][0];
         }
     }
     else if (_rows == 1) {
+        if (_cols != p_vector._cols) {
+            assert(_cols == p_vector._cols);
+        }
         for(int i = 0; i < _cols; i++) {
             _arr[0][i] = _arr[0][i] - p_vector._arr[0][i];
         }
@@ -225,6 +264,10 @@ Vector Vector::Random(int p_dim) {
 }
 
 Vector Vector::Concat(Vector& p_vector1, Vector& p_vector2) {
+    if (p_vector1._cols != p_vector2._cols || p_vector1._rows != p_vector2._rows) {
+        assert(p_vector1._cols == p_vector2._cols && p_vector1._rows == p_vector2._rows);
+    }
+
     Vector res(p_vector1.size() + p_vector2.size());
 
     int index = 0;
