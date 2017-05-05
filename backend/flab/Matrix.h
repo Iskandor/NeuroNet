@@ -9,7 +9,7 @@
 #include "Base.h"
 #include "Vector.h"
 
-namespace SFLAB {
+namespace FLAB {
 
 class Vector;
 
@@ -22,6 +22,7 @@ public:
 
     Matrix(int p_rows = 0, int p_cols = 0, INIT p_init = ZERO, double p_value = 0);
     Matrix(int p_rows, int p_cols, double* p_data);
+    Matrix(int p_rows, int p_cols, double** p_data);
     Matrix(int p_rows, int p_cols, std::initializer_list <double> p_inputs);
     Matrix(const Matrix& p_copy);
 

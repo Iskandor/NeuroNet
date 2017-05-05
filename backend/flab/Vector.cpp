@@ -6,7 +6,7 @@
 #include "RandomGenerator.h"
 #include <random>
 
-using namespace SFLAB;
+using namespace FLAB;
 
 
 Vector::Vector(int p_dim, double *p_data) : Base(p_dim, 1, p_data) {
@@ -22,6 +22,9 @@ Vector::Vector(int p_dim, const Base::INIT &p_init, double p_value) : Base(p_dim
 
 Vector::Vector(int p_rows, int p_cols, const INIT &p_init, double p_value) : Base(p_rows, p_cols) {
     init(p_init, p_value);
+}
+
+Vector::Vector(int p_rows, int p_cols, double **p_data) : Base(p_rows, p_cols, p_data) {
 }
 
 Vector::Vector(const Vector &p_copy) : Base(p_copy) {
@@ -54,109 +57,83 @@ void Vector::init(INIT p_init, double p_value) {
 }
 
 Vector Vector::T() {
-    Vector res(0);
+    double** data = Base::allocBuffer(_cols, _rows);
 
     if (_cols == 1) {
-        res._rows = 1;
-        res._cols = _rows;
-        res.internal_init();
-
         for(int i = 0; i < _rows; i++) {
-            res._arr[0][i] = _arr[i][0];
+            data[0][i] = _arr[i][0];
         }
     }
     else if (_rows == 1) {
-        res._rows = _cols;
-        res._cols = 1;
-        res.internal_init();
-
         for(int i = 0; i < _cols; i++) {
-            res._arr[i][0] = _arr[0][i];
+            data[i][0] = _arr[0][i];
         }
     }
 
-    return Vector(res);
+    return Vector(_cols, _rows, data);
 }
 
 Vector Vector::operator+(const Vector &p_vector) {
+    double** data = Base::allocBuffer(_rows, _cols);
+
     if (_cols == 1) {
-        Vector res(_rows);
-
         for(int i = 0; i < _rows; i++) {
-            res._arr[i][0] = _arr[i][0] + p_vector._arr[i][0];
+            data[i][0] = _arr[i][0] + p_vector._arr[i][0];
         }
-
-        return Vector(res);
     }
     else if (_rows == 1) {
-        Vector res(_cols);
-
         for(int i = 0; i < _cols; i++) {
-            res._arr[0][i] = _arr[0][i] + p_vector._arr[0][i];
+            data[0][i] = _arr[0][i] + p_vector._arr[0][i];
         }
-
-        return Vector(res);
     }
 
-    return Vector();
+    return Vector(_rows, _cols, data);
 }
 
 Vector Vector::operator-(const Vector &p_vector) {
+    double** data = Base::allocBuffer(_rows, _cols);
+
     if (_cols == 1) {
-        Vector res(_rows);
-
         for (int i = 0; i < _rows; i++) {
-            res._arr[i][0] = _arr[i][0] - p_vector._arr[i][0];
+            data[i][0] = _arr[i][0] - p_vector._arr[i][0];
         }
-
-        return Vector(res);
     }
     else if (_rows == 1) {
-        Vector res(_cols);
-
         for (int i = 0; i < _cols; i++) {
-            res._arr[0][i] = _arr[0][i] - p_vector._arr[0][i];
+            data[0][i] = _arr[0][i] - p_vector._arr[0][i];
         }
-
-        return Vector(res);
     }
 
-    return Vector();
+    return Vector(_rows, _cols, data);
 }
 
 Matrix Vector::operator*(const Vector &p_vector) {
-    Matrix res(_rows, p_vector._cols);
+    double** data = Base::allocBuffer(_rows, p_vector._cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < p_vector._cols; j++) {
-            res[i][j] = _arr[i][0] * p_vector._arr[0][j];
+            data[i][j] = _arr[i][0] * p_vector._arr[0][j];
         }
     }
 
-    return Matrix(res);
+    return Matrix(_rows, p_vector._cols, data);
 }
 
 Vector Vector::operator*(const double p_const) {
+    double** data = Base::allocBuffer(_rows, _cols);
+
     if (_cols == 1) {
-        Vector res(_rows);
-
         for (int i = 0; i < _rows; i++) {
-            res._arr[i][0] = _arr[i][0] * p_const;
+            data[i][0] = _arr[i][0] * p_const;
         }
-
-        return Vector(res);
     }
     else if (_rows == 1) {
-        Vector res(_cols);
-
         for (int i = 0; i < _cols; i++) {
-            res._arr[0][i] = _arr[0][i] * p_const;
+            data[0][i] = _arr[0][i] * p_const;
         }
-
-        return Vector(res);
     }
 
-    return Vector(0);
+    return Vector(_rows, _cols, data);
 }
 
 double &Vector::operator[](int p_index) {
@@ -197,6 +174,19 @@ void Vector::operator-=(const Vector &p_vector) {
     }
 }
 
+void Vector::operator*=(const double p_const) {
+    if (_cols == 1) {
+        for(int i = 0; i < _rows; i++) {
+            _arr[i][0] *= p_const;
+        }
+    }
+    else if (_rows == 1) {
+        for(int i = 0; i < _cols; i++) {
+            _arr[0][i] *= p_const;
+        }
+    }
+}
+
 double Vector::norm() {
     double res = 0;
 
@@ -211,17 +201,19 @@ double Vector::norm() {
         }
     }
 
-    return sqrt(res);
+    return (double) sqrt(res);
 }
 
 Vector Vector::Zero(int p_dim) {
-    Vector res(p_dim);
-    return Vector(res);
+    return Vector(p_dim);
 }
 
 Vector Vector::Random(int p_dim) {
-    Vector res(p_dim, RANDOM);
-    return Vector(res);
+    return Vector(p_dim, RANDOM);
+}
+
+Vector Vector::One(int p_dim) {
+    return Vector(p_dim, ONES);
 }
 
 Vector Vector::Concat(Vector& p_vector1, Vector& p_vector2) {

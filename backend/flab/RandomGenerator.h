@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace SFLAB {
+namespace FLAB {
 
 class RandomGenerator {
 public:

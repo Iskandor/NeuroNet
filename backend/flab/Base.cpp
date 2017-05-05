@@ -2,9 +2,11 @@
 // Created by mpechac on 15. 3. 2017.
 //
 
+#include <stdlib.h>
+#include <malloc.h>
 #include "Base.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 
 Base::Base(int p_rows, int p_cols) {
     _rows = p_rows;
@@ -16,6 +18,15 @@ Base::Base(int p_rows, int p_cols) {
 }
 
 Base::Base(int p_rows, int p_cols, double *p_data) {
+    _rows = p_rows;
+    _cols = p_cols;
+
+    if (_rows != 0 && _cols != 0) {
+        internal_init(p_data);
+    }
+}
+
+Base::Base(int p_rows, int p_cols, double **p_data) {
     _rows = p_rows;
     _cols = p_cols;
 
@@ -92,6 +103,10 @@ void Base::internal_init(double *p_data) {
     }
 }
 
+void Base::internal_init(double **p_data) {
+    _arr = p_data;
+}
+
 void Base::internal_init(initializer_list<double> p_inputs) {
     _arr = (double**)calloc((size_t) (_rows), sizeof(double*));
 
@@ -111,6 +126,16 @@ void Base::internal_init(initializer_list<double> p_inputs) {
         }
     }
 
+}
+
+double** Base::allocBuffer(int p_rows, int p_cols) {
+    double **p_data = (double**)calloc((size_t) (p_rows), sizeof(double*));
+
+    for(int i = 0; i < p_rows; i++) {
+        p_data[i] = (double*)calloc((size_t) (p_cols), sizeof(double));
+    }
+
+    return p_data;
 }
 
 double Base::maxCoeff() {

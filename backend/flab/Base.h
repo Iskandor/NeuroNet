@@ -2,14 +2,14 @@
 // Created by mpechac on 15. 3. 2017.
 //
 
-#ifndef NEURONET_SFLAB_BASE_H
-#define NEURONET_SFLAB_BASE_H
+#ifndef NEURONET_FLAB_BASE_H
+#define NEURONET_FLAB_BASE_H
 
 #include <iostream>
 
 using namespace std;
 
-namespace SFLAB {
+namespace FLAB {
 
 class Base {
 public:
@@ -23,6 +23,7 @@ public:
 
     Base(int p_rows = 0, int p_cols = 0);
     Base(int p_rows, int p_cols, double* p_data);
+    Base(int p_rows, int p_cols, double** p_data);
     Base(int p_rows, int p_cols, initializer_list <double> p_inputs);
     Base(const Base &p_copy);
 
@@ -52,9 +53,11 @@ public:
     inline int cols() { return _cols; };
 
 protected:
+    static double** allocBuffer(int p_rows, int p_cols);
     virtual void init(INIT p_init, double p_value) = 0;
     void clone(const Base &p_copy);
     void internal_init(double *p_data = NULL);
+    void internal_init(double **p_data);
     void internal_init(initializer_list <double> p_inputs);
 
 protected:
@@ -65,4 +68,4 @@ protected:
 }
 
 
-#endif //NEURONET_SFLAB_BASE_H
+#endif //NEURONET_FLAB_BASE_H

@@ -9,18 +9,20 @@
 #include "Base.h"
 #include "Matrix.h"
 
-namespace SFLAB {
+namespace FLAB {
 
 class Matrix;
 
 class Vector : public Base {
 public:
     static Vector Zero(int p_dim);
+    static Vector One(int p_dim);
     static Vector Random(int p_dim);
     static Vector Concat(Vector& p_vector1, Vector& p_vector2);
 
     Vector(int p_dim = 0, const INIT &p_init = ZERO, double p_value = 0);
     Vector(int p_dim, double* p_data);
+    Vector(int p_rows, int p_cols, double** p_data);
     Vector(int p_dim, std::initializer_list <double> inputs);
     Vector(int p_rows, int p_cols, const INIT &p_init = ZERO, double p_value = 0);
     Vector(const Vector& p_copy);
@@ -33,6 +35,7 @@ public:
     void operator -= ( const Vector& p_vector);
     Matrix operator * ( const Vector& p_vector);
     Vector operator * ( const double p_const);
+    void operator *= ( const double p_const);
 
     friend Vector operator * ( const double p_const, const Vector& p_vector) {
         if (p_vector._cols == 1) {
