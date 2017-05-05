@@ -82,7 +82,7 @@ set(SOURCE_FILES
         samples/CartPoleTask.h
         samples/sampleCartPoleRL.cpp
         environments/cartpole/rk4.cpp
-        environments/cartpole/rk4.hpp algorithm/rl/TD.cpp algorithm/rl/TD.h algorithm/rl/CACLAActor.cpp algorithm/rl/CACLAActor.h samples/sampleMazeRL.h samples/sampleCartPoleRL.h)
+        environments/cartpole/rk4.hpp algorithm/rl/TD.cpp algorithm/rl/TD.h algorithm/rl/CACLAActor.cpp algorithm/rl/CACLAActor.h samples/sampleMazeRL.h samples/sampleCartPoleRL.h algorithm/optimizer/TDBP.cpp algorithm/optimizer/TDBP.h backend/sflab/Tensor3.cpp backend/sflab/Tensor3.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 

@@ -8,6 +8,7 @@
 
 #include "Base.h"
 #include "Vector.h"
+#include "Tensor3.h"
 
 namespace FLAB {
 

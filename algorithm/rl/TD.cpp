@@ -22,7 +22,7 @@ double TD::train(Vector *p_state0, Vector *p_state1, double p_reward) {
     _network->activate(p_state1);
     double Vs1 = (*_network->getOutput())[0];
 
-    Vector target(1);
+    Vector target(_network->getOutput()->size());
     target[0] = p_reward + _gamma * Vs1;
 
     mse = _optimizer->train(p_state0, &target);

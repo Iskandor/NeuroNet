@@ -21,7 +21,7 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction
     _output = Vector::Zero(_dim);
     _ap = Vector::Zero(_dim);
     _bias = Vector::Random(_dim);
-    //_bias = Vector::Zero(_dim);
+    //_bias = Vector::Zero(_dims);
     _derivs = Matrix::Zero(_dim, _dim);
     _valid = false;
 }
