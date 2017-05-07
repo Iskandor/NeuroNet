@@ -5,9 +5,9 @@
 #ifndef NEURONET_IFILTER_H
 #define NEURONET_IFILTER_H
 
-#include "../../backend/sflab/Vector.h"
+#include "../../backend/FLAB/Vector.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 
 namespace NeuroNet {
 

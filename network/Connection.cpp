@@ -1,7 +1,7 @@
 #include <random>
 #include "Connection.h"
 #include "NetworkUtils.h"
-#include "../backend/sflab/RandomGenerator.h"
+#include "../backend/FLAB/RandomGenerator.h"
 
 using namespace NeuroNet;
 

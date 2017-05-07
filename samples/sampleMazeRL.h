@@ -6,9 +6,9 @@
 #define NEURONET_SAMPLEMAZERL_H
 
 #include <vector>
-#include "../backend/sflab/Vector.h"
+#include "../backend/FLAB/Vector.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 using namespace std;
 
 class sampleMazeRL {

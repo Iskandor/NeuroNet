@@ -7,10 +7,10 @@
 
 #include <vector>
 #include "DatasetConfig.h"
-#include "../backend/sflab/Vector.h"
+#include "../backend/FLAB/Vector.h"
 
 using namespace std;
-using namespace SFLAB;
+using namespace FLAB;
 
 namespace NeuroNet {
 

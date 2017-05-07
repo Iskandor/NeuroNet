@@ -4,9 +4,9 @@
 
 #include <c++/iostream>
 #include "MazeTask.h"
-#include "../backend/sflab/RandomGenerator.h"
+#include "../backend/FLAB/RandomGenerator.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 
 MazeTask::MazeTask() {
     int topology[] = {0, 0, 0, 0,

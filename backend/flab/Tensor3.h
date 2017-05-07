@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace SFLAB {
+namespace FLAB {
 
 class Tensor3 {
 public:
@@ -33,8 +33,8 @@ public:
 
     virtual ~Tensor3();
 
-    double operator()(int z, int y, int x);
-    void set(int z, int y, int x, double p_value);
+    double operator()(int x, int y, int z);
+    void set(int x, int y, int z, double p_value);
 
     friend ostream &operator<<(ostream &output, const Tensor3 &p_base) {
         return output;

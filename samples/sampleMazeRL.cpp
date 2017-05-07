@@ -16,7 +16,7 @@
 #include "../algorithm/optimizer/ADAM.h"
 #include "../algorithm/rl/ActorLearning.h"
 #include "../algorithm/optimizer/BackProp.h"
-#include "../backend/sflab/RandomGenerator.h"
+#include "../backend/FLAB/RandomGenerator.h"
 #include "sampleMazeRL.h"
 #include "../algorithm/rl/TD.h"
 #include "../algorithm/optimizer/TDBP.h"
@@ -325,8 +325,8 @@ void sampleMazeRL::sampleTD() {
     NeuralNetwork nc;
 
     nc.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    nc.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    nc.addLayer("hidden0", 264, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    nc.addLayer("hidden1", 250, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     nc.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
@@ -334,8 +334,8 @@ void sampleMazeRL::sampleTD() {
     nc.addConnection("hidden0", "hidden1");
     nc.addConnection("hidden1", "output");
 
-    //ADAM optimizer_c(&nc);
-    TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
+    ADAM optimizer_c(&nc);
+    //TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
     TD critic(&optimizer_c, &nc, 0.9);
     critic.setAlpha(0.1);
 
@@ -375,8 +375,10 @@ void sampleMazeRL::sampleTD() {
         cout << "Epoch " << e << endl;
 
         task.getEnvironment()->reset();
+        int t = 0;
 
         while (!task.isFinished()) {
+
             //cout << maze->toString() << endl;
 
             sensors = maze->getSensors();
@@ -395,6 +397,7 @@ void sampleMazeRL::sampleTD() {
 
             critic.train(&state0, &state1, reward);
             actor.train(&state0, action0, value0, value1, reward);
+            t++;
         }
 
         if (reward > 0) {
@@ -405,7 +408,7 @@ void sampleMazeRL::sampleTD() {
         }
 
         //cout << maze->toString() << endl;
-        cout << wins << " / " << loses << endl;
+        cout << wins << " / " << loses << " [" << t << "]" << endl;
         FILE_LOG(logDEBUG1) << wins << " " << loses;
 
 

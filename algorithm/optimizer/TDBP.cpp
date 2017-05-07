@@ -33,9 +33,7 @@ double TDBP::train(Vector *p_input, Vector *p_target) {
     _network->activate(p_input);
 
     // backward training phase
-    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-        _error[i] = (*p_target)[i] - (*_network->getOutput())[i];
-    }
+    _error = (*p_target) - (*_network->getOutput());
 
     mse = calcMse(p_target);
     //calcGradient(&_error);
@@ -55,31 +53,11 @@ void TDBP::updateWeights(Connection *p_connection) {
         for(int k = 0; k < p_connection->getInGroup()->getDim(); k++) {
             double s = 0;
             for(int i = 0; i < _network->getOutput()->size(); i++) {
-                s += _error[i] * _e[id](i, j, k);
+                s += _error[i] * _e[id](k, j, i);
             }
             (*p_connection->getWeights())[j][k] += s;
         }
     }
-
-    /*
-    _e[id] = _lambda * _e[id] + (*_gradient)[id];
-
-    Matrix v_prev;
-
-    if (_nesterov) {
-        v_prev = Matrix(_v[id]);
-    }
-
-    _v[id] = _momentum * _v[id] + _alpha * _e[id];
-
-    if (_nesterov) {
-        (*p_connection->getWeights()) += -_momentum * v_prev + (1 + _momentum) * _v[id];
-    }
-    else {
-        (*p_connection->getWeights()) += _v[id];
-    }
-    (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
-    */
 }
 
 map<int, Tensor3> *TDBP::calcEligTrace() {
@@ -101,7 +79,7 @@ map<int, Tensor3> *TDBP::calcEligTrace() {
         _d[iid] = _d[oid] * *connection->getWeights() * *_network->getGroup(iid)->getDerivs();
     }
 
-    /* je tu memory leak
+    /* je tu memory leak */
     for(auto it = _network->getConnections()->begin(); it != _network->getConnections()->end(); ++it) {
         Connection* connection = it->second;
         int cid = connection->getId();
@@ -112,12 +90,11 @@ map<int, Tensor3> *TDBP::calcEligTrace() {
             for(int j = 0; j < connection->getOutGroup()->getDim(); j++) {
                 for (int k = 0; k < connection->getInGroup()->getDim(); k++) {
                     double val = _d[oid][i][j] * (*_network->getGroup(iid)->getOutput())[k];
-                    _e[cid].set(i, j, k, val);
+                    _e[cid].set(k, j, i, val);
                 }
             }
         }
     }
-    */
 
     return &_e;
 }

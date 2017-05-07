@@ -3,11 +3,11 @@
 //
 
 #include "CartPole.h"
-#include "../../backend/sflab/RandomGenerator.h"
+#include "../../backend/FLAB/RandomGenerator.h"
 #include "rk4.hpp"
 
 using namespace NeuroNet;
-using namespace SFLAB;
+using namespace FLAB;
 
 double *NeuroNet::derivs(double t, int n, double sensors[], double params[]) {
     /*

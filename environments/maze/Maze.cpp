@@ -4,11 +4,11 @@
 
 #include <c++/iostream>
 #include "Maze.h"
-#include "../../backend/sflab/RandomGenerator.h"
+#include "../../backend/FLAB/RandomGenerator.h"
 
 
 using namespace NeuroNet;
-using namespace SFLAB;
+using namespace FLAB;
 
 Maze::Maze(int *p_topology, unsigned int p_mazeX, unsigned int p_mazeY, int p_goal) {
     for (int i = 0; i < p_mazeX * p_mazeY; i++) {

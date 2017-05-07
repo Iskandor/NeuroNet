@@ -2,13 +2,12 @@
 #include <ctime>
 #include <c++/iomanip>
 #include "samples/samples.h"
-#include "backend/sflab/Matrix.h"
 #include "environments/cartpole/rk4.hpp"
 #include "samples/sampleMazeRL.h"
 #include "samples/sampleCartPoleRL.h"
 
 using namespace std;
-using namespace SFLAB;
+using namespace FLAB;
 
 
 int main(int argc, char* argv[])
@@ -17,8 +16,8 @@ int main(int argc, char* argv[])
     std::clock_t start;
     double duration;
 
-    SFLAB::Matrix matrix1(2, 2);
-    SFLAB::Matrix matrix2(2, 2);
+    FLAB::Matrix matrix1(2, 2);
+    FLAB::Matrix matrix2(2, 2);
 
     matrix1[0][0] = 1;
     matrix1[0][1] = 2;

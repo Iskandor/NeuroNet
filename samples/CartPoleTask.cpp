@@ -5,9 +5,9 @@
 #include <math.h>
 #include <iostream>
 #include "CartPoleTask.h"
-#include "../backend/sflab/RandomGenerator.h"
+#include "../backend/FLAB/RandomGenerator.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 
 CartPoleTask::CartPoleTask(int p_maxT) {
     _maxT = p_maxT;

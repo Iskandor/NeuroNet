@@ -3,10 +3,11 @@
 //
 
 #include <assert.h>
+#include <malloc.h>
 #include "Tensor3.h"
 #include "RandomGenerator.h"
 
-using namespace SFLAB;
+using namespace FLAB;
 
 Tensor3::Tensor3(int p_x, int p_y, int p_z, INIT p_init, double p_value) {
     _dims.push_back(p_x);
@@ -78,7 +79,7 @@ void Tensor3::init(Tensor3::INIT p_init, double p_value) {
     }
 }
 
-double Tensor3::operator()(int z, int y, int x) {
+double Tensor3::operator()(int x, int y, int z) {
     int index = x + y * _dims[0] + z * _dims[0] * _dims[1];
 
     if (index >= _dim) {
@@ -88,7 +89,7 @@ double Tensor3::operator()(int z, int y, int x) {
     return _arr[index];
 }
 
-void Tensor3::set(int z, int y, int x, double p_value) {
+void Tensor3::set(int x, int y, int z, double p_value) {
     int index = x + y * _dims[0] + z * _dims[0] * _dims[1];
 
     if (index >= _dim) {

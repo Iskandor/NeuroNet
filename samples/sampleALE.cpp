@@ -1,7 +1,7 @@
 //
 // Created by mpechac on 20. 3. 2017.
 //
-
+/*
 #include <ale_interface.hpp>
 
 
@@ -40,3 +40,4 @@ void sampleALE() {
         ale.reset_game();
     }
 }
+ */

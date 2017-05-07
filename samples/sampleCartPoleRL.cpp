@@ -11,7 +11,7 @@
 #include "../algorithm/rl/CACLAActor.h"
 #include "../log/log.h"
 #include "../network/NetworkUtils.h"
-#include "../backend/sflab/RandomGenerator.h"
+#include "../backend/FLAB/RandomGenerator.h"
 #include "../algorithm/optimizer/ADAM.h"
 #include "../algorithm/rl/QLearning.h"
 

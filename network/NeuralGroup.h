@@ -3,10 +3,10 @@
 #include <vector>
 #include "filters/IFilter.h"
 #include "json.hpp"
-#include "../backend/sflab/Vector.h"
+#include "../backend/FLAB/Vector.h"
 
 using namespace std;
-using namespace SFLAB;
+using namespace FLAB;
 using json = nlohmann::json;
 
 namespace NeuroNet {

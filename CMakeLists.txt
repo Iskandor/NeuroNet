@@ -41,8 +41,8 @@ set(SOURCE_FILES
         network/filters/KwtaFilter.h
         algorithm/LearningAlgorithm.cpp
         algorithm/LearningAlgorithm.h
-        backend/sflab/RandomGenerator.cpp
-        backend/sflab/RandomGenerator.h
+        backend/flab/RandomGenerator.cpp
+        backend/flab/RandomGenerator.h
         dataset/SequenceDataset.cpp
         dataset/SequenceDataset.h
         samples/sampleMSOM.cpp
@@ -63,18 +63,18 @@ set(SOURCE_FILES
         algorithm/optimizer/RMSProp.h
         algorithm/optimizer/Optimizer.cpp
         algorithm/optimizer/Optimizer.h
-        backend/sflab/Matrix.cpp
-        backend/sflab/Matrix.h
+        backend/flab/Matrix.cpp
+        backend/flab/Matrix.h
         algorithm/optimizer/ADAM.cpp
         algorithm/optimizer/ADAM.h
         algorithm/rl/SARSA.cpp
         algorithm/rl/SARSA.h
         algorithm/rl/ActorLearning.cpp
         algorithm/rl/ActorLearning.h
-        backend/sflab/Vector.cpp
-        backend/sflab/Vector.h
-        backend/sflab/Base.cpp
-        backend/sflab/Base.h
+        backend/flab/Vector.cpp
+        backend/flab/Vector.h
+        backend/flab/Base.cpp
+        backend/flab/Base.h
         samples/sampleALE.cpp
         environments/cartpole/CartPole.cpp
         environments/cartpole/CartPole.h
@@ -82,7 +82,17 @@ set(SOURCE_FILES
         samples/CartPoleTask.h
         samples/sampleCartPoleRL.cpp
         environments/cartpole/rk4.cpp
-        environments/cartpole/rk4.hpp algorithm/rl/TD.cpp algorithm/rl/TD.h algorithm/rl/CACLAActor.cpp algorithm/rl/CACLAActor.h samples/sampleMazeRL.h samples/sampleCartPoleRL.h algorithm/optimizer/TDBP.cpp algorithm/optimizer/TDBP.h backend/sflab/Tensor3.cpp backend/sflab/Tensor3.h)
+        environments/cartpole/rk4.hpp
+        algorithm/rl/TD.cpp
+        algorithm/rl/TD.h
+        algorithm/rl/CACLAActor.cpp
+        algorithm/rl/CACLAActor.h
+        samples/sampleMazeRL.h
+        samples/sampleCartPoleRL.h
+        algorithm/optimizer/TDBP.cpp
+        algorithm/optimizer/TDBP.h
+        backend/flab/Tensor3.cpp
+        backend/flab/Tensor3.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 
@@ -90,4 +100,4 @@ add_executable(NeuroNet-bin ${SOURCE_FILES})
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
 set_target_properties(NeuroNet-bin PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set_target_properties(NeuroNet PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-target_link_libraries(NeuroNet-bin C:/Users/mpechac/Documents/NeuroNet/lib/libale.dll.a)
+#target_link_libraries(NeuroNet-bin C:/Users/mpechac/Documents/NeuroNet/lib/libale.dll.a)
