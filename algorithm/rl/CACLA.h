@@ -11,10 +11,10 @@
 
 namespace NeuroNet {
 
-class CACLAActor : public LearningAlgorithm {
+class CACLA : public LearningAlgorithm {
 public:
-    CACLAActor(Optimizer* p_optimizer, NeuralNetwork* p_network);
-    ~CACLAActor();
+    CACLA(Optimizer* p_optimizer, NeuralNetwork* p_network);
+    ~CACLA();
 
     double train(Vector* p_state0, Vector* p_action, double p_delta);
 

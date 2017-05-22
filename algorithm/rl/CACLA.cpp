@@ -2,20 +2,20 @@
 // Created by mpechac on 22. 3. 2017.
 //
 
-#include "CACLAActor.h"
+#include "CACLA.h"
 
 using namespace NeuroNet;
 
-CACLAActor::CACLAActor(Optimizer *p_optimizer, NeuralNetwork *p_network) : LearningAlgorithm() {
+CACLA::CACLA(Optimizer *p_optimizer, NeuralNetwork *p_network) : LearningAlgorithm() {
     _optimizer = p_optimizer;
     _network = p_network;
 }
 
-CACLAActor::~CACLAActor() {
+CACLA::~CACLA() {
 
 }
 
-double CACLAActor::train(Vector *p_state0, Vector *p_action, double p_delta) {
+double CACLA::train(Vector *p_state0, Vector *p_action, double p_delta) {
     double mse = 0;
 
     if (p_delta > 0) {
@@ -26,6 +26,6 @@ double CACLAActor::train(Vector *p_state0, Vector *p_action, double p_delta) {
     return mse;
 }
 
-void CACLAActor::setAlpha(double p_alpha) {
+void CACLA::setAlpha(double p_alpha) {
     _optimizer->setAlpha(p_alpha);
 }

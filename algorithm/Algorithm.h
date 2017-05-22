@@ -16,7 +16,7 @@
 #include "rl/TDLambda.h"
 #include "rl/QLearning.h"
 #include "rl/SARSA.h"
-#include "rl/CACLAActor.h"
+#include "CACLA.h"
 #include "rl/RegularGradientActor.h"
 #include "rl/CACLA.h"
 #include "rl/RGAC.h"

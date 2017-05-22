@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
     std::cout<<"printf: "<< duration <<'\n';
     */
 
-    sampleMazeRL sample;
-    //sampleCartPoleRL sample;
+    //sampleMazeRL sample;
+    sampleCartPoleRL sample;
 
     //sampleBP();
     //sampleSOM();
@@ -55,9 +55,9 @@ int main(int argc, char* argv[])
     //sample.sampleQ();
     //sampleSARSA();
     //sampleAC();
-    sample.sampleTD();
+    //sample.sampleTD();
     //sampleALE();
-    //sample.sampleCACLA();
+    sample.sampleCACLA();
 
     system("pause");
     return 0;

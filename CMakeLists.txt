@@ -3,6 +3,19 @@ project(NeuroNet)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libstdc++ -static -lpthread") #-static-libstdc++
 
+include_directories(
+        ./
+        ./algorithm
+        ./algorithm/optimizer
+        ./algorithm/rl
+        ./backend/flab
+        ./network
+        ./network/filters
+        ./network/som
+        ./utils
+        ./environments/cartpole
+        ./environments/maze)
+
 set(SOURCE_FILES
         algorithm/optimizer/BackProp.h
         network/Connection.h
@@ -85,8 +98,8 @@ set(SOURCE_FILES
         environments/cartpole/rk4.hpp
         algorithm/rl/TD.cpp
         algorithm/rl/TD.h
-        algorithm/rl/CACLAActor.cpp
-        algorithm/rl/CACLAActor.h
+        algorithm/rl/CACLA.cpp
+        algorithm/rl/CACLA.h
         samples/sampleMazeRL.h
         samples/sampleCartPoleRL.h
         algorithm/optimizer/TDBP.cpp

@@ -69,22 +69,6 @@ void ADAM::updateWeights(Connection *p_connection) {
     Matrix vsqrt = _v[id].ew_sqrt();
     Matrix gdiv = (vsqrt + _eps[id]).inv();
 
-    if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * _m[id].ew_dot(gdiv);
-        (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
-    }
-    else {
-        if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * _m[id].ew_dot(gdiv);
-            _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
-        }
-        else {
-            (*p_connection->getWeights()) += _weightDelta[p_connection->getId()];
-            (*p_connection->getOutGroup()->getBias()) += _biasDelta[p_connection->getId()];
-
-            _weightDelta[p_connection->getId()].fill(0);
-            _biasDelta[p_connection->getId()].fill(0);
-        }
-
-    }
+    (*p_connection->getWeights()) += _alpha * _m[id].ew_dot(gdiv);
+    (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
 }

@@ -59,22 +59,6 @@ void RMSProp::updateWeights(Connection *p_connection) {
     Matrix matrix3 = matrix2 + _eps[p_connection->getId()];
     Matrix matrix4 = matrix3.inv();
 
-    if (_batchSize == 1) {
-        (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()].ew_dot(matrix4);
-        (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
-    }
-    else {
-        if (_batch < _batchSize) {
-            _weightDelta[p_connection->getId()] += _alpha * (*_gradient)[p_connection->getId()].ew_dot(matrix4);
-            _biasDelta[p_connection->getId()] += _alpha * _delta[p_connection->getOutGroup()->getId()];
-        }
-        else {
-            (*p_connection->getWeights()) += _weightDelta[p_connection->getId()];
-            (*p_connection->getOutGroup()->getBias()) += _biasDelta[p_connection->getId()];
-
-            _weightDelta[p_connection->getId()].fill(0);
-            _biasDelta[p_connection->getId()].fill(0);
-        }
-
-    }
+    (*p_connection->getWeights()) += _alpha * (*_gradient)[p_connection->getId()].ew_dot(matrix4);
+    (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
 }

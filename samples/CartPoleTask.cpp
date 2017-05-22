@@ -63,10 +63,8 @@ double CartPoleTask::getReward() {
         reward = -2 * (_maxT - _t);
     }
     else {
-        reward = -fabs(_cartPole->getCartPosition()) / 2;
+        reward = (double) (-fabs(_cartPole->getCartPosition()) / 2);
     }
-
-
 
     return reward;
 }

@@ -8,7 +8,7 @@
 #include "../network/NeuralNetwork.h"
 #include "../algorithm/optimizer/BackProp.h"
 #include "../algorithm/rl/TD.h"
-#include "../algorithm/rl/CACLAActor.h"
+#include "CACLA.h"
 #include "../log/log.h"
 #include "../network/NetworkUtils.h"
 #include "../backend/FLAB/RandomGenerator.h"
@@ -24,7 +24,8 @@ sampleCartPoleRL::~sampleCartPoleRL() {
 }
 
 Vector sampleCartPoleRL::encodeState(vector<double> *p_sensors) {
-    Vector res;
+    Vector res(4);
+    /*
     Vector encoded(16);
 
     NetworkUtils::gaussianEncoding(p_sensors->at(0), -0.7, 0.7, 16, .5, &encoded);
@@ -42,7 +43,22 @@ Vector sampleCartPoleRL::encodeState(vector<double> *p_sensors) {
     NetworkUtils::gaussianEncoding(p_sensors->at(3), -0.5, 0.5, 16, .5, &encoded);
     res = Vector::Concat(res, encoded);
     //cout << "Value 4: " << p_sensors->at(3) << endl;
-    //cout << encoded << endl << endl;
+    //
+     */
+
+    res[0] = p_sensors->at(0) / 0.7;
+    res[1] = p_sensors->at(1) / 50;
+    res[2] = p_sensors->at(2) / 2.4;
+    res[3] = p_sensors->at(3) / 50;
+
+    /*
+    cout << "Value 1: " << p_sensors->at(0) << endl;
+    cout << "Value 2: " << p_sensors->at(1) << endl;
+    cout << "Value 3: " << p_sensors->at(2) << endl;
+    cout << "Value 4: " << p_sensors->at(3) << endl;
+    */
+
+    //cout << res << endl;
 
     return Vector(res);
 }
@@ -54,10 +70,11 @@ Vector sampleCartPoleRL::chooseAction(Vector &p_action, double epsilon) {
     //cout << p_action << endl;
 
     for(int i = 0; i < p_action.size(); i++) {
-        action[i] = RandomGenerator::getInstance().normalRandom(p_action[i], epsilon);
+        //action[i] = RandomGenerator::getInstance().normalRandom(p_action[i], epsilon);
+        action[i] = action[i] + RandomGenerator::getInstance().random(-1, 1) * epsilon;
     }
 
-    //cout << action << endl;
+    // cout << action << endl;
 
     return Vector(action);
 }
@@ -66,18 +83,16 @@ void sampleCartPoleRL::sampleCACLA() {
     CartPoleTask task;
     CartPole *cartPole = task.getEnvironment();
 
-    double gamma = 0.9;
+    double gamma = 0.99;
     NeuralNetwork nc;
 
-    nc.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    nc.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("output", 1, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
+    nc.addLayer("input", 4, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    nc.addLayer("hidden0", 20, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    nc.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     nc.addConnection("input", "hidden0");
-    nc.addConnection("hidden0", "hidden1");
-    nc.addConnection("hidden1", "output");
+    nc.addConnection("hidden0", "output");
 
     ADAM optimizer_c(&nc);
     //BackProp optimizer_c(&nc, 1e-6, 0.9, true);
@@ -86,19 +101,17 @@ void sampleCartPoleRL::sampleCACLA() {
 
     NeuralNetwork na;
 
-    na.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    na.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    na.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    na.addLayer("output", 1, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
+    na.addLayer("input", 4, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    na.addLayer("hidden0", 40, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    na.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     na.addConnection("input", "hidden0");
-    na.addConnection("hidden0", "hidden1");
-    na.addConnection("hidden1", "output");
+    na.addConnection("hidden0", "output");
 
     ADAM optimizer_a(&na);
     //BackProp optimizer_a(&nc, 1e-6, 0.9, true);
-    CACLAActor actor(&optimizer_a, &na);
+    CACLA actor(&optimizer_a, &na);
     actor.setAlpha(0.001);
 
 
@@ -109,7 +122,7 @@ void sampleCartPoleRL::sampleCACLA() {
     double value0, value1;
     double delta;
     double epsilon = 1;
-    int epochs = 1000;
+    int epochs = 3000;
 
     int wins = 0, loses = 0;
 
@@ -127,7 +140,6 @@ void sampleCartPoleRL::sampleCACLA() {
 
             sensors = cartPole->getSensors();
             state0 = encodeState(&sensors);
-            nc.activate(&state0);
             na.activate(&state0);
             action0 = chooseAction((*na.getOutput()), epsilon);
             value0 = (*nc.getOutput())[0];
@@ -156,7 +168,7 @@ void sampleCartPoleRL::sampleCACLA() {
 
         cout << task.getT() << endl;
         cout << wins << " / " << loses << endl;
-        FILE_LOG(logDEBUG1) << wins << " " << loses;
+        FILE_LOG(logDEBUG1) << task.getT();
 
 
         if (epsilon > 0.01) {

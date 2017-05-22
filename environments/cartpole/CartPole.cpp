@@ -54,6 +54,7 @@ double *NeuroNet::derivs(double t, int n, double sensors[], double params[]) {
 }
 
 CartPole::CartPole(bool p_randomInit, double p_poleLength) : Environment() {
+    _randomInit = p_randomInit;
     _indim = 1;
     _outdim = 4;
     L = p_poleLength;

@@ -27,9 +27,7 @@ double BackProp::train(Vector *p_input, Vector* p_target) {
     _network->activate(p_input);
 
     // backward training phase
-    for(int i = 0; i < _network->getOutputGroup()->getDim(); i++) {
-      _error[i] = (*p_target)[i] - (*_network->getOutput())[i];
-    }
+    _error = (*p_target) - (*_network->getOutput());
 
     mse = calcMse(p_target);
     calcGradient(&_error);

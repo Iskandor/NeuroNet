@@ -337,7 +337,7 @@ void sampleMazeRL::sampleTD() {
     ADAM optimizer_c(&nc);
     //TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
     TD critic(&optimizer_c, &nc, 0.9);
-    critic.setAlpha(0.1);
+    critic.setAlpha(0.001);
 
     NeuralNetwork na;
 
