@@ -6,7 +6,7 @@
 #define NEURONET_SAMPLEMAZERL_H
 
 #include <vector>
-#include "../backend/FLAB/Vector.h"
+#include <Vector.h>
 
 using namespace FLAB;
 using namespace std;

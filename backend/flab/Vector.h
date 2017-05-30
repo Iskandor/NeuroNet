@@ -63,6 +63,9 @@ public:
     Vector T();
     double norm();
 
+    int minIndex();
+    int maxIndex();
+
     double& operator [] ( int p_index );
 
     friend istream &operator<<(istream &input, const Vector &p_vector) {

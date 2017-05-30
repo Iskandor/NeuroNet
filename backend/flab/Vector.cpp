@@ -233,3 +233,27 @@ Vector Vector::Concat(Vector& p_vector1, Vector& p_vector2) {
 
     return Vector(res);
 }
+
+int Vector::minIndex() {
+    int min = 0;
+
+    for(int i = 0; i < size(); i++) {
+        if (this->operator[](min) > this->operator[](i)) {
+            min = i;
+        }
+    }
+
+    return min;
+}
+
+int Vector::maxIndex() {
+    int max = 0;
+
+    for(int i = 0; i < size(); i++) {
+        if (this->operator[](max) < this->operator[](i)) {
+            max = i;
+        }
+    }
+
+    return max;
+}

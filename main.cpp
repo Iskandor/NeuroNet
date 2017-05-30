@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <ctime>
 #include <c++/iomanip>
+#include <samples/sampleGameRL.h>
 #include "samples/samples.h"
 #include "environments/cartpole/rk4.hpp"
 #include "samples/sampleMazeRL.h"
@@ -47,7 +48,8 @@ int main(int argc, char* argv[])
     */
 
     //sampleMazeRL sample;
-    sampleCartPoleRL sample;
+    //sampleCartPoleRL sample;
+    sampleGameRL sample;
 
     //sampleBP();
     //sampleSOM();
@@ -57,7 +59,8 @@ int main(int argc, char* argv[])
     //sampleAC();
     //sample.sampleTD();
     //sampleALE();
-    sample.sampleCACLA();
+    //sample.sampleCACLA();
+    sample.sampleTicTacToe();
 
     system("pause");
     return 0;

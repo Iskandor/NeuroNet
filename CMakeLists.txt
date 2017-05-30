@@ -13,8 +13,11 @@ include_directories(
         ./network/filters
         ./network/som
         ./utils
+        ./environments
         ./environments/cartpole
-        ./environments/maze)
+        ./environments/maze
+        ./environments/stochastic_game
+        ./environments/tic_tac_toe)
 
 set(SOURCE_FILES
         algorithm/optimizer/BackProp.h
@@ -105,7 +108,7 @@ set(SOURCE_FILES
         algorithm/optimizer/TDBP.cpp
         algorithm/optimizer/TDBP.h
         backend/flab/Tensor3.cpp
-        backend/flab/Tensor3.h)
+        backend/flab/Tensor3.h environments/stochastic_game/AreaDefenseGame.cpp environments/stochastic_game/AreaDefenseGame.h environments/tic_tac_toe/TicTacToe.cpp environments/tic_tac_toe/TicTacToe.h samples/TicTacToeTask.cpp samples/TicTacToeTask.h samples/sampleGameRL.cpp samples/sampleGameRL.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 
