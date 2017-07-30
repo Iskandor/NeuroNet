@@ -27,12 +27,12 @@ public:
      RELU = 9
     };
 
-    NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction);
+    NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias);
     ~NeuralGroup(void);
 
 
     void fire();
-    void integrate(Vector* p_input, Matrix* p_weights, bool p_bias = true);
+    void integrate(Vector* p_input, Matrix* p_weights);
     void activate();
     void calcDerivs();
 
@@ -46,7 +46,7 @@ public:
 
     void addOutConnection(int p_index);
     void addInConnection(int p_index);
-    int getOutConnection() { return _outConnection; };
+    vector<int>* getOutConnection() { return &_outConnections; };
     vector<int>* getInConnections() { return &_inConnections; };
 
     void addInFilter(IFilter* p_filter);
@@ -71,10 +71,11 @@ private:
     Vector _output;
     Matrix _derivs;
     Vector _ap;
+    bool _biasActive;
     Vector _bias;
 
     vector<int> _inConnections;
-    int _outConnection;
+    vector<int> _outConnections;
 
     vector<IFilter*> _inFilter;
     vector<IFilter*> _outFilter;

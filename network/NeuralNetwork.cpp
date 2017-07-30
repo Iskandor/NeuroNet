@@ -26,8 +26,9 @@ void NeuralNetwork::onLoop() {
         it->second->invalidate();
     }
 
+    /*
     Connection* recConnection = nullptr;
-    /* transport information through the recurrent connections*/
+    /* transport information through the recurrent connections
     for(auto it = _recConnections.begin(); it != _recConnections.end(); it++) {
         recConnection = it->second;
         Vector* signal = recConnection->getInGroup()->getOutput();
@@ -37,15 +38,17 @@ void NeuralNetwork::onLoop() {
             recConnection->getOutGroup()->fire();
         }
     }
+    */
 
     /* prepare input signal and propagate it through the network */
     _inputGroup->processInput(_input);
-    _inputGroup->integrate(&_input, &_inputWeights, false);
+    _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
 }
 
 void NeuralNetwork::activate(NeuralGroup* p_node) {
+    cout << p_node->getId() << endl;
     NeuralGroup* inGroup = nullptr;
     /* sum input from all groups */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {
@@ -54,22 +57,23 @@ void NeuralNetwork::activate(NeuralGroup* p_node) {
 
         Vector* signal = inGroup->getOutput();
         if (signal != nullptr) {
-            p_node->processInput(*signal);
+            //p_node->processInput(*signal);
             p_node->integrate(signal, _connections[*it]->getWeights());
         }
     }
 
     p_node->fire();
     /* send signal to synapsis and repeat it for not activated group to prevent infinite loops */
-    if (p_node->getOutConnection() != -1) {
-        if (!_connections[p_node->getOutConnection()]->getOutGroup()->isValid()) {
-            activate(_connections[p_node->getOutConnection()]->getOutGroup());
+    for(vector<int>::iterator it = p_node->getOutConnection()->begin(); it != p_node->getOutConnection()->end(); it++) {
+        if (!_connections[*it]->getOutGroup()->isValid()) {
+            activate(_connections[*it]->getOutGroup());
         }
     }
 }
 
-NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type) {
-    NeuralGroup* group = new NeuralGroup(p_id, p_dim, p_activationFunction);
+NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type, bool p_bias) {
+    bool bias = p_type == INPUT ? false : p_bias;
+    NeuralGroup* group = new NeuralGroup(p_id, p_dim, p_activationFunction, bias);
     _groups[p_id] = group;
     _groupId++;
     switch(p_type) {

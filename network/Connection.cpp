@@ -48,10 +48,13 @@ void Connection::init(Connection::INIT p_init, double p_limit) {
             uniform(p_limit);
             break;
         case LECUN_UNIFORM:
-            uniform(pow(_inDim, -.5));
+            uniform((double) pow(_inDim, -.5));
             break;
         case GLOROT_UNIFORM:
             uniform(2 / (_inDim + _outDim));
+            break;
+        case IDENTITY:
+            identity();
             break;
     }
 }
@@ -80,4 +83,8 @@ void Connection::uniform(double p_limit) {
             //(*_weights)[i][j] = 0;
         }
     }
+}
+
+void Connection::identity() {
+    _weights = new Matrix(_outDim, _inDim, Matrix::IDENTITY);
 }

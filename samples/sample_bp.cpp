@@ -58,3 +58,49 @@ void sampleBP() {
         cout << (*network.getOutput()) << endl;
     }
 }
+
+void sampleRTRL() {
+
+    Vector*    training[8];
+    Vector*    target[4];
+
+    for(int i = 0; i < 8; i++) {
+        training[i] = new Vector(1);
+    }
+    for(int i = 0; i < 4; i++) {
+        target[i] = new Vector(1);
+    }
+
+    *training[0] = Vector(1, {0});
+    *training[1] = Vector(1, {0});
+    *training[2] = Vector(1, {0});
+    *training[3] = Vector(1, {1});
+    *training[4] = Vector(1, {1});
+    *training[5] = Vector(1, {0});
+    *training[6] = Vector(1, {1});
+    *training[7] = Vector(1, {1});
+
+    *target[0] = Vector(1, {0});
+    *target[1] = Vector(1, {1});
+    *target[2] = Vector(1, {1});
+    *target[3] = Vector(1, {0});
+
+    NeuralNetwork network;
+
+    network.addLayer("input", 1, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
+    network.addLayer("hidden0", 4, NeuralGroup::SIGMOID, NeuralNetwork::HIDDEN);
+    network.addLayer("context", 4, NeuralGroup::IDENTITY, NeuralNetwork::HIDDEN, false);
+    network.addLayer("output", 1, NeuralGroup::SIGMOID, NeuralNetwork::OUTPUT);
+
+    // feed-forward connections
+    network.addConnection("input", "hidden0");
+    network.addConnection("hidden0", "output");
+    network.addConnection("hidden0", "context", Connection::IDENTITY);
+    network.addConnection("context", "hidden0");
+
+    double mse = 0;
+    for(int i = 0; i < 8; i++) {
+        network.activate(training[i]);
+        cout << network.getOutput()[0] << endl;
+    }
+}

@@ -6,6 +6,7 @@
 #define NEURONET_SAMPLES_H
 
 void sampleBP();
+void sampleRTRL();
 void sampleSOM();
 void sampleMSOM();
 void sampleALE();

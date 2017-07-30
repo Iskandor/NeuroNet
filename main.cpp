@@ -60,7 +60,8 @@ int main(int argc, char* argv[])
     //sample.sampleTD();
     //sampleALE();
     //sample.sampleCACLA();
-    sample.sampleTicTacToe();
+    //sample.sampleTicTacToe();
+    sampleRTRL();
 
     system("pause");
     return 0;

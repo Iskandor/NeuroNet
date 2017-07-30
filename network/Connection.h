@@ -13,7 +13,8 @@ public:
     enum INIT {
         UNIFORM = 0,
         LECUN_UNIFORM = 1,
-        GLOROT_UNIFORM = 2
+        GLOROT_UNIFORM = 2,
+        IDENTITY = 3
     };
 
     Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);
@@ -31,6 +32,7 @@ public:
     json getFileData();
 private:
     void uniform(double p_limit);
+    void identity();
 
 
     int _id;

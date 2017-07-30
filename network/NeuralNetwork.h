@@ -20,7 +20,7 @@ namespace NeuroNet {
         NeuralNetwork(void);
         virtual ~NeuralNetwork(void);
 
-        NeuralGroup* addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type);
+        NeuralGroup* addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type, bool p_bias = true);
         Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection::INIT p_init = Connection::UNIFORM, double p_limit = 0.05);
         Connection* addConnection(string p_inGroupId, string p_outGroupId, Connection::INIT p_init = Connection::UNIFORM, double p_limit = 0.05);
         Connection* addRecConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);

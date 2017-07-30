@@ -11,16 +11,16 @@ using namespace NeuroNet;
  * @param p_dim dimension of layer
  * @param p_activationFunction type of activation function
  */
-NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction)
+NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias)
 {
     _id = p_id;
     _dim = p_dim;
     _activationFunction = p_activationFunction;
-    _outConnection = -1;
 
     _output = Vector::Zero(_dim);
     _ap = Vector::Zero(_dim);
     _bias = Vector::Random(_dim);
+    _biasActive = p_bias;
     //_bias = Vector::Zero(_dims);
     _derivs = Matrix::Zero(_dim, _dim);
     _valid = false;
@@ -62,7 +62,7 @@ void NeuralGroup::addInConnection(int p_index) {
  * @param p_index index of connection from connections pool
  */
 void NeuralGroup::addOutConnection(int p_index) {
-    _outConnection = p_index;
+    _outConnections.push_back(p_index);
 }
 
 /**
@@ -70,8 +70,8 @@ void NeuralGroup::addOutConnection(int p_index) {
  * @param p_input vector of input values
  * @param p_weights matrix of input connection params
  */
-void NeuralGroup::integrate(Vector* p_input, Matrix* p_weights, bool p_bias) {
-    if (p_bias) {
+void NeuralGroup::integrate(Vector* p_input, Matrix* p_weights) {
+    if (_biasActive) {
         _ap += (*p_weights) * (*p_input) + _bias;
     }
     else {
