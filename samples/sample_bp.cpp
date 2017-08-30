@@ -41,7 +41,7 @@ void sampleBP() {
     //BackProp bp(&network, 1e-6, 0.9, true);
     RMSProp bp(&network);
     //ADAM bp(&network);
-    bp.setAlpha(0.1);
+    bp.init(0.1);
     //bp.setBatchSize(4);
 
     for(int e = 0; e < 3000; e++) {

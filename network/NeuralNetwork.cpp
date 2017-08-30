@@ -48,7 +48,6 @@ void NeuralNetwork::onLoop() {
 }
 
 void NeuralNetwork::activate(NeuralGroup* p_node) {
-    cout << p_node->getId() << endl;
     NeuralGroup* inGroup = nullptr;
     /* sum input from all groups */
     for(vector<int>::iterator it = p_node->getInConnections()->begin(); it != p_node->getInConnections()->end(); it++) {

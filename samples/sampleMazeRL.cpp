@@ -90,8 +90,7 @@ void sampleMazeRL::sampleQ() {
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
     QLearning agent(&optimizer, &network, 0.9, 0);
 
-    agent.setAlpha(0.001);
-    //agent.setBatchSize(10);
+    agent.init(0.001);
 
     vector<double> sensors;
     Vector state0, state1;
@@ -164,7 +163,7 @@ void sampleMazeRL::sampleSARSA() {
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
     SARSA agent(&optimizer, &network, 0.9);
 
-    agent.setAlpha(0.001);
+    agent.init(0.001);
     //agent.setBatchSize(10);
 
     vector<double> sensors;
@@ -240,7 +239,7 @@ void sampleMazeRL::sampleAC() {
     //ADAM optimizer_c(&nc);
     BackProp optimizer_c(&nc, 1e-6, 0.9, true);
     QLearning critic(&optimizer_c, &nc, 0.9, 0);
-    critic.setAlpha(0.1);
+    critic.init(0.1);
 
     NeuralNetwork na;
 
@@ -257,7 +256,7 @@ void sampleMazeRL::sampleAC() {
     //ADAM optimizer_a(&na);
     BackProp optimizer_a(&nc, 1e-6, 0.9, true);
     ActorLearning actor(&optimizer_a, &na);
-    actor.setAlpha(0.1);
+    actor.init(0.1);
 
 
     vector<double> sensors;
@@ -337,7 +336,7 @@ void sampleMazeRL::sampleTD() {
     ADAM optimizer_c(&nc);
     //TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
     TD critic(&optimizer_c, &nc, 0.9);
-    critic.setAlpha(0.001);
+    critic.init(0.001);
 
     NeuralNetwork na;
 
@@ -354,7 +353,7 @@ void sampleMazeRL::sampleTD() {
     //ADAM optimizer_a(&na);
     BackProp optimizer_a(&nc, 1e-6, 0.9, true);
     ActorLearning actor(&optimizer_a, &na);
-    actor.setAlpha(0.1);
+    actor.init(0.1);
 
 
     vector<double> sensors;

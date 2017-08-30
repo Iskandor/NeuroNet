@@ -72,7 +72,7 @@ map<int, Tensor3> *TDBP::calcEligTrace() {
 
     for(auto it = ++_groupTree.begin(); it != _groupTree.end(); ++it) {
         NeuralGroup* group = *it;
-        Connection* connection = _network->getConnection(group->getOutConnection());
+        Connection* connection = _network->getConnection(group->getOutConnection()->at(0));
         string oid = connection->getOutGroup()->getId();
         string iid = connection->getInGroup()->getId();
 

@@ -5,20 +5,18 @@
 #ifndef NEURONET_ACTORLEARNING_H
 #define NEURONET_ACTORLEARNING_H
 
-#include "../LearningAlgorithm.h"
 #include "../optimizer/Optimizer.h"
 
 namespace NeuroNet {
 
-class ActorLearning : public LearningAlgorithm{
+class ActorLearning {
 public:
     ActorLearning(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma = 0.9);
     ~ActorLearning();
 
     double train(Vector* p_state0, int p_action, double p_value0, double p_value1, double p_reward);
 
-    void setAlpha(double p_alpha);
-    void setBatchSize(int p_batchSize);
+    void init(double p_alpha);
 
 private:
     NeuralNetwork*  _network;

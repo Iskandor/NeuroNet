@@ -29,10 +29,6 @@ double ActorLearning::train(Vector* p_state0, int p_action, double p_value0, dou
     return mse;
 }
 
-void ActorLearning::setAlpha(double p_alpha) {
-    _optimizer->setAlpha(p_alpha);
-}
-
-void ActorLearning::setBatchSize(int p_batchSize) {
-    _optimizer->setBatchSize(p_batchSize);
+void ActorLearning::init(double p_alpha) {
+    _optimizer->init(p_alpha);
 }

@@ -7,11 +7,10 @@
 
 
 #include "../network/NeuralNetwork.h"
-#include "LearningAlgorithm.h"
 
 namespace NeuroNet {
 
-class GradientDescent : public LearningAlgorithm {
+class GradientDescent {
 public:
     GradientDescent(NeuralNetwork *p_network);
     virtual ~GradientDescent(void);

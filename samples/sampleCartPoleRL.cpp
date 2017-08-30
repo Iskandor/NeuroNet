@@ -97,7 +97,7 @@ void sampleCartPoleRL::sampleCACLA() {
     ADAM optimizer_c(&nc);
     //BackProp optimizer_c(&nc, 1e-6, 0.9, true);
     TD critic(&optimizer_c, &nc, gamma);
-    critic.setAlpha(0.001);
+    critic.init(0.001);
 
     NeuralNetwork na;
 
@@ -112,7 +112,7 @@ void sampleCartPoleRL::sampleCACLA() {
     ADAM optimizer_a(&na);
     //BackProp optimizer_a(&nc, 1e-6, 0.9, true);
     CACLA actor(&optimizer_a, &na);
-    actor.setAlpha(0.001);
+    actor.init(0.001);
 
 
     vector<double> sensors;

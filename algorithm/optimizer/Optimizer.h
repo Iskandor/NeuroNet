@@ -17,6 +17,8 @@ public:
 
     virtual double train(Vector *p_input, Vector* p_target) = 0;
 
+    void init(double p_alpha);
+
 protected:
     virtual void updateWeights(Connection* p_connection) = 0;
 
@@ -33,8 +35,10 @@ protected:
     map<int, Matrix> *_gradient;
     map<int, Matrix> _weightDelta;
     map<int, Vector> _biasDelta;
-    double             _weightDecay;
+    double           _weightDecay;
     Vector _error;
+
+    double _alpha;
 };
 
 }

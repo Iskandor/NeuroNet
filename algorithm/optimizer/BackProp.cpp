@@ -36,10 +36,6 @@ double BackProp::train(Vector *p_input, Vector* p_target) {
         update(*it);
     }
 
-    if (_batchSize > 1) {
-        updateBatch();
-    }
-
     return mse;
 }
 

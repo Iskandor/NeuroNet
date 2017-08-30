@@ -6,7 +6,7 @@
 
 using namespace NeuroNet;
 
-TD::TD(NeuroNet::Optimizer *p_optimizer, NeuroNet::NeuralNetwork *p_network, double p_gamma) : LearningAlgorithm() {
+TD::TD(NeuroNet::Optimizer *p_optimizer, NeuroNet::NeuralNetwork *p_network, double p_gamma) {
     _optimizer = p_optimizer;
     _network = p_network;
     _gamma = p_gamma;
@@ -30,6 +30,6 @@ double TD::train(Vector *p_state0, Vector *p_state1, double p_reward) {
     return mse;
 }
 
-void TD::setAlpha(double p_alpha) {
-    _optimizer->setAlpha(p_alpha);
+void TD::init(double p_alpha) {
+    _optimizer->init(p_alpha);
 }

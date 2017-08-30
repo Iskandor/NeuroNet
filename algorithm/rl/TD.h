@@ -6,19 +6,18 @@
 #define NEURONET_TD_H
 
 
-#include "../LearningAlgorithm.h"
 #include "../optimizer/Optimizer.h"
 
 namespace NeuroNet {
 
-class TD : public LearningAlgorithm {
+class TD {
 public:
     TD(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma);
     ~TD();
 
     double train(Vector* p_state0, Vector* p_state1, double p_reward);
 
-    void setAlpha(double p_alpha);
+    void init(double p_alpha);
 private:
     Optimizer*      _optimizer;
     NeuralNetwork*  _network;

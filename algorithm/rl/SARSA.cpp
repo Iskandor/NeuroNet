@@ -29,10 +29,6 @@ double SARSA::train(Vector *p_state0, int p_action0, Vector *p_state1, int p_act
     return mse;
 }
 
-void SARSA::setAlpha(double p_alpha) {
-    _optimizer->setAlpha(p_alpha);
-}
-
-void SARSA::setBatchSize(int p_batchSize) {
-    _optimizer->setBatchSize(p_batchSize);
+void SARSA::init(double p_alpha) {
+    _optimizer->init(p_alpha);
 }

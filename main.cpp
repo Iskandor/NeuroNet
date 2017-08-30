@@ -47,21 +47,21 @@ int main(int argc, char* argv[])
     std::cout<<"printf: "<< duration <<'\n';
     */
 
-    //sampleMazeRL sample;
+    sampleMazeRL sample;
     //sampleCartPoleRL sample;
-    sampleGameRL sample;
+    //sampleGameRL sample;
 
     //sampleBP();
     //sampleSOM();
     //sampleMSOM();
-    //sample.sampleQ();
+    sample.sampleQ();
     //sampleSARSA();
     //sampleAC();
     //sample.sampleTD();
     //sampleALE();
     //sample.sampleCACLA();
     //sample.sampleTicTacToe();
-    sampleRTRL();
+    //sampleRTRL();
 
     system("pause");
     return 0;

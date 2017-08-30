@@ -58,3 +58,7 @@ void Optimizer::calcGradient(Vector* p_error) {
     }
 
 }
+
+void Optimizer::init(double p_alpha) {
+    _alpha = p_alpha;
+}

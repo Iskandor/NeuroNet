@@ -55,8 +55,6 @@ set(SOURCE_FILES
         network/filters/NormalizationFilter.h
         network/filters/KwtaFilter.cpp
         network/filters/KwtaFilter.h
-        algorithm/LearningAlgorithm.cpp
-        algorithm/LearningAlgorithm.h
         backend/flab/RandomGenerator.cpp
         backend/flab/RandomGenerator.h
         dataset/SequenceDataset.cpp
@@ -108,7 +106,17 @@ set(SOURCE_FILES
         algorithm/optimizer/TDBP.cpp
         algorithm/optimizer/TDBP.h
         backend/flab/Tensor3.cpp
-        backend/flab/Tensor3.h environments/stochastic_game/AreaDefenseGame.cpp environments/stochastic_game/AreaDefenseGame.h environments/tic_tac_toe/TicTacToe.cpp environments/tic_tac_toe/TicTacToe.h samples/TicTacToeTask.cpp samples/TicTacToeTask.h samples/sampleGameRL.cpp samples/sampleGameRL.h)
+        backend/flab/Tensor3.h
+        environments/stochastic_game/AreaDefenseGame.cpp
+        environments/stochastic_game/AreaDefenseGame.h
+        environments/tic_tac_toe/TicTacToe.cpp
+        environments/tic_tac_toe/TicTacToe.h
+        samples/TicTacToeTask.cpp
+        samples/TicTacToeTask.h
+        samples/sampleGameRL.cpp
+        samples/sampleGameRL.h
+        algorithm/rl/DeepQLearning.cpp
+        algorithm/rl/DeepQLearning.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 

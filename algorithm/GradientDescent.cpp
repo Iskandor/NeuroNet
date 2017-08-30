@@ -68,7 +68,7 @@ map<int, Matrix>* GradientDescent::calcRegGradient(Vector *p_error) {
 }
 
 void GradientDescent::deltaKernel(NeuralGroup *p_group) {
-    Connection* connection = _network->getConnection(p_group->getOutConnection());
+    Connection* connection = _network->getConnection(p_group->getOutConnection()->at(0));
     string id = p_group->getId();
     string outId = connection->getOutGroup()->getId();
     _delta[id] = (*p_group->getDerivs()) * (connection->getWeights()->T() * _delta[outId]);

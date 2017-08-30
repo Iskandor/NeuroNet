@@ -40,7 +40,7 @@ void sampleGameRL::sampleTicTacToe() {
     ADAM optimizer(&network);
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
     QLearning agent(&optimizer, &network, 0.9, 0);
-    agent.setAlpha(0.001);
+    agent.init(0.001);
 
     Player p1;
     p1.playerID = 1;

@@ -6,19 +6,18 @@
 #define NEURONET_CACLAACTOR_H
 
 
-#include "../LearningAlgorithm.h"
-#include "../optimizer/Optimizer.h"
+#include <Optimizer.h>
 
 namespace NeuroNet {
 
-class CACLA : public LearningAlgorithm {
+class CACLA {
 public:
     CACLA(Optimizer* p_optimizer, NeuralNetwork* p_network);
     ~CACLA();
 
     double train(Vector* p_state0, Vector* p_action, double p_delta);
 
-    void setAlpha(double p_alpha);
+    void init(double p_alpha);
 private:
     Optimizer*      _optimizer;
     NeuralNetwork*  _network;

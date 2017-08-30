@@ -5,20 +5,18 @@
 #ifndef NEURONET_SARSA_H
 #define NEURONET_SARSA_H
 
-#include "../LearningAlgorithm.h"
-#include "../optimizer/Optimizer.h"
+#include <Optimizer.h>
 
 namespace NeuroNet {
 
-class SARSA : public LearningAlgorithm {
+class SARSA {
 public:
     SARSA(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma);
     ~SARSA();
 
     double train(Vector* p_state0, int p_action0, Vector* p_state1, int p_action1, double p_reward);
 
-    void setAlpha(double p_alpha);
-    void setBatchSize(int p_batchSize);
+    void init(double p_alpha);
 
 private:
     NeuralNetwork*  _network;
