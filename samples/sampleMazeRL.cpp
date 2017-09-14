@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm/rl/DeepQLearning.h>
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
 #include "../environments/maze/Maze.h"
@@ -77,20 +78,20 @@ void sampleMazeRL::sampleQ() {
     NeuralNetwork network;
 
     network.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    network.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 32, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     network.addConnection("input", "hidden0");
-    network.addConnection("hidden0", "hidden1");
-    network.addConnection("hidden1", "output");
+    network.addConnection("hidden0", "output");
 
     ADAM optimizer(&network);
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
-    QLearning agent(&optimizer, &network, 0.9, 0);
+    //QLearning agent(&optimizer, &network, 0.9, 0);
+    DeepQLearning agent(&optimizer, &network, 0.9);
 
-    agent.init(0.001);
+    agent.init(0.001, 32, 64);
+    //agent.init(0.001);
 
     vector<double> sensors;
     Vector state0, state1;

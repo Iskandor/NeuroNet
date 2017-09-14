@@ -116,7 +116,10 @@ set(SOURCE_FILES
         samples/sampleGameRL.cpp
         samples/sampleGameRL.h
         algorithm/rl/DeepQLearning.cpp
-        algorithm/rl/DeepQLearning.h)
+        algorithm/rl/DeepQLearning.h
+        network/layers/BaseGroup.cpp
+        network/layers/BaseGroup.h
+        backend/base64.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 
