@@ -22,7 +22,7 @@ public:
 
     Vector(int p_dim = 0, const INIT &p_init = ZERO, double p_value = 0);
     Vector(int p_dim, double* p_data);
-    Vector(int p_rows, int p_cols, double** p_data);
+    Vector(int p_rows, int p_cols, double* p_data);
     Vector(int p_dim, std::initializer_list <double> inputs);
     Vector(int p_rows, int p_cols, const INIT &p_init = ZERO, double p_value = 0);
     Vector(const Vector& p_copy);
@@ -42,7 +42,7 @@ public:
             Vector res(p_vector._rows);
 
             for (int i = 0; i < p_vector._rows; i++) {
-                res._arr[i][0] = p_const * p_vector._arr[i][0];
+                res._arr[i] = p_const * p_vector._arr[i];
             }
 
             return Vector(res);
@@ -51,7 +51,7 @@ public:
             Vector res(p_vector._cols);
 
             for (int i = 0; i < p_vector._cols; i++) {
-                res._arr[0][i] = p_const * p_vector._arr[0][i];
+                res._arr[i] = p_const * p_vector._arr[i];
             }
 
             return Vector(res);
@@ -67,17 +67,6 @@ public:
     int maxIndex();
 
     double& operator [] ( int p_index );
-
-    friend istream &operator<<(istream &input, const Vector &p_vector) {
-        typedef std::istream_iterator<double> streamiter;
-        int i = 0;
-        for (streamiter it = streamiter(input); it != streamiter(); it++) {
-            p_vector._arr[i][0] = *it;
-            i++;
-        }
-
-        return input;
-    }
 
     inline int size() { return _rows * _cols; };
 

@@ -17,9 +17,6 @@ Matrix::Matrix(int p_rows, int p_cols, INIT p_init, double p_value) : Base(p_row
 Matrix::Matrix(int p_rows, int p_cols, double *p_data) : Base(p_rows, p_cols, p_data) {
 }
 
-Matrix::Matrix(int p_rows, int p_cols, double **p_data) : Base(p_rows, p_cols, p_data) {
-}
-
 Matrix::Matrix(int p_rows, int p_cols, std::initializer_list<double> inputs) : Base(p_rows, p_cols, inputs) {
 }
 
@@ -35,7 +32,7 @@ void Matrix::init(INIT p_init, double p_value) {
         case IDENTITY:
             fill(0);
             for(int i = 0; i < _rows; i++) {
-                _arr[i][i] = 1;
+                _arr[i * _cols + i] = 1;
             }
             break;
         case VALUE:
@@ -44,7 +41,7 @@ void Matrix::init(INIT p_init, double p_value) {
         case RANDOM:
             for(int i = 0; i < _rows; i++) {
                 for(int j = 0; j < _cols; j++) {
-                    _arr[i][j] = RandomGenerator::getInstance().random(-1, 1);
+                    _arr[i * _cols + j] = RandomGenerator::getInstance().random(-1, 1);
                 }
             }
             break;
@@ -57,11 +54,11 @@ void Matrix::operator=(const Matrix &p_matrix) {
 }
 
 Matrix Matrix::operator+(const Matrix &p_matrix) {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = _arr[i][j] + p_matrix._arr[i][j];
+            data[i * _cols + j] = _arr[i * _cols + j] + p_matrix._arr[i * _cols + j];
         }
     }
 
@@ -70,17 +67,17 @@ Matrix Matrix::operator+(const Matrix &p_matrix) {
 void Matrix::operator+=(const Matrix &p_matrix) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            _arr[i][j] += p_matrix._arr[i][j];
+            _arr[i * _cols + j] += p_matrix._arr[i * _cols + j];
         }
     }
 }
 
 Matrix Matrix::operator-(const Matrix &p_matrix) {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = _arr[i][j] - p_matrix._arr[i][j];
+            data[i * _cols + j] = _arr[i * _cols + j] - p_matrix._arr[i * _cols + j];
         }
     }
 
@@ -90,18 +87,18 @@ Matrix Matrix::operator-(const Matrix &p_matrix) {
 void Matrix::operator-=(const Matrix &p_matrix) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            _arr[i][j] -= _arr[i][j] - p_matrix._arr[i][j];
+            _arr[i * _cols + j] -= _arr[i * _cols + j] - p_matrix._arr[i * _cols + j];
         }
     }
 }
 
 Matrix Matrix::operator*(const Matrix &p_matrix) {
-    double** data = Base::allocBuffer(_rows, p_matrix._cols);
+    double* data = Base::allocBuffer(_rows, p_matrix._cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < p_matrix._cols; j++) {
             for(int k = 0; k < _cols; k++) {
-                data[i][j] += _arr[i][k] * p_matrix._arr[k][j];
+                data[i * _cols + j] += _arr[i * _cols + k] * p_matrix._arr[k * p_matrix._cols + j];
             }
         }
     }
@@ -110,11 +107,11 @@ Matrix Matrix::operator*(const Matrix &p_matrix) {
 }
 
 Vector Matrix::operator*(Vector p_vector) {
-    double** data = Base::allocBuffer(_rows, 1);
+    double* data = Base::allocBuffer(_rows, 1);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][0] = data[i][0] + _arr[i][j] * p_vector[j];
+            data[i] = data[i] + _arr[i * _cols + j] * p_vector[j];
         }
     }
 
@@ -122,11 +119,11 @@ Vector Matrix::operator*(Vector p_vector) {
 }
 
 Matrix Matrix::operator*(const double p_const) {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = _arr[i][j] * p_const;
+            data[i * _cols + j] = _arr[i * _cols + j] * p_const;
         }
     }
 
@@ -136,17 +133,17 @@ Matrix Matrix::operator*(const double p_const) {
 void Matrix::operator*=(const double p_const) {
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            _arr[i][j] *= p_const;
+            _arr[i * _cols + j] *= p_const;
         }
     }
 }
 
 Matrix Matrix::T() {
-    double** data = Base::allocBuffer(_cols, _rows);
+    double* data = Base::allocBuffer(_cols, _rows);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[j][i] = _arr[i][j];
+            data[j * _rows + i] = _arr[i * _cols + j];
         }
     }
 
@@ -154,11 +151,11 @@ Matrix Matrix::T() {
 }
 
 Matrix Matrix::inv() {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = 1.0 / _arr[i][j];
+            data[i * _cols + j] = 1.0 / _arr[i * _cols + j];
         }
     }
 
@@ -183,7 +180,7 @@ Vector Matrix::row(int p_index) {
 
 void Matrix::setRow(int p_index, Vector p_vector) {
     for (int i = 0; i < _cols; i++) {
-        _arr[p_index][i] = p_vector[i];
+        _arr[p_index * _cols + i] = p_vector[i];
     }
 }
 
@@ -191,7 +188,7 @@ Vector Matrix::col(int p_index) {
     double data[_rows];
 
     for (int i = 0; i < _rows; i++) {
-        data[i] = _arr[i][p_index];
+        data[i] = _arr[i * _cols + p_index];
     }
 
     return Vector(_rows, data);
@@ -199,7 +196,7 @@ Vector Matrix::col(int p_index) {
 
 void Matrix::setCol(int p_index, Vector p_vector) {
     for (int i = 0; i < _rows; i++) {
-        _arr[i][p_index] = p_vector[i];
+        _arr[i * _cols + p_index] = p_vector[i];
     }
 }
 
@@ -209,11 +206,11 @@ Matrix Matrix::Value(int p_rows, int p_cols, double p_value) {
 }
 
 Matrix Matrix::ew_sqrt() {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = (double) sqrt(_arr[i][j]);
+            data[i * _cols + j] = (double) sqrt(_arr[i * _cols + j]);
         }
     }
 
@@ -221,11 +218,11 @@ Matrix Matrix::ew_sqrt() {
 }
 
 Matrix Matrix::ew_pow(int p_n) {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = (double) pow(_arr[i][j], p_n);
+            data[i * _cols + j] = (double) pow(_arr[i * _cols + j], p_n);
         }
     }
 
@@ -233,11 +230,11 @@ Matrix Matrix::ew_pow(int p_n) {
 }
 
 Matrix Matrix::ew_dot(const Matrix &p_matrix) {
-    double** data = Base::allocBuffer(_rows, _cols);
+    double* data = Base::allocBuffer(_rows, _cols);
 
     for(int i = 0; i < _rows; i++) {
         for(int j = 0; j < _cols; j++) {
-            data[i][j] = _arr[i][j] * p_matrix._arr[i][j];
+            data[i * _cols + j] = _arr[i * _cols + j] * p_matrix._arr[i * p_matrix._cols + j];
         }
     }
 

@@ -20,6 +20,15 @@ Connection::Connection(int p_id, NeuralGroup* p_inGroup, NeuralGroup* p_outGroup
     _weights = new Matrix(_outDim, _inDim);
 }
 
+Connection::Connection(Connection &p_copy) {
+    _id = p_copy._id;
+    _inGroup = p_copy._inGroup;
+    _outGroup = p_copy._outGroup;
+    _inDim = p_copy._inDim;
+    _outDim = p_copy._outDim;
+    _weights = new Matrix(*p_copy._weights);
+}
+
 Connection::~Connection(void)
 {
     delete _weights;
@@ -30,13 +39,13 @@ void Connection::init(double p_density, double p_inhibition) const {
     for(int i = 0; i < _outDim; i++) {
       for(int j = 0; j < _inDim; j++) {
           if (RandomGenerator::getInstance().random() < p_density) {
-              (*_weights)[i][j] =  RandomGenerator::getInstance().random() * 0.1;
+              _weights->set(i, j, RandomGenerator::getInstance().random() * 0.1);
               if (RandomGenerator::getInstance().random() < p_inhibition) {
-                  (*_weights)[i][j] *= -1;
+                  _weights->set(i, j, _weights->at(i,j) * -1);
               }
           }
           else {
-              (*_weights)[i][j] = 0;
+              _weights->set(i, j, 0);
           }
       }
     }
@@ -68,7 +77,7 @@ json Connection::getFileData() {
 
     for(int i = 0; i < _outDim; i++) {
         for (int j = 0; j < _inDim; j++) {
-            weights += to_string((*_weights)[i][j]);
+            weights += to_string(_weights->at(i,j));
             weights += "|";
         }
     }
@@ -79,7 +88,7 @@ json Connection::getFileData() {
 void Connection::uniform(double p_limit) {
     for(int i = 0; i < _outDim; i++) {
         for (int j = 0; j < _inDim; j++) {
-            (*_weights)[i][j] = RandomGenerator::getInstance().random(-p_limit, p_limit);
+            _weights->set(i, j, RandomGenerator::getInstance().random(-p_limit, p_limit));
             //(*_weights)[i][j] = 0;
         }
     }
@@ -87,4 +96,9 @@ void Connection::uniform(double p_limit) {
 
 void Connection::identity() {
     _weights = new Matrix(_outDim, _inDim, Matrix::IDENTITY);
+}
+
+void Connection::setWeights(Matrix *p_weights) {
+    delete _weights;
+    _weights = new Matrix(*p_weights);
 }

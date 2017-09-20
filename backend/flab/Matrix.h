@@ -23,7 +23,6 @@ public:
 
     Matrix(int p_rows = 0, int p_cols = 0, INIT p_init = ZERO, double p_value = 0);
     Matrix(int p_rows, int p_cols, double* p_data);
-    Matrix(int p_rows, int p_cols, double** p_data);
     Matrix(int p_rows, int p_cols, std::initializer_list <double> p_inputs);
     Matrix(const Matrix& p_copy);
 
@@ -42,7 +41,7 @@ public:
 
         for(int i = 0; i < p_matrix._rows; i++) {
             for(int j = 0; j < p_matrix._cols; j++) {
-                res._arr[i][j] = p_const * p_matrix._arr[i][j];
+                res._arr[i * p_matrix._cols + j] = p_const * p_matrix._arr[i * p_matrix._cols + j];
             }
         }
 
@@ -60,7 +59,8 @@ public:
     Vector col(int p_index);
     void setCol(int p_index, Vector p_vector);
 
-    inline double *operator [] ( int p_index ) { return _arr[p_index]; };
+    inline double at(int p_row, int p_col) { return _arr[p_row * _cols + p_col]; };
+    inline double set(int p_row, int p_col, double p_value) { _arr[p_row * _cols + p_col] = p_value; };
 
 private:
     void init(INIT p_init, double p_value);

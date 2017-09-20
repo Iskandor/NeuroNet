@@ -110,7 +110,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
+                  weights->set(i, j, stod(weightsRaw[i * weights->cols() + j]));
                 }
             }
 
@@ -140,7 +140,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
+                    weights->set(i, j, stod(weightsRaw[i * weights->cols() + j]));
                 }
             }
 
@@ -170,7 +170,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
 
             for (int i = 0; i < weights->rows(); i++) {
                 for (int j = 0; j < weights->cols(); j++) {
-                    (*weights)[i][j] = stod(weightsRaw[i * weights->cols() + j]);
+                    weights->set(i, j, stod(weightsRaw[i * weights->cols() + j]));
                 }
             }
 

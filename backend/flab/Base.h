@@ -23,7 +23,6 @@ public:
 
     Base(int p_rows = 0, int p_cols = 0);
     Base(int p_rows, int p_cols, double* p_data);
-    Base(int p_rows, int p_cols, double** p_data);
     Base(int p_rows, int p_cols, initializer_list <double> p_inputs);
     Base(const Base &p_copy);
 
@@ -33,10 +32,10 @@ public:
         for (int i = 0; i < p_base._rows; i++) {
             for (int j = 0; j < p_base._cols; j++) {
                 if (j == p_base._cols - 1) {
-                    output << p_base._arr[i][j] << endl;
+                    output << p_base._arr[i * p_base._cols + j] << endl;
                 }
                 else {
-                    output << p_base._arr[i][j] << ",";
+                    output << p_base._arr[i * p_base._cols + j] << ",";
                 }
             }
         }
@@ -53,15 +52,14 @@ public:
     inline int cols() { return _cols; };
 
 protected:
-    static double** allocBuffer(int p_rows, int p_cols);
+    static double* allocBuffer(int p_rows, int p_cols);
     virtual void init(INIT p_init, double p_value) = 0;
     void clone(const Base &p_copy);
     void internal_init(double *p_data = NULL);
-    void internal_init(double **p_data);
     void internal_init(initializer_list <double> p_inputs);
 
 protected:
-    double **_arr = NULL;
+    double *_arr = NULL;
     int _rows;
     int _cols;
 };
