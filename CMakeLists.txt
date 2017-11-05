@@ -8,10 +8,12 @@ include_directories(
         ./algorithm
         ./algorithm/optimizer
         ./algorithm/rl
+        ./algorithm/exploration
         ./backend/flab
         ./network
         ./network/filters
         ./network/som
+        ./network/graph
         ./utils
         ./environments
         ./environments/cartpole
@@ -103,8 +105,6 @@ set(SOURCE_FILES
         algorithm/rl/CACLA.h
         samples/sampleMazeRL.h
         samples/sampleCartPoleRL.h
-        algorithm/optimizer/TDBP.cpp
-        algorithm/optimizer/TDBP.h
         backend/flab/Tensor3.cpp
         backend/flab/Tensor3.h
         environments/stochastic_game/AreaDefenseGame.cpp
@@ -119,7 +119,14 @@ set(SOURCE_FILES
         algorithm/rl/DeepQLearning.h
         network/layers/BaseGroup.cpp
         network/layers/BaseGroup.h
-        backend/base64.h)
+        backend/base64.h
+        network/graph/Edge.cpp
+        network/graph/Edge.h
+        network/graph/Vertex.cpp
+        network/graph/Vertex.h
+        network/graph/Graph.cpp
+        network/graph/Graph.h
+        algorithm/exploration/IExploration.h algorithm/exploration/BoltzmannExploration.cpp algorithm/exploration/BoltzmannExploration.h algorithm/exploration/eGreedy.cpp algorithm/exploration/eGreedy.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 

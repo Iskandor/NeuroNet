@@ -28,6 +28,7 @@ public:
     };
 
     NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias);
+    NeuralGroup(NeuralGroup& p_copy);
     ~NeuralGroup(void);
 
 
@@ -40,6 +41,7 @@ public:
     int getDim() const { return _dim; };
 
     void setOutput(Vector* p_output);
+    void setBias(Vector* p_bias);
     Vector* getOutput() { return &_output; };
     Matrix* getDerivs() { return &_derivs; };
     Vector* getBias() { return &_bias; };
@@ -48,11 +50,6 @@ public:
     void addInConnection(int p_index);
     vector<int>* getOutConnection() { return &_outConnections; };
     vector<int>* getInConnections() { return &_inConnections; };
-
-    void addInFilter(IFilter* p_filter);
-    void addOutFilter(IFilter* p_filter);
-    Vector& processInput(Vector& p_input);
-    Vector& processOutput(Vector& p_output);
 
     bool isValid() const { return _valid; };
     void invalidate() { _valid = false; };
@@ -76,9 +73,6 @@ private:
 
     vector<int> _inConnections;
     vector<int> _outConnections;
-
-    vector<IFilter*> _inFilter;
-    vector<IFilter*> _outFilter;
 };
 
 }

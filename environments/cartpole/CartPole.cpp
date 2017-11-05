@@ -3,8 +3,9 @@
 //
 
 #include "CartPole.h"
-#include "../../backend/FLAB/RandomGenerator.h"
+#include "RandomGenerator.h"
 #include "rk4.hpp"
+#include <iostream>
 
 using namespace NeuroNet;
 using namespace FLAB;
@@ -29,26 +30,29 @@ double *NeuroNet::derivs(double t, int n, double sensors[], double params[]) {
      */
 
     double *result = new double[n];
-    double F = params[0];
-    double theta = sensors[0];
-    double dtheta = sensors[1];
-    double ds = sensors[3];
-
-    double sin_theta = sin(theta);
-    double cos_theta = cos(theta);
+    double F = params[0] * 10;
     double mp = params[1];
     double mc = params[2];
     double l = params[3];
     double g = params[4];
-    double u = theta;
+
+    double s = sensors[0];
+    double ds = sensors[1];
+    double theta = sensors[2];
+    double dtheta = sensors[3];
+
+    double sin_theta = (double)sin(theta);
+    double cos_theta = (double)cos(theta);
+
+    double u = dtheta;
     double du = (g * sin_theta * (mc + mp) - (F + mp * l * pow(dtheta, 2) * sin_theta) * cos_theta) / (4 / 3 * l * (mc + mp) - mp * l * pow(cos_theta, 2));
     double v = ds;
     double dv = (F - mp * l * (du * cos_theta - (pow(dtheta, 2) * sin_theta))) / (mc + mp);
 
-    result[0] = u;
-    result[1] = du;
-    result[2] = v;
-    result[3] = dv;
+    result[0] = v;
+    result[1] = dv;
+    result[2] = u;
+    result[3] = du;
 
     return result;
 }
@@ -90,9 +94,10 @@ void CartPole::reset() {
         _pos = 0.2;
     }
 
-    _sensors[0] = _angle;
+    _t = 0;
+    _sensors[0] = _pos;
     _sensors[1] = 0.0;
-    _sensors[2] = _pos;
+    _sensors[2] = _angle;
     _sensors[3] = 0.0;
 }
 
@@ -112,9 +117,38 @@ string CartPole::toString() {
 
 void CartPole::step() {
     _params[0] = _action;
-    double* new_state = RK4::rk4vec(0, _outdim, _sensors.data(), _params, DT, derivs);
-    _sensors = vector<double>(new_state, new_state + _outdim);
-    _angle = _sensors[0];
-    _pos = _sensors[2];
-    delete[] new_state;
+    //cout << toString() << endl;
+    //cout << _action << endl;
+    //double* new_state = RK4::rk4vec(0, _outdim, _sensors.data(), _params, DT, derivs);
+    //_sensors = vector<double>(new_state, new_state + _outdim);
+    step2();
+    _pos = _sensors[0];
+    _angle = _sensors[2];
+    //delete[] new_state;
+}
+
+void CartPole::step2() {
+    double F = _action * 1;
+
+    double s = _sensors[0];
+    double ds = _sensors[1];
+    double theta = _sensors[2];
+    double dtheta = _sensors[3];
+
+    double sin_theta = (double)sin(theta);
+    double cos_theta = (double)cos(theta);
+
+    double temp = (F + MP * L * dtheta * dtheta * sin_theta) / (MP + MC);
+    double thetaAcc = (G * sin_theta - cos_theta * temp) / (L * (4.0 / 3.0 - MP * cos_theta * cos_theta / (MP + MC)));
+    double sAcc = temp - MP * L * thetaAcc * cos_theta / (MP + MC);
+
+    s += DT * ds;
+    ds += DT * sAcc;
+    theta += DT * dtheta;
+    dtheta += DT * thetaAcc;
+
+    _sensors[0] = s;
+    _sensors[1] = ds;
+    _sensors[2] = theta;
+    _sensors[3] = dtheta;
 }

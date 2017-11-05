@@ -13,7 +13,7 @@ class QLearning {
 
 public:
     QLearning(Optimizer* p_optimizer, NeuralNetwork* p_network, double p_gamma, double p_lambda = 0);
-    ~QLearning();
+    virtual ~QLearning();
 
     virtual double train(Vector* p_state0, int p_action0, Vector* p_state1, double p_reward);
 

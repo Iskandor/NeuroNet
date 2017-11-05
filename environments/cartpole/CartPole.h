@@ -38,6 +38,7 @@ public:
 
 private:
     void    step();
+    void    step2();
 
 private:
     double L;
@@ -52,6 +53,7 @@ private:
     double _action;
     double _angle;
     double _pos;
+    double _t;
     vector<double> _sensors;
 };
 }

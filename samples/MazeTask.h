@@ -29,7 +29,7 @@ private:
     const double defautPenalty = -1;
     const double bangPenalty = -1;
     const double killPenalty = -10;
-    const double finalReward = 10;
+    const double finalReward = 100;
 
     Maze *maze;
 };

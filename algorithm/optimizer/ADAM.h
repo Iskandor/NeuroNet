@@ -24,6 +24,8 @@ private:
     map<int, Matrix> _eps;
     map<int, Matrix> _m;
     map<int, Matrix> _v;
+    map<int, Matrix> _mCorr;
+    map<int, Matrix> _vCorr;
 };
 
 }

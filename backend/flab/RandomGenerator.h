@@ -24,6 +24,7 @@ public:
     int random(int p_lower, int p_upper);
     double random(double p_lower = 0, double p_upper = 1);
     vector<int> choice(vector<int>* p_array, int p_num = 1);
+    int choice(double* p_prob, int p_size);
 
 private:
     RandomGenerator();

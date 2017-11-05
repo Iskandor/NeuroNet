@@ -21,7 +21,19 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction
     _ap = Vector::Zero(_dim);
     _bias = Vector::Random(_dim);
     _biasActive = p_bias;
-    //_bias = Vector::Zero(_dims);
+    _derivs = Matrix::Zero(_dim, _dim);
+    _valid = false;
+}
+
+NeuralGroup::NeuralGroup(NeuralGroup &p_copy) {
+    _id = p_copy._id;
+    _dim = p_copy._dim;
+    _activationFunction = p_copy._activationFunction;
+
+    _output = Vector::Zero(_dim);
+    _ap = Vector::Zero(_dim);
+    _bias = Vector(p_copy._bias);
+    _biasActive = p_copy._biasActive;
     _derivs = Matrix::Zero(_dim, _dim);
     _valid = false;
 }
@@ -31,13 +43,7 @@ NeuralGroup::NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction
  */
 NeuralGroup::~NeuralGroup(void)
 {
-    for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
-        delete *it;
-    }
 
-    for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
-        delete *it;
-    }
 }
 
 /**
@@ -46,7 +52,6 @@ NeuralGroup::~NeuralGroup(void)
 void NeuralGroup::fire() {
     _valid = true;
     activate();
-    processOutput(_output);
 }
 
 /**
@@ -141,68 +146,32 @@ void NeuralGroup::calcDerivs() {
             break;
         case SIGMOID:
             for(int i = 0; i < _dim; i++) {
-                _derivs[i][i] = _output[i] * (1 - _output[i]);
+                _derivs.set(i, i, _output[i] * (1 - _output[i]));
             }
             break;
         case TANH:
             for(int i = 0; i < _dim; i++) {
-                _derivs[i][i] = (1 - pow(_output[i], 2));
+                _derivs.set(i, i, (1 - pow(_output[i], 2)));
             }
             break;
         case SOFTMAX:
             for(int i = 0; i < _dim; i++) {
                 for(int j = 0; j < _dim; j++) {
-                    _derivs[i][j] = _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]);
+                    _derivs.set(i, j, _output[i] * (NetworkUtils::kroneckerDelta(i,j) - _output[j]));
                 }
             }
             break;
         case SOFTPLUS:
             for(int i = 0; i < _dim; i++) {
-                _derivs[i][i] = 1 / (1 + exp(-_output[i]));
+                _derivs.set(i, i, 1 / (1 + exp(-_output[i])));
             }
             break;
         case RELU:
             for(int i = 0; i < _dim; i++) {
-                _derivs[i][i] = (_output[i] > 0) ? 1 : 0;
+                _derivs.set(i, i, (_output[i] > 0) ? 1 : 0);
             }
             break;
     }
-}
-
-/**
- * adds filter into input filter queue
- */
-void NeuralGroup::addInFilter(IFilter *p_filter) {
-    _inFilter.push_back(p_filter);
-}
-
-/**
- * adds filter into output filter queue
- */
-void NeuralGroup::addOutFilter(IFilter *p_filter) {
-    _outFilter.push_back(p_filter);
-}
-
-/**
- * the input is being processed through input filter queue
- * @param p_input reference to input which is processed
- */
-Vector &NeuralGroup::processInput(Vector &p_input) {
-    for(auto it = _inFilter.begin(); it != _inFilter.end(); it++) {
-        p_input = (*it)->process(&p_input);
-    }
-    return p_input;
-}
-
-/**
- * the output is being processed through output filter queue
- * @param p_output reference to input which is processed
- */
-Vector &NeuralGroup::processOutput(Vector &p_output) {
-    for(auto it = _outFilter.begin(); it != _outFilter.end(); it++) {
-        p_output = (*it)->process(&p_output);
-    }
-    return p_output;
 }
 
 json NeuralGroup::getFileData() {
@@ -211,4 +180,8 @@ json NeuralGroup::getFileData() {
 
 void NeuralGroup::setOutput(Vector *p_output) {
     _output = Vector(*p_output);
+}
+
+void NeuralGroup::setBias(Vector *p_bias) {
+    _bias = Vector(*p_bias);
 }

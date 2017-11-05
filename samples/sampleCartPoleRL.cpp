@@ -58,7 +58,7 @@ Vector sampleCartPoleRL::encodeState(vector<double> *p_sensors) {
     cout << "Value 4: " << p_sensors->at(3) << endl;
     */
 
-    //cout << res << endl;
+    cout << res << endl;
 
     return Vector(res);
 }
@@ -70,11 +70,11 @@ Vector sampleCartPoleRL::chooseAction(Vector &p_action, double epsilon) {
     //cout << p_action << endl;
 
     for(int i = 0; i < p_action.size(); i++) {
-        //action[i] = RandomGenerator::getInstance().normalRandom(p_action[i], epsilon);
-        action[i] = action[i] + RandomGenerator::getInstance().random(-1, 1) * epsilon;
+        action[i] = RandomGenerator::getInstance().normalRandom(p_action[i], epsilon);
+        //action[i] = p_action[i] + RandomGenerator::getInstance().random(-1.0, 1.0) * epsilon;
     }
 
-    // cout << action << endl;
+    //cout << action << endl;
 
     return Vector(action);
 }
@@ -87,7 +87,7 @@ void sampleCartPoleRL::sampleCACLA() {
     NeuralNetwork nc;
 
     nc.addLayer("input", 4, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    nc.addLayer("hidden0", 20, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    nc.addLayer("hidden0", 80, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     nc.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
@@ -102,7 +102,7 @@ void sampleCartPoleRL::sampleCACLA() {
     NeuralNetwork na;
 
     na.addLayer("input", 4, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    na.addLayer("hidden0", 40, NeuralGroup::TANH, NeuralNetwork::HIDDEN);
+    na.addLayer("hidden0", 80, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     na.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
@@ -110,7 +110,7 @@ void sampleCartPoleRL::sampleCACLA() {
     na.addConnection("hidden0", "output");
 
     ADAM optimizer_a(&na);
-    //BackProp optimizer_a(&nc, 1e-6, 0.9, true);
+    //BackProp optimizer_a(&na, 1e-6, 0.9, true);
     CACLA actor(&optimizer_a, &na);
     actor.init(0.001);
 
@@ -122,7 +122,7 @@ void sampleCartPoleRL::sampleCACLA() {
     double value0, value1;
     double delta;
     double epsilon = 1;
-    int epochs = 3000;
+    int epochs = 10000;
 
     int wins = 0, loses = 0;
 

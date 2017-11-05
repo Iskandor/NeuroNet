@@ -5,9 +5,30 @@ using namespace NeuroNet;
 
 NeuralNetwork::NeuralNetwork(void)
 {
-    _running = true;
     _connectionId = 0;
-    _groupId = 0;
+}
+
+NeuralNetwork::NeuralNetwork(NeuralNetwork &p_copy) {
+    for (auto it = p_copy._groups.begin(); it != p_copy._groups.end(); it++) {
+        NeuralGroup g(*it->second);
+
+        if (p_copy._inputGroup == it->second) {
+            addLayer(&g, INPUT);
+        }
+        else if (p_copy._outputGroup == it->second) {
+            addLayer(&g, OUTPUT);
+        }
+        else {
+            addLayer(&g, HIDDEN);
+        }
+    }
+
+    for (auto it = p_copy._connections.begin(); it != p_copy._connections.end(); it++) {
+        Connection c(*it->second);
+        addConnection(&c);
+    }
+
+    _connectionId = p_copy._connectionId;
 }
 
 NeuralNetwork::~NeuralNetwork(void)
@@ -41,7 +62,6 @@ void NeuralNetwork::onLoop() {
     */
 
     /* prepare input signal and propagate it through the network */
-    _inputGroup->processInput(_input);
     _inputGroup->integrate(&_input, &_inputWeights);
     activate(_inputGroup);
     _output = *_outputGroup->getOutput();
@@ -74,7 +94,6 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
     bool bias = p_type == INPUT ? false : p_bias;
     NeuralGroup* group = new NeuralGroup(p_id, p_dim, p_activationFunction, bias);
     _groups[p_id] = group;
-    _groupId++;
     switch(p_type) {
         case INPUT:
             _inputGroup = group;
@@ -96,6 +115,30 @@ NeuralGroup* NeuralNetwork::addLayer(string p_id, int p_dim, NeuralGroup::ACTIVA
     return group;
 }
 
+NeuralGroup *NeuralNetwork::addLayer(NeuralGroup *p_group, GROUP_TYPE p_type) {
+    _groups[p_group->getId()] = p_group;
+
+    switch(p_type) {
+        case INPUT:
+            _inputGroup = p_group;
+            _input = Vector::Zero(p_group->getDim());
+            /* initialize input weights to identity matrix */
+            _inputWeights = Matrix::Identity(p_group->getDim(), p_group->getDim());
+            break;
+
+        case OUTPUT:
+            _outputGroup = p_group;
+            _output = Vector::Zero(p_group->getDim());
+            break;
+        case HIDDEN:
+            break;
+        default:
+            break;
+    }
+
+    return p_group;
+}
+
 Connection* NeuralNetwork::addConnection(string p_inGroupId, string p_outGroupId, Connection::INIT p_init, double p_limit) {
     return addConnection(_groups[p_inGroupId], _groups[p_outGroupId], p_init, p_limit);
 }
@@ -110,6 +153,11 @@ Connection* NeuralNetwork::addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_
     _connectionId++;
 
     return connection;
+}
+
+Connection *NeuralNetwork::addConnection(Connection *p_connection) {
+    _connections[p_connection->getId()] = p_connection;
+    return p_connection;
 }
 
 
@@ -161,4 +209,14 @@ void NeuralNetwork::resetContext() {
 
 json NeuralNetwork::getFileData() {
     return json({{"type", "feedforward"}, {"ingroup", _inputGroup->getId()}, {"outgroup", _outputGroup->getId()}});
+}
+
+void NeuralNetwork::overrideParams(NeuralNetwork* p_source) {
+    for (auto it = p_source->_groups.begin(); it != p_source->_groups.end(); it++) {
+        _groups[it->first]->setBias(it->second->getBias());
+    }
+
+    for (auto it = p_source->_connections.begin(); it != p_source->_connections.end(); it++) {
+        _connections[it->first]->setWeights(it->second->getWeights());
+    }
 }

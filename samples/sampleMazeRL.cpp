@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <algorithm/rl/DeepQLearning.h>
+#include <algorithm/exploration/BoltzmannExploration.h>
+#include <algorithm/exploration/eGreedy.h>
 #include "../network/NeuralNetwork.h"
 #include "../network/Define.h"
 #include "../environments/maze/Maze.h"
@@ -20,16 +22,17 @@
 #include "../backend/FLAB/RandomGenerator.h"
 #include "sampleMazeRL.h"
 #include "../algorithm/rl/TD.h"
-#include "../algorithm/optimizer/TDBP.h"
 
 using namespace NeuroNet;
 
 sampleMazeRL::sampleMazeRL() {
 
+    //exploration = new BoltzmannExploration(3, -1);
+    exploration = new eGreedy(0.5, 0);
 }
 
 sampleMazeRL::~sampleMazeRL() {
-
+    delete exploration;
 }
 
 Vector sampleMazeRL::encodeState(vector<double> *p_sensors) {
@@ -78,7 +81,7 @@ void sampleMazeRL::sampleQ() {
     NeuralNetwork network;
 
     network.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("hidden0", 32, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 256, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
@@ -87,11 +90,11 @@ void sampleMazeRL::sampleQ() {
 
     ADAM optimizer(&network);
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
-    //QLearning agent(&optimizer, &network, 0.9, 0);
-    DeepQLearning agent(&optimizer, &network, 0.9);
+    QLearning agent(&optimizer, &network, 0.9, 0);
+    //DeepQLearning agent(&optimizer, &network, 0.9);
 
-    agent.init(0.001, 32, 64);
-    //agent.init(0.001);
+    //agent.init(0.001, 32, 64, 64);
+    agent.init(0.01);
 
     vector<double> sensors;
     Vector state0, state1;
@@ -117,6 +120,7 @@ void sampleMazeRL::sampleQ() {
             sensors = maze->getSensors();
             state0 = encodeState(&sensors);
             network.activate(&state0);
+            //action = exploration->chooseAction(network.getOutput());
             action = chooseAction(network.getOutput(), epsilon);
             maze->performAction(action);
 
@@ -138,6 +142,8 @@ void sampleMazeRL::sampleQ() {
         FILE_LOG(logDEBUG1) << wins << " " << loses;
 
 
+        exploration->update((double)e / epochs);
+
         if (epsilon > 0.1) {
             epsilon -= (1.0 / epochs);
         }
@@ -151,14 +157,12 @@ void sampleMazeRL::sampleSARSA() {
     NeuralNetwork network;
 
     network.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    network.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    network.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    network.addLayer("hidden0", 32, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     network.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     network.addConnection("input", "hidden0");
-    network.addConnection("hidden0", "hidden1");
-    network.addConnection("hidden1", "output");
+    network.addConnection("hidden0", "output");
 
     ADAM optimizer(&network);
     //BackProp optimizer(&network, 1e-6, 0.9, true, GradientDescent::NATURAL);
@@ -228,36 +232,32 @@ void sampleMazeRL::sampleAC() {
     NeuralNetwork nc;
 
     nc.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    nc.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("output", 4, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
+    nc.addLayer("hidden0", 64, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    nc.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     nc.addConnection("input", "hidden0");
-    nc.addConnection("hidden0", "hidden1");
-    nc.addConnection("hidden1", "output");
+    nc.addConnection("hidden0", "output");
 
-    //ADAM optimizer_c(&nc);
-    BackProp optimizer_c(&nc, 1e-6, 0.9, true);
+    ADAM optimizer_c(&nc);
+    //BackProp optimizer_c(&nc, 1e-6, 0.9, true);
     QLearning critic(&optimizer_c, &nc, 0.9, 0);
-    critic.init(0.1);
+    critic.init(0.001);
 
     NeuralNetwork na;
 
     na.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    na.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    na.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    na.addLayer("hidden0", 64, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     na.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     na.addConnection("input", "hidden0");
-    na.addConnection("hidden0", "hidden1");
-    na.addConnection("hidden1", "output");
+    na.addConnection("hidden0", "output");
 
-    //ADAM optimizer_a(&na);
-    BackProp optimizer_a(&nc, 1e-6, 0.9, true);
+    ADAM optimizer_a(&na);
+    //BackProp optimizer_a(&na, 1e-6, 0.9, true);
     ActorLearning actor(&optimizer_a, &na);
-    actor.init(0.1);
+    actor.init(0.0001);
 
 
     vector<double> sensors;
@@ -325,37 +325,32 @@ void sampleMazeRL::sampleTD() {
     NeuralNetwork nc;
 
     nc.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    nc.addLayer("hidden0", 264, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("hidden1", 250, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    nc.addLayer("output", 1, NeuralGroup::TANH, NeuralNetwork::OUTPUT);
+    nc.addLayer("hidden0", 128, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    nc.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     nc.addConnection("input", "hidden0");
-    nc.addConnection("hidden0", "hidden1");
-    nc.addConnection("hidden1", "output");
+    nc.addConnection("hidden0", "output");
 
     ADAM optimizer_c(&nc);
-    //TDBP optimizer_c(&nc, 0.9, 1e-6, 0.9, true);
+    //BackProp optimizer_c(&nc, 1e-6, 0.99, true);
     TD critic(&optimizer_c, &nc, 0.9);
     critic.init(0.001);
 
     NeuralNetwork na;
 
     na.addLayer("input", 64, NeuralGroup::IDENTITY, NeuralNetwork::INPUT);
-    na.addLayer("hidden0", 164, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
-    na.addLayer("hidden1", 150, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
+    na.addLayer("hidden0", 128, NeuralGroup::RELU, NeuralNetwork::HIDDEN);
     na.addLayer("output", 4, NeuralGroup::LINEAR, NeuralNetwork::OUTPUT);
 
     // feed-forward connections
     na.addConnection("input", "hidden0");
-    na.addConnection("hidden0", "hidden1");
-    na.addConnection("hidden1", "output");
+    na.addConnection("hidden0", "output");
 
-    //ADAM optimizer_a(&na);
-    BackProp optimizer_a(&nc, 1e-6, 0.9, true);
+    ADAM optimizer_a(&na);
+    //BackProp optimizer_a(&na, 1e-6, 0.99, true);
     ActorLearning actor(&optimizer_a, &na);
-    actor.init(0.1);
-
+    actor.init(0.001);
 
     vector<double> sensors;
     Vector state0, state1;
@@ -363,7 +358,7 @@ void sampleMazeRL::sampleTD() {
     double reward = 0;
     double value0, value1;
     double epsilon = 1;
-    int epochs = 1000;
+    int epochs = 2000;
 
     int wins = 0, loses = 0;
 

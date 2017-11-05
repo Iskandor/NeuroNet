@@ -20,6 +20,8 @@ ADAM::ADAM(NeuralNetwork *p_network, double p_beta1, double p_beta2, double p_ep
         _m[it->second->getId()] = Matrix::Zero(nRows, nCols);
         _v[it->second->getId()] = Matrix::Zero(nRows, nCols);
         _eps[it->second->getId()] = Matrix::Value(nRows, nCols, p_epsilon);
+        _mCorr[it->second->getId()] = Matrix::Value(nRows, nCols, 1 / (1 - _beta1));
+        _vCorr[it->second->getId()] = Matrix::Value(nRows, nCols, 1 / (1 - _beta2));
     }
 }
 
@@ -62,9 +64,9 @@ void ADAM::updateWeights(Connection *p_connection) {
     _m[id] = _beta1 * _m[id] + (1 - _beta1) * (*_gradient)[id];
     _v[id] = _beta2 * _v[id] + (1 - _beta2) * gpow2;
 
-    Matrix vsqrt = _v[id].ew_sqrt();
+    Matrix vsqrt = _v[id].ew_dot(_vCorr[id]).ew_sqrt();
     Matrix gdiv = (vsqrt + _eps[id]).inv();
 
-    (*p_connection->getWeights()) += _alpha * _m[id].ew_dot(gdiv);
+    (*p_connection->getWeights()) += _alpha * _m[id].ew_dot(_mCorr[id]).ew_dot(gdiv);
     (*p_connection->getOutGroup()->getBias()) += _alpha * _delta[p_connection->getOutGroup()->getId()];
 }

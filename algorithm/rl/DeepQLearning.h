@@ -19,13 +19,14 @@ public:
 
     double train(Vector* p_state0, int p_action0, Vector* p_state1, double p_reward);
 
-    void init(double p_alpha, int p_batchSize, int p_memorySize);
+    void init(double p_alpha, int p_batchSize, int p_memorySize, int p_refitSize);
 
 protected:
-    //double calcMaxQa(Vector* p_state);
+    double calcMaxQa(Vector* p_state);
 
 private:
     void fillTrainingList();
+    void refitTargetNetwork();
 
     struct BufferElem {
         BufferElem(Vector p_s0, int p_a, Vector p_s1, double p_r);
@@ -40,6 +41,9 @@ private:
     vector<BufferElem> _memory;
     int _memorySize;
     int _batch, _batchSize;
+
+    NeuralNetwork *_targetNetwork;
+    int _refit, _refitSize;
 };
 
 }

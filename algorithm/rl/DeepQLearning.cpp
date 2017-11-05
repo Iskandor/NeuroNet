@@ -8,9 +8,19 @@
 using namespace NeuroNet;
 
 DeepQLearning::DeepQLearning(NeuroNet::Optimizer *p_optimizer, NeuralNetwork* p_network, double p_gamma) : QLearning(p_optimizer, p_network, p_gamma) {
+    _targetNetwork = new NeuralNetwork(*p_network);
+
+    Vector* input = new Vector(64, Vector::INIT::ONES);
+
+    _network->activate(input);
+    _targetNetwork->activate(input);
+
+    cout << *_network->getOutput() << endl;
+    cout << *_targetNetwork->getOutput() << endl;
 }
 
 DeepQLearning::~DeepQLearning() {
+    delete _targetNetwork;
 }
 
 double DeepQLearning::train(Vector *p_state0, int p_action0, Vector *p_state1, double p_reward) {
@@ -33,14 +43,24 @@ double DeepQLearning::train(Vector *p_state0, int p_action0, Vector *p_state1, d
         _batch++;
     }
 
+    if (_refit >= _refitSize) {
+        _refit = 0;
+        refitTargetNetwork();
+    }
+    else {
+        _refit++;
+    }
+
     return 0;
 }
 
-void DeepQLearning::init(double p_alpha, int p_batchSize, int p_memorySize) {
+void DeepQLearning::init(double p_alpha, int p_batchSize, int p_memorySize, int p_refitSize) {
     _optimizer->init(p_alpha);
     _batchSize = p_batchSize;
     _memorySize = p_memorySize;
     _batch = 0;
+    _refitSize = p_refitSize;
+    _refit = 0;
 }
 
 DeepQLearning::BufferElem::BufferElem(Vector p_s0, int p_a, Vector p_s1, double p_r) {
@@ -57,4 +77,21 @@ void DeepQLearning::fillTrainingList() {
         int index = (unsigned int) RandomGenerator::getInstance().random(0, _batchSize - 1);
         _trainingList.push_back(_memory[index]);
     }
+}
+
+void DeepQLearning::refitTargetNetwork() {
+    _targetNetwork->overrideParams(_network);
+}
+
+double DeepQLearning::calcMaxQa(Vector *p_state) {
+    double maxQa = -INFINITY;
+
+    _targetNetwork->activate(p_state);
+    for(int i = 0; i < _targetNetwork->getOutput()->size(); i++) {
+        if ((*_targetNetwork->getOutput())[i] >  maxQa) {
+            maxQa = (*_targetNetwork->getOutput())[i];
+        }
+    }
+
+    return maxQa;
 }

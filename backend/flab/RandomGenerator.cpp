@@ -44,3 +44,28 @@ vector<int> RandomGenerator::choice(vector<int> *p_array, int p_num) {
 
     return vector<int>(result);
 }
+
+
+int RandomGenerator::choice(double *p_prob, int p_size) {
+
+    vector<int> candidates;
+
+    while(candidates.empty()) {
+        for(int i = 0; i < p_size; i++) {
+
+            if (random() < p_prob[i]) {
+                candidates.push_back(i);
+            }
+        }
+    }
+
+    int result = candidates[0];
+
+    for(int i = 0; i < candidates.size(); i++) {
+        if (p_prob[result] < p_prob[candidates[i]]) {
+            result = candidates[i];
+        }
+    }
+
+    return result;
+}

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <Vector.h>
+#include <algorithm/exploration/IExploration.h>
 
 using namespace FLAB;
 using namespace std;
@@ -22,6 +23,8 @@ public:
 private:
     Vector encodeState(vector<double> *p_sensors);
     int chooseAction(Vector* p_input, double epsilon);
+
+    IExploration* exploration;
 };
 
 #endif //NEURONET_SAMPLEMAZERL_H

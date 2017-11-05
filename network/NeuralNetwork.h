@@ -18,15 +18,20 @@ namespace NeuroNet {
         };
 
         NeuralNetwork(void);
+        NeuralNetwork(NeuralNetwork& p_copy);
         virtual ~NeuralNetwork(void);
 
         NeuralGroup* addLayer(string p_id, int p_dim, NeuralGroup::ACTIVATION p_activationFunction, GROUP_TYPE p_type, bool p_bias = true);
+        NeuralGroup* addLayer(NeuralGroup* p_group, GROUP_TYPE p_type);
+
         Connection* addConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup, Connection::INIT p_init = Connection::UNIFORM, double p_limit = 0.05);
         Connection* addConnection(string p_inGroupId, string p_outGroupId, Connection::INIT p_init = Connection::UNIFORM, double p_limit = 0.05);
+        Connection* addConnection(Connection* p_connection);
         Connection* addRecConnection(NeuralGroup* p_inGroup, NeuralGroup* p_outGroup);
         Connection* addRecConnection(string p_inGroupId, string p_outGroupId);
 
-        bool running() const { return _running; };
+        void overrideParams(NeuralNetwork* p_source);
+
         Vector* getOutput() { return &_output; };
         //double getScalarOutput() const { return _output[0]; };
 
@@ -49,7 +54,6 @@ namespace NeuroNet {
     protected:
         void activate(NeuralGroup* p_node);
 
-        int _groupId;
         int _connectionId;
 
         NeuralGroup* _inputGroup;
@@ -62,8 +66,6 @@ namespace NeuroNet {
         Matrix _inputWeights;
         Vector _input;
         Vector _output;
-
-        bool _running;
     };
 }
 
