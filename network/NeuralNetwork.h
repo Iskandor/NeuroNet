@@ -43,8 +43,7 @@ namespace NeuroNet {
         NeuralGroup* getGroup(string p_id) { return _groups[p_id];};
         NeuralGroup* getOutputGroup() { return _outputGroup;};
 
-        void setInput(Vector *p_input) { _input = *p_input; };
-        void setInput(double *p_input);
+        void setInput(Vector *p_input);
         void onLoop();
         virtual void resetContext();
         virtual void activate(Vector *p_input);
@@ -63,8 +62,6 @@ namespace NeuroNet {
         map<int, Connection*> _connections;
         map<int, Connection*> _recConnections;
 
-        Matrix _inputWeights;
-        Vector _input;
         Vector _output;
     };
 }

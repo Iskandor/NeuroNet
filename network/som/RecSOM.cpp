@@ -18,7 +18,6 @@ RecSOM::~RecSOM() {
 
 void RecSOM::train(Vector *p_input) {
     setInput(p_input);
-    onLoop();
 
     findWinner();
     updateWeights();
@@ -30,26 +29,25 @@ void RecSOM::activate(Vector *p_input) {
 }
 
 void RecSOM::updateWeights() {
-    Matrix deltaW(getGroup("lattice")->getDim(), getGroup("input")->getDim());
-    double theta = 0;
+    int dimInput = getGroup("input")->getDim();
+    int dimContext = getGroup("context")->getDim();
+    int dimLattice = getGroup("lattice")->getDim();
 
-    for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
-        theta = calcNeighborhood(i, GAUSSIAN);
-        Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
-        deltaW.setRow(i, theta * _gamma1 * (_input - wi));
-    }
-    (*getConnection("input", "lattice")->getWeights()) += deltaW;
-
-    Matrix deltaC(getGroup("lattice")->getDim(), getGroup("context")->getDim());
+    Matrix deltaW(dimLattice, dimInput);
+    Matrix deltaC(dimLattice, dimContext);
+    Matrix* wi = getConnection("input", "lattice")->getWeights();
+    Matrix* ci = getConnection("context", "lattice")->getWeights();
     Vector* ct = getGroup("context")->getOutput();
 
-    for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
-        theta = calcNeighborhood(i, GAUSSIAN);
-        Vector ci = getConnection("context", "lattice")->getWeights()->row(i);
-        deltaC.setRow(i, theta * _gamma2 * (*ct - ci));
-    }
+    double theta = 0;
 
-    (*getConnection("context", "lattice")->getWeights()) += deltaC;
+    for(int i = 0; i < dimLattice; i++) {
+        theta = calcNeighborhood(i, GAUSSIAN);
+        for(int j = 0; j < dimInput; j++) {
+            deltaW.set(i, j, theta * _gamma1 * ((*_inputGroup->getOutput())[j] - wi->at(i, j)));
+            deltaC.set(i, j, theta * _gamma2 * ((*ct)[j] - ci->at(i, j)));
+        }
+    }
 }
 
 void RecSOM::updateContext() {
@@ -76,12 +74,26 @@ void RecSOM::updateContext() {
 }
 
 double RecSOM::calcDistance(int p_index) {
-    Vector xi = getConnection("input", "lattice")->getWeights()->row(p_index);
-    Vector ci = getConnection("context", "lattice")->getWeights()->row(p_index);
+    int dim = _inputGroup->getDim();
+
+    Matrix* xi = getConnection("input", "lattice")->getWeights();
+    Matrix* ci = getConnection("context", "lattice")->getWeights();
     Vector* xt = getGroup("input")->getOutput();
     Vector* ct = getGroup("context")->getOutput();
 
-    double dt = _alpha * pow(vectorDistance(xt, &xi), 2) + _beta * pow(vectorDistance(ct, &ci),2);
+    double dx = 0;
+
+    for(int i = 0; i < dim; i++) {
+        dx += pow((*xt)[i] - xi->at(p_index, i), 2);
+    }
+
+    double dc = 0;
+
+    for(int i = 0; i < dim; i++) {
+        dc += pow((*ct)[i] - ci->at(p_index, i), 2);
+    }
+
+    double dt = _alpha * dx + _beta * dc;
     return dt;
 }
 

@@ -31,17 +31,18 @@ public:
 
     double getError() { return _qError; };
     double getWinnerDifferentiation();
+    int getWinner() { return  _winner; };
 
     json getFileData() override;
 
 protected:
     virtual void updateWeights();
-    virtual void findWinner();
     virtual double calcDistance(int p_index);
+    virtual void findWinner();
     double calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type);
-    double vectorDistance(Vector* p_v1, Vector* p_v2);
     double euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2);
-    double gaussianDistance(int p_d, double p_sigma = 1);
+    double gaussianDistance(double p_d, double p_sigma = 1);
+
 
 protected:
     double _sigma;

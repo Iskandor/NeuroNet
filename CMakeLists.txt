@@ -19,7 +19,8 @@ include_directories(
         ./environments/cartpole
         ./environments/maze
         ./environments/stochastic_game
-        ./environments/tic_tac_toe)
+        ./environments/tic_tac_toe
+        ./mns)
 
 set(SOURCE_FILES
         algorithm/optimizer/BackProp.h
@@ -126,11 +127,15 @@ set(SOURCE_FILES
         network/graph/Vertex.h
         network/graph/Graph.cpp
         network/graph/Graph.h
-        algorithm/exploration/IExploration.h algorithm/exploration/BoltzmannExploration.cpp algorithm/exploration/BoltzmannExploration.h algorithm/exploration/eGreedy.cpp algorithm/exploration/eGreedy.h)
+        algorithm/exploration/IExploration.h
+        algorithm/exploration/BoltzmannExploration.cpp
+        algorithm/exploration/BoltzmannExploration.h
+        algorithm/exploration/eGreedy.cpp
+        algorithm/exploration/eGreedy.h)
 
 include_directories("C:/Users/mpechac/Documents/Arcade-Learning-Environment-0.5.1/src")
 
-add_executable(NeuroNet-bin ${SOURCE_FILES})
+add_executable(NeuroNet-bin ${SOURCE_FILES} mns/Sequence.cpp mns/Sequence.h mns/Dataset.cpp mns/Dataset.h mns/ModelMNS.cpp mns/ModelMNS.h)
 add_library(NeuroNet STATIC ${SOURCE_FILES} NeuroNet.h algorithm/Algorithm.h dataset/DatasetCore.h network/Network.h)
 set_target_properties(NeuroNet-bin PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set_target_properties(NeuroNet PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)

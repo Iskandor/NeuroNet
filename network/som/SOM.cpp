@@ -2,6 +2,7 @@
 // Created by mpechac on 8. 3. 2016.
 //
 
+#include <math.h>
 #include "SOM.h"
 #include "../Define.h"
 
@@ -12,7 +13,8 @@ SOM::SOM(int p_dimInput, int p_dimX, int p_dimY, NeuralGroup::ACTIVATION p_actFu
     addLayer("lattice", p_dimX * p_dimY, p_actFunction, OUTPUT);
     addConnection("input", "lattice");
 
-    _sigma0 = max(p_dimX, p_dimY) / 2;
+    _winner = 0;
+    _sigma0 = sqrt(max(p_dimX, p_dimY));
     _lambda = 1;
     _qError = 0;
 
@@ -49,18 +51,22 @@ void SOM::findWinner() {
 }
 
 void SOM::updateWeights() {
-    Matrix delta(getGroup("lattice")->getDim(), getGroup("input")->getDim());
+    int dimInput = getGroup("input")->getDim();
+    int dimLattice = getGroup("lattice")->getDim();
+
+    Matrix deltaW(dimLattice, dimInput);
+    Matrix* wi = getConnection("input", "lattice")->getWeights();
+
     double theta = 0;
 
-    for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
-        theta = calcNeighborhood(i, NEIGHBORHOOD_TYPE::GAUSSIAN);
-        Vector wi = getConnection("input", "lattice")->getWeights()->row(i);
-        delta.setRow(i, theta * _alpha * (_input - wi));
+    for(int i = 0; i < dimLattice; i++) {
+        theta = calcNeighborhood(i, GAUSSIAN);
+        for(int j = 0; j < dimInput; j++) {
+            deltaW.set(i, j, theta * _alpha * ((*_inputGroup->getOutput())[j] - wi->at(i, j)));
+        }
     }
 
-    //cout << delta << endl;
-
-    (*getConnection("input", "lattice")->getWeights()) += delta;
+    (*getConnection("input", "lattice")->getWeights()) += deltaW;
 }
 
 void SOM::activate(Vector *p_input) {
@@ -68,7 +74,7 @@ void SOM::activate(Vector *p_input) {
     _winner = 0;
 
     setInput(p_input);
-    onLoop();
+    findWinner();
 
     for(int i = 0; i < getGroup("lattice")->getDim(); i++) {
         neuronDist = calcDistance(i);
@@ -77,16 +83,26 @@ void SOM::activate(Vector *p_input) {
                 _output[i] = neuronDist;
                 break;
             case NeuralGroup::EXPONENTIAL:
-                _output[i] = exp(-neuronDist);
+                _output[i] = (double) exp(-neuronDist);
+                break;
+            default:
                 break;
         }
     }
 }
 
 double SOM::calcDistance(int p_index) {
-    Vector row = getConnection("input", "lattice")->getWeights()->row(p_index);
+    Vector* input = _inputGroup->getOutput();
+    Matrix* weights = getConnection("input", "lattice")->getWeights();
 
-    return vectorDistance(&_input, &row);
+    int dim = _inputGroup->getDim();
+    double s = 0;
+
+    for(int i = 0; i < dim; i++) {
+        s+= pow((*input)[i] - weights->at(p_index, i), 2);
+    }
+
+    return (double) sqrt(s);
 }
 
 double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
@@ -100,7 +116,7 @@ double SOM::calcNeighborhood(int p_index, NEIGHBORHOOD_TYPE p_type) {
 
     switch (p_type) {
         case NEIGHBORHOOD_TYPE::EUCLIDEAN:
-            result = 1 / euclideanDistance(x1, y1, x2, y2);
+            result = 1.0 / euclideanDistance(x1, y1, x2, y2);
             break;
         case NEIGHBORHOOD_TYPE::GAUSSIAN:
             result = gaussianDistance(euclideanDistance(x1, y1, x2, y2), _sigma);
@@ -115,34 +131,28 @@ void SOM::initTraining(double p_alpha, double p_epochs) {
     _qError = 0;
     _winnerSet.clear();
     _alpha0 = _alpha = p_alpha;
-    _lambda = p_epochs / log(_sigma0);
-    _sigma =  _sigma0 * exp(-_iteration/_lambda);
-    _alpha =  _alpha0 * exp(-_iteration/_lambda);
+    _lambda = (double) (p_epochs / log(_sigma0));
+    _sigma = (double) (_sigma0 * exp(-_iteration / _lambda));
+    _alpha = (double) (_alpha0 * exp(-_iteration / _lambda));
 }
 
 void SOM::paramDecay() {
     _iteration++;
     _qError = 0;
-    _sigma =  _sigma0 * exp(-_iteration/_lambda);
-    _alpha =  _alpha0 * exp(-_iteration/_lambda);
+    _sigma = (double) (_sigma0 * exp(-_iteration / _lambda));
+    _alpha = (double) (_alpha0 * exp(-_iteration / _lambda));
 }
 
 double SOM::euclideanDistance(int p_x1, int p_y1, int p_x2, int p_y2) {
     return sqrt(pow(p_x1 - p_x2, 2) + pow(p_y1 - p_y2, 2));
 }
 
-double SOM::gaussianDistance(int p_d, double p_sigma) {
-    return exp(-pow(p_d,2) / 2 * p_sigma) / (p_sigma * sqrt(2*PI));
+double SOM::gaussianDistance(double p_d, double p_sigma) {
+    return (double) (exp(-pow(p_d, 2) / 2 * p_sigma) / (p_sigma * sqrt(2 * PI)));
 }
 
 double SOM::getWinnerDifferentiation() {
     return (double)_winnerSet.size()/ (double)getGroup("lattice")->getDim();
-}
-
-double SOM::vectorDistance(Vector *p_v1, Vector *p_v2) {
-    Vector diffVector = *p_v1 - *p_v2;
-
-    return diffVector.norm();
 }
 
 json SOM::getFileData() {

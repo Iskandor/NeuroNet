@@ -54,11 +54,6 @@ public:
     Matrix ew_pow(int p_n);
     Matrix ew_dot(const Matrix &p_matrix);
 
-    Vector row(int p_index);
-    void setRow(int p_index, Vector p_vector);
-    Vector col(int p_index);
-    void setCol(int p_index, Vector p_vector);
-
     inline double at(int p_row, int p_col) { return _arr[p_row * _cols + p_col]; };
     inline double set(int p_row, int p_col, double p_value) { _arr[p_row * _cols + p_col] = p_value; };
 
