@@ -85,6 +85,12 @@ void SOM::activate(Vector *p_input) {
             case NeuralGroup::EXPONENTIAL:
                 _output[i] = (double) exp(-neuronDist);
                 break;
+            case NeuralGroup::KEXPONENTIAL:
+                _output[i] = (double) exp(-10 * neuronDist);
+                break;
+            case NeuralGroup::GAUSS:
+                _output[i] = 1.0 / sqrt(2 * PI * pow(0.2, 2)) * exp(-(pow(neuronDist, 2) / 2 * pow(0.2, 2)));
+                break;
             default:
                 break;
         }

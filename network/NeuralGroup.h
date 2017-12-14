@@ -24,7 +24,9 @@ public:
      LINEAR = 6,
      EXPONENTIAL = 7,
      SOFTPLUS = 8,
-     RELU = 9
+     RELU = 9,
+     KEXPONENTIAL = 10,
+     GAUSS = 11
     };
 
     NeuralGroup(string p_id, int p_dim, ACTIVATION p_activationFunction, bool p_bias);

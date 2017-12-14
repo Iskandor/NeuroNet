@@ -182,3 +182,7 @@ NeuralNetwork *NetworkUtils::loadNetwork(string p_filename) {
 
     return nullptr;
 }
+
+time_t NetworkUtils::timestamp() {
+    return time(nullptr);
+}

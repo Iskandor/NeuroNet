@@ -27,6 +27,8 @@ public:
     static int sgn(T val) {
       return (T(0) < val) - (val < T(0));
     }
+
+    static time_t timestamp();
 };
 
 }

@@ -19,8 +19,14 @@ public:
 
     void init();
     void run(int p_epochs);
+    void save();
+    void load(string p_timestamp);
 
-    void test();
+    void testAllWinners();
+    void testFinalWinners();
+    void testDistance();
+    void testBALData();
+
 private:
     const int _sizePMC = 12;
     const int _sizeSTSp = 16;
